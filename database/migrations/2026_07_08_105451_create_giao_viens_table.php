@@ -1,0 +1,24 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('giao_viens', function (Blueprint $table) {
+            $table->id();
+            $table->string('ho_ten');
+            $table->date('ngay_sinh')->nullable();
+            $table->string('sdt', 15)->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('giao_viens');
+    }
+};
