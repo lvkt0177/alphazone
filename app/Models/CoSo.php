@@ -36,4 +36,19 @@ class CoSo extends Model
     {
         return "{$this->ten} - {$this->giaoVien->ho_ten}";
     }
+
+    public function hocVienTraiNghiems(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(
+            HocVienTraiNghiem::class,
+            'hoc_vien_trai_nghiem_co_so',
+            'co_so_id',
+            'hoc_vien_trai_nghiem_id'
+        )->withTimestamps();
+    }
+
+    public function hocViens(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(HocVien::class, 'hoc_vien_co_so', 'co_so_id', 'hoc_vien_id')->withTimestamps();
+    }
 }

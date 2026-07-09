@@ -76,3 +76,16 @@
         </tbody>
     </table>
 </div>
+
+@if ($errors->any())
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    openTeacherModal(
+      {{ old('_editing_id') ? (int) old('_editing_id') : 'null' }},
+      {{ Js::from(old('ho_ten')) }},
+      {{ Js::from(old('ngay_sinh')) }},
+      {{ Js::from(old('sdt')) }}
+    );
+  });
+</script>
+@endif

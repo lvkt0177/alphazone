@@ -20,6 +20,7 @@
                 <th>STT</th>
                 <th>Tên cơ sở</th>
                 <th>Người phụ trách</th>
+                {{-- <th>Số học viên</th> --}}
                 <th>Trạng thái</th>
                 <th></th>
             </tr>
@@ -29,7 +30,8 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td style="font-weight:700;">{{ $b->ten }}</td>
-                    <td>{{ $b->giaoVien->ho_ten }}</td>
+                    <td>{{ $b->giaoVien ? $b->giaoVien->ho_ten : 'N/A' }}</td>
+                    {{-- <td><span class="badge purple">{{ $b->hocViens->count() }} học viên</span></td> --}}
                     <td>
                         <span class="badge {{ $b->trang_thai->getBadge() }}">{{ $b->trang_thai->getLabel() }}</span>
                     </td>
@@ -64,9 +66,21 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4" class="text-2" style="text-align:center;padding:30px;">Chưa có cơ sở nào</td>
+                    <td colspan="6" class="text-2" style="text-align:center;padding:30px;">Chưa có cơ sở nào</td>
                 </tr>
             @endforelse
         </tbody>
     </table>
 </div>
+
+@if ($errors->any())
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            openBranchModal(
+                {{ old('_editing_id') ? (int) old('_editing_id') : 'null' }},
+                {{ Js::from(old('ten')) }},
+                {{ old('giao_vien_id') ? (int) old('giao_vien_id') : 'null' }}
+            );
+        });
+    </script>
+@endif

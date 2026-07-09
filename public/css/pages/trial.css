@@ -1,0 +1,27 @@
+.branch-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border: 1px solid #858585;
+    border-radius: 999px;
+    font-size: 13px;
+    cursor: pointer;
+    background: var(--bg);
+    user-select: none;
+    transition: background .15s, border-color .15s;
+}
+
+.branch-chip input {
+    display: none;
+}
+
+.branch-chip:has(input:checked) {
+    background: #EEEDFE;
+    border-color: #7F77DD;
+    color: #3C3489;
+    font-weight: 500;
+}
+
+.branch-chip.hidden {
+    display: none;
+}

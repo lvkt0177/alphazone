@@ -17,14 +17,12 @@
 
         <div @class(['nav-label'])>Học viên</div>
 
-        <a href="" @class(['nav-item', request()->routeIs('students.*') ? 'active' : '']) data-view="students">
+        <a href="{{ route('hocvien.index') }}" @class(['nav-item', request()->routeIs('hocvien.*') ? 'active' : '']) data-view="students">
             <i @class(['ri-group-line'])></i> Danh sách Học viên
+            <span @class(['nav-badge', 'green'])>{{ $countHocVien }}</span>
         </a>
 
-        <a href="" @class([
-            'nav-item',
-            request()->routeIs('attendance.*') ? 'active' : '',
-        ]) data-view="attendance">
+        <a href="" @class(['nav-item', request()->routeIs('attendance.*') ? 'active' : '', ]) data-view="attendance">
             <i @class(['ri-calendar-check-line'])></i> Điểm danh
         </a>
 
@@ -33,9 +31,9 @@
             <span @class(['nav-badge'])>3</span>
         </a>
 
-        <a href="" @class(['nav-item', request()->routeIs('trial.*') ? 'active' : '']) data-view="trial">
+        <a href="{{ route('trainghiem.index') }}" @class(['nav-item', request()->routeIs('trainghiem.*') ? 'active' : '']) data-view="trial">
             <i @class(['ri-user-star-line'])></i> Trải nghiệm
-            <span @class(['nav-badge', 'green'])>2</span>
+            <span @class(['nav-badge', 'green'])>{{ $countTraiNghiem }}</span>
         </a>
 
         <div @class(['nav-label'])>Quản lý</div>

@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Enum\TrangThaiCoSo;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\HocVienTraiNghiem\HocVienTraiNghiemRequest;
+use App\Models\CoSo;
+use App\Models\HocVienTraiNghiem;
+use Illuminate\Http\Request;
+
+class HocVienTraiNghiemController extends Controller
+{
+    public function index(Request $request)
+    {
+        $traiNghiems = HocVienTraiNghiem::with('coSos')->orderBy('id', 'desc')->paginate(8)->withQueryString();
+        $coSos = CoSo::where('trang_thai', TrangThaiCoSo::ACTIVE)->orderBy('ten')->get();
+
+        return view('trial.index', compact('traiNghiems', 'coSos'));
+    }
+
+    public function store(HocVienTraiNghiemRequest $request)
+    {
+        $data = $request->validated();
+        $coSoIds = $data['co_so_ids'] ?? [];
+        unset($data['co_so_ids']);
+
+        $traiNghiem = HocVienTraiNghiem::create($data);
+        $traiNghiem->coSos()->sync($coSoIds);
+
+        return redirect()->route('trainghiem.index')->with('success', 'Thêm học viên trải nghiệm thành công');
+    }
+
+    public function update(HocVienTraiNghiemRequest $request, HocVienTraiNghiem $trainghiem)
+    {
+        $data = $request->validated();
+        $coSoIds = $data['co_so_ids'] ?? [];
+        unset($data['co_so_ids']);
+
+        $trainghiem->update($data);
+        $trainghiem->coSos()->sync($coSoIds);
+
+        return redirect()->route('trainghiem.index')->with('success', 'Cập nhật học viên trải nghiệm thành công');
+    }
+
+    public function destroy(HocVienTraiNghiem $trainghiem)
+    {
+        if ($trainghiem->trang_thai === TrangThaiLoaiDangKyTraiNghiem::DA_DANG_KY) {
+            return redirect()->route('trainghiem.index')->with('error',
+                'Không thể xoá: học viên trải nghiệm này đã ở trạng thái "Đã đăng ký".'
+            );
+        }
+
+        $trainghiem->delete();
+
+        return redirect()->route('trainghiem.index')->with('success', 'Xoá học viên trải nghiệm thành công');
+    }
+}

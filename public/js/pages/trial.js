@@ -1,45 +1,28 @@
-function populateTrialFilters(){
-  fillSelect(document.getElementById('tr_branch1'), branches, false, branchLabel);
-  fillSelect(document.getElementById('tr_branch2'), branches, true, branchLabel);
-}
+function openTrialModal(id, hoTen, namSinh, trangThai, ghiChu, coSoIds) {
+  const form = document.getElementById('trialForm');
+  const methodField = document.getElementById('trialMethodField');
 
-function renderTrial(){
-  document.getElementById('trialTbody').innerHTML = trialStudents.map(t=>`
-    <tr>
-      <td><div class="cell-user"><img src="https://ui-avatars.com/api/?name=${encodeURIComponent(t.name)}&background=FFA45C&color=fff&bold=true" alt=""><div class="name">${t.name}</div></div></td>
-      <td>${t.year}</td>
-      <td>${branches.find(b=>b.id===t.branch1).ten}</td>
-      <td>${t.branch2? branches.find(b=>b.id===t.branch2).ten : '—'}</td>
-      <td>—</td>
-      <td>${trialBadge(t.status)}</td>
-      <td class="text-2">${t.note||'—'}</td>
-      <td><div class="actions-cell"><i class="ri-edit-line" onclick="openTrialModal(${t.id})"></i></div></td>
-    </tr>`).join('');
-}
-function openTrialModal(id){
-  if(id){
-    const t = trialStudents.find(x=>x.id===id);
-    document.getElementById('tr_name').value=t.name;
-    document.getElementById('tr_year').value=t.year;
-    document.getElementById('tr_status').value=t.status;
-    document.getElementById('tr_branch1').value=t.branch1;
-    document.getElementById('tr_branch2').value=t.branch2||'';
-    document.getElementById('tr_note').value=t.note||'';
+  document.getElementById('trialEditingId').value = id || '';
+  document.querySelectorAll('.tr-branch-checkbox').forEach(cb => cb.checked = false);
+
+  if (id) {
+    document.getElementById('trialModalTitle').textContent = 'Sửa Học viên Trải nghiệm';
+    form.action = `${form.dataset.updateUrlBase}/${id}`;
+    methodField.innerHTML = '<input type="hidden" name="_method" value="PUT">';
   } else {
-    document.getElementById('tr_name').value='';
-    document.getElementById('tr_year').value='';
-    document.getElementById('tr_status').value='Chưa trải nghiệm';
-    document.getElementById('tr_branch1').value=branches[0].id;
-    document.getElementById('tr_branch2').value='';
-    document.getElementById('tr_note').value='';
+    document.getElementById('trialModalTitle').textContent = 'Tạo Học viên Trải nghiệm';
+    form.action = form.dataset.storeUrl;
+    methodField.innerHTML = '';
   }
+
+  document.getElementById('tr_name').value = hoTen || '';
+  document.getElementById('tr_year').value = namSinh || '';
+  document.getElementById('tr_status').value = trangThai || 3; // mặc định Chưa trải nghiệm
+  document.getElementById('tr_note').value = ghiChu || '';
+  (coSoIds || []).forEach(csId => {
+    const cb = document.querySelector(`.tr-branch-checkbox[value="${csId}"]`);
+    if (cb) cb.checked = true;
+  });
+
   openModal('trialModal');
 }
-function saveTrial(){
-  if(!document.getElementById('tr_name').value.trim()){ showToast('Vui lòng nhập Họ tên'); return; }
-  closeModal('trialModal');
-  showToast('Lưu học viên trải nghiệm thành công!');
-}
-
-populateTrialFilters();
-renderTrial();

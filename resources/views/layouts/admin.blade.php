@@ -16,7 +16,6 @@
 </head>
 
 <body>
-
     <div @class(['app']) id="appRoot">
         @include('partials._sidebar')
 
@@ -30,7 +29,6 @@
         
         <div id="toastWrap" class="toast-wrap"></div>
     </div>
-
     
     {{-- MODALS DÙNG CHUNG --}}
     @include('partials.modals._student')

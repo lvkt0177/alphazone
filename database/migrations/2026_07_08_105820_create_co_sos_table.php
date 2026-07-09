@@ -13,9 +13,10 @@ return new class extends Migration
             $table->id();
             $table->string('ten');
             $table->foreignId('giao_vien_id')
+                ->nullable()
                 ->constrained('giao_viens')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->nullOnDelete();
             $table->tinyInteger('trang_thai')->default(TrangThaiCoSo::ACTIVE->value);
             $table->timestamps();
         });
