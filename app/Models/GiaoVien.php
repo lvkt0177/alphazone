@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Enum\TrangThaiGiaoVien;
 
 class GiaoVien extends Model
 {
@@ -15,10 +16,12 @@ class GiaoVien extends Model
         'ho_ten',
         'ngay_sinh',
         'sdt',
+        'trang_thai',
     ];
 
     protected $casts = [
         'ngay_sinh' => 'date',
+        'trang_thai' => TrangThaiGiaoVien::class,
     ];
 
     public function coSos()

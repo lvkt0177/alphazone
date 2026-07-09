@@ -5,7 +5,7 @@ namespace App\Enum;
 use App\Traits\EnumValues;
 use App\Traits\EnumOptions;
 
-enum HocPhiStatus: int
+enum TrangThaiHocPhi: int
 {
     use EnumValues, EnumOptions;
 

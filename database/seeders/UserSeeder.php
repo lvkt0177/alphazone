@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
         User::create([
             'name'     => 'admin',
             'ho_ten'   => 'Quản trị viên',
-            'password' => Hash::make('123456'),
+            'password' => Hash::make('1'),
         ]);
     }
 }

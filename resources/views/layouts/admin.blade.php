@@ -18,20 +18,20 @@
 <body>
 
     <div @class(['app']) id="appRoot">
-
-        {{-- SIDEBAR --}}
         @include('partials._sidebar')
 
         <div @class(['main'])>
-            {{-- TOPBAR --}}
             @include('partials._topbar')
 
             <div @class(['page'])>
                 @yield('content')
             </div>
         </div>
+        
+        <div id="toastWrap" class="toast-wrap"></div>
     </div>
 
+    
     {{-- MODALS DÙNG CHUNG --}}
     @include('partials.modals._student')
     @include('partials.modals._tuition')
@@ -39,11 +39,30 @@
     @include('partials.modals._branch')
     @include('partials.modals._teacher')
     @include('partials.modals._confirm')
-
+    
     {{-- TOAST --}}
     @include('partials._toast')
-
+    
     <script src="{{ asset('js/common.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            @if (session('success'))
+                showToast(@json(session('success')), 'success');
+            @endif
+
+            @if (session('error'))
+                showToast(@json(session('error')), 'error');
+            @endif
+
+            @if (session('warning'))
+                showToast(@json(session('warning')), 'warning');
+            @endif
+
+            @if ($errors->any())
+                showToast(@json($errors->first()), 'error');
+            @endif
+        });
+    </script>
     @stack('scripts')
 </body>
 

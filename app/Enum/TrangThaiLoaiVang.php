@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-enum LoaiVang:int
+enum TrangThaiLoaiVang:int
 {
     //
     case COPHEP = 1;

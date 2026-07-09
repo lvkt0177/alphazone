@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-enum ActiveOrNotStatus:int
+enum TrangThaiCoSo: int
 {
     case ACTIVE = 1;
     case INACTIVE = 0;
@@ -11,15 +11,15 @@ enum ActiveOrNotStatus:int
     {
         return match ($this) {
             self::ACTIVE => 'Hoạt động',
-            self::INACTIVE => 'Không hoạt động',
+            self::INACTIVE => 'Ngừng hoạt động',
         };
     }
 
     public function getBadge(): string
     {
         return match ($this) {
-            self::ACTIVE => 'success',
-            self::INACTIVE => 'warning',
+            self::ACTIVE => 'green',
+            self::INACTIVE => 'gray',
         };
     }
 }

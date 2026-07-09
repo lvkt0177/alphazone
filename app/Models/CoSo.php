@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Enum\TrangThaiCoSo;
 
 class CoSo extends Model
 {
@@ -15,6 +16,11 @@ class CoSo extends Model
     protected $fillable = [
         'ten',
         'giao_vien_id',
+        'trang_thai',
+    ];
+
+    protected $casts = [
+        'trang_thai' => TrangThaiCoSo::class,
     ];
 
     public function giaoVien(): BelongsTo

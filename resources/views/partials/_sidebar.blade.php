@@ -40,7 +40,7 @@
 
         <div @class(['nav-label'])>Quản lý</div>
 
-        <a href="" @class(['nav-item', request()->routeIs('branches.*') ? 'active' : '']) data-view="branches">
+        <a href="{{ route('coso.index') }}" @class(['nav-item', request()->routeIs('coso.*') ? 'active' : '']) data-view="branches">
             <i @class(['ri-building-4-line'])></i> Quản lý Cơ sở
         </a>
 
@@ -54,7 +54,7 @@
 
         <div @class(['nav-label'])>Tài khoản</div>
 
-        <a href="" @class(['nav-item', request()->routeIs('account.*') ? 'active' : '']) data-view="account">
+        <a href="{{ route('doi-mat-khau') }}" @class(['nav-item', request()->routeIs('doi-mat-khau') ? 'active' : '']) data-view="account">
             <i @class(['ri-lock-password-line'])></i> Đổi mật khẩu
         </a>
 
@@ -74,6 +74,5 @@
             <div @class(['name'])>{{ auth()->user()->ho_ten ?? 'Quản trị viên' }}</div>
             <div @class(['role'])>Admin</div>
         </div>
-        <i @class(['ri-arrow-down-s-line'])></i>
     </div>
 </aside>

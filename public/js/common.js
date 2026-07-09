@@ -1,7 +1,3 @@
-/* ============================================================
-   HÀM DÙNG CHUNG CHO TOÀN BỘ TRANG ADMIN
-   Load ở layouts/admin.blade.php — KHÔNG phụ thuộc dữ liệu module nào.
-============================================================ */
 function money(n) { return n.toLocaleString('vi-VN') + ' đ'; }
 
 function statusBadge(status) {
@@ -14,13 +10,18 @@ function trialBadge(status) {
     return `<span class="badge ${map[status] || 'gray'}">${status}</span>`;
 }
 
-function showToast(msg) {
+function showToast(msg, type = 'success') {
     const wrap = document.getElementById('toastWrap');
     const t = document.createElement('div');
-    t.className = 'toast';
-    t.innerHTML = `<i class="ri-checkbox-circle-fill"></i> ${msg}`;
+    t.className = `toast ${type === 'error' ? 'toast-error' : ''}`;
+    t.innerHTML = `<i class="${type === 'error' ? 'ri-error-warning-fill' : 'ri-checkbox-circle-fill'}"></i> ${msg}`;
     wrap.appendChild(t);
-    setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(30px)'; t.style.transition = '.3s'; setTimeout(() => t.remove(), 300); }, 2600);
+    setTimeout(() => {
+        t.style.opacity = '0';
+        t.style.transform = 'translateX(30px)';
+        t.style.transition = '.3s';
+        setTimeout(() => t.remove(), 2000);
+    }, 2600);
 }
 
 function openModal(id) { document.getElementById(id).classList.add('active'); }

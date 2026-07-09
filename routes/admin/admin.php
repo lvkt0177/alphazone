@@ -8,5 +8,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     include('giaovien.php');
+    include('coso.php');
+    include('profile.php');
     
 });

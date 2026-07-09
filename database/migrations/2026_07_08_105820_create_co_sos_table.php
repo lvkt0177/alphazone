@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\TrangThaiCoSo;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +16,7 @@ return new class extends Migration
                 ->constrained('giao_viens')
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
+            $table->tinyInteger('trang_thai')->default(TrangThaiCoSo::ACTIVE->value);
             $table->timestamps();
         });
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\TrangThaiGiaoVien;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +14,7 @@ return new class extends Migration
             $table->string('ho_ten');
             $table->date('ngay_sinh')->nullable();
             $table->string('sdt', 15)->nullable();
+            $table->tinyInteger('trang_thai')->default(TrangThaiGiaoVien::DANG_DAY->value);
             $table->timestamps();
         });
     }
