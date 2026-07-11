@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
 class HocVien extends Model
@@ -44,5 +45,10 @@ class HocVien extends Model
         return $this->avatar
             ? Storage::url($this->avatar)
             : 'https://ui-avatars.com/api/?name='.urlencode($this->ho_ten).'&background=6C5DD3&color=fff&bold=true';
+    }
+
+    public function diemDanhs(): HasMany
+    {
+        return $this->hasMany(DiemDanh::class);
     }
 }

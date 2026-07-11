@@ -1026,6 +1026,28 @@ tbody tr:hover {
   background: var(--bg);
 }
 
+textarea.note-input {
+  width: 100%;
+  resize: none;
+  overflow-y: hidden;
+  line-height: 1.4;
+  min-height: 38px;
+  max-height: 110px;
+  font-family: inherit;
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  outline: none;
+  transition: border-color .15s, background .15s;
+}
+
+textarea.note-input:focus {
+  overflow-y: auto;
+  border-color: var(--primary);
+  background: #fff;
+}
+
 /* Modal */
 .overlay {
   position: fixed;

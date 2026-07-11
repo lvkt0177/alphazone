@@ -36,11 +36,19 @@ function confirmAction(title, msg, onOk) {
     openModal('confirmModal');
 }
 
-/**
- * Đổ dữ liệu vào 1 <select>. labelFn nhận 1 item, trả về chuỗi hiển thị —
- * để common.js không cần biết cấu trúc dữ liệu riêng của từng module.
- */
 function fillSelect(sel, list, includeEmpty, labelFn) {
     sel.innerHTML = (includeEmpty ? '<option value="">— Không —</option>' : '')
         + list.map(o => `<option value="${o.id}">${labelFn(o)}</option>`).join('');
 }
+
+function initAutoGrowTextareas() {
+    document.querySelectorAll('textarea.auto-grow').forEach(el => {
+        const resize = () => {
+            el.style.height = 'auto';
+            el.style.height = Math.min(el.scrollHeight, 110) + 'px';
+        };
+        el.addEventListener('input', resize);
+        resize();
+    });
+}
+document.addEventListener('DOMContentLoaded', initAutoGrowTextareas);

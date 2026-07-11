@@ -22,7 +22,7 @@
             <span @class(['nav-badge', 'green'])>{{ $countHocVien }}</span>
         </a>
 
-        <a href="" @class(['nav-item', request()->routeIs('attendance.*') ? 'active' : '', ]) data-view="attendance">
+        <a href="{{ route('diemdanh.index') }}" @class(['nav-item', request()->routeIs('diemdanh.*') ? 'active' : '', ]) data-view="attendance">
             <i @class(['ri-calendar-check-line'])></i> Điểm danh
         </a>
 

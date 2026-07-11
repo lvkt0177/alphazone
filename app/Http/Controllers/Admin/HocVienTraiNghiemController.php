@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\HocVienTraiNghiem\HocVienTraiNghiemRequest;
 use App\Models\CoSo;
 use App\Models\HocVienTraiNghiem;
 use Illuminate\Http\Request;
+use App\Enum\TrangThaiLoaiDangKyTraiNghiem;
 
 class HocVienTraiNghiemController extends Controller
 {

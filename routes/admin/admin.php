@@ -12,5 +12,6 @@ Route::middleware('auth')->group(function () {
     include('profile.php');
     include('trainghiem.php');
     include('hocvien.php');
+    include('diemdanh.php');
     
 });
