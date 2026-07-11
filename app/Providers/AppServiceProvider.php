@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\HocVienTraiNghiem;
 use App\Models\HocVien;
 use App\Enum\TrangThaiLoaiDangKyTraiNghiem;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,9 +22,16 @@ class AppServiceProvider extends ServiceProvider
             $countTraiNghiem = HocVienTraiNghiem::count();
             $countHocVien = HocVien::count();
 
+            $thangHienTai = Carbon::now()->startOfMonth()->toDateString();
+            $countHocVienChuaDongHocPhi = HocVien::whereDoesntHave(
+                'hocPhis',
+                fn ($q) => $q->where('thang', $thangHienTai)
+            )->count();
+
             $view->with([
                 'countTraiNghiem' => $countTraiNghiem,
                 'countHocVien' => $countHocVien,
+                'countHocVienChuaDongHocPhi' => $countHocVienChuaDongHocPhi,
             ]);
         });
     }

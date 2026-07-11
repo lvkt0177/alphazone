@@ -51,4 +51,9 @@ class HocVien extends Model
     {
         return $this->hasMany(DiemDanh::class);
     }
+
+    public function hocPhis(): HasMany
+    {
+        return $this->hasMany(HocPhi::class);
+    }
 }

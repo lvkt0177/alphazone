@@ -26,9 +26,9 @@
             <i @class(['ri-calendar-check-line'])></i> Điểm danh
         </a>
 
-        <a href="" @class(['nav-item', request()->routeIs('tuition.*') ? 'active' : '']) data-view="tuition">
+        <a href="{{ route('hocphi.index') }}" @class(['nav-item', request()->routeIs('hocphi.*') ? 'active' : '']) data-view="tuition">
             <i @class(['ri-money-dollar-circle-line'])></i> Học phí
-            <span @class(['nav-badge'])>3</span>
+            <span @class(['nav-badge', 'red'])>{{ $countHocVienChuaDongHocPhi }}</span>
         </a>
 
         <a href="{{ route('trainghiem.index') }}" @class(['nav-item', request()->routeIs('trainghiem.*') ? 'active' : '']) data-view="trial">

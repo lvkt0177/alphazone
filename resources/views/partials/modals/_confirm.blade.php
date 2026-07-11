@@ -1,5 +1,5 @@
 <div class="overlay" id="confirmModal">
-  <div class="modal" style="max-width:380px;">
+  <div class="modal" style="max-width:500px;">
     <div class="modal-body" style="text-align:center;padding:30px 24px 10px;">
       <div style="width:56px;height:56px;border-radius:50%;background:var(--orange-bg);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;">
         <i class="ri-question-line" style="font-size:26px;color:var(--orange);"></i>

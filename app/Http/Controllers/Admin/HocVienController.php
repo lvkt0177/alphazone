@@ -52,7 +52,16 @@ class HocVienController extends Controller
     {
         $hocvien->load('coSos');
 
-        return view('students.detail', compact('hocvien'));
+        $diemDanhs = $hocvien->diemDanhs()
+            ->with(['coSo', 'giaoVien'])
+            ->orderByDesc('ngay')
+            ->paginate(10, ['*'], 'trang_diem_danh');
+
+        $hocPhis = $hocvien->hocPhis()
+            ->orderByDesc('thang')
+            ->paginate(10, ['*'], 'trang_hoc_phi');
+
+        return view('students.detail', compact('hocvien', 'diemDanhs', 'hocPhis'));
     }
 
     public function create()

@@ -16,11 +16,21 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => ['required', 'string'],
+            'name' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }
-  
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Tên tài khoản không được để trống.',
+            'name.string' => 'Tên tài khoản phải là chuỗi ký tự.',
+            'password.required' => 'Mật khẩu không được để trống.',
+            'password.string' => 'Mật khẩu phải là chuỗi ký tự.',
+        ];
+    }
+
     public function authenticate(): void
     {
         if (! Auth::attempt($this->only('name', 'password'))) {
