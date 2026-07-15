@@ -52,3 +52,15 @@ function initAutoGrowTextareas() {
     });
 }
 document.addEventListener('DOMContentLoaded', initAutoGrowTextareas);
+
+document.addEventListener('submit', function (e) {
+    const form = e.target.closest('.confirm-delete-form');
+    if (!form) return;
+
+    e.preventDefault();
+    confirmAction(
+        form.dataset.confirmTitle || 'Xác nhận',
+        form.dataset.confirmMessage || 'Bạn có chắc chắn muốn thực hiện thao tác này?',
+        () => form.submit()
+    );
+});

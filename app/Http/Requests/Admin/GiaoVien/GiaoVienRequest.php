@@ -16,7 +16,7 @@ class GiaoVienRequest extends FormRequest
         return [
             'ho_ten' => ['required', 'string', 'max:255'],
             'ngay_sinh' => ['nullable', 'date'],
-            'sdt' => ['nullable', 'string', 'max:15'],
+            'sdt' => ['nullable', 'string', 'max:15', 'regex:/^[0-9]+$/'],
         ];
     }
 
@@ -29,6 +29,7 @@ class GiaoVienRequest extends FormRequest
             'ngay_sinh.date' => 'Ngày sinh không đúng định dạng ngày tháng.',
             'sdt.string' => 'Số điện thoại phải là chuỗi ký tự.',
             'sdt.max' => 'Số điện thoại không được vượt quá 15 ký tự.',
+            'sdt.regex' => 'Số điện thoại không hợp lệ.',
         ];
     }
 }

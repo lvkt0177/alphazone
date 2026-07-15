@@ -28,7 +28,27 @@ function attachMoneyFormatter(displayId, hiddenId) {
   });
 }
 
-function openTuitionModal(hocVienId, maSo, hoTen, thang, hocPhi, dongPhuc, ngayDong) {
+// Nhớ số học phí đã nhập trước khi bật "Giới thiệu bạn", để khôi phục lại đúng số khi tắt toggle.
+let tuFeeBeforeToggle = '';
+
+function capNhatTrangThaiHocPhi(isOn) {
+  const feeInput = document.getElementById('tu_fee');
+  const feeRaw = document.getElementById('tu_fee_raw');
+
+  if (isOn) {
+    tuFeeBeforeToggle = feeRaw.value;
+    feeInput.value = formatMoney(0);
+    feeRaw.value = '0';
+    feeInput.readOnly = true;
+  } else {
+    feeInput.readOnly = false;
+    feeInput.value = formatMoney(tuFeeBeforeToggle);
+    feeRaw.value = tuFeeBeforeToggle;
+    feeInput.focus();
+  }
+}
+
+function openTuitionModal(hocVienId, maSo, hoTen, thang, hocPhi, dongPhuc, ngayDong, gioiThieuBan) {
   let formattedThang = thang;
   if (thang && thang.includes('-')) {
     const parts = thang.split('-');
@@ -43,13 +63,19 @@ function openTuitionModal(hocVienId, maSo, hoTen, thang, hocPhi, dongPhuc, ngayD
   document.getElementById('tu_code').value = maSo;
   document.getElementById('tu_name').value = hoTen;
 
+  tuFeeBeforeToggle = hocPhi ?? '';
   document.getElementById('tu_fee').value = formatMoney(hocPhi);
   document.getElementById('tu_fee_raw').value = hocPhi ?? '';
+  document.getElementById('tu_fee').readOnly = false;
 
   document.getElementById('tu_uniform').value = formatMoney(dongPhuc);
   document.getElementById('tu_uniform_raw').value = dongPhuc ?? '';
 
   document.getElementById('tu_date').value = ngayDong ?? new Date().toISOString().slice(0, 10);
+
+  const toggle = document.getElementById('tu_gioi_thieu_ban');
+  toggle.checked = !!Number(gioiThieuBan);
+  capNhatTrangThaiHocPhi(toggle.checked); // đồng bộ field Học phí theo đúng trạng thái toggle ngay khi mở modal
 
   const isEditing = hocPhi !== null;
   document.getElementById('tu_delete_wrap').style.display = isEditing ? 'block' : 'none';
@@ -62,6 +88,13 @@ function openTuitionModal(hocVienId, maSo, hoTen, thang, hocPhi, dongPhuc, ngayD
 document.addEventListener('DOMContentLoaded', function () {
   attachMoneyFormatter('tu_fee', 'tu_fee_raw');
   attachMoneyFormatter('tu_uniform', 'tu_uniform_raw');
+
+  const gioiThieuBanToggle = document.getElementById('tu_gioi_thieu_ban');
+  if (gioiThieuBanToggle) {
+    gioiThieuBanToggle.addEventListener('change', function () {
+      capNhatTrangThaiHocPhi(this.checked);
+    });
+  }
 
   const deleteBtn = document.getElementById('tu_delete_btn');
   if (deleteBtn) {
@@ -87,6 +120,7 @@ document.addEventListener('click', function (e) {
     btn.dataset.thang,
     btn.dataset.hocPhi ? Number(btn.dataset.hocPhi) : null,
     btn.dataset.dongPhuc ? Number(btn.dataset.dongPhuc) : null,
-    btn.dataset.ngayDong || null
+    btn.dataset.ngayDong || null,
+    btn.dataset.gioiThieuBan
   );
 });

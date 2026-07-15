@@ -1,15 +1,15 @@
 <div class="breadcrumb">
     <a href="{{ route('hocvien.index') }}">Danh sách Học viên</a>
     <i class="ri-arrow-right-s-line"></i>
-    class="active">Chi tiết Học viên</a>
+    <a class="active">Chi tiết Học viên</a>
 </div>
 
 <div class="page-head">
     <div class="page-title">Chi tiết Học viên</div>
     <div style="display:flex;gap:10px;">
         <a href="{{ route('hocvien.index') }}" class="btn btn-outline"><i class="ri-arrow-left-line"></i> Quay lại</a>
-        <button type="button" class="btn btn-primary" id="editStudentBtn"><i class="ri-edit-line"></i>
-            Sửa học viên</button>
+        {{-- <button type="button" class="btn btn-primary" id="editStudentBtn"><i class="ri-edit-line"></i>
+            Sửa học viên</button> --}}
     </div>
 </div>
 
@@ -131,7 +131,12 @@
                 @forelse ($hocPhis as $hp)
                     <tr>
                         <td>Tháng {{ $hp->thang->format('n/Y') }}</td>
-                        <td>{{ number_format($hp->hoc_phi, 0, ',', '.') }} đ</td>
+                        <td>
+                            {{ number_format($hp->hoc_phi, 0, ',', '.') }} đ
+                            @if ($hp->gioi_thieu_ban)
+                                <span class="badge purple" style="margin-left:6px;">Giới thiệu bạn</span>
+                            @endif
+                        </td>
                         <td>{{ $hp->dong_phuc ? number_format($hp->dong_phuc, 0, ',', '.') . ' đ' : '—' }}</td>
                         <td>{{ $hp->ngay_dong->format('d/m/Y') }}</td>
                     </tr>
@@ -162,12 +167,23 @@
     </div>
 </div>
 
-@push('modals')
-    @include('partials.modals._student')
-@endpush
-
 <script>
-    document.getElementById('editStudentBtn').addEventListener('click', function() {
-        openStudentModal(@json($hocvien));
+    const editBtn = document.getElementById('editStudentBtn');
+    if (editBtn) {
+        editBtn.addEventListener('click', function() {
+            openStudentModal(@json($hocvien));
+        });
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+
+            const tabId = this.getAttribute('data-tab');
+            document.getElementById(tabId).classList.add('active');
+        });
     });
 </script>

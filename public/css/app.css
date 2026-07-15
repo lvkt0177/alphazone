@@ -345,7 +345,7 @@ ul {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 22px;
+  margin-bottom: 25px;
   flex-wrap: wrap;
   gap: 12px;
 }
@@ -359,7 +359,7 @@ ul {
 .btn {
   border: none;
   border-radius: 10px;
-  padding: 11px 18px;
+  padding: 9px 18px;
   font-weight: 600;
   font-size: 13.5px;
   display: inline-flex;
@@ -1055,7 +1055,6 @@ textarea.note-input {
 }
 
 textarea.note-input:focus {
-  overflow-y: auto;
   border-color: var(--primary);
   background: #fff;
 }
@@ -1292,4 +1291,52 @@ textarea.note-input:focus {
 .pagination a:hover:not(.active) {
   border-color: var(--primary);
   color: var(--primary);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 19px;
+  flex-shrink: 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-track {
+  position: absolute;
+  inset: 0;
+  background: #D9DBE3;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.switch-track::before {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 2px;
+  top: 2px;
+  background: #fff;
+  border-radius: 50%;
+  transition: .2s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+}
+
+.switch input:checked+.switch-track {
+  background: var(--primary);
+}
+
+.switch input:checked+.switch-track::before {
+  transform: translateX(15px);
+}
+
+.trang-thai-hoc-phi {
+  width: 250px;
 }

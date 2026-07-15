@@ -5,5 +5,6 @@
 
     @push('scripts')
         <script src="{{ asset('js/pages/trial.js') }}"></script>
+        <script src="{{ asset('js/modals/branches-modal.js') }}"></script>
     @endpush
 @endsection

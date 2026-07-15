@@ -16,7 +16,8 @@ class HocPhiRequest extends FormRequest
         return [
             'hoc_vien_id' => ['required', 'exists:hoc_viens,id'],
             'thang' => ['required', 'date'],
-            'hoc_phi' => ['required', 'integer', 'min:0'],
+            'gioi_thieu_ban' => ['nullable', 'boolean'],
+            'hoc_phi' => ['required_if:gioi_thieu_ban,0', 'nullable', 'integer', 'min:0'],
             'dong_phuc' => ['nullable', 'integer', 'min:0'],
             'ngay_dong' => ['required', 'date'],
         ];
@@ -36,6 +37,7 @@ class HocPhiRequest extends FormRequest
             'dong_phuc.min' => 'Tiền đồng phục không được nhỏ hơn 0.',
             'ngay_dong.required' => 'Ngày đóng không được để trống.',
             'ngay_dong.date' => 'Ngày đóng không đúng định dạng ngày tháng.',
+            'hoc_phi.required_if' => 'Học phí không được để trống (trừ khi bật Giới thiệu bạn).',
         ];
     }
 }

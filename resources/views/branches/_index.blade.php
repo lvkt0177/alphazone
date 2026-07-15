@@ -51,14 +51,11 @@
 
                             @if ($b->trang_thai === \App\Enum\TrangThaiCoSo::ACTIVE)
                                 <form action="{{ route('coso.destroy', $b) }}" method="POST" style="display:inline;"
-                                    onsubmit="
-                                        event.preventDefault(); 
-                                        confirmAction('Xoá cơ sở','Bạn có chắc muốn xoá cơ sở {{ addslashes($b->ten) }}?',()=>this.submit());">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" style="background:none;border:none;padding:0;">
-                                        <i class="ri-delete-bin-line del"></i>
-                                    </button>
+                                    class="confirm-delete-form" data-confirm-title="Xoá cơ sở"
+                                    data-confirm-message="Bạn có chắc muốn xoá cơ sở {{ $b->ten }}?">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" style="background:none;border:none;padding:0;"><i
+                                            class="ri-delete-bin-line del"></i></button>
                                 </form>
                             @endif
                         </div>

@@ -68,8 +68,8 @@
                                         oninput="locCoSoHocVien(this.value)"
                                         style="width:100%;padding:8px 12px 8px 32px;border:1px solid var(--border);border-radius:9px;background:var(--bg);">
                                 </div>
-                                <button type="button" class="btn btn-light btn-sm"
-                                    onclick="chonTatCaCoSoHocVien(true)">Chọn tất cả</button>
+                                {{-- <button type="button" class="btn btn-light btn-sm"
+                                    onclick="chonTatCaCoSoHocVien(true)">Chọn tất cả</button> --}}
                                 <button type="button" class="btn btn-light btn-sm"
                                     onclick="chonTatCaCoSoHocVien(false)">Bỏ chọn</button>
                             </div>
@@ -80,7 +80,7 @@
                                     <label class="branch-chip" data-name="{{ strtolower($cs->ten) }}">
                                         <input type="checkbox" name="co_so_ids[]" value="{{ $cs->id }}"
                                             class="stu-branch-checkbox" onchange="capNhatSoLuongCoSoHocVien()">
-                                        <span>{{ $cs->ten }}</span>
+                                        <span>{{ $cs->ten }} - {{ $cs->giaoVien->ho_ten ?? 'N/A' }}</span>
                                     </label>
                                 @endforeach
                             </div>

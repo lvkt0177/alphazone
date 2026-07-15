@@ -48,9 +48,9 @@
                                     <input type="text" id="branchSearch" placeholder="Tìm cơ sở..."
                                         style="width:100%;padding:8px 12px 8px 32px;border:1px solid var(--border);border-radius:9px;background:var(--bg);">
                                 </div>
-                                <button type="button" class="btn btn-light btn-sm" onclick="chonTatCaCoSo(true)">Chọn
+                                {{-- <button type="button" class="btn btn-light btn-sm" onclick="chonTatCaCoSo(true)">Chọn
                                     tất
-                                    cả</button>
+                                    cả</button> --}}
                                 <button type="button" class="btn btn-light btn-sm" onclick="chonTatCaCoSo(false)">Bỏ
                                     chọn</button>
                             </div>
@@ -84,7 +84,3 @@
         </form>
     </div>
 </div>
-
-@push('scripts')
-    <script src="{{ asset('js/modals/branches-modal.js') }}"></script>
-@endpush

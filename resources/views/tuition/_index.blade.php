@@ -1,6 +1,6 @@
 <div class="breadcrumb">
-    <a>Trang chủ</a> 
-    <i class="ri-arrow-right-s-line"></i> 
+    <a>Trang chủ</a>
+    <i class="ri-arrow-right-s-line"></i>
     <a class="active">Học phí</a>
 </div>
 
@@ -44,10 +44,15 @@
                     @endforeach
                 </select>
             </div>
+
+            @if (request()->hasAny(['q', 'trang_thai_dong', 'thang']))
+                <a href="{{ route('hocphi.index') }}" class="btn btn-outline btn-sm">Làm mới bộ lọc</a>
+            @endif
         </div>
 
         <div class="text-2" style="font-size:13px;">{{ $hocViens->total() }} học viên — đang xem Tháng
             {{ $thang->format('n/Y') }}</div>
+
     </form>
 
     <div class="text-2" style="font-size:14px;margin:-8px 0 14px;">
@@ -63,7 +68,7 @@
                 <th>Mã số</th>
                 <th>Họ tên</th>
                 <th>Cơ sở</th>
-                <th>Trạng thái</th>
+                <th class="trang-thai-hoc-phi">Trạng thái</th>
                 <th>Ngày đóng</th>
                 <th></th>
             </tr>
@@ -78,10 +83,21 @@
                             <div class="name">{{ $hv->ho_ten }}</div>
                         </div>
                     </td>
-                    <td>{{ $hv->coSos->pluck('ten')->join(', ') ?: '—' }}</td>
+                    <td>
+                        @if ($hv->coSos->isNotEmpty())
+                            @foreach ($hv->coSos as $coSo)
+                                <div>{{ $coSo->ten }} - {{ $coSo->giaoVien->ho_ten ?? 'N/A' }}</div>
+                            @endforeach
+                        @else
+                            -
+                        @endif
+                    </td>
                     <td>
                         @if ($rec)
                             <span class="badge green">Đã đóng</span>
+                            @if ($rec->gioi_thieu_ban)
+                                <span class="badge purple" style="margin-left:4px;">Giới thiệu bạn</span>
+                            @endif
                         @else
                             <span class="badge red">Chưa đóng</span>
                         @endif
@@ -93,7 +109,8 @@
                             data-hoc-vien-id="{{ $hv->id }}" data-ma-so="{{ $hv->ma_so }}"
                             data-ho-ten="{{ $hv->ho_ten }}" data-thang="{{ $thang->format('Y-m-d') }}"
                             data-hoc-phi="{{ $rec->hoc_phi ?? '' }}" data-dong-phuc="{{ $rec->dong_phuc ?? '' }}"
-                            data-ngay-dong="{{ $rec?->ngay_dong?->format('Y-m-d') }}">
+                            data-ngay-dong="{{ $rec?->ngay_dong?->format('Y-m-d') }}"
+                            data-gioi-thieu-ban="{{ $rec->gioi_thieu_ban ?? 0 }}">
                             <i class="ri-edit-line"></i> {{ $rec ? 'Sửa' : 'Tạo' }} học phí
                         </button>
                     </td>
@@ -140,7 +157,8 @@
                     {{ Js::from(old('thang')) }},
                     {{ old('hoc_phi') !== null ? (int) old('hoc_phi') : 'null' }},
                     {{ old('dong_phuc') !== null ? (int) old('dong_phuc') : 'null' }},
-                    {{ Js::from(old('ngay_dong')) }}
+                    {{ Js::from(old('ngay_dong')) }},
+                    {{ old('gioi_thieu_ban') ? 1 : 0 }}
                 );
             });
         </script>

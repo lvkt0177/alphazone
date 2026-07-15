@@ -24,14 +24,13 @@ class HocVienRequest extends FormRequest
             'nickname'=> ['nullable', 'string', 'max:100'],
             'ngay_sinh'=> ['nullable', 'date'],
             'gioi_tinh'=> ['required', Rule::enum(GioiTinh::class)],
-            'sdt'=> ['nullable', 'string', 'max:15'],
+            'sdt'=> ['nullable', 'string', 'max:15', 'regex:/^[0-9]+$/'],
             'truong'=> ['nullable', 'string', 'max:255'],
             'dia_chi'=> ['nullable', 'string', 'max:255'],
             'avatar'=> ['nullable', 'image', 'max:2048'],
             'trang_thai' => ['required', Rule::enum(TrangThaiHocVien::class)],
             'co_so_ids' => ['required', 'array', 'min:1'],
             'co_so_ids.*' => ['exists:co_sos,id'],
-            
             'tu_trai_nghiem_id' => ['nullable', 'exists:hoc_vien_trai_nghiems,id'],
         ];
     }
@@ -53,6 +52,7 @@ class HocVienRequest extends FormRequest
             'gioi_tinh.Illuminate\Validation\Rules\Enum' => 'Giới tính chọn không hợp lệ.',
             'sdt.string' => 'Số điện thoại phải là chuỗi ký tự.',
             'sdt.max' => 'Số điện thoại không được vượt quá 15 ký tự.',
+            'sdt.regex' => 'Số điện thoại không hợp lệ.',
             'truong.string' => 'Tên trường phải là chuỗi ký tự.',
             'truong.max' => 'Tên trường không được vượt quá 255 ký tự.',
             'dia_chi.string' => 'Địa chỉ phải là chuỗi ký tự.',

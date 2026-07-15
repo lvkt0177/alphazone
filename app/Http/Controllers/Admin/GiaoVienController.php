@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enum\TrangThaiCoSo;
+use App\Enum\TrangThaiGiaoVien;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GiaoVien\GiaoVienRequest;
 use App\Models\GiaoVien;
-use App\Enum\TrangThaiGiaoVien;
 use Illuminate\Database\QueryException;
 
 class GiaoVienController extends Controller
@@ -30,7 +31,7 @@ class GiaoVienController extends Controller
 
         return redirect()->route('giaovien.index')->with('success', 'Cập nhật giáo viên thành công');
     }
-    
+
     public function destroy(GiaoVien $giaovien)
     {
         if ($giaovien->trang_thai === TrangThaiGiaoVien::DA_NGHI) {
@@ -40,11 +41,18 @@ class GiaoVienController extends Controller
             );
         }
 
+        $activeCoSo = $giaovien->coSos()->where('trang_thai', TrangThaiCoSo::ACTIVE)->first();
+        if ($activeCoSo) {
+            return redirect()->route('giaovien.index')->with('error', "Không thể xoá: giáo viên này đang phụ trách cơ sở \"{$activeCoSo->ten}\" đang hoạt động.");
+        }
+
         try {
             $giaovien->delete();
         } catch (QueryException $e) {
+            $allCoSoNames = $giaovien->coSos()->pluck('ten')->implode(', ');
+
             return redirect()->route('giaovien.index')->with('error',
-                'Không thể xoá: giáo viên này đang phụ trách ít nhất 1 Cơ sở. '
+                "Không thể xoá: giáo viên này vẫn đang đứng tên phụ trách các Cơ sở đã dừng hoạt động ({$allCoSoNames}). "
                 .'Hãy đổi người phụ trách cho các Cơ sở đó trước.'
             );
         }
@@ -52,10 +60,6 @@ class GiaoVienController extends Controller
         return redirect()->route('giaovien.index')->with('success', 'Xoá giáo viên thành công');
     }
 
-    /**
-     * Case: GV nghỉ dạy → soft, không xoá dòng.
-     * TODO: khi có hệ thống phân quyền (Hướng A), chỉ Chủ tịch được gọi action này.
-     */
     public function toggleTrangThai(GiaoVien $giaovien)
     {
         $giaovien->trang_thai = $giaovien->trang_thai === TrangThaiGiaoVien::DANG_DAY

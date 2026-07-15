@@ -36,7 +36,15 @@
                         </div>
                     </td>
                     <td>{{ $t->nam_sinh ?? '—' }}</td>
-                    <td>{{ $t->coSos->pluck('ten')->join(', ') ?: '—' }}</td>
+                    <td>
+                        @if ($t->coSos->isNotEmpty())
+                            @foreach ($t->coSos as $coSo)
+                                <div>{{ $coSo->ten }} - {{ $coSo->giaoVien->ho_ten ?? 'N/A' }}</div>
+                            @endforeach
+                        @else
+                            N/A
+                        @endif
+                    </td>
                     <td><span class="badge {{ $t->trang_thai->getBadge() }}">{{ $t->trang_thai->getLabel() }}</span>
                     </td>
                     <td class="text-2">{{ $t->ghi_chu ?? '—' }}</td>
@@ -46,8 +54,9 @@
                                 onclick="openTrialModal({{ $t->id }}, {{ Js::from($t->ho_ten) }}, {{ Js::from($t->nam_sinh) }}, {{ $t->trang_thai->value }}, {{ Js::from($t->ghi_chu) }}, {{ Js::from($t->coSos->pluck('id')) }})"></i>
                             @if ($t->trang_thai !== \App\Enum\TrangThaiLoaiDangKyTraiNghiem::DA_DANG_KY)
                                 <form action="{{ route('trainghiem.destroy', $t) }}" method="POST"
-                                    style="display:inline;"
-                                    onsubmit="event.preventDefault(); confirmAction('Xoá học viên trải nghiệm','Bạn có chắc muốn xoá {{ addslashes($t->ho_ten) }}?',()=>this.submit());">
+                                    style="display:inline;" class="confirm-delete-form"
+                                    data-confirm-title="Xoá học viên trải nghiệm"
+                                    data-confirm-message="Bạn có chắc muốn xoá {{ $t->ho_ten }}?">
                                     @csrf @method('DELETE')
                                     <button type="submit" style="background:none;border:none;padding:0;"><i
                                             class="ri-delete-bin-line del"></i></button>

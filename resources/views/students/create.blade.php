@@ -66,7 +66,11 @@
                     </select>
                 </div>
                 <div class="field"><label>Số điện thoại</label><input name="sdt" value="{{ old('sdt') }}"
-                        type="text"></div>
+                        type="text">
+                    @error('sdt')
+                        <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                    @enderror    
+                </div>
                 <div class="field"><label>Trường</label><input name="truong" value="{{ old('truong') }}" type="text">
                 </div>
                 <div class="field span-2"><label>Địa chỉ</label><input name="dia_chi" value="{{ old('dia_chi') }}"
@@ -84,8 +88,8 @@
                             <input type="text" id="branchSearch" placeholder="Tìm cơ sở..."
                                 style="width:100%;padding:8px 12px 8px 32px;border:1px solid var(--border);border-radius:9px;background:var(--bg);">
                         </div>
-                        <button type="button" class="btn btn-light btn-sm" onclick="chonTatCaCoSo(true)">Chọn tất
-                            cả</button>
+                        {{-- <button type="button" class="btn btn-light btn-sm" onclick="chonTatCaCoSo(true)">Chọn tất
+                            cả</button> --}}
                         <button type="button" class="btn btn-light btn-sm" onclick="chonTatCaCoSo(false)">Bỏ
                             chọn</button>
                     </div>
@@ -98,7 +102,7 @@
                                     class="create-branch-checkbox"
                                     {{ in_array($cs->id, old('co_so_ids', [])) ? 'checked' : '' }}
                                     onchange="capNhatSoLuongCoSo()">
-                                <span>{{ $cs->ten }}</span>
+                                <span>{{ $cs->ten }} - {{ $cs->giaoVien->ho_ten ?? 'N/A' }}</span>
                             </label>
                         @endforeach
                     </div>

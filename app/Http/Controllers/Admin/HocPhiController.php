@@ -51,19 +51,23 @@ class HocPhiController extends Controller
     {
         $data = $request->validated();
         $thang = Carbon::parse($data['thang'])->startOfMonth()->toDateString();
+        $gioiThieuBan = $request->boolean('gioi_thieu_ban');
 
         HocPhi::updateOrCreate(
             ['hoc_vien_id' => $data['hoc_vien_id'], 'thang' => $thang],
             [
-                'hoc_phi' => $data['hoc_phi'],
+                'gioi_thieu_ban' => $gioiThieuBan,
+                'hoc_phi' => $gioiThieuBan ? 0 : $data['hoc_phi'],
                 'dong_phuc' => $data['dong_phuc'] ?? null,
                 'ngay_dong' => $data['ngay_dong'],
             ]
         );
 
+        $hocVien = HocVien::where('id', $data['hoc_vien_id'])->first();
+
         return redirect()
             ->route('hocphi.index', ['thang' => Carbon::parse($thang)->format('Y-m')])
-            ->with('success', 'Lưu học phí thành công');
+            ->with('success', "Lưu học phí thành công cho học viên \"{$hocVien->ho_ten}\"");
     }
 
     public function destroy(Request $request)

@@ -46,9 +46,9 @@
             <i @class(['ri-user-voice-line'])></i> Quản lý Giáo viên
         </a>
 
-        <a href="" @class(['nav-item', request()->routeIs('stats.*') ? 'active' : '']) data-view="stats">
+        {{-- <a href="" @class(['nav-item', request()->routeIs('stats.*') ? 'active' : '']) data-view="stats">
             <i @class(['ri-bar-chart-2-line'])></i> Thống kê
-        </a>
+        </a> --}}
 
         <div @class(['nav-label'])>Tài khoản</div>
 

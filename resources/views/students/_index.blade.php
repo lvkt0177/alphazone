@@ -1,7 +1,7 @@
 <div class="breadcrumb">
     <a>Trang chủ</a>
-        <i class="ri-arrow-right-s-line">
-        </i> <a class="active">Danh sách Học viên
+    <i class="ri-arrow-right-s-line">
+    </i> <a class="active">Danh sách Học viên
     </a>
 </div>
 <div class="page-head">
@@ -80,9 +80,18 @@
                             </div>
                         </td>
                         <td>{{ $hv->sdt ?? '—' }}</td>
-                        @php $tenCoSos = $hv->coSos->pluck('ten')->values(); @endphp
+                        @php
+                            $coSos = $hv->coSos->values();
+                        @endphp
                         @for ($i = 0; $i < $soCotCoSo; $i++)
-                            <td>{{ $tenCoSos->get($i) ?? '—' }}</td>
+                            @php $coSo = $coSos->get($i); @endphp
+                            <td>
+                                @if ($coSo)
+                                    {{ $coSo->ten }} - {{ $coSo->giaoVien->ho_ten ?? 'N/A' }}
+                                @else
+                                    -
+                                @endif
+                            </td>
                         @endfor
                         <td><span
                                 class="badge {{ $hv->trang_thai->getBadge() }}">{{ $hv->trang_thai->getLabel() }}</span>
@@ -93,8 +102,9 @@
                                         class="ri-eye-line"></i></a>
                                 <i class="ri-edit-line edit-student-btn" data-student='{{ json_encode($hv) }}'></i>
                                 <form action="{{ route('hocvien.destroy', $hv) }}" method="POST"
-                                    style="display:inline;"
-                                    onsubmit="event.preventDefault(); confirmAction('Xoá học viên','Bạn có chắc muốn xoá {{ addslashes($hv->ho_ten) }}?',()=>this.submit());">
+                                    style="display:inline;" class="confirm-delete-form"
+                                    data-confirm-title="Xoá học viên"
+                                    data-confirm-message="Bạn có chắc muốn xoá {{ $hv->ho_ten }}?">
                                     @csrf @method('DELETE')
                                     <button type="submit" style="background:none;border:none;padding:0;"><i
                                             class="ri-delete-bin-line del"></i></button>

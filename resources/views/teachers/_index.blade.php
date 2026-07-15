@@ -56,10 +56,9 @@
                             </form>
                             @if ($gv->trang_thai === \App\Enum\TrangThaiGiaoVien::DANG_DAY)
                                 <form action="{{ route('giaovien.destroy', $gv) }}" method="POST"
-                                    style="display:inline;"
-                                    onsubmit="
-                                      event.preventDefault(); 
-                                      confirmAction('Xoá giáo viên','Bạn có chắc muốn xoá giáo viên {{ addslashes($gv->ho_ten) }}?',()=>this.submit());">
+                                    style="display:inline;" class="confirm-delete-form"
+                                    data-confirm-title="Xoá giáo viên"
+                                    data-confirm-message="Bạn có chắc muốn xoá giáo viên {{ $gv->ho_ten }}?">
                                     @csrf @method('DELETE')
                                     <button type="submit" style="background:none;border:none;padding:0;"><i
                                             class="ri-delete-bin-line del"></i></button>
@@ -78,14 +77,14 @@
 </div>
 
 @if ($errors->any())
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    openTeacherModal(
-      {{ old('_editing_id') ? (int) old('_editing_id') : 'null' }},
-      {{ Js::from(old('ho_ten')) }},
-      {{ Js::from(old('ngay_sinh')) }},
-      {{ Js::from(old('sdt')) }}
-    );
-  });
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            openTeacherModal(
+                {{ old('_editing_id') ? (int) old('_editing_id') : 'null' }},
+                {{ Js::from(old('ho_ten')) }},
+                {{ Js::from(old('ngay_sinh')) }},
+                {{ Js::from(old('sdt')) }}
+            );
+        });
+    </script>
 @endif

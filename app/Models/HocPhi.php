@@ -12,11 +12,12 @@ class HocPhi extends Model
 
     protected $table = 'hoc_phis';
 
-    protected $fillable = ['hoc_vien_id', 'thang', 'hoc_phi', 'dong_phuc', 'ngay_dong'];
+    protected $fillable = ['hoc_vien_id', 'gioi_thieu_ban', 'thang', 'hoc_phi', 'dong_phuc', 'ngay_dong'];
 
     protected $casts = [
         'thang' => 'date',
         'ngay_dong' => 'date',
+        'gioi_thieu_ban' => 'boolean',
     ];
 
     public function hocVien(): BelongsTo
