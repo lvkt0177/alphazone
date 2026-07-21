@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Admin\HocVien;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use App\Enum\GioiTinh;
 use App\Enum\TrangThaiHocVien;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class HocVienRequest extends FormRequest
 {
@@ -19,15 +19,16 @@ class HocVienRequest extends FormRequest
         $hocVienId = $this->route('hocvien')?->id;
 
         return [
-            'ma_so'=> ['required', 'string', 'max:50', Rule::unique('hoc_viens', 'ma_so')->ignore($hocVienId)],
-            'ho_ten'=> ['required', 'string', 'max:255'],
-            'nickname'=> ['nullable', 'string', 'max:100'],
-            'ngay_sinh'=> ['nullable', 'date'],
-            'gioi_tinh'=> ['required', Rule::enum(GioiTinh::class)],
-            'sdt'=> ['nullable', 'string', 'max:15', 'regex:/^[0-9]+$/'],
-            'truong'=> ['nullable', 'string', 'max:255'],
-            'dia_chi'=> ['nullable', 'string', 'max:255'],
-            'avatar'=> ['nullable', 'image', 'max:2048'],
+            'ma_so' => ['required', 'string', 'max:50', Rule::unique('hoc_viens', 'ma_so')->ignore($hocVienId)],
+            'ho_ten' => ['required', 'string', 'max:255'],
+            'nickname' => ['nullable', 'string', 'max:100'],
+            'ngay_sinh' => ['nullable', 'date'],
+            'gioi_tinh' => ['required', Rule::enum(GioiTinh::class)],
+            'sdt' => ['nullable', 'string', 'max:15', 'regex:/^[0-9]+$/'],
+            'truong' => ['nullable', 'string', 'max:255'],
+            'dia_chi' => ['nullable', 'string', 'max:255'],
+            'ghi_chu' => ['nullable', 'string', 'max:2000'],
+            'avatar' => ['nullable', 'image', 'max:2048'],
             'trang_thai' => ['required', Rule::enum(TrangThaiHocVien::class)],
             'co_so_ids' => ['required', 'array', 'min:1'],
             'co_so_ids.*' => ['exists:co_sos,id'],
@@ -66,6 +67,8 @@ class HocVienRequest extends FormRequest
             'co_so_ids.min' => 'Vui lòng chọn ít nhất một cơ sở.',
             'co_so_ids.*.exists' => 'Cơ sở được chọn không tồn tại trên hệ thống.',
             'tu_trai_nghiem_id.exists' => 'Thông tin học viên trải nghiệm không tồn tại trên hệ thống.',
+            'ghi_chu.string' => 'Ghi chú phải là chuỗi ký tự.',
+            'ghi_chu.max' => 'Ghi chú không được vượt quá 2000 ký tự.',
         ];
     }
 }

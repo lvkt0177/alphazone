@@ -20,7 +20,7 @@
                 <div class="search-mini">
                     <i class="ri-search-line"></i>
                     <input type="text" name="q" value="{{ request('q') }}"
-                        placeholder="Tìm theo Mã số, Họ tên...">
+                        placeholder="Tìm theo Mã số, Họ tên, SĐT...">
                 </div>
             </div>
 

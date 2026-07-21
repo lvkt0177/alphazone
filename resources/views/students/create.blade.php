@@ -42,7 +42,10 @@
             </div>
 
             <div class="form-grid">
-                <div class="field"><label>Mã số</label><input name="ma_so" value="{{ old('ma_so') }}" type="text">
+                <div class="field"><label>Mã số</label>
+                    <input name="ma_so" value="{{ old('ma_so') }}" type="text" id="c_ma_so" autocomplete="off"
+                        oninput="goiYMaSo(this.value)" data-suggest-url="{{ route('hocvien.goiymaso') }}">
+                    <div id="maSoHint" class="text-2" style="font-size:12px;margin-top:5px;min-height:16px;"></div>
                     @error('ma_so')
                         <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
                     @enderror
@@ -69,12 +72,19 @@
                         type="text">
                     @error('sdt')
                         <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
-                    @enderror    
+                    @enderror
                 </div>
                 <div class="field"><label>Trường</label><input name="truong" value="{{ old('truong') }}" type="text">
                 </div>
                 <div class="field span-2"><label>Địa chỉ</label><input name="dia_chi" value="{{ old('dia_chi') }}"
                         type="text"></div>
+                <div class="field span-2">
+                    <label>Ghi chú</label>
+                    <textarea name="ghi_chu" rows="3" placeholder="Ghi chú về học viên">{{ old('ghi_chu') }}</textarea>
+                    @error('ghi_chu')
+                        <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                    @enderror
+                </div>
                 <div class="field span-2">
                     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
                         <label style="margin:0;">Cơ sở (chọn ít nhất 1 cơ sở)</label>

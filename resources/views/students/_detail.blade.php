@@ -62,6 +62,13 @@
     </div>
 </div>
 
+@if ($hocvien->ghi_chu)
+    <div class="card" style="margin-bottom:20px;">
+        <div class="k" style="margin-bottom:8px;">Ghi chú</div>
+        <div class="v" style="white-space:pre-line;">{{ $hocvien->ghi_chu }}</div>
+    </div>
+@endif
+
 <div class="table-card">
     <div class="tabs">
         <div class="tab-btn active" data-tab="tabDiemdanh">Bảng Điểm danh</div>

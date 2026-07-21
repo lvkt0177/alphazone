@@ -49,15 +49,22 @@
                     <div class="field"><label>Trường</label><input id="f_school" name="truong" type="text"></div>
                     <div class="field span-2"><label>Địa chỉ</label><input id="f_address" name="dia_chi" type="text">
                     </div>
+                    <div class="field span-2">
+                        <label>Ghi chú</label>
+                        <textarea id="f_note" name="ghi_chu" rows="3" placeholder="Ghi chú về học viên..."></textarea>
+                        @error('ghi_chu')
+                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                        @enderror
+                    </div>
 
                     <div class="field span-2">
                         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
                             <label style="margin:0;">Cơ sở (chọn ít nhất 1)</label>
-                            @if(!empty($coSos))
+                            @if (!empty($coSos))
                                 <span id="stuBranchCount" class="badge purple" style="font-size:12px;">0 đã chọn</span>
                             @endif
                         </div>
-                        @if(empty($coSos))
+                        @if (empty($coSos))
                             <div class="badge red">Chưa có cơ sở nào được tạo. Vui lòng tạo cơ sở trước.</div>
                         @else
                             <div style="display:flex;gap:8px;margin-bottom:10px;">

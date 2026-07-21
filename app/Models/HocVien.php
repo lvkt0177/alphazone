@@ -19,7 +19,7 @@ class HocVien extends Model
 
     protected $fillable = [
         'ma_so', 'ho_ten', 'nickname', 'ngay_sinh', 'gioi_tinh', 'sdt',
-        'truong', 'dia_chi', 'avatar', 'trang_thai', 'tu_hoc_vien_trai_nghiem_id',
+        'truong', 'dia_chi', 'ghi_chu', 'avatar', 'trang_thai', 'tu_hoc_vien_trai_nghiem_id',
     ];
 
     protected $appends = ['avatar_url'];

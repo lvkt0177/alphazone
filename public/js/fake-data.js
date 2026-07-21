@@ -1,13 +1,3 @@
-/* ============================================================
-   DỮ LIỆU GIẢ — TẠM THỜI
-   Chỉ dùng cho module CHƯA làm thật: Cơ sở, Học viên, Điểm danh,
-   Học phí, Trải nghiệm, Dashboard.
-   Giáo viên ĐÃ xong nên không còn dữ liệu giả ở đây nữa.
-   → Khi module nào lên thật, xoá phần dữ liệu giả của module đó
-     khỏi file này, và bỏ script này ra khỏi trang tương ứng.
-============================================================ */
-
-// Tạm giữ tên GV giả chỉ để LABEL cho Cơ sở giả — xoá khi Cơ sở nối GiaoVien thật.
 const fakeTeacherNames = ['Nguyễn Văn A','Trần Thị Bích','Lê Văn Cường','Phạm Thị Diễm','Hoàng Văn Em','Đỗ Thị Phượng','Vũ Văn Giang'];
 const fakeTeachers = fakeTeacherNames.map((t,i)=>({id:i+1, hoTen:t}));
 

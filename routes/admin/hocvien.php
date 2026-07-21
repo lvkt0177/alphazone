@@ -10,3 +10,4 @@ Route::put('/hoc-vien/{hocvien}', [HocVienController::class, 'update'])->name('h
 Route::delete('/hoc-vien/{hocvien}', [HocVienController::class, 'destroy'])->name('hocvien.destroy');
 Route::get('/hoc-vien/{hocvien}', [HocVienController::class, 'show'])->name('hocvien.show');
 Route::get('/hoc-vien/xuat-ban-ghi/excel', [HocVienController::class, 'export'])->name('hocvien.export');
+Route::get('/hoc-vien/tao-moi-hoc-vien/goi-y-ma-so', [HocVienController::class, 'goiYMaSo'])->name('hocvien.goiymaso');
