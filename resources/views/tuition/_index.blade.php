@@ -80,6 +80,7 @@
                 <th>Mã số</th>
                 <th>Họ tên</th>
                 <th>Cơ sở</th>
+                <th>Học phí</th>
                 <th class="trang-thai-hoc-phi">Trạng thái</th>
                 <th>Ngày đóng</th>
                 <th></th>
@@ -89,7 +90,7 @@
             @forelse ($hocViens as $hv)
                 @php $rec = $hv->hocPhis->first(); @endphp
                 <tr>
-                    <td><span class="code-link">{{ $hv->ma_so }}</span></td>
+                    <td><a href="{{ route('hocvien.show', $hv) }}" class="code-link">{{ $hv->ma_so }}</a></td>
                     <td>
                         <div class="cell-user"><img src="{{ $hv->avatar_url }}" alt="">
                             <div class="name">{{ $hv->ho_ten }}</div>
@@ -104,6 +105,12 @@
                             -
                         @endif
                     </td>
+                    <td>
+                        @if ($rec)
+                            {{ number_format($rec->hoc_phi, 0, ',', '.') }} đ
+                        @else
+                            —
+                        @endif
                     <td>
                         @if ($rec)
                             <span class="badge green">Đã đóng</span>

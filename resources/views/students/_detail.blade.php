@@ -136,7 +136,7 @@
                             @if ($hp->gioi_thieu_ban)
                                 <span class="badge purple" style="margin-left:6px;">
                                     Giới thiệu
-                                    bạn{{ $hp->nguoiGioiThieu ? ' bởi ' . $hp->nguoiGioiThieu->ho_ten : '' }}
+                                    bạn{{ $hp->nguoiGioiThieu ? ' bởi ' . $hp->nguoiGioiThieu->ma_so . ' - ' . $hp->nguoiGioiThieu->ho_ten : '' }}
                                 </span>
                             @endif
                         </td>

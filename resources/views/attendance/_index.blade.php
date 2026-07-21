@@ -57,7 +57,7 @@
                 @forelse ($hocViens as $hv)
                     @php $rec = $existing->get($hv->id); @endphp
                     <tr>
-                        <td>{{ $hv->ma_so }}</td>
+                        <td><a href="{{ route('hocvien.show', $hv) }}" class="code-link">{{ $hv->ma_so }}</a></td>
                         <td>
                             <div class="cell-user"><img src="{{ $hv->avatar_url }}" alt="">
                                 <div class="name">{{ $hv->ho_ten }}</div>

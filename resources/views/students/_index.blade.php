@@ -70,7 +70,9 @@
             <tbody>
                 @forelse ($hocViens as $hv)
                     <tr>
-                        <td><span class="code-link">{{ $hv->ma_so }}</span></td>
+                        <td>
+                            <a href="{{ route('hocvien.show', $hv) }}" class="code-link">{{ $hv->ma_so }}</a>
+                        </td>
                         <td>
                             <div class="cell-user"><img src="{{ $hv->avatar_url }}" alt="">
                                 <div>
