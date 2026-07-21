@@ -1,7 +1,7 @@
 <aside @class(['sidebar']) id="sidebar">
     <div @class(['sidebar-logo'])>
         <div @class(['logo-icon'])>
-            <i @class(['ri-graduation-cap-fill'])></i>
+            <img src="{{ asset('images/logo/logo.jpg') }}" alt="Logo">
         </div>
         <div @class(['logo-text'])>
             Alpha<span>Zone</span>
@@ -22,7 +22,7 @@
             <span @class(['nav-badge', 'green'])>{{ $countHocVien }}</span>
         </a>
 
-        <a href="{{ route('diemdanh.index') }}" @class(['nav-item', request()->routeIs('diemdanh.*') ? 'active' : '', ]) data-view="attendance">
+        <a href="{{ route('diemdanh.index') }}" @class(['nav-item', request()->routeIs('diemdanh.*') ? 'active' : '']) data-view="attendance">
             <i @class(['ri-calendar-check-line'])></i> Điểm danh
         </a>
 
@@ -31,7 +31,15 @@
             <span @class(['nav-badge', 'red'])>{{ $countHocVienChuaDongHocPhi }}</span>
         </a>
 
-        <a href="{{ route('trainghiem.index') }}" @class(['nav-item', request()->routeIs('trainghiem.*') ? 'active' : '']) data-view="trial">
+        <a href="{{ safe_route('tiensan.index') }}"
+            class="nav-item {{ request()->routeIs('tiensan.*') ? 'active' : '' }}" data-view="tiensan">
+            <i class="ri-basketball-line"></i> Tiền sân
+        </a>
+
+        <a href="{{ route('trainghiem.index') }}" @class([
+            'nav-item',
+            request()->routeIs('trainghiem.*') ? 'active' : '',
+        ]) data-view="trial">
             <i @class(['ri-user-star-line'])></i> Trải nghiệm
             <span @class(['nav-badge', 'green'])>{{ $countTraiNghiem }}</span>
         </a>
@@ -52,7 +60,10 @@
 
         <div @class(['nav-label'])>Tài khoản</div>
 
-        <a href="{{ route('doi-mat-khau') }}" @class(['nav-item', request()->routeIs('doi-mat-khau') ? 'active' : '']) data-view="account">
+        <a href="{{ route('doi-mat-khau') }}" @class([
+            'nav-item',
+            request()->routeIs('doi-mat-khau') ? 'active' : '',
+        ]) data-view="account">
             <i @class(['ri-lock-password-line'])></i> Đổi mật khẩu
         </a>
 

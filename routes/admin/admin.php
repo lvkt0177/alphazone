@@ -14,5 +14,6 @@ Route::middleware('auth')->group(function () {
     include('hocvien.php');
     include('diemdanh.php');
     include('hocphi.php');
+    include('tiensan.php');
     
 });

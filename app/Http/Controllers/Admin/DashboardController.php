@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\HocVien;
-use App\Models\HocPhi;
-use App\Models\CoSo;
 use App\Enum\TrangThaiHocVien;
-use Carbon\Carbon;
+use App\Http\Controllers\Controller;
+use App\Models\CoSo;
+use App\Models\HocPhi;
+use App\Models\HocVien;
+use App\Models\TienSan;
 
 class DashboardController extends Controller
 {
@@ -41,19 +41,28 @@ class DashboardController extends Controller
             $q->whereIn('trang_thai', [TrangThaiHocVien::KHACH_HANG, TrangThaiHocVien::QUAY_LAI]);
         }])->orderBy('ten')->get();
 
-        // Biểu đồ Học phí/Đồng phục 6 tháng gần nhất
         $bieuDoThang = collect(range(5, 0))->map(function ($i) use ($thangHienTai) {
             $d = (clone $thangHienTai)->subMonths($i);
+
             return [
-                'label'      => 'Tháng ' . $d->format('n/Y'),
-                'hoc_phi'    => HocPhi::where('thang', $d->toDateString())->sum('hoc_phi'),
-                'dong_phuc'  => HocPhi::where('thang', $d->toDateString())->sum('dong_phuc'),
+                'label' => 'Tháng '.$d->format('n/Y'),
+                'hoc_phi' => HocPhi::where('thang', $d->toDateString())->sum('hoc_phi'),
+                'dong_phuc' => HocPhi::where('thang', $d->toDateString())->sum('dong_phuc'),
             ];
         });
 
+        $tongTienSan = TienSan::where('ngay', '>=', $thangHienTai->copy()->startOfMonth())
+            ->where('ngay', '<=', $thangHienTai->copy()->endOfMonth())
+            ->sum('so_tien');
+
+        $tienSanTheoCoSo = CoSo::withSum(['tienSans as tong_tien_san' => function ($q) use ($thangHienTai) {
+            $q->where('ngay', '>=', $thangHienTai->copy()->startOfMonth())
+                ->where('ngay', '<=', $thangHienTai->copy()->endOfMonth());
+        }], 'so_tien')->orderBy('ten')->get();
+
         return view('dashboard', compact(
             'thangHienTai', 'tongHocPhi', 'tongDongPhuc', 'thongKeTrangThai',
-            'soChuaDong', 'danhSachChuaDong', 'coSos', 'bieuDoThang'
+            'soChuaDong', 'danhSachChuaDong', 'coSos', 'bieuDoThang', 'tongTienSan', 'tienSanTheoCoSo'
         ));
     }
 }

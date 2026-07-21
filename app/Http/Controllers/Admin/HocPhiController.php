@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\HocPhi\HocPhiRequest;
+use App\Models\CoSo;
 use App\Models\HocPhi;
 use App\Models\HocVien;
 use Carbon\Carbon;
@@ -18,13 +19,18 @@ class HocPhiController extends Controller
 
         $query = HocVien::with([
             'coSos',
-            'hocPhis' => fn ($q) => $q->where('thang', $thang->toDateString()),
+            'hocPhis' => fn ($q) => $q->where('thang', $thang->toDateString())->with('nguoiGioiThieu'),
         ]);
 
         if ($request->filled('q')) {
             $q = $request->q;
             $query->where(fn ($sub) => $sub->where('ma_so', 'like', "%{$q}%")
                 ->orWhere('ho_ten', 'like', "%{$q}%"));
+        }
+
+        if ($request->filled('co_so_id')) {
+            $coSoId = $request->co_so_id;
+            $query->whereHas('coSos', fn ($sub) => $sub->where('co_sos.id', $coSoId));
         }
 
         if ($request->trang_thai_dong === 'da_dong') {
@@ -41,10 +47,24 @@ class HocPhiController extends Controller
             return ['value' => $d->format('Y-m'), 'label' => 'Tháng '.$d->format('n/Y')];
         });
 
-        $countDaDong = HocVien::whereHas('hocPhis', fn ($sub) => $sub->where('thang', $thang->toDateString()))->count();
-        $countChuaDong = HocVien::whereDoesntHave('hocPhis', fn ($sub) => $sub->where('thang', $thang->toDateString()))->count();
+        $countBaseQuery = HocVien::when($request->filled('co_so_id'), function ($q) use ($request) {
+            $q->whereHas('coSos', fn ($sub) => $sub->where('co_sos.id', $request->co_so_id));
+        });
 
-        return view('tuition.index', compact('hocViens', 'thang', 'danhSachThang', 'countDaDong', 'countChuaDong'));
+        $countDaDong = (clone $countBaseQuery)
+            ->whereHas('hocPhis', fn ($sub) => $sub->where('thang', $thang->toDateString()))
+            ->count();
+        $countChuaDong = (clone $countBaseQuery)
+            ->whereDoesntHave('hocPhis', fn ($sub) => $sub->where('thang', $thang->toDateString()))
+            ->count();
+
+        $coSos = CoSo::orderBy('ten')->get();
+
+        $hocVienOptions = HocVien::select('id', 'ma_so', 'ho_ten')->orderBy('ho_ten')->get();
+
+        return view('tuition.index', compact(
+            'hocViens', 'thang', 'danhSachThang', 'countDaDong', 'countChuaDong', 'coSos', 'hocVienOptions'
+        ));
     }
 
     public function store(HocPhiRequest $request)
@@ -57,6 +77,7 @@ class HocPhiController extends Controller
             ['hoc_vien_id' => $data['hoc_vien_id'], 'thang' => $thang],
             [
                 'gioi_thieu_ban' => $gioiThieuBan,
+                'nguoi_gioi_thieu_id' => $gioiThieuBan ? $data['nguoi_gioi_thieu_id'] : null,
                 'hoc_phi' => $gioiThieuBan ? 0 : $data['hoc_phi'],
                 'dong_phuc' => $data['dong_phuc'] ?? null,
                 'ngay_dong' => $data['ngay_dong'],

@@ -17,6 +17,7 @@ class HocPhiRequest extends FormRequest
             'hoc_vien_id' => ['required', 'exists:hoc_viens,id'],
             'thang' => ['required', 'date'],
             'gioi_thieu_ban' => ['nullable', 'boolean'],
+            'nguoi_gioi_thieu_id' => ['nullable', 'required_if:gioi_thieu_ban,1', 'exists:hoc_viens,id', 'different:hoc_vien_id'],
             'hoc_phi' => ['required_if:gioi_thieu_ban,0', 'nullable', 'integer', 'min:0'],
             'dong_phuc' => ['nullable', 'integer', 'min:0'],
             'ngay_dong' => ['required', 'date'],
@@ -37,6 +38,9 @@ class HocPhiRequest extends FormRequest
             'dong_phuc.min' => 'Tiền đồng phục không được nhỏ hơn 0.',
             'ngay_dong.required' => 'Ngày đóng không được để trống.',
             'ngay_dong.date' => 'Ngày đóng không đúng định dạng ngày tháng.',
+            'hoc_phi.required_if' => 'Học phí không được để trống (trừ khi bật Giới thiệu bạn).',
+            'nguoi_gioi_thieu_id.required_if' => 'Vui lòng chọn học viên đã giới thiệu.',
+            'nguoi_gioi_thieu_id.different' => 'Học viên không thể tự giới thiệu chính mình.',
             'hoc_phi.required_if' => 'Học phí không được để trống (trừ khi bật Giới thiệu bạn).',
         ];
     }

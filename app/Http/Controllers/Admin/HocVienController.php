@@ -58,6 +58,7 @@ class HocVienController extends Controller
             ->paginate(10, ['*'], 'trang_diem_danh');
 
         $hocPhis = $hocvien->hocPhis()
+            ->with('nguoiGioiThieu')
             ->orderByDesc('thang')
             ->paginate(10, ['*'], 'trang_hoc_phi');
 

@@ -12,6 +12,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    {{-- logo --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/logo/logo.jpg') }}">
     @stack('styles')
 </head>
 
@@ -36,6 +38,7 @@
     @include('partials.modals._trial')
     @include('partials.modals._branch')
     @include('partials.modals._teacher')
+    @include('partials.modals._tiensan')
     @include('partials.modals._confirm')
     
     {{-- TOAST --}}

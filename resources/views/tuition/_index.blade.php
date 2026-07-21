@@ -24,6 +24,18 @@
                 </div>
             </div>
 
+            <div class="field" style="margin:0;min-width:200px;">
+                <label style="font-size:12.5px;margin-bottom:5px;">Cơ sở</label>
+                <select name="co_so_id" onchange="this.form.submit()">
+                    <option value="">Tất cả Cơ sở</option>
+                    @foreach ($coSos as $cs)
+                        <option value="{{ $cs->id }}" {{ request('co_so_id') == $cs->id ? 'selected' : '' }}>
+                            {{ $cs->ten }} - {{ $cs->giaoVien->ho_ten ?? 'N/A' }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="field" style="margin:0;min-width:170px;">
                 <label style="font-size:12.5px;margin-bottom:5px;">Trạng thái đóng</label>
                 <select name="trang_thai_dong" onchange="this.form.submit()">
@@ -45,7 +57,7 @@
                 </select>
             </div>
 
-            @if (request()->hasAny(['q', 'trang_thai_dong', 'thang']))
+            @if (request()->hasAny(['q', 'co_so_id', 'trang_thai_dong', 'thang']))
                 <a href="{{ route('hocphi.index') }}" class="btn btn-outline btn-sm">Làm mới bộ lọc</a>
             @endif
         </div>
@@ -96,7 +108,10 @@
                         @if ($rec)
                             <span class="badge green">Đã đóng</span>
                             @if ($rec->gioi_thieu_ban)
-                                <span class="badge purple" style="margin-left:4px;">Giới thiệu bạn</span>
+                                <span class="badge purple" style="margin-top:4px;">
+                                    Giới thiệu
+                                    bạn{{ $rec->nguoiGioiThieu ? ' bởi ' . $rec->nguoiGioiThieu->ho_ten : '' }}
+                                </span>
                             @endif
                         @else
                             <span class="badge red">Chưa đóng</span>
@@ -110,7 +125,8 @@
                             data-ho-ten="{{ $hv->ho_ten }}" data-thang="{{ $thang->format('Y-m-d') }}"
                             data-hoc-phi="{{ $rec->hoc_phi ?? '' }}" data-dong-phuc="{{ $rec->dong_phuc ?? '' }}"
                             data-ngay-dong="{{ $rec?->ngay_dong?->format('Y-m-d') }}"
-                            data-gioi-thieu-ban="{{ $rec->gioi_thieu_ban ?? 0 }}">
+                            data-gioi-thieu-ban="{{ $rec->gioi_thieu_ban ?? 0 }}"
+                            data-nguoi-gioi-thieu-id="{{ $rec->nguoi_gioi_thieu_id ?? '' }}">
                             <i class="ri-edit-line"></i> {{ $rec ? 'Sửa' : 'Tạo' }} học phí
                         </button>
                     </td>
@@ -158,7 +174,8 @@
                     {{ old('hoc_phi') !== null ? (int) old('hoc_phi') : 'null' }},
                     {{ old('dong_phuc') !== null ? (int) old('dong_phuc') : 'null' }},
                     {{ Js::from(old('ngay_dong')) }},
-                    {{ old('gioi_thieu_ban') ? 1 : 0 }}
+                    {{ old('gioi_thieu_ban') ? 1 : 0 }},
+                    {{ old('nguoi_gioi_thieu_id') ? (int) old('nguoi_gioi_thieu_id') : 'null' }}
                 );
             });
         </script>

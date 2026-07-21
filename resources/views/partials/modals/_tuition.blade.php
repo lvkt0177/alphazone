@@ -10,6 +10,7 @@
             <input type="hidden" name="thang" id="tu_thang">
             <input type="hidden" name="hoc_phi" id="tu_fee_raw">
             <input type="hidden" name="dong_phuc" id="tu_uniform_raw">
+            <input type="hidden" name="nguoi_gioi_thieu_id" id="tu_referrer_id">
 
             <div class="modal-body">
                 <div class="form-grid">
@@ -38,6 +39,22 @@
                         <input id="tu_uniform" type="text" inputmode="numeric" autocomplete="off"
                             placeholder="VD: 150,000">
                     </div>
+
+                    {{-- MỚI: chỉ hiện khi bật toggle Giới thiệu bạn --}}
+                    <div class="field span-2" id="tu_referrer_wrap" style="display:none;">
+                        <label>Học viên giới thiệu</label>
+                        <div style="position:relative;">
+                            <input type="text" id="tu_referrer_search" autocomplete="off"
+                                placeholder="Tìm theo Mã số hoặc Họ tên..."
+                                style="width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);">
+                            <div id="tu_referrer_list"
+                                style="display:none;position:absolute;z-index:20;top:100%;left:0;right:0;background:#fff;border:1px solid var(--border);border-radius:10px;margin-top:4px;max-height:220px;overflow-y:auto;box-shadow:var(--shadow);"></div>
+                        </div>
+                        @error('nguoi_gioi_thieu_id')
+                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <div class="field span-2">
                         <label>Ngày đóng</label>
                         <input id="tu_date" name="ngay_dong" type="date">

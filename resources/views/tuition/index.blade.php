@@ -4,6 +4,9 @@
     @include('tuition._index')
 
     @push('scripts')
+        <script>
+            window.__hocVienOptions = @json($hocVienOptions);
+        </script>
         <script src="{{ asset('js/pages/tuition.js') }}"></script>
     @endpush
 @endsection

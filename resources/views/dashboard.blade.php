@@ -42,6 +42,14 @@
             <div class="label">Chưa đóng học phí tháng này</div>
             <div class="value">{{ $soChuaDong }} học viên</div>
         </div>
+        <div class="card stat-card">
+            <div class="top">
+                <div class="stat-icon" style="background:var(--orange-bg);color:var(--orange);"><i
+                        class="ri-basketball-line"></i></div>
+            </div>
+            <div class="label">Tiền sân tháng {{ $thangHienTai->format('n/Y') }}</div>
+            <div class="value">{{ number_format($tongTienSan, 0, ',', '.') }} đ</div>
+        </div>
     </div>
 
     <div class="grid-2">
@@ -99,18 +107,46 @@
         <div class="card">
             <div class="card-head">
                 <h3><i class="ri-building-4-line"></i> Số lượng Học viên theo Cơ sở</h3>
+                <span class="badge purple">{{ $coSos->sum('hoc_viens_count') }} HV</span>
             </div>
             <div class="row-list">
                 @forelse ($coSos as $cs)
                     <div class="item">
                         <div class="stat-icon"
                             style="width:38px;height:38px;font-size:16px;background:var(--primary-light);color:var(--primary);">
-                            <i class="ri-building-4-line"></i></div>
+                            <i class="ri-building-4-line"></i>
+                        </div>
                         <div class="info">
                             <div class="t">{{ $cs->ten }}</div>
                             <div class="s">Phụ trách: {{ $cs->giaoVien->ho_ten ?? 'N/A' }}</div>
                         </div>
                         <span class="amt">{{ $cs->hoc_viens_count }} HV</span>
+                    </div>
+                @empty
+                    <div class="text-2">Chưa có Cơ sở nào</div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-2" style="grid-template-columns:1fr 1fr;">
+        <div class="card">
+            <div class="card-head">
+                <h3><i class="ri-basketball-line"></i> Tiền sân theo Cơ sở (tháng này)</h3>
+                <span class="badge orange">{{ number_format($tienSanTheoCoSo->sum('tong_tien_san'), 0, ',', '.') }}
+                    đ</span>
+            </div>
+            <div class="row-list">
+                @forelse ($tienSanTheoCoSo as $cs)
+                    <div class="item">
+                        <div class="stat-icon"
+                            style="width:38px;height:38px;font-size:16px;background:var(--orange-bg);color:var(--orange);">
+                            <i class="ri-basketball-line"></i></div>
+                        <div class="info">
+                            <div class="t">{{ $cs->ten }}</div>
+                            <div class="s">Phụ trách: {{ $cs->giaoVien->ho_ten ?? 'N/A' }}</div>
+                        </div>
+                        <span class="amt">{{ number_format($cs->tong_tien_san ?? 0, 0, ',', '.') }} đ</span>
                     </div>
                 @empty
                     <div class="text-2">Chưa có Cơ sở nào</div>

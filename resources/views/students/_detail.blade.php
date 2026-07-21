@@ -134,7 +134,10 @@
                         <td>
                             {{ number_format($hp->hoc_phi, 0, ',', '.') }} đ
                             @if ($hp->gioi_thieu_ban)
-                                <span class="badge purple" style="margin-left:6px;">Giới thiệu bạn</span>
+                                <span class="badge purple" style="margin-left:6px;">
+                                    Giới thiệu
+                                    bạn{{ $hp->nguoiGioiThieu ? ' bởi ' . $hp->nguoiGioiThieu->ho_ten : '' }}
+                                </span>
                             @endif
                         </td>
                         <td>{{ $hp->dong_phuc ? number_format($hp->dong_phuc, 0, ',', '.') . ' đ' : '—' }}</td>

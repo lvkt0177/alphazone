@@ -64,3 +64,33 @@ document.addEventListener('submit', function (e) {
         () => form.submit()
     );
 });
+
+function formatMoney(value) {
+    const raw = String(value ?? '').replace(/[^\d]/g, '');
+    return raw ? Number(raw).toLocaleString('en-US') : '';
+}
+
+function unformatMoney(value) {
+    return String(value ?? '').replace(/[^\d]/g, '');
+}
+
+function attachMoneyFormatter(displayId, hiddenId) {
+    const el = document.getElementById(displayId);
+    const hidden = document.getElementById(hiddenId);
+    if (!el || !hidden) return;
+
+    el.addEventListener('input', function () {
+        const cursorPos = this.selectionStart;
+        const oldLength = this.value.length;
+
+        const raw = unformatMoney(this.value);
+        const formatted = formatMoney(raw);
+
+        this.value = formatted;
+        hidden.value = raw;
+
+        const diff = formatted.length - oldLength;
+        const newPos = Math.max(0, cursorPos + diff);
+        this.setSelectionRange(newPos, newPos);
+    });
+}
