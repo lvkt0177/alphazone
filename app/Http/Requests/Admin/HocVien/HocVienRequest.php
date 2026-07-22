@@ -28,11 +28,13 @@ class HocVienRequest extends FormRequest
             'truong' => ['nullable', 'string', 'max:255'],
             'dia_chi' => ['nullable', 'string', 'max:255'],
             'ghi_chu' => ['nullable', 'string', 'max:2000'],
-            'avatar' => ['nullable', 'image', 'max:2048'],
+            'avatar' => ['nullable', 'image', 'max:5120'],
             'trang_thai' => ['required', Rule::enum(TrangThaiHocVien::class)],
             'co_so_ids' => ['required', 'array', 'min:1'],
             'co_so_ids.*' => ['exists:co_sos,id'],
             'tu_trai_nghiem_id' => ['nullable', 'exists:hoc_vien_trai_nghiems,id'],
+            'chieu_cao' => ['nullable', 'numeric', 'min:0', 'max:250'],
+            'can_nang' => ['nullable', 'numeric', 'min:0', 'max:200'],
         ];
     }
 
@@ -59,7 +61,7 @@ class HocVienRequest extends FormRequest
             'dia_chi.string' => 'Địa chỉ phải là chuỗi ký tự.',
             'dia_chi.max' => 'Địa chỉ không được vượt quá 255 ký tự.',
             'avatar.image' => 'Ảnh đại diện phải là định dạng hình ảnh.',
-            'avatar.max' => 'Dung lượng ảnh đại diện không được vượt quá 2MB.',
+            'avatar.max' => 'Dung lượng ảnh đại diện không được vượt quá 5MB.',
             'trang_thai.required' => 'Trạng thái không được để trống.',
             'trang_thai.Illuminate\Validation\Rules\Enum' => 'Trạng thái chọn không hợp lệ.',
             'co_so_ids.required' => 'Vui lòng chọn ít nhất một cơ sở.',
@@ -69,6 +71,8 @@ class HocVienRequest extends FormRequest
             'tu_trai_nghiem_id.exists' => 'Thông tin học viên trải nghiệm không tồn tại trên hệ thống.',
             'ghi_chu.string' => 'Ghi chú phải là chuỗi ký tự.',
             'ghi_chu.max' => 'Ghi chú không được vượt quá 2000 ký tự.',
+            'chieu_cao.numeric' => 'Chiều cao phải là số.',
+            'can_nang.numeric' => 'Cân nặng phải là số.',
         ];
     }
 }

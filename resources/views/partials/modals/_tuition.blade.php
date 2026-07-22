@@ -40,7 +40,6 @@
                             placeholder="VD: 150,000">
                     </div>
 
-                    {{-- MỚI: chỉ hiện khi bật toggle Giới thiệu bạn --}}
                     <div class="field span-2" id="tu_referrer_wrap" style="display:none;">
                         <label>Học viên giới thiệu</label>
                         <div style="position:relative;">

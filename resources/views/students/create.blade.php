@@ -29,7 +29,7 @@
                     <button type="button" class="btn btn-light btn-sm"
                         onclick="document.getElementById('createAvatarInput').click()"><i class="ri-upload-2-line"></i> Tải
                         ảnh lên</button>
-                    <div class="hint">jpg, png, tối đa 2MB (không bắt buộc)</div>
+                    <div class="hint">jpg, png, tối đa 5MB (không bắt buộc)</div>
                 </div>
             </div>
 
@@ -60,13 +60,32 @@
                         type="text"></div>
                 <div class="field"><label>Ngày sinh</label><input id="c_dob" name="ngay_sinh"
                         value="{{ old('ngay_sinh') }}" type="date"></div>
-                <div class="field"><label>Giới tính</label>
-                    <select name="gioi_tinh">
-                        @foreach (\App\Enum\GioiTinh::cases() as $g)
-                            <option value="{{ $g->value }}" {{ old('gioi_tinh') == $g->value ? 'selected' : '' }}>
-                                {{ $g->getLabel() }}</option>
-                        @endforeach
-                    </select>
+                <div class="field span-2" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+                    <div>
+                        <label>Giới tính</label>
+                        <select name="gioi_tinh">
+                            @foreach (\App\Enum\GioiTinh::cases() as $g)
+                                <option value="{{ $g->value }}" {{ old('gioi_tinh') == $g->value ? 'selected' : '' }}>
+                                    {{ $g->getLabel() }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <label>Chiều cao (cm)</label>
+                        <input name="chieu_cao" value="{{ old('chieu_cao') }}" type="number" step="0.1"
+                            placeholder="VD: 145.5">
+                        @error('chieu_cao')
+                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div>
+                        <label>Cân nặng (kg)</label>
+                        <input name="can_nang" value="{{ old('can_nang') }}" type="number" step="0.1"
+                            placeholder="VD: 38.2">
+                        @error('can_nang')
+                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
                 <div class="field"><label>Số điện thoại</label><input name="sdt" value="{{ old('sdt') }}"
                         type="text">

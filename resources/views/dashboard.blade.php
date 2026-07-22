@@ -132,24 +132,37 @@
     <div class="grid-2" style="grid-template-columns:1fr 1fr;">
         <div class="card">
             <div class="card-head">
-                <h3><i class="ri-basketball-line"></i> Tiền sân theo Cơ sở (tháng này)</h3>
-                <span class="badge orange">{{ number_format($tienSanTheoCoSo->sum('tong_tien_san'), 0, ',', '.') }}
+                <h3><i class="ri-basketball-line"></i> Tiền sân theo Địa điểm (tháng này)</h3>
+                <span class="badge orange">{{ number_format($tienSanTheoDiaDiem->sum('tong_tien_san'), 0, ',', '.') }}
                     đ</span>
             </div>
             <div class="row-list">
-                @forelse ($tienSanTheoCoSo as $cs)
-                    <div class="item">
+                @forelse ($tienSanTheoDiaDiem as $dd)
+                    <div class="item" style="align-items:center;">
                         <div class="stat-icon"
                             style="width:38px;height:38px;font-size:16px;background:var(--orange-bg);color:var(--orange);">
-                            <i class="ri-basketball-line"></i></div>
-                        <div class="info">
-                            <div class="t">{{ $cs->ten }}</div>
-                            <div class="s">Phụ trách: {{ $cs->giaoVien->ho_ten ?? 'N/A' }}</div>
+                            <i class="ri-basketball-line"></i>
                         </div>
-                        <span class="amt">{{ number_format($cs->tong_tien_san ?? 0, 0, ',', '.') }} đ</span>
+                        <div class="info">
+                            <div class="t">{{ $dd->ten }}</div>
+                            <div class="s">{{ $dd->coSos->count() }} cơ sở</div>
+                        </div>
+                        <span class="amt"
+                            style="font-weight:800;">{{ number_format($dd->tong_tien_san ?? 0, 0, ',', '.') }} đ</span>
                     </div>
+
+                    @foreach ($dd->coSos as $cs)
+                        <div class="item" style="padding-left:50px;">
+                            <div class="info">
+                                <div class="s" style="font-weight:600;color:var(--text);">{{ $cs->ten }}</div>
+                            </div>
+                            <span class="amt"
+                                style="font-weight:500;color:var(--text-2);">{{ number_format($cs->tong_tien_san ?? 0, 0, ',', '.') }}
+                                đ</span>
+                        </div>
+                    @endforeach
                 @empty
-                    <div class="text-2">Chưa có Cơ sở nào</div>
+                    <div class="text-2">Chưa có Địa điểm nào</div>
                 @endforelse
             </div>
         </div>

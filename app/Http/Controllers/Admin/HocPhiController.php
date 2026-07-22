@@ -79,7 +79,7 @@ class HocPhiController extends Controller
             [
                 'gioi_thieu_ban' => $gioiThieuBan,
                 'nguoi_gioi_thieu_id' => $gioiThieuBan ? $data['nguoi_gioi_thieu_id'] : null,
-                'hoc_phi' => $gioiThieuBan ? 0 : $data['hoc_phi'],
+                'hoc_phi' => $gioiThieuBan ? 0 : ($data['hoc_phi'] ?? 0),
                 'dong_phuc' => $data['dong_phuc'] ?? null,
                 'ngay_dong' => $data['ngay_dong'],
             ]

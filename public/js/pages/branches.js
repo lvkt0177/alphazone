@@ -1,4 +1,10 @@
-function openBranchModal(id, ten, giaoVienId){
+function toggleDiaDiemMoi(value) {
+  const wrap = document.getElementById('br_diadiem_moi_wrap');
+  wrap.style.display = value === 'new' ? 'block' : 'none';
+  if (value !== 'new') document.getElementById('br_diadiem_moi').value = '';
+}
+
+function openBranchModal(id, ten, giaoVienId, diaDiemId) {
   const form = document.getElementById('branchForm');
   const methodField = document.getElementById('branchMethodField');
 
@@ -16,6 +22,9 @@ function openBranchModal(id, ten, giaoVienId){
 
   document.getElementById('br_name').value = ten || '';
   document.getElementById('br_teacher').value = giaoVienId || '';
+
+  document.getElementById('br_diadiem').value = diaDiemId ?? '';
+  toggleDiaDiemMoi(document.getElementById('br_diadiem').value);
 
   openModal('branchModal');
 }

@@ -19,8 +19,8 @@
             <tr>
                 <th>STT</th>
                 <th>Tên cơ sở</th>
+                <th>Địa điểm</th>
                 <th>Người phụ trách</th>
-                {{-- <th>Số học viên</th> --}}
                 <th>Trạng thái</th>
                 <th></th>
             </tr>
@@ -30,15 +30,21 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td style="font-weight:700;">{{ $b->ten }}</td>
+                    <td>
+                        @if ($b->diaDiem)
+                            <span class="badge purple">{{ $b->diaDiem->ten }}</span>
+                        @else
+                            <span class="text-2">—</span>
+                        @endif
+                    </td>
                     <td>{{ $b->giaoVien ? $b->giaoVien->ho_ten : 'N/A' }}</td>
-                    {{-- <td><span class="badge purple">{{ $b->hocViens->count() }} học viên</span></td> --}}
                     <td>
                         <span class="badge {{ $b->trang_thai->getBadge() }}">{{ $b->trang_thai->getLabel() }}</span>
                     </td>
                     <td>
                         <div class="actions-cell">
                             <i class="ri-edit-line"
-                                onclick="openBranchModal({{ $b->id }}, {{ Js::from($b->ten) }}, {{ $b->giao_vien_id }})"></i>
+                                onclick="openBranchModal({{ $b->id }}, {{ Js::from($b->ten) }}, {{ $b->giao_vien_id ?? 'null' }}, {{ $b->dia_diem_id ?? 'null' }})"></i>
 
                             <form action="{{ route('coso.trangthai', $b) }}" method="POST" style="display:inline;">
                                 @csrf @method('PATCH')
@@ -76,7 +82,8 @@
             openBranchModal(
                 {{ old('_editing_id') ? (int) old('_editing_id') : 'null' }},
                 {{ Js::from(old('ten')) }},
-                {{ old('giao_vien_id') ? (int) old('giao_vien_id') : 'null' }}
+                {{ old('giao_vien_id') ? (int) old('giao_vien_id') : 'null' }},
+                {{ old('dia_diem_id') === 'new' ? "'new'" : (old('dia_diem_id') ? (int) old('dia_diem_id') : 'null') }}
             );
         });
     </script>

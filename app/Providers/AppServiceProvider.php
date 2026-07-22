@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\View;
-use App\Models\HocVienTraiNghiem;
 use App\Models\HocVien;
-use App\Enum\TrangThaiLoaiDangKyTraiNghiem;
+use App\Models\HocVienTraiNghiem;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
+use App\Models\DiaDiem;
+use App\Models\GiaoVien;
+use App\Enum\TrangThaiGiaoVien;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,13 @@ class AppServiceProvider extends ServiceProvider
                 'countTraiNghiem' => $countTraiNghiem,
                 'countHocVien' => $countHocVien,
                 'countHocVienChuaDongHocPhi' => $countHocVienChuaDongHocPhi,
+            ]);
+        });
+
+        View::composer('partials.modals._branch', function ($view) {
+            $view->with([
+                'diaDiems' => DiaDiem::orderBy('ten')->get(),
+                'giaoViens' => GiaoVien::where('trang_thai', TrangThaiGiaoVien::DANG_DAY)->orderBy('ho_ten')->get(),
             ]);
         });
     }

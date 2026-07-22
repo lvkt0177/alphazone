@@ -40,7 +40,7 @@ function renderReferrerList(query) {
   const currentId = Number(document.getElementById('tu_hoc_vien_id').value);
 
   const filtered = options
-    .filter(o => o.id !== currentId) // học viên đang tạo học phí không thể tự giới thiệu chính mình
+    .filter(o => o.id !== currentId)
     .filter(o => !q || o.ma_so.toLowerCase().includes(q) || o.ho_ten.toLowerCase().includes(q))
     .slice(0, 20);
 
