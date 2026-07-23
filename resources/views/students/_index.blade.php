@@ -29,7 +29,7 @@
         <div class="filters">
             <div class="search-mini"><i class="ri-search-line"></i>
                 <input type="text" name="q" value="{{ request('q') }}"
-                    placeholder="Tìm theo Mã số, Họ tên...">
+                    placeholder="Tìm theo Mã số, Họ tên, SĐT...">
             </div>
             <select name="co_so_id" onchange="this.form.submit()">
                 <option value="">Tất cả Cơ sở</option>
@@ -156,9 +156,12 @@
                 nickname: {{ Js::from(old('nickname')) }},
                 ngay_sinh: {{ Js::from(old('ngay_sinh')) }},
                 gioi_tinh: {{ old('gioi_tinh') ?? 1 }},
+                chieu_cao: {{ old('chieu_cao') !== null ? old('chieu_cao') : 'null' }},
+                can_nang: {{ old('can_nang') !== null ? old('can_nang') : 'null' }},
                 sdt: {{ Js::from(old('sdt')) }},
                 truong: {{ Js::from(old('truong')) }},
                 dia_chi: {{ Js::from(old('dia_chi')) }},
+                ghi_chu: {{ Js::from(old('ghi_chu')) }},
                 trang_thai: {{ old('trang_thai') ?? 1 }},
                 avatar_url: 'https://ui-avatars.com/api/?name=' + encodeURIComponent(
                     {{ Js::from(old('ho_ten')) }} || 'HV'),

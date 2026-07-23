@@ -1,7 +1,3 @@
-{{--
-  resources/views/layouts/guest.blade.php
-  Layout dùng cho trang không cần đăng nhập (VD: trang Đăng nhập).
---}}
 <!DOCTYPE html>
 <html lang="vi">
 <head>

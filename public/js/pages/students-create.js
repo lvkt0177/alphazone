@@ -30,3 +30,34 @@ function previewCreateAvatar(input) {
         document.getElementById('createAvatarPreview').src = URL.createObjectURL(input.files[0]);
     }
 }
+
+let maSoDebounceTimer = null;
+
+function goiYMaSo(value) {
+    clearTimeout(maSoDebounceTimer);
+    const hint = document.getElementById('maSoHint');
+    const input = document.getElementById('c_ma_so');
+    if (!hint || !input) return;
+
+    const raw = (value || '').trim();
+    const match = raw.match(/^\D+/);
+    const prefix = match ? match[0] : raw;
+
+    if (!prefix) {
+        hint.textContent = '';
+        return;
+    }
+
+    maSoDebounceTimer = setTimeout(() => {
+        fetch(`${input.dataset.suggestUrl}?prefix=${encodeURIComponent(prefix)}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.suggestion) {
+                    hint.textContent = `Gợi ý: ${data.suggestion} (đang có mã lớn nhất là ${data.so_lon_nhat})`;
+                } else {
+                    hint.textContent = '';
+                }
+            })
+            .catch(() => { hint.textContent = ''; });
+    }, 400);
+}

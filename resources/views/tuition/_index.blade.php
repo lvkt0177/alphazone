@@ -20,7 +20,7 @@
                 <div class="search-mini">
                     <i class="ri-search-line"></i>
                     <input type="text" name="q" value="{{ request('q') }}"
-                        placeholder="Tìm theo Mã số, Họ tên...">
+                        placeholder="Tìm theo Mã số, Họ tên, SĐT...">
                 </div>
             </div>
 
@@ -116,8 +116,8 @@
                             <span class="badge green">Đã đóng</span>
                             @if ($rec->gioi_thieu_ban)
                                 <span class="badge purple" style="margin-top:4px;">
-                                    Giới thiệu
-                                    bạn{{ $rec->nguoiGioiThieu ? ' bởi ' . $rec->nguoiGioiThieu->ho_ten : '' }}
+                                    Giới
+                                    thiệu{{ $rec->nguoiGioiThieu ? ' ' . $rec->nguoiGioiThieu->ma_so . ' - ' . $rec->nguoiGioiThieu->ho_ten : '' }}
                                 </span>
                             @endif
                         @else

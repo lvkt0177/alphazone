@@ -1,7 +1,9 @@
 <div @class(['login-wrap']) id="loginView">
     <div @class(['login-card'])>
         <div @class(['login-logo'])>
-            <div @class(['logo-icon'])><i @class(['ri-graduation-cap-fill'])></i></div>
+            <div @class(['logo-icon'])>
+                <img src="{{ asset('images/logo/logo.jpg') }}" alt="Logo">
+            </div>
             <div @class(['logo-text'])>Alpha<span>Zone</span></div>
         </div>
         <div @class(['login-title'])>Đăng nhập hệ thống</div>

@@ -25,7 +25,8 @@ class HocPhiController extends Controller
         if ($request->filled('q')) {
             $q = $request->q;
             $query->where(fn ($sub) => $sub->where('ma_so', 'like', "%{$q}%")
-                ->orWhere('ho_ten', 'like', "%{$q}%"));
+                ->orWhere('ho_ten', 'like', "%{$q}%")
+                ->orWhere('sdt', 'like', "%{$q}%"));
         }
 
         if ($request->filled('co_so_id')) {
@@ -78,7 +79,7 @@ class HocPhiController extends Controller
             [
                 'gioi_thieu_ban' => $gioiThieuBan,
                 'nguoi_gioi_thieu_id' => $gioiThieuBan ? $data['nguoi_gioi_thieu_id'] : null,
-                'hoc_phi' => $gioiThieuBan ? 0 : $data['hoc_phi'],
+                'hoc_phi' => $gioiThieuBan ? 0 : ($data['hoc_phi'] ?? 0),
                 'dong_phuc' => $data['dong_phuc'] ?? null,
                 'ngay_dong' => $data['ngay_dong'],
             ]

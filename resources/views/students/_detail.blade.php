@@ -34,6 +34,24 @@
             <div class="v" id="dtGender">{{ $hocvien->gioi_tinh->getLabel() }}</div>
         </div>
         <div class="info-item">
+            <div class="k">Chiều cao / Cân nặng</div>
+            <div class="v" id="dtGender">
+                @if ($hocvien->chieu_cao || $hocvien->can_nang)
+                    <span class="v">
+                        @if ($hocvien->chieu_cao)
+                            {{ number_format($hocvien->chieu_cao, 1) }} cm
+                        @endif
+                        @if ($hocvien->chieu_cao && $hocvien->can_nang)
+                            /
+                        @endif
+                        @if ($hocvien->can_nang)
+                            {{ number_format($hocvien->can_nang, 1) }} kg
+                        @endif
+                    </span>
+                @endif
+            </div>
+        </div>
+        <div class="info-item">
             <div class="k">Số điện thoại</div>
             <div class="v" id="dtPhone">{{ $hocvien->sdt ?? '—' }}</div>
         </div>
@@ -61,6 +79,13 @@
         </div>
     </div>
 </div>
+
+@if ($hocvien->ghi_chu)
+    <div class="card" style="margin-bottom:20px;">
+        <div class="k" style="margin-bottom:8px;">Ghi chú</div>
+        <div class="v" style="white-space:pre-line;">{{ $hocvien->ghi_chu }}</div>
+    </div>
+@endif
 
 <div class="table-card">
     <div class="tabs">
@@ -135,8 +160,8 @@
                             {{ number_format($hp->hoc_phi, 0, ',', '.') }} đ
                             @if ($hp->gioi_thieu_ban)
                                 <span class="badge purple" style="margin-left:6px;">
-                                    Giới thiệu
-                                    bạn{{ $hp->nguoiGioiThieu ? ' bởi ' . $hp->nguoiGioiThieu->ma_so . ' - ' . $hp->nguoiGioiThieu->ho_ten : '' }}
+                                    Giới
+                                    thiệu{{ $hp->nguoiGioiThieu ? ' ' . $hp->nguoiGioiThieu->ma_so . ' - ' . $hp->nguoiGioiThieu->ho_ten : '' }}
                                 </span>
                             @endif
                         </td>

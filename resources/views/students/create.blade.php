@@ -29,7 +29,7 @@
                     <button type="button" class="btn btn-light btn-sm"
                         onclick="document.getElementById('createAvatarInput').click()"><i class="ri-upload-2-line"></i> Tải
                         ảnh lên</button>
-                    <div class="hint">jpg, png, tối đa 2MB (không bắt buộc)</div>
+                    <div class="hint">jpg, png, tối đa 5MB (không bắt buộc)</div>
                 </div>
             </div>
 
@@ -42,7 +42,10 @@
             </div>
 
             <div class="form-grid">
-                <div class="field"><label>Mã số</label><input name="ma_so" value="{{ old('ma_so') }}" type="text">
+                <div class="field"><label>Mã số</label>
+                    <input name="ma_so" value="{{ old('ma_so') }}" type="text" id="c_ma_so" autocomplete="off"
+                        oninput="goiYMaSo(this.value)" data-suggest-url="{{ route('hocvien.goiymaso') }}">
+                    <div id="maSoHint" class="text-2" style="font-size:12px;margin-top:5px;min-height:16px;"></div>
                     @error('ma_so')
                         <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
                     @enderror
@@ -57,24 +60,50 @@
                         type="text"></div>
                 <div class="field"><label>Ngày sinh</label><input id="c_dob" name="ngay_sinh"
                         value="{{ old('ngay_sinh') }}" type="date"></div>
-                <div class="field"><label>Giới tính</label>
-                    <select name="gioi_tinh">
-                        @foreach (\App\Enum\GioiTinh::cases() as $g)
-                            <option value="{{ $g->value }}" {{ old('gioi_tinh') == $g->value ? 'selected' : '' }}>
-                                {{ $g->getLabel() }}</option>
-                        @endforeach
-                    </select>
+                <div class="field span-2" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+                    <div>
+                        <label>Giới tính</label>
+                        <select name="gioi_tinh">
+                            @foreach (\App\Enum\GioiTinh::cases() as $g)
+                                <option value="{{ $g->value }}" {{ old('gioi_tinh') == $g->value ? 'selected' : '' }}>
+                                    {{ $g->getLabel() }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <label>Chiều cao (cm)</label>
+                        <input name="chieu_cao" value="{{ old('chieu_cao') }}" type="number" step="0.1"
+                            placeholder="VD: 145.5">
+                        @error('chieu_cao')
+                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div>
+                        <label>Cân nặng (kg)</label>
+                        <input name="can_nang" value="{{ old('can_nang') }}" type="number" step="0.1"
+                            placeholder="VD: 38.2">
+                        @error('can_nang')
+                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
                 <div class="field"><label>Số điện thoại</label><input name="sdt" value="{{ old('sdt') }}"
                         type="text">
                     @error('sdt')
                         <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
-                    @enderror    
+                    @enderror
                 </div>
                 <div class="field"><label>Trường</label><input name="truong" value="{{ old('truong') }}" type="text">
                 </div>
                 <div class="field span-2"><label>Địa chỉ</label><input name="dia_chi" value="{{ old('dia_chi') }}"
                         type="text"></div>
+                <div class="field span-2">
+                    <label>Ghi chú</label>
+                    <textarea name="ghi_chu" rows="3" placeholder="Ghi chú về học viên">{{ old('ghi_chu') }}</textarea>
+                    @error('ghi_chu')
+                        <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                    @enderror
+                </div>
                 <div class="field span-2">
                     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
                         <label style="margin:0;">Cơ sở (chọn ít nhất 1 cơ sở)</label>

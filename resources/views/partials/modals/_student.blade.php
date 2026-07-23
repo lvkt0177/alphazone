@@ -18,7 +18,7 @@
                         <button type="button" class="btn btn-light btn-sm"
                             onclick="document.getElementById('f_avatar_input').click()"><i class="ri-upload-2-line"></i>
                             Đổi ảnh</button>
-                        <div class="hint">jpg, png, tối đa 2MB. Để trống nếu không đổi ảnh.</div>
+                        <div class="hint">jpg, png, tối đa 5MB. Để trống nếu không đổi ảnh.</div>
                     </div>
                 </div>
 
@@ -37,27 +37,52 @@
                     </div>
                     <div class="field"><label>Ngày sinh</label><input id="f_dob" name="ngay_sinh" type="date">
                     </div>
-                    <div class="field"><label>Giới tính</label>
-                        <select id="f_gender" name="gioi_tinh">
-                            @foreach (\App\Enum\GioiTinh::cases() as $g)
-                                <option value="{{ $g->value }}">{{ $g->getLabel() }}</option>
-                            @endforeach
-                        </select>
+                    <div class="field span-2" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+                        <div>
+                            <label>Giới tính</label>
+                            <select id="f_gender" name="gioi_tinh">
+                                @foreach (\App\Enum\GioiTinh::cases() as $g)
+                                    <option value="{{ $g->value }}">{{ $g->getLabel() }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label>Chiều cao (cm)</label>
+                            <input id="f_height" name="chieu_cao" type="number" step="0.1"
+                                placeholder="VD: 145.5">
+                            @error('chieu_cao')
+                                <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div>
+                            <label>Cân nặng (kg)</label>
+                            <input id="f_weight" name="can_nang" type="number" step="0.1" placeholder="VD: 38.2">
+                            @error('can_nang')
+                                <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
                     <div class="field"><label>Số điện thoại</label><input id="f_phone" name="sdt" type="text">
                     </div>
                     <div class="field"><label>Trường</label><input id="f_school" name="truong" type="text"></div>
                     <div class="field span-2"><label>Địa chỉ</label><input id="f_address" name="dia_chi" type="text">
                     </div>
+                    <div class="field span-2">
+                        <label>Ghi chú</label>
+                        <textarea id="f_note" name="ghi_chu" rows="3" placeholder="Ghi chú về học viên..."></textarea>
+                        @error('ghi_chu')
+                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                        @enderror
+                    </div>
 
                     <div class="field span-2">
                         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
                             <label style="margin:0;">Cơ sở (chọn ít nhất 1)</label>
-                            @if(!empty($coSos))
+                            @if (!empty($coSos))
                                 <span id="stuBranchCount" class="badge purple" style="font-size:12px;">0 đã chọn</span>
                             @endif
                         </div>
-                        @if(empty($coSos))
+                        @if (empty($coSos))
                             <div class="badge red">Chưa có cơ sở nào được tạo. Vui lòng tạo cơ sở trước.</div>
                         @else
                             <div style="display:flex;gap:8px;margin-bottom:10px;">

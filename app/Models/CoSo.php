@@ -19,6 +19,7 @@ class CoSo extends Model
         'ten',
         'giao_vien_id',
         'trang_thai',
+        'dia_diem_id',
     ];
 
     protected $casts = [
@@ -30,10 +31,6 @@ class CoSo extends Model
         return $this->belongsTo(GiaoVien::class, 'giao_vien_id');
     }
 
-    /**
-     * C2
-     * "Tên Cơ sở - Người phụ trách" (vd: Cơ sở A - Nguyễn Văn B)
-     */
     public function getNhanHienThiAttribute(): string
     {
         return "{$this->ten} - {$this->giaoVien->ho_ten}";
@@ -57,5 +54,10 @@ class CoSo extends Model
     public function tienSans(): HasMany
     {
         return $this->hasMany(TienSan::class);
+    }
+
+    public function diaDiem(): BelongsTo
+    {
+        return $this->belongsTo(DiaDiem::class);
     }
 }

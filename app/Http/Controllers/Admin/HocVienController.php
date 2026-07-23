@@ -24,7 +24,8 @@ class HocVienController extends Controller
         if ($request->filled('q')) {
             $q = $request->q;
             $query->where(fn ($sub) => $sub->where('ma_so', 'like', "%{$q}%")
-                ->orWhere('ho_ten', 'like', "%{$q}%"));
+                ->orWhere('ho_ten', 'like', "%{$q}%")
+                ->orWhere('sdt', 'like', "%{$q}%"));
         }
 
         if ($request->filled('co_so_id')) {
@@ -76,6 +77,35 @@ class HocVienController extends Controller
         return view('students.create', compact('coSos', 'traiNghiems'));
     }
 
+    public function goiYMaSo(Request $request)
+    {
+        $prefix = trim((string) $request->input('prefix'));
+
+        if ($prefix === '') {
+            return response()->json(['suggestion' => null]);
+        }
+
+        $maxSo = HocVien::where('ma_so', 'like', $prefix.'%')
+            ->pluck('ma_so')
+            ->map(function ($maSo) use ($prefix) {
+                $rest = substr($maSo, strlen($prefix));
+                $rest = preg_replace('/^\D+/', '', $rest);
+
+                return is_numeric($rest) ? (int) $rest : null;
+            })
+            ->filter(fn ($n) => $n !== null)
+            ->max();
+
+        if ($maxSo === null) {
+            return response()->json(['suggestion' => null]);
+        }
+
+        return response()->json([
+            'suggestion' => $prefix.($maxSo + 1),
+            'so_lon_nhat' => $prefix.$maxSo,
+        ]);
+    }
+
     public function store(HocVienRequest $request)
     {
         $data = $request->validated();
@@ -118,12 +148,6 @@ class HocVienController extends Controller
         return redirect()->route('hocvien.index')->with('success', "Cập nhật học viên \"{$hocvien->ho_ten}\" thành công");
     }
 
-    /**
-     * Case 1: chưa có Điểm danh/Học phí liên quan → xoá cứng được. Hiện tại 2 bảng đó
-     * CHƯA tồn tại (chưa làm module Điểm danh/Học phí) nên mọi học viên đều xoá được.
-     * Case 2: có dữ liệu liên quan → chặn. Khi 2 bảng kia có khoá ngoại restrictOnDelete(),
-     * đoạn try/catch dưới đây tự động bắt lỗi, không cần sửa lại gì thêm.
-     */
     public function destroy(HocVien $hocvien)
     {
         try {

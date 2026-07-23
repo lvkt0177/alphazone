@@ -1,5 +1,3 @@
-// Bấm icon sửa -> đọc dữ liệu từ data-student (đã escape an toàn) thay vì nhúng JSON vào onclick.
-// Cách này tránh lỗi vỡ HTML khi tên/nickname/địa chỉ... chứa dấu nháy đơn hoặc nháy kép.
 document.addEventListener('click', function (e) {
   const btn = e.target.closest('.edit-student-btn');
   if (!btn) return;
@@ -11,13 +9,12 @@ document.addEventListener('click', function (e) {
   }
 });
 
-function previewStudentAvatar(input){
+function previewStudentAvatar(input) {
   if (input.files && input.files[0]) {
     document.getElementById('stuFormAvatarPreview').src = URL.createObjectURL(input.files[0]);
   }
 }
 
-// Lọc danh sách cơ sở theo từ khoá tìm kiếm (giống chức năng tìm cơ sở ở modal trial)
 function locCoSoHocVien(keyword) {
   const kw = (keyword || '').trim().toLowerCase();
   document.querySelectorAll('#stu_branches .branch-chip').forEach(chip => {
@@ -26,7 +23,6 @@ function locCoSoHocVien(keyword) {
   });
 }
 
-// Chọn tất cả / Bỏ chọn tất cả (chỉ áp dụng cho các cơ sở đang hiển thị sau khi lọc)
 function chonTatCaCoSoHocVien(checked) {
   document.querySelectorAll('#stu_branches .branch-chip').forEach(chip => {
     if (chip.style.display !== 'none') {
@@ -37,7 +33,6 @@ function chonTatCaCoSoHocVien(checked) {
   capNhatSoLuongCoSoHocVien();
 }
 
-// Cập nhật badge đếm số cơ sở đã chọn
 function capNhatSoLuongCoSoHocVien() {
   const badge = document.getElementById('stuBranchCount');
   if (!badge) return;
@@ -45,7 +40,7 @@ function capNhatSoLuongCoSoHocVien() {
   badge.textContent = `${count} đã chọn`;
 }
 
-function openStudentModal(hv){
+function openStudentModal(hv) {
   const form = document.getElementById('studentForm');
   form.action = `${form.dataset.updateUrlBase}/${hv.id}`;
   document.getElementById('studentEditingId').value = hv.id;
@@ -53,15 +48,17 @@ function openStudentModal(hv){
   document.getElementById('f_code').value = hv.ma_so || '';
   document.getElementById('f_name').value = hv.ho_ten || '';
   document.getElementById('f_nickname').value = hv.nickname || '';
-  document.getElementById('f_dob').value = hv.ngay_sinh ? hv.ngay_sinh.slice(0,10) : '';
+  document.getElementById('f_dob').value = hv.ngay_sinh ? hv.ngay_sinh.slice(0, 10) : '';
   document.getElementById('f_gender').value = hv.gioi_tinh;
+  document.getElementById('f_height').value = hv.chieu_cao ?? '';
+  document.getElementById('f_weight').value = hv.can_nang ?? '';
   document.getElementById('f_phone').value = hv.sdt || '';
   document.getElementById('f_school').value = hv.truong || '';
   document.getElementById('f_address').value = hv.dia_chi || '';
+  document.getElementById('f_note').value = hv.ghi_chu || '';
   document.getElementById('f_status').value = hv.trang_thai;
   document.getElementById('stuFormAvatarPreview').src = hv.avatar_url;
 
-  // reset ô tìm kiếm cơ sở mỗi lần mở modal
   const searchInput = document.getElementById('stuBranchSearch');
   if (searchInput) searchInput.value = '';
   locCoSoHocVien('');
