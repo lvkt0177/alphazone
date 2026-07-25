@@ -4,7 +4,7 @@
             <h3 id="tienSanModalTitle">Tạo Tiền sân</h3><i class="ri-close-line" onclick="closeModal('tienSanModal')"></i>
         </div>
 
-        <form id="tienSanForm" method="POST" data-store-url="{{ route('tiensan.store') }}"
+        <form id="tienSanForm" method="POST" enctype="multipart/form-data" data-store-url="{{ route('tiensan.store') }}"
             data-update-url-base="{{ url('tiensan') }}">
             @csrf
             <div id="tienSanMethodField"></div>
@@ -16,7 +16,7 @@
                     <div class="field">
                         <label>Cơ sở</label>
                         <select name="co_so_id" id="ts_coso">
-                            @if(empty($coSos))
+                            @if (empty($coSos))
                                 <option value="">Không có cơ sở nào</option>
                             @else
                                 @foreach ($coSos as $cs)
@@ -47,6 +47,26 @@
                     <div class="field">
                         <label>Ghi chú</label>
                         <textarea name="ghi_chu" id="ts_note" rows="2" class="auto-grow note-input" placeholder="Ghi chú (nếu có)"></textarea>
+                    </div>
+                    <div class="field">
+                        <label>Bill (ảnh)</label>
+                        <div class="avatar-upload" style="margin-bottom:0;">
+                            <div class="box" id="ts_bill_preview_box" style="display:none;">
+                                <img id="ts_bill_preview" src="" alt="">
+                            </div>
+                            <div>
+                                <input type="file" name="bill" id="ts_bill_input" accept="image/*"
+                                    style="display:none" onchange="previewTienSanBill(this)">
+                                <button type="button" class="btn btn-light btn-sm"
+                                    onclick="document.getElementById('ts_bill_input').click()">
+                                    <i class="ri-upload-2-line"></i> Tải Bill lên
+                                </button>
+                                <div class="hint">jpg, png, tối đa 5MB. Để trống nếu không đổi ảnh.</div>
+                            </div>
+                        </div>
+                        @error('bill')
+                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
             </div>

@@ -18,6 +18,7 @@ class TienSanRequest extends FormRequest
             'ngay' => ['required', 'date'],
             'so_tien' => ['required', 'integer', 'min:0'],
             'ghi_chu' => ['nullable', 'string', 'max:255'],
+            'bill' => ['nullable', 'image', 'max:5120'],
         ];
     }
 
@@ -31,6 +32,8 @@ class TienSanRequest extends FormRequest
             'so_tien.required' => 'Số tiền không được để trống.',
             'so_tien.integer' => 'Số tiền phải là số nguyên.',
             'so_tien.min' => 'Số tiền không được nhỏ hơn 0.',
+            'bill.image' => 'Bill phải là định dạng hình ảnh.',
+            'bill.max' => 'Dung lượng ảnh Bill không được vượt quá 5MB.',
         ];
     }
 }

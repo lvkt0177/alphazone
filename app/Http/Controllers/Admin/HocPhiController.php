@@ -42,10 +42,13 @@ class HocPhiController extends Controller
 
         $hocViens = $query->orderBy('ho_ten')->paginate(10)->withQueryString();
 
-        $danhSachThang = collect(range(0, 11))->map(function ($i) {
+        $danhSachThang = collect(range(-6, 11))->map(function ($i) {
             $d = now()->subMonths($i)->startOfMonth();
 
-            return ['value' => $d->format('Y-m'), 'label' => 'Tháng '.$d->format('n/Y')];
+            return [
+                'value' => $d->format('Y-m'),
+                'label' => 'Tháng '.$d->format('n/Y').($i < 0 ? ' (sắp tới)' : ''),
+            ];
         });
 
         $countBaseQuery = HocVien::when($request->filled('co_so_id'), function ($q) use ($request) {

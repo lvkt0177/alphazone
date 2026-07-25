@@ -23,6 +23,7 @@ class DiemDanhRequest extends FormRequest
             'diem_danh.*.hoc_vien_id' => ['required', 'exists:hoc_viens,id'],
             'diem_danh.*.trang_thai' => ['required', Rule::enum(TrangThaiDiemDanh::class)],
             'diem_danh.*.ghi_chu' => ['nullable', 'string', 'max:255'],
+            'diem_danh.*.hoc_bu' => ['nullable', 'boolean'],
         ];
     }
 
@@ -42,6 +43,7 @@ class DiemDanhRequest extends FormRequest
             'diem_danh.*.trang_thai.Illuminate\Validation\Rules\Enum' => 'Trạng thái điểm danh không hợp lệ.',
             'diem_danh.*.ghi_chu.string' => 'Ghi chú phải là chuỗi ký tự.',
             'diem_danh.*.ghi_chu.max' => 'Ghi chú không được vượt quá 255 ký tự.',
+            'diem_danh.*.hoc_bu.boolean' => 'Học bù phải là giá trị boolean.',
         ];
     }
 }

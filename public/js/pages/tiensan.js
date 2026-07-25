@@ -1,3 +1,12 @@
+function previewTienSanBill(input) {
+    const box = document.getElementById('ts_bill_preview_box');
+    const img = document.getElementById('ts_bill_preview');
+    if (input.files && input.files[0]) {
+        img.src = URL.createObjectURL(input.files[0]);
+        box.style.display = 'flex';
+    }
+}
+
 function openTienSanModal(ts) {
     const form = document.getElementById('tienSanForm');
     const methodField = document.getElementById('tienSanMethodField');
@@ -19,6 +28,17 @@ function openTienSanModal(ts) {
     document.getElementById('ts_money').value = formatMoney(ts?.so_tien);
     document.getElementById('ts_money_raw').value = ts?.so_tien ?? '';
     document.getElementById('ts_note').value = ts?.ghi_chu ?? '';
+
+    document.getElementById('ts_bill_input').value = '';
+    const previewBox = document.getElementById('ts_bill_preview_box');
+    const previewImg = document.getElementById('ts_bill_preview');
+    if (ts?.bill_url) {
+        previewImg.src = ts.bill_url;
+        previewBox.style.display = 'flex';
+    } else {
+        previewImg.src = '';
+        previewBox.style.display = 'none';
+    }
 
     openModal('tienSanModal');
 }

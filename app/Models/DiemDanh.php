@@ -14,7 +14,7 @@ class DiemDanh extends Model
     protected $table = 'diem_danhs';
 
     protected $fillable = [
-        'hoc_vien_id', 'co_so_id', 'giao_vien_id', 'ngay', 'trang_thai', 'ghi_chu',
+        'hoc_vien_id', 'co_so_id', 'hoc_bu', 'giao_vien_id', 'ngay', 'trang_thai', 'ghi_chu',
     ];
 
     protected $casts = [

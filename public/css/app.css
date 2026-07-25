@@ -1121,6 +1121,10 @@ textarea.note-input:focus {
   border-top: 1px solid var(--border);
 }
 
+.modal-hoc-vien-hoc-bu {
+  height: 20vh;
+}
+
 .toast-wrap {
   position: fixed;
   bottom: 22px;

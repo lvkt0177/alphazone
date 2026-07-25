@@ -87,8 +87,8 @@
                         @enderror
                     </div>
                 </div>
-                <div class="field"><label>Số điện thoại</label><input name="sdt" value="{{ old('sdt') }}"
-                        type="text">
+                <div class="field"><label>Số điện thoại</label><input id="c_phone" name="sdt"
+                        value="{{ old('sdt') }}" type="text">
                     @error('sdt')
                         <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
                     @enderror

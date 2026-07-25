@@ -8,6 +8,7 @@ function locTraiNghiem() {
 function chonTraiNghiem(t) {
     document.getElementById('tu_trai_nghiem_id').value = t.id;
     document.getElementById('c_name').value = t.ho_ten;
+    document.getElementById('c_phone').value = t.sdt || '';
     if (t.nam_sinh) document.getElementById('c_dob').value = `${t.nam_sinh}-01-01`;
 
     document.querySelectorAll('.create-branch-checkbox').forEach(cb => cb.checked = false);

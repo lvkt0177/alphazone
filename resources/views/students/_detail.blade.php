@@ -108,9 +108,12 @@
                     <tr>
                         <td>{{ $dd->ngay->format('d/m/Y') }}</td>
                         <td>
-                            <span class="badge {{ $dd->trang_thai->getBadge() }}">
-                                {{ $dd->trang_thai->getLabel() }}
-                            </span>
+                            <span
+                                class="badge {{ $dd->trang_thai->getBadge() }}">{{ $dd->trang_thai->getLabel() }}</span>
+                            @if ($dd->hoc_bu)
+                                <span class="badge orange" style="margin-left:4px;">Học bù tại
+                                    {{ $dd->coSo->ten }}</span>
+                            @endif
                         </td>
                         <td>{{ $dd->ghi_chu ?? '—' }}</td>
                         <td>{{ $dd->coSo->ten }} - {{ $dd->giaoVien->ho_ten ?? 'N/A' }}</td>
