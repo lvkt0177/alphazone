@@ -34,6 +34,12 @@
                 Đang điểm danh cho <b>{{ optional($coSos->firstWhere('id', $selectedCoSoId))->ten }}</b>
                 — ngày <b>{{ \Carbon\Carbon::parse($selectedDate)->format('d/m/Y') }}</b>
             </div>
+
+            <div style="margin-top:10px;">
+                <button type="button" class="btn btn-outline btn-sm" onclick="openModal('hocBuModal')">
+                    <i class="ri-user-add-line"></i> Học viên học bù
+                </button>
+            </div>
         @endif
     </form>
 
@@ -66,6 +72,7 @@
                         <td>
                             <input type="hidden" name="diem_danh[{{ $hv->id }}][hoc_vien_id]"
                                 value="{{ $hv->id }}">
+                            <input type="hidden" name="diem_danh[{{ $hv->id }}][hoc_bu]" value="0">
                             <label class="check-row">
                                 <input type="radio" name="diem_danh[{{ $hv->id }}][trang_thai]" value="1"
                                     {{ !$rec || $rec->trang_thai->value == 1 ? 'checked' : '' }}> Đi học
@@ -83,18 +90,116 @@
                         </td>
                     </tr>
                 @empty
-                    <tr>
-                        <td colspan="5" class="text-2" style="text-align:center;padding:24px;">Cơ sở này chưa có học
-                            viên đang hoạt động</td>
-                    </tr>
+                    @if ($hocViensBu->isEmpty())
+                        <tr>
+                            <td colspan="5" class="text-2" style="text-align:center;padding:24px;">Cơ sở này chưa có
+                                học
+                                viên đang hoạt động</td>
+                        </tr>
+                    @endif
                 @endforelse
+
+                @foreach ($hocViensBu as $hv)
+                    @php
+                        $rec = $existing->get($hv->id);
+                    @endphp
+                    <tr style="background:var(--orange-bg);">
+                        <td><a href="{{ route('hocvien.show', $hv) }}" class="code-link">{{ $hv->ma_so }}</a></td>
+                        <td>
+                            <div class="cell-user"><img src="{{ $hv->avatar_url }}" alt="">
+                                <div style="flex:1;">
+                                    <div class="name">{{ $hv->ho_ten }}</div>
+                                    <div style="display:flex;align-items:center;gap:6px;margin-top:2px;">
+                                        <span class="badge orange" style="font-size:11px;padding:0;">Học bù</span>
+                                        <i class="ri-close-circle-line del" style="font-size:15px;cursor:pointer;"
+                                            onclick="xoaHocVienHocBu('{{ route('diemdanh.hocbu.destroy', $rec) }}', {{ Js::from($hv->ho_ten) }})"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="hidden" name="diem_danh[{{ $hv->id }}][hoc_vien_id]"
+                                value="{{ $hv->id }}">
+                            <input type="hidden" name="diem_danh[{{ $hv->id }}][hoc_bu]" value="1">
+                            <label class="check-row">
+                                <input type="radio" name="diem_danh[{{ $hv->id }}][trang_thai]" value="1"
+                                    {{ !$rec || $rec->trang_thai->value == 1 ? 'checked' : '' }}> Đi
+                                học
+                            </label>
+                        </td>
+                        <td>
+                            <label class="check-row">
+                                <input type="radio" name="diem_danh[{{ $hv->id }}][trang_thai]" value="2"
+                                    {{ $rec && $rec->trang_thai->value == 2 ? 'checked' : '' }}> Vắng
+                            </label>
+                        </td>
+                        <td>
+                            <textarea class="note-input auto-grow" name="diem_danh[{{ $hv->id }}][ghi_chu]" rows="1"
+                                maxlength="150" placeholder="Ghi chú (nếu có)">{{ $rec->ghi_chu ?? '' }}</textarea>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
 
-        @if ($hocViens->isNotEmpty())
+        @if ($hocViens->isNotEmpty() || $hocViensBu->isNotEmpty())
             <div style="margin-top:18px;text-align:right;">
                 <button type="submit" class="btn btn-primary"><i class="ri-save-line"></i> Lưu điểm danh</button>
             </div>
         @endif
     </form>
+
+    <form id="deleteHocBuForm" method="POST" style="display:none;">
+        @csrf
+        @method('DELETE')
+    </form>
 </div>
+
+@if ($selectedCoSoId)
+    <div class="overlay" id="hocBuModal">
+        <div class="modal">
+            <div class="modal-head">
+                <h3>Thêm Học viên học bù</h3>
+                <i class="ri-close-line" onclick="closeModal('hocBuModal')"></i>
+            </div>
+            <form method="POST" action="{{ route('diemdanh.hocbu') }}" id="hocBuForm">
+                @csrf
+                <input type="hidden" name="co_so_id" value="{{ $selectedCoSoId }}">
+                <input type="hidden" name="ngay" value="{{ $selectedDate }}">
+                <input type="hidden" name="hoc_vien_id" id="hb_hoc_vien_id">
+
+                <div class="modal-body modal-hoc-vien-hoc-bu">
+                    <div class="field">
+                        <label>Chọn học viên (không thuộc Cơ sở này)</label>
+                        <div style="position:relative;">
+                            <input type="text" id="hb_search" autocomplete="off"
+                                placeholder="Tìm theo Mã số hoặc Họ tên..."
+                                style="width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);">
+                            <div id="hb_list"
+                                style="display:none;position:absolute;z-index:20;top:100%;left:0;right:0;background:#fff;border:1px solid var(--border);border-radius:10px;margin-top:4px;max-height:240px;overflow-y:auto;box-shadow:var(--shadow);">
+                            </div>
+                        </div>
+                        @if ($hocViensChoHocBu->isEmpty())
+                            <div class="badge red" style="margin-top:8px;">Không còn học viên nào để thêm học bù.
+                            </div>
+                        @endif
+                    </div>
+                    <div class="small-note" style="margin-top:8px;">
+                        Sau khi thêm, học viên sẽ xuất hiện trong bảng điểm danh bên dưới (đánh dấu "Học bù") — tick Đi
+                        học/Vắng rồi bấm "Lưu điểm danh" như bình thường.
+                    </div>
+                </div>
+                <div class="modal-foot">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('hocBuModal')">Huỷ</button>
+                    <button type="submit" class="btn btn-primary" id="hb_submit_btn" disabled>
+                        <i class="ri-add-line"></i> Thêm vào danh sách
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        window.__hocVienChoHocBu = @json($hocViensChoHocBu->map(fn($hv) => ['id' => $hv->id, 'ma_so' => $hv->ma_so, 'ho_ten' => $hv->ho_ten]));
+    </script>
+@endif
