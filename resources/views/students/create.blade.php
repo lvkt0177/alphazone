@@ -111,7 +111,6 @@
 
                     <div class="student-branch-toolbar">
                         <div class="search-mini student-search-wrap">
-                            <i class="ri-search-line"></i>
                             <input type="text" id="branchSearch" placeholder="Tìm cơ sở..."
                                 class="student-branch-search-input">
                         </div>

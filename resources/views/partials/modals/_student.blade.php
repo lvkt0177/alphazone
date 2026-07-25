@@ -87,7 +87,6 @@
                         @else
                             <div class="student-branch-toolbar">
                                 <div class="search-mini student-search-wrap">
-                                    <i class="ri-search-line"></i>
                                     <input type="text" id="stuBranchSearch" placeholder="Tìm cơ sở..."
                                         oninput="locCoSoHocVien(this.value)"
                                         class="student-branch-search-input">
