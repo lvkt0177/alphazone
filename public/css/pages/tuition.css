@@ -90,14 +90,6 @@
     position: relative;
 }
 
-.tuition-referrer-search-input {
-    width: 100%;
-    padding: 11px 14px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    background: var(--bg);
-}
-
 .tuition-referrer-list {
     display: none;
     position: absolute;
@@ -137,7 +129,6 @@
     display: none;
 }
 
-/* ---- JS-generated markup (public/js/pages/tuition.js) ---- */
 .tuition-referrer-option {
     padding: 9px 14px;
     cursor: pointer;

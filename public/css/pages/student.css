@@ -141,17 +141,7 @@
 }
 
 .student-search-wrap {
-    position: relative;
     flex: 1;
-}
-
-.student-search-icon {
-    position: absolute;
-    left: 11px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-2);
-    font-size: 15px;
 }
 
 .student-branch-search-input {

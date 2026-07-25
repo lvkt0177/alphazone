@@ -75,14 +75,6 @@
     position: relative;
 }
 
-.attendance-search-input {
-    width: 100%;
-    padding: 11px 14px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    background: var(--bg);
-}
-
 .attendance-search-list {
     display: none;
     position: absolute;

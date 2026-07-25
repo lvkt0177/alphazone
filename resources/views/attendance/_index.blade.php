@@ -1,8 +1,4 @@
-<div class="breadcrumb">
-    <a>Trang chủ</a>
-    <i class="ri-arrow-right-s-line"></i>
-    <a class="active">Điểm danh</a>
-</div>
+<div class="breadcrumb"><a>Trang chủ</a> <i class="ri-arrow-right-s-line"></i> <a class="active">Điểm danh</a></div>
 <div class="page-head">
     <div class="page-title">Điểm danh Học viên</div>
 </div>
@@ -138,8 +134,8 @@
                             </label>
                         </td>
                         <td>
-                            <textarea class="note-input auto-grow" name="diem_danh[{{ $hv->id }}][ghi_chu]" rows="1" maxlength="150"
-                                placeholder="Ghi chú (nếu có)">{{ $rec->ghi_chu ?? '' }}</textarea>
+                            <textarea class="note-input auto-grow" name="diem_danh[{{ $hv->id }}][ghi_chu]" rows="1"
+                                maxlength="150" placeholder="Ghi chú (nếu có)">{{ $rec->ghi_chu ?? '' }}</textarea>
                         </td>
                     </tr>
                 @endforeach
@@ -177,7 +173,7 @@
                         <label>Chọn học viên (không thuộc Cơ sở này)</label>
                         <div class="attendance-search-wrap">
                             <input type="text" id="hb_search" autocomplete="off"
-                                placeholder="Tìm theo Mã số hoặc Họ tên..." class="attendance-search-input">
+                                placeholder="Tìm theo Mã số hoặc Họ tên...">
                             <div id="hb_list" class="attendance-search-list">
                             </div>
                         </div>

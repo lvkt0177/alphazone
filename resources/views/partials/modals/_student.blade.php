@@ -86,8 +86,8 @@
                             <div class="badge red">Chưa có cơ sở nào được tạo. Vui lòng tạo cơ sở trước.</div>
                         @else
                             <div class="student-branch-toolbar">
-                                <div class="student-search-wrap">
-                                    <i class="ri-search-line student-search-icon"></i>
+                                <div class="search-mini student-search-wrap">
+                                    <i class="ri-search-line"></i>
                                     <input type="text" id="stuBranchSearch" placeholder="Tìm cơ sở..."
                                         oninput="locCoSoHocVien(this.value)"
                                         class="student-branch-search-input">

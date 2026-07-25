@@ -43,8 +43,7 @@
                         <label>Học viên giới thiệu</label>
                         <div class="tuition-referrer-search-wrap">
                             <input type="text" id="tu_referrer_search" autocomplete="off"
-                                placeholder="Tìm theo Mã số hoặc Họ tên..."
-                                class="tuition-referrer-search-input">
+                                placeholder="Tìm theo Mã số hoặc Họ tên...">
                             <div id="tu_referrer_list"
                                 class="tuition-referrer-list"></div>
                         </div>

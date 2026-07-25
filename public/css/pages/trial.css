@@ -106,17 +106,7 @@
 }
 
 .trial-search-wrap {
-    position: relative;
     flex: 1;
-}
-
-.trial-search-icon {
-    position: absolute;
-    left: 11px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-2);
-    font-size: 15px;
 }
 
 .trial-branch-search-input {
