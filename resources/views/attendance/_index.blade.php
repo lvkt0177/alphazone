@@ -1,17 +1,21 @@
-<div class="breadcrumb"><a>Trang chủ</a> <i class="ri-arrow-right-s-line"></i> <a class="active">Điểm danh</a></div>
+<div class="breadcrumb">
+    <a>Trang chủ</a>
+    <i class="ri-arrow-right-s-line"></i>
+    <a class="active">Điểm danh</a>
+</div>
 <div class="page-head">
     <div class="page-title">Điểm danh Học viên</div>
 </div>
 
 @if (session('success'))
-    <div class="badge green" style="display:block;padding:10px 14px;margin-bottom:16px;">{{ session('success') }}</div>
+    <div class="badge green attendance-alert-success">{{ session('success') }}</div>
 @endif
 
 <div class="table-card">
     <form method="GET" action="{{ route('diemdanh.index') }}" class="attendance-toolbar">
         <div class="filters">
-            <div class="field" style="margin:0;min-width:220px;">
-                <label style="font-size:12.5px;margin-bottom:5px;">Cơ sở</label>
+            <div class="field attendance-filter-field">
+                <label class="attendance-filter-label">Cơ sở</label>
                 <select name="co_so_id" onchange="this.form.submit()">
                     @forelse ($coSos as $cs)
                         <option value="{{ $cs->id }}" {{ $selectedCoSoId == $cs->id ? 'selected' : '' }}>
@@ -23,19 +27,19 @@
                 </select>
             </div>
 
-            <div class="field" style="margin:0;min-width:180px;">
-                <label style="font-size:12.5px;margin-bottom:5px;">Ngày điểm danh</label>
+            <div class="field attendance-filter-field--date">
+                <label class="attendance-filter-label">Ngày điểm danh</label>
                 <input type="date" name="ngay" value="{{ $selectedDate }}" onchange="this.form.submit()">
             </div>
         </div>
 
         @if ($selectedCoSoId)
-            <div class="text-2" style="font-size:13px;margin-top:10px;">
+            <div class="text-2 attendance-status-line">
                 Đang điểm danh cho <b>{{ optional($coSos->firstWhere('id', $selectedCoSoId))->ten }}</b>
                 — ngày <b>{{ \Carbon\Carbon::parse($selectedDate)->format('d/m/Y') }}</b>
             </div>
 
-            <div style="margin-top:10px;">
+            <div class="attendance-hocbu-btn-wrap">
                 <button type="button" class="btn btn-outline btn-sm" onclick="openModal('hocBuModal')">
                     <i class="ri-user-add-line"></i> Học viên học bù
                 </button>
@@ -54,8 +58,8 @@
                 <tr>
                     <th>Mã số</th>
                     <th>Họ tên</th>
-                    <th style="width:130px;">Đi học</th>
-                    <th style="width:130px;">Vắng</th>
+                    <th class="attendance-col-checkbox">Đi học</th>
+                    <th class="attendance-col-checkbox">Vắng</th>
                     <th>Ghi chú</th>
                 </tr>
             </thead>
@@ -92,7 +96,7 @@
                 @empty
                     @if ($hocViensBu->isEmpty())
                         <tr>
-                            <td colspan="5" class="text-2" style="text-align:center;padding:24px;">Cơ sở này chưa có
+                            <td colspan="5" class="text-2 attendance-empty-row">Cơ sở này chưa có
                                 học
                                 viên đang hoạt động</td>
                         </tr>
@@ -103,15 +107,15 @@
                     @php
                         $rec = $existing->get($hv->id);
                     @endphp
-                    <tr style="background:var(--orange-bg);">
+                    <tr class="attendance-row-hocbu">
                         <td><a href="{{ route('hocvien.show', $hv) }}" class="code-link">{{ $hv->ma_so }}</a></td>
                         <td>
                             <div class="cell-user"><img src="{{ $hv->avatar_url }}" alt="">
-                                <div style="flex:1;">
+                                <div class="attendance-user-info">
                                     <div class="name">{{ $hv->ho_ten }}</div>
-                                    <div style="display:flex;align-items:center;gap:6px;margin-top:2px;">
-                                        <span class="badge orange" style="font-size:11px;padding:0;">Học bù</span>
-                                        <i class="ri-close-circle-line del" style="font-size:15px;cursor:pointer;"
+                                    <div class="attendance-hocbu-meta">
+                                        <span class="badge orange attendance-hocbu-badge">Học bù</span>
+                                        <i class="ri-close-circle-line del attendance-hocbu-del"
                                             onclick="xoaHocVienHocBu('{{ route('diemdanh.hocbu.destroy', $rec) }}', {{ Js::from($hv->ho_ten) }})"></i>
                                     </div>
                                 </div>
@@ -134,8 +138,8 @@
                             </label>
                         </td>
                         <td>
-                            <textarea class="note-input auto-grow" name="diem_danh[{{ $hv->id }}][ghi_chu]" rows="1"
-                                maxlength="150" placeholder="Ghi chú (nếu có)">{{ $rec->ghi_chu ?? '' }}</textarea>
+                            <textarea class="note-input auto-grow" name="diem_danh[{{ $hv->id }}][ghi_chu]" rows="1" maxlength="150"
+                                placeholder="Ghi chú (nếu có)">{{ $rec->ghi_chu ?? '' }}</textarea>
                         </td>
                     </tr>
                 @endforeach
@@ -143,13 +147,13 @@
         </table>
 
         @if ($hocViens->isNotEmpty() || $hocViensBu->isNotEmpty())
-            <div style="margin-top:18px;text-align:right;">
+            <div class="attendance-save-wrap">
                 <button type="submit" class="btn btn-primary"><i class="ri-save-line"></i> Lưu điểm danh</button>
             </div>
         @endif
     </form>
 
-    <form id="deleteHocBuForm" method="POST" style="display:none;">
+    <form id="deleteHocBuForm" method="POST" class="attendance-hidden-form">
         @csrf
         @method('DELETE')
     </form>
@@ -171,20 +175,18 @@
                 <div class="modal-body modal-hoc-vien-hoc-bu">
                     <div class="field">
                         <label>Chọn học viên (không thuộc Cơ sở này)</label>
-                        <div style="position:relative;">
+                        <div class="attendance-search-wrap">
                             <input type="text" id="hb_search" autocomplete="off"
-                                placeholder="Tìm theo Mã số hoặc Họ tên..."
-                                style="width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);">
-                            <div id="hb_list"
-                                style="display:none;position:absolute;z-index:20;top:100%;left:0;right:0;background:#fff;border:1px solid var(--border);border-radius:10px;margin-top:4px;max-height:240px;overflow-y:auto;box-shadow:var(--shadow);">
+                                placeholder="Tìm theo Mã số hoặc Họ tên..." class="attendance-search-input">
+                            <div id="hb_list" class="attendance-search-list">
                             </div>
                         </div>
                         @if ($hocViensChoHocBu->isEmpty())
-                            <div class="badge red" style="margin-top:8px;">Không còn học viên nào để thêm học bù.
+                            <div class="badge red attendance-hocbu-empty">Không còn học viên nào để thêm học bù.
                             </div>
                         @endif
                     </div>
-                    <div class="small-note" style="margin-top:8px;">
+                    <div class="small-note attendance-hocbu-note">
                         Sau khi thêm, học viên sẽ xuất hiện trong bảng điểm danh bên dưới (đánh dấu "Học bù") — tick Đi
                         học/Vắng rồi bấm "Lưu điểm danh" như bình thường.
                     </div>
