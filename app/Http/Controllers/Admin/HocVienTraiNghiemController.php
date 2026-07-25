@@ -3,18 +3,35 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enum\TrangThaiCoSo;
+use App\Enum\TrangThaiLoaiDangKyTraiNghiem;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\HocVienTraiNghiem\HocVienTraiNghiemRequest;
 use App\Models\CoSo;
 use App\Models\HocVienTraiNghiem;
 use Illuminate\Http\Request;
-use App\Enum\TrangThaiLoaiDangKyTraiNghiem;
 
 class HocVienTraiNghiemController extends Controller
 {
     public function index(Request $request)
     {
-        $traiNghiems = HocVienTraiNghiem::with('coSos')->orderBy('id', 'desc')->paginate(8)->withQueryString();
+        $query = HocVienTraiNghiem::with('coSos');
+
+        if ($request->filled('ho_ten')) {
+            $kw = $request->ho_ten;
+            $query->where(fn ($sub) => $sub->where('ho_ten', 'like', "%{$kw}%")
+                ->orWhere('sdt', 'like', "%{$kw}%"));
+        }
+
+        if ($request->filled('co_so_id')) {
+            $coSoId = $request->co_so_id;
+            $query->whereHas('coSos', fn ($sub) => $sub->where('co_sos.id', $coSoId));
+        }
+
+        if ($request->filled('ngay_trai_nghiem')) {
+            $query->whereDate('ngay_trai_nghiem', $request->ngay_trai_nghiem);
+        }
+
+        $traiNghiems = $query->orderBy('id', 'desc')->paginate(8)->withQueryString();
         $coSos = CoSo::where('trang_thai', TrangThaiCoSo::ACTIVE)->orderBy('ten')->get();
 
         return view('trial.index', compact('traiNghiems', 'coSos'));

@@ -20,8 +20,24 @@
                             <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="field"><label>Năm sinh</label><input id="tr_year" name="nam_sinh" type="number"
-                            placeholder="VD: 2017"></div>
+                    <div class="field">
+                        <label>Số điện thoại</label>
+                        <input id="tr_phone" name="sdt" type="text" placeholder="09xxxxxxxx">
+                        @error('sdt')
+                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="field">
+                        <label>Năm sinh</label>
+                        <input id="tr_year" name="nam_sinh" type="number" placeholder="VD: 2017">
+                    </div>
+                    <div class="field">
+                        <label>Ngày trải nghiệm</label>
+                        <input id="tr_date" name="ngay_trai_nghiem" type="date">
+                        @error('ngay_trai_nghiem')
+                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                        @enderror
+                    </div>
                     <div class="field">
                         <label>Trạng thái</label>
                         <select id="tr_status" name="trang_thai">

@@ -13,12 +13,53 @@
     <link rel="stylesheet" href="{{ asset('css/pages/trial.css') }}">
 @endpush
 
+<div class="table-card" style="margin-bottom:16px;">
+    <form method="GET" action="{{ route('trainghiem.index') }}" class="table-toolbar">
+        <div class="filters" style="align-items:flex-end;">
+            <div class="field" style="margin:0;min-width:220px;">
+                <label style="font-size:12.5px;margin-bottom:5px;">Họ tên / SĐT</label>
+                <div class="search-mini">
+                    <i class="ri-search-line"></i>
+                    <input type="text" name="ho_ten" value="{{ request('ho_ten') }}"
+                        placeholder="Tìm theo Họ tên hoặc SĐT...">
+                </div>
+            </div>
+
+            <div class="field" style="margin:0;min-width:220px;">
+                <label style="font-size:12.5px;margin-bottom:5px;">Cơ sở</label>
+                <select name="co_so_id" onchange="this.form.submit()">
+                    <option value="">Tất cả Cơ sở</option>
+                    @foreach ($coSos as $cs)
+                        <option value="{{ $cs->id }}" {{ request('co_so_id') == $cs->id ? 'selected' : '' }}>
+                            {{ $cs->ten }} - {{ $cs->giaoVien->ho_ten ?? 'N/A' }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="field" style="margin:0;min-width:180px;">
+                <label style="font-size:12.5px;margin-bottom:5px;">Ngày trải nghiệm</label>
+                <input type="date" name="ngay_trai_nghiem" value="{{ request('ngay_trai_nghiem') }}"
+                    onchange="this.form.submit()">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-sm">Lọc</button>
+            @if (request()->hasAny(['ho_ten', 'co_so_id', 'ngay_trai_nghiem']))
+                <a href="{{ route('trainghiem.index') }}" class="btn btn-outline btn-sm">Làm mới bộ lọc</a>
+            @endif
+        </div>
+        <div class="text-2" style="font-size:13px;">{{ $traiNghiems->total() }} học viên trải nghiệm</div>
+    </form>
+</div>
+
 <div class="table-card">
     <table>
         <thead>
             <tr>
                 <th>Họ tên</th>
+                <th>Số điện thoại</th>
                 <th>Năm sinh</th>
+                <th>Ngày trải nghiệm</th>
                 <th>Cơ sở</th>
                 <th>Trạng thái</th>
                 <th>Ghi chú</th>
@@ -35,7 +76,9 @@
                             <div class="name">{{ $t->ho_ten }}</div>
                         </div>
                     </td>
+                    <td>{{ $t->sdt ?? '—' }}</td>
                     <td>{{ $t->nam_sinh ?? '—' }}</td>
+                    <td>{{ $t->ngay_trai_nghiem ? $t->ngay_trai_nghiem->format('d/m/Y') : '—' }}</td>
                     <td>
                         @if ($t->coSos->isNotEmpty())
                             @foreach ($t->coSos as $coSo)
@@ -51,7 +94,14 @@
                     <td>
                         <div class="actions-cell">
                             <i class="ri-edit-line"
-                                onclick="openTrialModal({{ $t->id }}, {{ Js::from($t->ho_ten) }}, {{ Js::from($t->nam_sinh) }}, {{ $t->trang_thai->value }}, {{ Js::from($t->ghi_chu) }}, {{ Js::from($t->coSos->pluck('id')) }})"></i>
+                                onclick="openTrialModal({{ $t->id }}, 
+                                {{ Js::from($t->ho_ten) }}, 
+                                {{ Js::from($t->sdt) }}, 
+                                {{ Js::from($t->nam_sinh) }}, 
+                                {{ Js::from($t->ngay_trai_nghiem?->format('Y-m-d')) }}, 
+                                {{ $t->trang_thai->value }}, {{ Js::from($t->ghi_chu) }},
+                                {{ Js::from($t->coSos->pluck('id')) }})">
+                            </i>
                             @if ($t->trang_thai !== \App\Enum\TrangThaiLoaiDangKyTraiNghiem::DA_DANG_KY)
                                 <form action="{{ route('trainghiem.destroy', $t) }}" method="POST"
                                     style="display:inline;" class="confirm-delete-form"
@@ -98,7 +148,9 @@
             openTrialModal(
                 {{ old('_editing_id') ? (int) old('_editing_id') : 'null' }},
                 {{ Js::from(old('ho_ten')) }},
+                {{ Js::from(old('sdt')) }},
                 {{ Js::from(old('nam_sinh')) }},
+                {{ Js::from(old('ngay_trai_nghiem')) }},
                 {{ old('trang_thai') ?? 'null' }},
                 {{ Js::from(old('ghi_chu')) }},
                 {{ Js::from(old('co_so_ids', [])) }}

@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Admin\HocVienTraiNghiem;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Enum\TrangThaiLoaiDangKyTraiNghiem;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class HocVienTraiNghiemRequest extends FormRequest
@@ -17,11 +17,13 @@ class HocVienTraiNghiemRequest extends FormRequest
     {
         return [
             'ho_ten' => ['required', 'string', 'max:255'],
-            'nam_sinh' => ['nullable', 'integer', 'min:1990', 'max:' . date('Y')],
+            'nam_sinh' => ['nullable', 'integer', 'min:1990', 'max:'.date('Y')],
             'trang_thai' => ['required', Rule::enum(TrangThaiLoaiDangKyTraiNghiem::class)],
             'ghi_chu' => ['nullable', 'string'],
             'co_so_ids' => ['nullable', 'array'],
             'co_so_ids.*' => ['exists:co_sos,id'],
+            'ngay_trai_nghiem' => ['nullable', 'date'],
+            'sdt' => ['nullable', 'string', 'max:15', 'regex:/^[0-9]+$/'],
         ];
     }
 
@@ -39,6 +41,8 @@ class HocVienTraiNghiemRequest extends FormRequest
             'ghi_chu.string' => 'Ghi chú phải là chuỗi ký tự.',
             'co_so_ids.array' => 'Danh sách cơ sở phải là một mảng.',
             'co_so_ids.*.exists' => 'Cơ sở được chọn không tồn tại trên hệ thống.',
+            'ngay_trai_nghiem.date' => 'Ngày trải nghiệm không đúng định dạng ngày tháng.',
+            'sdt.regex' => 'Số điện thoại không hợp lệ.',
         ];
     }
 }
