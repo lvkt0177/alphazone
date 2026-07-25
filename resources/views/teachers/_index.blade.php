@@ -9,7 +9,7 @@
 </div>
 
 @if (session('error'))
-    <div class="badge red" style="display:block;padding:10px 14px;margin-bottom:16px;">{{ session('error') }}</div>
+    <div class="badge red teacher-alert-error">{{ session('error') }}</div>
 @endif
 
 <div class="table-card">
@@ -46,9 +46,9 @@
                                 onclick="openTeacherModal({{ $gv->id }}, {{ Js::from($gv->ho_ten) }}, {{ Js::from($gv->ngay_sinh?->format('Y-m-d')) }}, {{ Js::from($gv->sdt) }})"></i>
 
                             <form action="{{ route('giaovien.trangthai', $gv) }}" method="POST"
-                                style="display:inline;">
+                                class="teacher-inline-form">
                                 @csrf @method('PATCH')
-                                <button type="submit" style="background:none;border:none;padding:0;"
+                                <button type="submit" class="teacher-icon-btn"
                                     title="{{ $gv->trang_thai === \App\Enum\TrangThaiGiaoVien::DANG_DAY ? 'Cho nghỉ dạy' : 'Cho dạy lại' }}">
                                     <i
                                         class="ri-user-{{ $gv->trang_thai === \App\Enum\TrangThaiGiaoVien::DANG_DAY ? 'unfollow' : 'follow' }}-line"></i>
@@ -56,11 +56,11 @@
                             </form>
                             @if ($gv->trang_thai === \App\Enum\TrangThaiGiaoVien::DANG_DAY)
                                 <form action="{{ route('giaovien.destroy', $gv) }}" method="POST"
-                                    style="display:inline;" class="confirm-delete-form"
+                                    class="teacher-inline-form confirm-delete-form"
                                     data-confirm-title="Xoá giáo viên"
                                     data-confirm-message="Bạn có chắc muốn xoá giáo viên {{ $gv->ho_ten }}?">
                                     @csrf @method('DELETE')
-                                    <button type="submit" style="background:none;border:none;padding:0;"><i
+                                    <button type="submit" class="teacher-icon-btn"><i
                                             class="ri-delete-bin-line del"></i></button>
                                 </form>
                             @endif
@@ -69,7 +69,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5" class="text-2" style="text-align:center;padding:30px;">Chưa có giáo viên nào</td>
+                    <td colspan="5" class="text-2 teacher-empty-row">Chưa có giáo viên nào</td>
                 </tr>
             @endforelse
         </tbody>

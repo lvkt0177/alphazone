@@ -16,21 +16,21 @@
                         <label>Họ tên Giáo viên</label>
                         <input id="gv_name" name="ho_ten" type="text" placeholder="Họ và tên">
                         @error('ho_ten')
-                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                            <div class="badge red teacher-field-error">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="field">
                         <label>Ngày sinh</label>
                         <input id="gv_dob" name="ngay_sinh" type="date">
                         @error('ngay_sinh')
-                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                            <div class="badge red teacher-field-error">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="field">
                         <label>Số điện thoại</label>
                         <input id="gv_phone" name="sdt" type="text" placeholder="09xxxxxxxx">
                         @error('sdt')
-                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                            <div class="badge red teacher-field-error">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>

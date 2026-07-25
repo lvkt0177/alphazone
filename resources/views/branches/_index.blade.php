@@ -10,7 +10,7 @@
 </div>
 
 @if (session('error'))
-    <div class="badge red" style="display:block;padding:10px 14px;margin-bottom:16px;">{{ session('error') }}</div>
+    <div class="badge red branches-alert-error">{{ session('error') }}</div>
 @endif
 
 <div class="table-card">
@@ -29,7 +29,7 @@
             @forelse ($coSos as $b)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td style="font-weight:700;">{{ $b->ten }}</td>
+                    <td class="branches-name-cell">{{ $b->ten }}</td>
                     <td>
                         @if ($b->diaDiem)
                             <span class="badge purple">{{ $b->diaDiem->ten }}</span>
@@ -46,9 +46,9 @@
                             <i class="ri-edit-line"
                                 onclick="openBranchModal({{ $b->id }}, {{ Js::from($b->ten) }}, {{ $b->giao_vien_id ?? 'null' }}, {{ $b->dia_diem_id ?? 'null' }})"></i>
 
-                            <form action="{{ route('coso.trangthai', $b) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('coso.trangthai', $b) }}" method="POST" class="branches-inline-form">
                                 @csrf @method('PATCH')
-                                <button type="submit" style="background:none;border:none;padding:0;"
+                                <button type="submit" class="branches-icon-btn"
                                     title="{{ $b->trang_thai === \App\Enum\TrangThaiCoSo::ACTIVE ? 'Ngừng hoạt động' : 'Kích hoạt lại' }}">
                                     <i
                                         class="ri-user-{{ $b->trang_thai === \App\Enum\TrangThaiCoSo::ACTIVE ? 'unfollow' : 'follow' }}-line"></i>
@@ -56,11 +56,11 @@
                             </form>
 
                             @if ($b->trang_thai === \App\Enum\TrangThaiCoSo::ACTIVE)
-                                <form action="{{ route('coso.destroy', $b) }}" method="POST" style="display:inline;"
-                                    class="confirm-delete-form" data-confirm-title="Xoá cơ sở"
+                                <form action="{{ route('coso.destroy', $b) }}" method="POST" class="branches-inline-form confirm-delete-form"
+                                    data-confirm-title="Xoá cơ sở"
                                     data-confirm-message="Bạn có chắc muốn xoá cơ sở {{ $b->ten }}?">
                                     @csrf @method('DELETE')
-                                    <button type="submit" style="background:none;border:none;padding:0;"><i
+                                    <button type="submit" class="branches-icon-btn"><i
                                             class="ri-delete-bin-line del"></i></button>
                                 </form>
                             @endif
@@ -69,7 +69,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" class="text-2" style="text-align:center;padding:30px;">Chưa có cơ sở nào</td>
+                    <td colspan="6" class="text-2 branches-empty-row">Chưa có cơ sở nào</td>
                 </tr>
             @endforelse
         </tbody>

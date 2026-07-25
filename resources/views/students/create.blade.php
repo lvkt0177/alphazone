@@ -1,194 +1,172 @@
-@extends('layouts.admin')
-@section('title', 'Thêm Học viên')
-@section('content')
-    @push('styles')
-        <link rel="stylesheet" href="{{ asset('css/pages/student.css') }}">
-    @endpush
-    <div class="breadcrumb">
-        <a href="{{ route('hocvien.index') }}">Danh sách Học viên</a> <i class="ri-arrow-right-s-line"></i> <a
-            class="active">Thêm Học viên</a>
+<div class="breadcrumb">
+    <a>Trang chủ</a>
+    <i class="ri-arrow-right-s-line">
+    </i> <a class="active">Danh sách Học viên
+    </a>
+</div>
+<div class="page-head">
+    <div class="page-title">Danh sách Học viên</div>
+    <div class="student-header-actions">
+        <a href="{{ route('hocvien.export', request()->query()) }}" class="btn btn-outline"><i
+                class="ri-file-excel-2-line"></i> Xuất Excel</a>
+        <a href="{{ route('hocvien.create') }}" class="btn btn-primary"><i class="ri-add-line"></i> Thêm Học viên</a>
     </div>
-    <div class="page-head">
-        <div class="page-title">Thêm Học viên mới</div>
-    </div>
+</div>
 
-    <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start;">
+@if (session('success'))
+    <div class="badge green student-alert-success">{{ session('success') }}</div>
+@endif
+@if (session('error'))
+    <div class="badge red student-alert-error">{{ session('error') }}</div>
+@endif
 
-        <form class="form-card" method="POST" action="{{ route('hocvien.store') }}" enctype="multipart/form-data"
-            id="createStudentForm">
-            @csrf
-            <input type="hidden" name="tu_trai_nghiem_id" id="tu_trai_nghiem_id" value="{{ old('tu_trai_nghiem_id') }}">
+@php
+    $soCotCoSo = max(3, $hocViens->max(fn($hv) => $hv->coSos->count()) ?? 0);
+@endphp
 
-            <div class="avatar-upload">
-                <div class="box"><img id="createAvatarPreview"
-                        src="https://ui-avatars.com/api/?name=Hoc+Vien&background=EFEAFB&color=6C5DD3&bold=true"
-                        alt=""></div>
-                <div>
-                    <input type="file" name="avatar" id="createAvatarInput" accept="image/*" style="display:none"
-                        onchange="previewCreateAvatar(this)">
-                    <button type="button" class="btn btn-light btn-sm"
-                        onclick="document.getElementById('createAvatarInput').click()"><i class="ri-upload-2-line"></i> Tải
-                        ảnh lên</button>
-                    <div class="hint">jpg, png, tối đa 5MB (không bắt buộc)</div>
-                </div>
+<div class="table-card">
+    <form method="GET" action="{{ route('hocvien.index') }}" class="table-toolbar">
+        <div class="filters">
+            <div class="search-mini"><i class="ri-search-line"></i>
+                <input type="text" name="q" value="{{ request('q') }}"
+                    placeholder="Tìm theo Mã số, Họ tên, SĐT...">
             </div>
-
-            <div id="tuTraiNghiemBanner" style="display:none;margin-bottom:16px;">
-                <div class="badge purple"
-                    style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;">
-                    <span>Đang tạo từ Học viên trải nghiệm: <b id="tuTraiNghiemName"></b></span>
-                    <span style="cursor:pointer;" onclick="boChonTraiNghiem()"><i class="ri-close-line"></i></span>
-                </div>
-            </div>
-
-            <div class="form-grid">
-                <div class="field"><label>Mã số</label>
-                    <input name="ma_so" value="{{ old('ma_so') }}" type="text" id="c_ma_so" autocomplete="off"
-                        oninput="goiYMaSo(this.value)" data-suggest-url="{{ route('hocvien.goiymaso') }}">
-                    <div id="maSoHint" class="text-2" style="font-size:12px;margin-top:5px;min-height:16px;"></div>
-                    @error('ma_so')
-                        <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="field"><label>Họ tên</label><input id="c_name" name="ho_ten" value="{{ old('ho_ten') }}"
-                        type="text">
-                    @error('ho_ten')
-                        <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="field"><label>Nickname</label><input name="nickname" value="{{ old('nickname') }}"
-                        type="text"></div>
-                <div class="field"><label>Ngày sinh</label><input id="c_dob" name="ngay_sinh"
-                        value="{{ old('ngay_sinh') }}" type="date"></div>
-                <div class="field span-2" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
-                    <div>
-                        <label>Giới tính</label>
-                        <select name="gioi_tinh">
-                            @foreach (\App\Enum\GioiTinh::cases() as $g)
-                                <option value="{{ $g->value }}" {{ old('gioi_tinh') == $g->value ? 'selected' : '' }}>
-                                    {{ $g->getLabel() }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div>
-                        <label>Chiều cao (cm)</label>
-                        <input name="chieu_cao" value="{{ old('chieu_cao') }}" type="number" step="0.1"
-                            placeholder="VD: 145.5">
-                        @error('chieu_cao')
-                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div>
-                        <label>Cân nặng (kg)</label>
-                        <input name="can_nang" value="{{ old('can_nang') }}" type="number" step="0.1"
-                            placeholder="VD: 38.2">
-                        @error('can_nang')
-                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="field"><label>Số điện thoại</label><input id="c_phone" name="sdt"
-                        value="{{ old('sdt') }}" type="text">
-                    @error('sdt')
-                        <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="field"><label>Trường</label><input name="truong" value="{{ old('truong') }}" type="text">
-                </div>
-                <div class="field span-2"><label>Địa chỉ</label><input name="dia_chi" value="{{ old('dia_chi') }}"
-                        type="text"></div>
-                <div class="field span-2">
-                    <label>Ghi chú</label>
-                    <textarea name="ghi_chu" rows="3" placeholder="Ghi chú về học viên">{{ old('ghi_chu') }}</textarea>
-                    @error('ghi_chu')
-                        <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="field span-2">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                        <label style="margin:0;">Cơ sở (chọn ít nhất 1 cơ sở)</label>
-                        <span id="branchCount" class="badge purple" style="font-size:12px;">0 đã chọn</span>
-                    </div>
-
-                    <div style="display:flex;gap:8px;margin-bottom:10px;">
-                        <div style="position:relative;flex:1;">
-                            <i class="ri-search-line"
-                                style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-2);font-size:15px;"></i>
-                            <input type="text" id="branchSearch" placeholder="Tìm cơ sở..."
-                                style="width:100%;padding:8px 12px 8px 32px;border:1px solid var(--border);border-radius:9px;background:var(--bg);">
-                        </div>
-                        {{-- <button type="button" class="btn btn-light btn-sm" onclick="chonTatCaCoSo(true)">Chọn tất
-                            cả</button> --}}
-                        <button type="button" class="btn btn-light btn-sm" onclick="chonTatCaCoSo(false)">Bỏ
-                            chọn</button>
-                    </div>
-
-                    <div id="c_branches"
-                        style="display:flex;flex-wrap:wrap;gap:8px;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);">
-                        @foreach ($coSos->sortBy(fn($cs) => (int) filter_var($cs->ten, FILTER_SANITIZE_NUMBER_INT) ?: $cs->id) as $cs)
-                            <label class="branch-chip" data-name="{{ strtolower($cs->ten) }}">
-                                <input type="checkbox" name="co_so_ids[]" value="{{ $cs->id }}"
-                                    class="create-branch-checkbox"
-                                    {{ in_array($cs->id, old('co_so_ids', [])) ? 'checked' : '' }}
-                                    onchange="capNhatSoLuongCoSo()">
-                                <span>{{ $cs->ten }} - {{ $cs->giaoVien->ho_ten ?? 'N/A' }}</span>
-                            </label>
-                        @endforeach
-                    </div>
-                    @error('co_so_ids')
-                        <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="field"><label>Trạng thái</label>
-                    <select name="trang_thai">
-                        @foreach (\App\Enum\TrangThaiHocVien::cases() as $st)
-                            <option value="{{ $st->value }}"
-                                {{ old('trang_thai', 1) == $st->value ? 'selected' : '' }}>{{ $st->getLabel() }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary"><i class="ri-save-line"></i> Tạo học viên</button>
-                <a href="{{ route('hocvien.index') }}" class="btn btn-outline">Huỷ</a>
-            </div>
-        </form>
-
-        <div class="card">
-            <div class="card-head">
-                <h3><i class="ri-user-star-line"></i> Chọn từ Học viên trải nghiệm</h3>
-            </div>
-            <div class="search-mini" style="position:relative;margin-bottom:14px;">
-                <i class="ri-search-line"
-                    style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-2);font-size:15px;"></i>
-                <input type="text" id="traiNghiemSearch" placeholder="Tìm theo tên..." oninput="locTraiNghiem()"
-                    style="width:100%;padding:9px 13px 9px 32px;border:1px solid var(--border);border-radius:9px;background:var(--bg);">
-            </div>
-            <div class="row-list" id="traiNghiemList" style="max-height:520px;overflow-y:auto;">
-                @forelse ($traiNghiems as $t)
-                    <div class="item tn-item" data-name="{{ strtolower($t->ho_ten) }}" style="cursor:pointer;"
-                        onclick='chonTraiNghiem(@json($t))'>
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode($t->ho_ten) }}&background=FFA45C&color=fff&bold=true"
-                            alt="">
-                        <div class="info">
-                            <div class="t">{{ $t->ho_ten }}</div>
-                            <div class="s">{{ $t->nam_sinh ?? '—' }} •
-                                {{ $t->coSos->pluck('ten')->join(', ') ?: 'Chưa xếp cơ sở' }}</div>
-                        </div>
-                        <span class="badge {{ $t->trang_thai->getBadge() }}">{{ $t->trang_thai->getLabel() }}</span>
-                    </div>
-                @empty
-                    <div class="text-2" style="text-align:center;padding:20px;">Không có học viên trải nghiệm nào chưa
-                        đăng ký</div>
-                @endforelse
-            </div>
+            <select name="co_so_id" onchange="this.form.submit()">
+                <option value="">Tất cả Cơ sở</option>
+                @foreach ($coSos as $cs)
+                    <option value="{{ $cs->id }}" {{ request('co_so_id') == $cs->id ? 'selected' : '' }}>
+                        {{ $cs->ten }} - {{ $cs->giaoVien->ho_ten ?? 'N/A' }}</option>
+                @endforeach
+            </select>
+            <select name="trang_thai" onchange="this.form.submit()">
+                <option value="">Tất cả trạng thái</option>
+                @foreach (\App\Enum\TrangThaiHocVien::cases() as $st)
+                    <option value="{{ $st->value }}" {{ request('trang_thai') == $st->value ? 'selected' : '' }}>
+                        {{ $st->getLabel() }}</option>
+                @endforeach
+            </select>
+            <button type="submit" class="btn btn-primary btn-sm">Lọc</button>
+            @if (request()->hasAny(['q', 'co_so_id', 'trang_thai']))
+                <a href="{{ route('hocvien.index') }}" class="btn btn-outline btn-sm">Làm mới bộ lọc</a>
+            @endif
         </div>
+        <div class="text-2 student-count-text">{{ $hocViens->total() }} học viên</div>
+    </form>
+
+    <div class="student-table-scroll">
+        <table>
+            <thead>
+                <tr>
+                    <th>Mã số</th>
+                    <th>Họ tên</th>
+                    <th>SĐT</th>
+                    @for ($i = 1; $i <= $soCotCoSo; $i++)
+                        <th class="student-col-nowrap">Cơ sở {{ $i }}</th>
+                    @endfor
+                    <th>Trạng thái</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($hocViens as $hv)
+                    <tr>
+                        <td>
+                            <a href="{{ route('hocvien.show', $hv) }}" class="code-link">{{ $hv->ma_so }}</a>
+                        </td>
+                        <td>
+                            <div class="cell-user"><img src="{{ $hv->avatar_url }}" alt="">
+                                <div>
+                                    <div class="name">{{ $hv->ho_ten }}</div>
+                                    <div class="sub">{{ $hv->nickname }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ $hv->sdt ?? '—' }}</td>
+                        @php
+                            $coSos = $hv->coSos->values();
+                        @endphp
+                        @for ($i = 0; $i < $soCotCoSo; $i++)
+                            @php $coSo = $coSos->get($i); @endphp
+                            <td>
+                                @if ($coSo)
+                                    {{ $coSo->ten }} - {{ $coSo->giaoVien->ho_ten ?? 'N/A' }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+                        @endfor
+                        <td><span
+                                class="badge {{ $hv->trang_thai->getBadge() }}">{{ $hv->trang_thai->getLabel() }}</span>
+                        </td>
+                        <td>
+                            <div class="actions-cell">
+                                <a href="{{ route('hocvien.show', $hv) }}" class=""><i
+                                        class="ri-eye-line"></i></a>
+                                <i class="ri-edit-line edit-student-btn" data-student='{{ json_encode($hv) }}'></i>
+                                <form action="{{ route('hocvien.destroy', $hv) }}" method="POST"
+                                    class="student-inline-form confirm-delete-form"
+                                    data-confirm-title="Xoá học viên"
+                                    data-confirm-message="Bạn có chắc muốn xoá {{ $hv->ho_ten }}?">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="student-icon-btn"><i
+                                            class="ri-delete-bin-line del"></i></button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="{{ 5 + $soCotCoSo }}" class="text-2 student-empty-row">Không
+                            tìm thấy học viên phù hợp</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
 
-    @push('scripts')
-        <script src="{{ asset('js/pages/students-create.js') }}"></script>
-        <script src="{{ asset('js/modals/branches-modal.js') }}"></script>
-    @endpush
-@endsection
+    <div class="pagination">
+        @if (!$hocViens->onFirstPage())
+            <a href="{{ $hocViens->previousPageUrl() }}">Trước</a>
+        @else
+            <span class="student-page-disabled">Trước</span>
+        @endif
+        @for ($i = 1; $i <= $hocViens->lastPage(); $i++)
+            <a href="{{ $hocViens->url($i) }}"
+                class="{{ $i == $hocViens->currentPage() ? 'active' : '' }}">{{ $i }}</a>
+        @endfor
+        @if ($hocViens->hasMorePages())
+            <a href="{{ $hocViens->nextPageUrl() }}">Sau</a>
+        @else
+            <span class="student-page-disabled">Sau</span>
+        @endif
+    </div>
+</div>
+
+@push('modals')
+    @include('partials.modals._student')
+@endpush
+
+@if ($errors->any() && old('_editing_id'))
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            openStudentModal({
+                id: {{ (int) old('_editing_id') }},
+                ma_so: {{ Js::from(old('ma_so')) }},
+                ho_ten: {{ Js::from(old('ho_ten')) }},
+                nickname: {{ Js::from(old('nickname')) }},
+                ngay_sinh: {{ Js::from(old('ngay_sinh')) }},
+                gioi_tinh: {{ old('gioi_tinh') ?? 1 }},
+                chieu_cao: {{ old('chieu_cao') !== null ? old('chieu_cao') : 'null' }},
+                can_nang: {{ old('can_nang') !== null ? old('can_nang') : 'null' }},
+                sdt: {{ Js::from(old('sdt')) }},
+                truong: {{ Js::from(old('truong')) }},
+                dia_chi: {{ Js::from(old('dia_chi')) }},
+                ghi_chu: {{ Js::from(old('ghi_chu')) }},
+                trang_thai: {{ old('trang_thai') ?? 1 }},
+                avatar_url: 'https://ui-avatars.com/api/?name=' + encodeURIComponent(
+                    {{ Js::from(old('ho_ten')) }} || 'HV'),
+                co_sos: {{ Js::from(collect(old('co_so_ids', []))->map(fn($id) => ['id' => $id])) }}
+            });
+        });
+    </script>
+@endif

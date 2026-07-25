@@ -26,14 +26,14 @@
                             @endif
                         </select>
                         @error('co_so_id')
-                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                            <div class="badge red tiensan-field-error">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="field">
                         <label>Ngày</label>
                         <input type="date" name="ngay" id="ts_date">
                         @error('ngay')
-                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                            <div class="badge red tiensan-field-error">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="field">
@@ -41,7 +41,7 @@
                         <input type="text" id="ts_money" inputmode="numeric" autocomplete="off"
                             placeholder="VD: 500,000">
                         @error('so_tien')
-                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                            <div class="badge red tiensan-field-error">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="field">
@@ -50,13 +50,13 @@
                     </div>
                     <div class="field">
                         <label>Bill (ảnh)</label>
-                        <div class="avatar-upload" style="margin-bottom:0;">
-                            <div class="box" id="ts_bill_preview_box" style="display:none;">
+                        <div class="avatar-upload tiensan-bill-upload">
+                            <div class="box tiensan-bill-preview-box" id="ts_bill_preview_box">
                                 <img id="ts_bill_preview" src="" alt="">
                             </div>
                             <div>
                                 <input type="file" name="bill" id="ts_bill_input" accept="image/*"
-                                    style="display:none" onchange="previewTienSanBill(this)">
+                                    class="tiensan-hidden-file-input" onchange="previewTienSanBill(this)">
                                 <button type="button" class="btn btn-light btn-sm"
                                     onclick="document.getElementById('ts_bill_input').click()">
                                     <i class="ri-upload-2-line"></i> Tải Bill lên
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         @error('bill')
-                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                            <div class="badge red tiensan-field-error">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>

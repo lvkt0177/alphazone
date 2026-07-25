@@ -6,7 +6,7 @@
 </div>
 <div class="page-head">
     <div class="page-title">Danh sách Học viên</div>
-    <div style="display:flex;gap:10px;">
+    <div class="student-header-actions">
         <a href="{{ route('hocvien.export', request()->query()) }}" class="btn btn-outline"><i
                 class="ri-file-excel-2-line"></i> Xuất Excel</a>
         <a href="{{ route('hocvien.create') }}" class="btn btn-primary"><i class="ri-add-line"></i> Thêm Học viên</a>
@@ -14,10 +14,10 @@
 </div>
 
 @if (session('success'))
-    <div class="badge green" style="display:block;padding:10px 14px;margin-bottom:16px;">{{ session('success') }}</div>
+    <div class="badge green student-alert-success">{{ session('success') }}</div>
 @endif
 @if (session('error'))
-    <div class="badge red" style="display:block;padding:10px 14px;margin-bottom:16px;">{{ session('error') }}</div>
+    <div class="badge red student-alert-error">{{ session('error') }}</div>
 @endif
 
 @php
@@ -50,10 +50,10 @@
                 <a href="{{ route('hocvien.index') }}" class="btn btn-outline btn-sm">Làm mới bộ lọc</a>
             @endif
         </div>
-        <div class="text-2" style="font-size:13px;">{{ $hocViens->total() }} học viên</div>
+        <div class="text-2 student-count-text">{{ $hocViens->total() }} học viên</div>
     </form>
 
-    <div style="overflow-x:auto;">
+    <div class="student-table-scroll">
         <table>
             <thead>
                 <tr>
@@ -61,7 +61,7 @@
                     <th>Họ tên</th>
                     <th>SĐT</th>
                     @for ($i = 1; $i <= $soCotCoSo; $i++)
-                        <th style="white-space:nowrap;">Cơ sở {{ $i }}</th>
+                        <th class="student-col-nowrap">Cơ sở {{ $i }}</th>
                     @endfor
                     <th>Trạng thái</th>
                     <th></th>
@@ -104,11 +104,11 @@
                                         class="ri-eye-line"></i></a>
                                 <i class="ri-edit-line edit-student-btn" data-student='{{ json_encode($hv) }}'></i>
                                 <form action="{{ route('hocvien.destroy', $hv) }}" method="POST"
-                                    style="display:inline;" class="confirm-delete-form"
+                                    class="student-inline-form confirm-delete-form"
                                     data-confirm-title="Xoá học viên"
                                     data-confirm-message="Bạn có chắc muốn xoá {{ $hv->ho_ten }}?">
                                     @csrf @method('DELETE')
-                                    <button type="submit" style="background:none;border:none;padding:0;"><i
+                                    <button type="submit" class="student-icon-btn"><i
                                             class="ri-delete-bin-line del"></i></button>
                                 </form>
                             </div>
@@ -116,7 +116,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="{{ 5 + $soCotCoSo }}" class="text-2" style="text-align:center;padding:30px;">Không
+                        <td colspan="{{ 5 + $soCotCoSo }}" class="text-2 student-empty-row">Không
                             tìm thấy học viên phù hợp</td>
                     </tr>
                 @endforelse
@@ -128,7 +128,7 @@
         @if (!$hocViens->onFirstPage())
             <a href="{{ $hocViens->previousPageUrl() }}">Trước</a>
         @else
-            <span style="opacity:.5;padding:8px 14px;">Trước</span>
+            <span class="student-page-disabled">Trước</span>
         @endif
         @for ($i = 1; $i <= $hocViens->lastPage(); $i++)
             <a href="{{ $hocViens->url($i) }}"
@@ -137,7 +137,7 @@
         @if ($hocViens->hasMorePages())
             <a href="{{ $hocViens->nextPageUrl() }}">Sau</a>
         @else
-            <span style="opacity:.5;padding:8px 14px;">Sau</span>
+            <span class="student-page-disabled">Sau</span>
         @endif
     </div>
 </div>
