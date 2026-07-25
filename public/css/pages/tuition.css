@@ -1,0 +1,151 @@
+.tuition-alert-success {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+}
+
+.tuition-filters {
+    align-items: flex-end;
+}
+
+.tuition-filter-field {
+    margin: 0;
+    min-width: 220px;
+}
+
+.tuition-filter-field--coso {
+    margin: 0;
+    min-width: 200px;
+}
+
+.tuition-filter-field--trangthai {
+    margin: 0;
+    min-width: 170px;
+}
+
+.tuition-filter-field--thang {
+    margin: 0;
+    min-width: 150px;
+}
+
+.tuition-filter-label {
+    font-size: 12.5px;
+    margin-bottom: 5px;
+}
+
+.tuition-count-text {
+    font-size: 13px;
+}
+
+.tuition-stats-line {
+    font-size: 14px;
+    margin: -8px 0 14px;
+}
+
+.tuition-giothieu-tag {
+    margin-top: 4px;
+}
+
+.tuition-empty-row {
+    text-align: center;
+    padding: 30px;
+}
+
+.tuition-page-disabled {
+    opacity: .5;
+    padding: 8px 14px;
+}
+
+/* ---- partials/modals/_tuition.blade.php ---- */
+.tuition-fee-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 7px;
+}
+
+.tuition-label-flush {
+    margin: 0;
+}
+
+.tuition-switch-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-2);
+    cursor: pointer;
+}
+
+.tuition-field-error {
+    margin-top: 6px;
+}
+
+.tuition-referrer-wrap {
+    display: none;
+}
+
+.tuition-referrer-search-wrap {
+    position: relative;
+}
+
+.tuition-referrer-search-input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+}
+
+.tuition-referrer-list {
+    display: none;
+    position: absolute;
+    z-index: 20;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-top: 4px;
+    max-height: 220px;
+    overflow-y: auto;
+    box-shadow: var(--shadow);
+}
+
+.tuition-modal-foot {
+    justify-content: space-between;
+}
+
+.tuition-delete-wrap {
+    display: none;
+}
+
+.tuition-delete-btn {
+    color: #dc2626;
+    border-color: #dc2626;
+}
+
+.tuition-modal-actions {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.tuition-hidden-form {
+    display: none;
+}
+
+/* ---- JS-generated markup (public/js/pages/tuition.js) ---- */
+.tuition-referrer-option {
+    padding: 9px 14px;
+    cursor: pointer;
+    font-size: 13.5px;
+    border-bottom: 1px solid var(--border);
+}
+
+.tuition-referrer-empty {
+    padding: 10px 14px;
+    font-size: 13px;
+}

@@ -1,6 +1,10 @@
 @extends('layouts.admin')
 @section('title', 'Học phí')
 @section('content')
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('css/pages/tuition.css') }}">
+    @endpush
+
     @include('tuition._index')
 
     @push('scripts')

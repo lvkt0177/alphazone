@@ -46,11 +46,10 @@ function renderReferrerList(query) {
 
   list.innerHTML = filtered.length
     ? filtered.map(o => `
-        <div class="referrer-option" data-id="${o.id}" data-ma-so="${o.ma_so}" data-ho-ten="${o.ho_ten}"
-             style="padding:9px 14px;cursor:pointer;font-size:13.5px;border-bottom:1px solid var(--border);">
+        <div class="referrer-option tuition-referrer-option" data-id="${o.id}" data-ma-so="${o.ma_so}" data-ho-ten="${o.ho_ten}">
           <b>${o.ma_so}</b> - ${o.ho_ten}
         </div>`).join('')
-    : `<div class="text-2" style="padding:10px 14px;font-size:13px;">Không tìm thấy học viên phù hợp</div>`;
+    : `<div class="text-2 tuition-referrer-empty">Không tìm thấy học viên phù hợp</div>`;
 
   list.style.display = 'block';
 }
