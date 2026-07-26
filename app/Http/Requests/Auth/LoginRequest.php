@@ -33,7 +33,9 @@ class LoginRequest extends FormRequest
 
     public function authenticate(): void
     {
-        if (! Auth::attempt($this->only('name', 'password'))) {
+        $remember = $this->boolean('remember');
+
+        if (! Auth::attempt($this->only('name', 'password'), $remember)) {
             throw ValidationException::withMessages([
                 'name' => 'Tài khoản hoặc mật khẩu không đúng.',
             ]);
