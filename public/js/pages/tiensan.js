@@ -7,6 +7,12 @@ function previewTienSanBill(input) {
     }
 }
 
+function openBillPreview(url) {
+    document.getElementById('billPreviewImg').src = url;
+    document.getElementById('billPreviewDownload').href = url;
+    openModal('billPreviewModal');
+}
+
 function openTienSanModal(ts) {
     const form = document.getElementById('tienSanForm');
     const methodField = document.getElementById('tienSanMethodField');

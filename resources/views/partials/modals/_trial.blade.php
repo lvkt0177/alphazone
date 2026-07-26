@@ -58,7 +58,6 @@
 
                             <div class="trial-branch-toolbar">
                                 <div class="search-mini trial-search-wrap">
-                                    <i class="ri-search-line"></i>
                                     <input type="text" id="branchSearch" placeholder="Tìm cơ sở..."
                                         class="trial-branch-search-input">
                                 </div>
