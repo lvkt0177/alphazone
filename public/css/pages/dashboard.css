@@ -1,0 +1,85 @@
+.dashboard-subtitle {
+    margin-top: 4px;
+}
+
+.dashboard-icon--green {
+    background: var(--green-bg);
+    color: var(--green);
+}
+
+.dashboard-icon--blue {
+    background: var(--blue-bg);
+    color: var(--blue);
+}
+
+.dashboard-icon--purple {
+    background: var(--purple-bg);
+    color: var(--purple);
+}
+
+.dashboard-icon--red {
+    background: var(--red-bg);
+    color: var(--red);
+}
+
+.dashboard-icon--orange {
+    background: var(--orange-bg);
+    color: var(--orange);
+}
+
+.dashboard-icon--primary {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.dashboard-legend-dot--fee {
+    background: #6C5DD3;
+}
+
+.dashboard-legend-dot--uniform {
+    background: #FFA45C;
+}
+
+.dashboard-status-legend-wrap {
+    margin-top: 16px;
+}
+
+.dashboard-status-legend-row {
+    flex-wrap: wrap;
+}
+
+.dashboard-status-badge {
+    margin-right: 6px;
+}
+
+.dashboard-grid-2col {
+    grid-template-columns: 1fr 1fr;
+}
+
+.dashboard-icon-sm {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+}
+
+.dashboard-item-centered {
+    align-items: center;
+}
+
+.dashboard-amt-bold {
+    font-weight: 800;
+}
+
+.dashboard-item-indent {
+    padding-left: 50px;
+}
+
+.dashboard-sub-name {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.dashboard-sub-amt {
+    font-weight: 500;
+    color: var(--text-2);
+}

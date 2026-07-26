@@ -9,14 +9,14 @@
 </div>
 
 @if (session('success'))
-    <div class="badge green" style="display:block;padding:10px 14px;margin-bottom:16px;">{{ session('success') }}</div>
+    <div class="badge green tuition-alert-success">{{ session('success') }}</div>
 @endif
 
 <div class="table-card">
     <form method="GET" action="{{ route('hocphi.index') }}" class="table-toolbar">
-        <div class="filters" style="align-items:flex-end;">
-            <div class="field" style="margin:0;min-width:220px;">
-                <label style="font-size:12.5px;margin-bottom:5px;">Tìm kiếm</label>
+        <div class="filters tuition-filters">
+            <div class="field tuition-filter-field">
+                <label class="tuition-filter-label">Tìm kiếm</label>
                 <div class="search-mini">
                     <i class="ri-search-line"></i>
                     <input type="text" name="q" value="{{ request('q') }}"
@@ -24,8 +24,8 @@
                 </div>
             </div>
 
-            <div class="field" style="margin:0;min-width:200px;">
-                <label style="font-size:12.5px;margin-bottom:5px;">Cơ sở</label>
+            <div class="field tuition-filter-field--coso">
+                <label class="tuition-filter-label">Cơ sở</label>
                 <select name="co_so_id" onchange="this.form.submit()">
                     <option value="">Tất cả Cơ sở</option>
                     @foreach ($coSos as $cs)
@@ -36,8 +36,8 @@
                 </select>
             </div>
 
-            <div class="field" style="margin:0;min-width:170px;">
-                <label style="font-size:12.5px;margin-bottom:5px;">Trạng thái đóng</label>
+            <div class="field tuition-filter-field--status">
+                <label class="tuition-filter-label">Trạng thái đóng</label>
                 <select name="trang_thai_dong" onchange="this.form.submit()">
                     <option value="">Tất cả trạng thái</option>
                     <option value="da_dong" {{ request('trang_thai_dong') == 'da_dong' ? 'selected' : '' }}>Đã đóng
@@ -47,8 +47,8 @@
                 </select>
             </div>
 
-            <div class="field" style="margin:0;min-width:150px;">
-                <label style="font-size:12.5px;margin-bottom:5px;">Tháng</label>
+            <div class="field tuition-filter-field--month">
+                <label class="tuition-filter-label">Tháng</label>
                 <select name="thang" onchange="this.form.submit()">
                     @foreach ($danhSachThang as $t)
                         <option value="{{ $t['value'] }}"
@@ -62,12 +62,12 @@
             @endif
         </div>
 
-        <div class="text-2" style="font-size:13px;">{{ $hocViens->total() }} học viên — đang xem Tháng
+        <div class="text-2 tuition-count-text">{{ $hocViens->total() }} học viên — đang xem Tháng
             {{ $thang->format('n/Y') }}</div>
 
     </form>
 
-    <div class="text-2" style="font-size:14px;margin:-8px 0 14px;">
+    <div class="text-2 tuition-stats-line">
         Tháng {{ $thang->format('n/Y') }}:
         <strong>{{ $countDaDong }}</strong> {{ \App\Enum\TrangThaiHocPhi::DA_DONG->getLabel() }}
         ·
@@ -115,7 +115,7 @@
                         @if ($rec)
                             <span class="badge green">Đã đóng</span>
                             @if ($rec->gioi_thieu_ban)
-                                <span class="badge purple" style="margin-top:4px;">
+                                <span class="badge purple tuition-giothieu-tag">
                                     Giới
                                     thiệu{{ $rec->nguoiGioiThieu ? ' ' . $rec->nguoiGioiThieu->ma_so . ' - ' . $rec->nguoiGioiThieu->ho_ten : '' }}
                                 </span>
@@ -140,7 +140,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" class="text-2" style="text-align:center;padding:30px;">Không có học viên nào</td>
+                    <td colspan="6" class="text-2 tuition-empty-row">Không có học viên nào</td>
                 </tr>
             @endforelse
         </tbody>
@@ -150,7 +150,7 @@
         @if (!$hocViens->onFirstPage())
             <a href="{{ $hocViens->previousPageUrl() }}">Trước</a>
         @else
-            <span style="opacity:.5;padding:8px 14px;">Trước</span>
+            <span class="tuition-page-disabled">Trước</span>
         @endif
         @for ($i = 1; $i <= $hocViens->lastPage(); $i++)
             <a href="{{ $hocViens->url($i) }}"
@@ -159,7 +159,7 @@
         @if ($hocViens->hasMorePages())
             <a href="{{ $hocViens->nextPageUrl() }}">Sau</a>
         @else
-            <span style="opacity:.5;padding:8px 14px;">Sau</span>
+            <span class="tuition-page-disabled">Sau</span>
         @endif
     </div>
 </div>

@@ -16,11 +16,11 @@
                         <label>Tên cơ sở</label>
                         <input id="br_name" name="ten" type="text" placeholder="VD: Liên Nghĩa T3">
                         @error('ten')
-                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                            <div class="badge red branches-field-error">{{ $message }}</div>
                         @enderror
                     </div>
                     @if (empty($giaoViens))
-                        <div class="badge red" style="margin-top:6px;">Không có giáo viên nào để chọn làm người phụ
+                        <div class="badge red branches-field-error">Không có giáo viên nào để chọn làm người phụ
                             trách. Vui lòng thêm giáo viên trước.</div>
                     @else
                         <div class="field">
@@ -32,7 +32,7 @@
                                 @endforeach
                             </select>
                             @error('giao_vien_id')
-                                <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                                <div class="badge red branches-field-error">{{ $message }}</div>
                             @enderror
                         </div>
                     @endif
@@ -46,14 +46,14 @@
                             <option value="new">+ Tạo địa điểm mới</option>
                         </select>
                         @error('dia_diem_id')
-                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                            <div class="badge red branches-field-error">{{ $message }}</div>
                         @enderror
 
-                        <div id="br_diadiem_moi_wrap" style="display:none;margin-top:8px;">
+                        <div id="br_diadiem_moi_wrap" class="branches-diadiem-moi-wrap">
                             <input id="br_diadiem_moi" name="dia_diem_ten_moi" type="text"
                                 placeholder="Tên địa điểm mới">
                             @error('dia_diem_ten_moi')
-                                <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                                <div class="badge red branches-field-error">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>

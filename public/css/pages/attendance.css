@@ -1,0 +1,100 @@
+.attendance-alert-success {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+}
+
+.attendance-filter-field {
+    margin: 0;
+    min-width: 220px;
+}
+
+.attendance-filter-field--date {
+    margin: 0;
+    min-width: 180px;
+}
+
+.attendance-filter-label {
+    font-size: 12.5px;
+    margin-bottom: 5px;
+}
+
+.attendance-status-line {
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.attendance-hocbu-btn-wrap {
+    margin-top: 10px;
+}
+
+.attendance-col-checkbox {
+    width: 130px;
+}
+
+.attendance-empty-row {
+    text-align: center;
+    padding: 24px;
+}
+
+.attendance-row-hocbu {
+    background: var(--orange-bg);
+}
+
+.attendance-user-info {
+    flex: 1;
+}
+
+.attendance-hocbu-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+}
+
+.attendance-hocbu-badge {
+    font-size: 11px;
+    padding: 0;
+}
+
+.attendance-hocbu-del {
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.attendance-save-wrap {
+    margin-top: 18px;
+    text-align: right;
+}
+
+.attendance-hidden-form {
+    display: none;
+}
+
+.attendance-search-wrap {
+    position: relative;
+}
+
+.attendance-search-list {
+    display: none;
+    position: absolute;
+    z-index: 20;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-top: 4px;
+    max-height: 240px;
+    overflow-y: auto;
+    box-shadow: var(--shadow);
+}
+
+.attendance-hocbu-empty {
+    margin-top: 8px;
+}
+
+.attendance-hocbu-note {
+    margin-top: 8px;
+}

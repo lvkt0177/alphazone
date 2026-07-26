@@ -6,18 +6,18 @@
 </div>
 
 @if (session('success'))
-    <div class="badge green" style="display:block;padding:10px 14px;margin-bottom:16px;">{{ session('success') }}</div>
+    <div class="badge green trial-alert-success">{{ session('success') }}</div>
 @endif
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/pages/trial.css') }}">
 @endpush
 
-<div class="table-card" style="margin-bottom:16px;">
+<div class="table-card trial-filter-card">
     <form method="GET" action="{{ route('trainghiem.index') }}" class="table-toolbar">
-        <div class="filters" style="align-items:flex-end;">
-            <div class="field" style="margin:0;min-width:220px;">
-                <label style="font-size:12.5px;margin-bottom:5px;">Họ tên / SĐT</label>
+        <div class="filters trial-filters">
+            <div class="field trial-filter-field">
+                <label class="trial-filter-label">Họ tên / SĐT</label>
                 <div class="search-mini">
                     <i class="ri-search-line"></i>
                     <input type="text" name="ho_ten" value="{{ request('ho_ten') }}"
@@ -25,8 +25,8 @@
                 </div>
             </div>
 
-            <div class="field" style="margin:0;min-width:220px;">
-                <label style="font-size:12.5px;margin-bottom:5px;">Cơ sở</label>
+            <div class="field trial-filter-field">
+                <label class="trial-filter-label">Cơ sở</label>
                 <select name="co_so_id" onchange="this.form.submit()">
                     <option value="">Tất cả Cơ sở</option>
                     @foreach ($coSos as $cs)
@@ -37,8 +37,8 @@
                 </select>
             </div>
 
-            <div class="field" style="margin:0;min-width:180px;">
-                <label style="font-size:12.5px;margin-bottom:5px;">Ngày trải nghiệm</label>
+            <div class="field trial-filter-field--date">
+                <label class="trial-filter-label">Ngày trải nghiệm</label>
                 <input type="date" name="ngay_trai_nghiem" value="{{ request('ngay_trai_nghiem') }}"
                     onchange="this.form.submit()">
             </div>
@@ -48,7 +48,7 @@
                 <a href="{{ route('trainghiem.index') }}" class="btn btn-outline btn-sm">Làm mới bộ lọc</a>
             @endif
         </div>
-        <div class="text-2" style="font-size:13px;">{{ $traiNghiems->total() }} học viên trải nghiệm</div>
+        <div class="text-2 trial-count-text">{{ $traiNghiems->total() }} học viên trải nghiệm</div>
     </form>
 </div>
 
@@ -104,11 +104,11 @@
                             </i>
                             @if ($t->trang_thai !== \App\Enum\TrangThaiLoaiDangKyTraiNghiem::DA_DANG_KY)
                                 <form action="{{ route('trainghiem.destroy', $t) }}" method="POST"
-                                    style="display:inline;" class="confirm-delete-form"
+                                    class="trial-inline-form confirm-delete-form"
                                     data-confirm-title="Xoá học viên trải nghiệm"
                                     data-confirm-message="Bạn có chắc muốn xoá {{ $t->ho_ten }}?">
                                     @csrf @method('DELETE')
-                                    <button type="submit" style="background:none;border:none;padding:0;"><i
+                                    <button type="submit" class="trial-icon-btn"><i
                                             class="ri-delete-bin-line del"></i></button>
                                 </form>
                             @endif
@@ -117,7 +117,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" class="text-2" style="text-align:center;padding:30px;">Chưa có học viên trải
+                    <td colspan="6" class="text-2 trial-empty-row">Chưa có học viên trải
                         nghiệm nào</td>
                 </tr>
             @endforelse
@@ -128,7 +128,7 @@
         @if (!$traiNghiems->onFirstPage())
             <a href="{{ $traiNghiems->previousPageUrl() }}">Trước</a>
         @else
-            <span style="opacity:.5;padding:8px 14px;">Trước</span>
+            <span class="trial-page-disabled">Trước</span>
         @endif
         @for ($i = 1; $i <= $traiNghiems->lastPage(); $i++)
             <a href="{{ $traiNghiems->url($i) }}"
@@ -137,7 +137,7 @@
         @if ($traiNghiems->hasMorePages())
             <a href="{{ $traiNghiems->nextPageUrl() }}">Sau</a>
         @else
-            <span style="opacity:.5;padding:8px 14px;">Sau</span>
+            <span class="trial-page-disabled">Sau</span>
         @endif
     </div>
 </div>

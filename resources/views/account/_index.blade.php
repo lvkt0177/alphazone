@@ -6,8 +6,8 @@
 </div>
 
  @if ($errors->any())
-    <div class="badge red" style="display:block;padding:10px 14px;margin-bottom:16px;margin-top:16px;">
-        <ul style="margin:0;padding:0;list-style:none;">
+    <div class="badge red account-errors">
+        <ul class="account-errors-list">
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach

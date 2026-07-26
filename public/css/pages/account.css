@@ -1,0 +1,12 @@
+.account-errors {
+    display: block;
+    padding: 10px 14px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.account-errors-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}

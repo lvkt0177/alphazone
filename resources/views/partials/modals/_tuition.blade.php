@@ -17,10 +17,9 @@
                     <div class="field"><label>Mã số</label><input id="tu_code" type="text" readonly></div>
                     <div class="field"><label>Họ tên</label><input id="tu_name" type="text" readonly></div>
                     <div class="field">
-                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;">
-                            <label style="margin:0;">Học phí (đ)</label>
-                            <label
-                                style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--text-2);cursor:pointer;">
+                        <div class="tuition-fee-head">
+                            <label class="tuition-label-flush">Học phí (đ)</label>
+                            <label class="tuition-toggle-label">
                                 <span class="switch">
                                     <input type="checkbox" id="tu_gioi_thieu_ban" name="gioi_thieu_ban" value="1">
                                     <span class="switch-track"></span>
@@ -31,7 +30,7 @@
                         <input id="tu_fee" type="text" inputmode="numeric" autocomplete="off"
                             placeholder="VD: 500,000">
                         @error('hoc_phi')
-                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                            <div class="badge red tuition-field-error">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="field">
@@ -40,17 +39,16 @@
                             placeholder="VD: 150,000">
                     </div>
 
-                    <div class="field span-2" id="tu_referrer_wrap" style="display:none;">
+                    <div class="field span-2 tuition-referrer-wrap" id="tu_referrer_wrap">
                         <label>Học viên giới thiệu</label>
-                        <div style="position:relative;">
+                        <div class="tuition-referrer-search-wrap">
                             <input type="text" id="tu_referrer_search" autocomplete="off"
-                                placeholder="Tìm theo Mã số hoặc Họ tên..."
-                                style="width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);">
+                                placeholder="Tìm theo Mã số hoặc Họ tên...">
                             <div id="tu_referrer_list"
-                                style="display:none;position:absolute;z-index:20;top:100%;left:0;right:0;background:#fff;border:1px solid var(--border);border-radius:10px;margin-top:4px;max-height:220px;overflow-y:auto;box-shadow:var(--shadow);"></div>
+                                class="tuition-referrer-list"></div>
                         </div>
                         @error('nguoi_gioi_thieu_id')
-                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                            <div class="badge red tuition-field-error">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -58,26 +56,25 @@
                         <label>Ngày đóng</label>
                         <input id="tu_date" name="ngay_dong" type="date">
                         @error('ngay_dong')
-                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                            <div class="badge red tuition-field-error">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
             </div>
-            <div class="modal-foot" style="justify-content:space-between;">
-                <div id="tu_delete_wrap" style="display:none;">
-                    <button type="button" class="btn btn-outline" id="tu_delete_btn"
-                        style="color:#dc2626;border-color:#dc2626;">
+            <div class="modal-foot tuition-modal-foot">
+                <div id="tu_delete_wrap" class="tuition-delete-wrap">
+                    <button type="button" class="btn btn-outline tuition-delete-btn" id="tu_delete_btn">
                         <i class="ri-delete-bin-line"></i> Xoá bản ghi
                     </button>
                 </div>
-                <div style="display:flex;gap:8px;margin-left:auto;">
+                <div class="tuition-modal-actions">
                     <button type="button" class="btn btn-outline" onclick="closeModal('tuitionModal')">Huỷ</button>
                     <button type="submit" class="btn btn-primary"><i class="ri-save-line"></i> Lưu học phí</button>
                 </div>
             </div>
         </form>
 
-        <form id="tuitionDeleteForm" method="POST" action="{{ route('hocphi.destroy') }}" style="display:none;">
+        <form id="tuitionDeleteForm" method="POST" action="{{ route('hocphi.destroy') }}" class="tuition-hidden-form">
             @csrf
             @method('DELETE')
             <input type="hidden" name="hoc_vien_id" id="td_hoc_vien_id">

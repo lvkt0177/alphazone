@@ -6,20 +6,20 @@
 
 <div class="page-head">
     <div class="page-title">Chi tiết Học viên</div>
-    <div style="display:flex;gap:10px;">
+    <div class="student-header-actions">
         <a href="{{ route('hocvien.index') }}" class="btn btn-outline"><i class="ri-arrow-left-line"></i> Quay lại</a>
         {{-- <button type="button" class="btn btn-primary" id="editStudentBtn"><i class="ri-edit-line"></i>
             Sửa học viên</button> --}}
     </div>
 </div>
 
-<div class="card" style="margin-bottom:20px;">
+<div class="card student-detail-card">
     <div class="detail-head">
         <img class="detail-avatar" id="dtAvatar" src="{{ $hocvien->avatar_url }}" alt="{{ $hocvien->ho_ten }}">
-        <div style="flex:1;min-width:220px;">
+        <div class="student-detail-name-wrap">
             <div class="detail-name" id="dtName">{{ $hocvien->ho_ten }}</div>
             <div class="detail-sub" id="dtCode">{{ $hocvien->ma_so }}</div>
-            <div id="dtStatusBadge" style="margin-top:10px;">
+            <div id="dtStatusBadge" class="student-status-badge-wrap">
                 <span class="badge {{ $hocvien->trang_thai->getBadge() }}">{{ $hocvien->trang_thai->getLabel() }}</span>
             </div>
         </div>
@@ -81,9 +81,9 @@
 </div>
 
 @if ($hocvien->ghi_chu)
-    <div class="card" style="margin-bottom:20px;">
-        <div class="k" style="margin-bottom:8px;">Ghi chú</div>
-        <div class="v" style="white-space:pre-line;">{{ $hocvien->ghi_chu }}</div>
+    <div class="card student-detail-card">
+        <div class="k student-note-label">Ghi chú</div>
+        <div class="v student-note-value">{{ $hocvien->ghi_chu }}</div>
     </div>
 @endif
 
@@ -111,7 +111,7 @@
                             <span
                                 class="badge {{ $dd->trang_thai->getBadge() }}">{{ $dd->trang_thai->getLabel() }}</span>
                             @if ($dd->hoc_bu)
-                                <span class="badge orange" style="margin-left:4px;">Học bù tại
+                                <span class="badge orange student-hocbu-tag">Học bù tại
                                     {{ $dd->coSo->ten }}</span>
                             @endif
                         </td>
@@ -120,7 +120,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-2" style="text-align:center;padding:24px;">
+                        <td colspan="4" class="text-2 student-empty-row">
                             Chưa có dữ liệu điểm danh
                         </td>
                     </tr>
@@ -131,7 +131,7 @@
             @if (!$diemDanhs->onFirstPage())
                 <a href="{{ $diemDanhs->previousPageUrl() }}">Trước</a>
             @else
-                <span style="opacity:.5;padding:8px 14px;">Trước</span>
+                <span class="student-page-disabled">Trước</span>
             @endif
             @for ($i = 1; $i <= $diemDanhs->lastPage(); $i++)
                 <a href="{{ $diemDanhs->url($i) }}"
@@ -140,7 +140,7 @@
             @if ($diemDanhs->hasMorePages())
                 <a href="{{ $diemDanhs->nextPageUrl() }}">Sau</a>
             @else
-                <span style="opacity:.5;padding:8px 14px;">Sau</span>
+                <span class="student-page-disabled">Sau</span>
             @endif
         </div>
     </div>
@@ -162,7 +162,7 @@
                         <td>
                             {{ number_format($hp->hoc_phi, 0, ',', '.') }} đ
                             @if ($hp->gioi_thieu_ban)
-                                <span class="badge purple" style="margin-left:6px;">
+                                <span class="badge purple student-giothieu-tag">
                                     Giới
                                     thiệu{{ $hp->nguoiGioiThieu ? ' ' . $hp->nguoiGioiThieu->ma_so . ' - ' . $hp->nguoiGioiThieu->ho_ten : '' }}
                                 </span>
@@ -173,7 +173,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-2" style="text-align:center;padding:24px;">Chưa có dữ liệu học
+                        <td colspan="4" class="text-2 student-empty-row">Chưa có dữ liệu học
                             phí</td>
                     </tr>
                 @endforelse
@@ -183,7 +183,7 @@
             @if (!$hocPhis->onFirstPage())
                 <a href="{{ $hocPhis->previousPageUrl() }}">Trước</a>
             @else
-                <span style="opacity:.5;padding:8px 14px;">Trước</span>
+                <span class="student-page-disabled">Trước</span>
             @endif
             @for ($i = 1; $i <= $hocPhis->lastPage(); $i++)
                 <a href="{{ $hocPhis->url($i) }}"
@@ -192,7 +192,7 @@
             @if ($hocPhis->hasMorePages())
                 <a href="{{ $hocPhis->nextPageUrl() }}">Sau</a>
             @else
-                <span style="opacity:.5;padding:8px 14px;">Sau</span>
+                <span class="student-page-disabled">Sau</span>
             @endif
         </div>
     </div>

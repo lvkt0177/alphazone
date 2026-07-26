@@ -25,3 +25,197 @@
 .branch-chip.hidden {
     display: none;
 }
+/* ---- students/_index.blade.php ---- */
+.student-header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.student-alert-success {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+}
+
+.student-alert-error {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+}
+
+.student-col-nowrap {
+    white-space: nowrap;
+}
+
+.student-count-text {
+    font-size: 13px;
+}
+
+.student-table-scroll {
+    overflow-x: auto;
+}
+
+.student-inline-form {
+    display: inline;
+}
+
+.student-icon-btn {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.student-empty-row {
+    text-align: center;
+    padding: 30px;
+}
+
+.student-page-disabled {
+    opacity: .5;
+    padding: 8px 14px;
+}
+
+/* ---- shared: students/create.blade.php + partials/modals/_student.blade.php ---- */
+.student-form-columns {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.student-hidden-file-input {
+    display: none;
+}
+
+.student-tn-banner {
+    display: none;
+    margin-bottom: 16px;
+}
+
+.student-tn-banner-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+}
+
+.student-tn-close {
+    cursor: pointer;
+}
+
+.student-code-hint {
+    font-size: 12px;
+    margin-top: 5px;
+    min-height: 16px;
+}
+
+.student-field-error {
+    margin-top: 6px;
+}
+
+.student-triple-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+}
+
+.student-branch-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.student-label-flush {
+    margin: 0;
+}
+
+.student-branch-count {
+    font-size: 12px;
+}
+
+.student-branch-toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.student-search-wrap {
+    flex: 1;
+}
+
+.student-branch-search-input {
+    width: 100%;
+    padding: 8px 12px 8px 32px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--bg);
+}
+
+.student-branch-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+}
+
+/* ---- students/create.blade.php: Trải nghiệm panel ---- */
+.student-tn-search-wrap {
+    position: relative;
+    margin-bottom: 14px;
+}
+
+.student-tn-search-input {
+    width: 100%;
+    padding: 9px 13px 9px 32px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--bg);
+}
+
+.student-tn-list {
+    max-height: 520px;
+    overflow-y: auto;
+}
+
+.student-tn-item {
+    cursor: pointer;
+}
+
+.student-tn-empty {
+    text-align: center;
+    padding: 20px;
+}
+
+/* ---- students/_detail.blade.php ---- */
+.student-detail-card {
+    margin-bottom: 20px;
+}
+
+.student-detail-name-wrap {
+    flex: 1;
+    min-width: 220px;
+}
+
+.student-status-badge-wrap {
+    margin-top: 10px;
+}
+
+.student-note-label {
+    margin-bottom: 8px;
+}
+
+.student-note-value {
+    white-space: pre-line;
+}
+
+.student-hocbu-tag {
+    margin-left: 4px;
+}
+
+.student-giothieu-tag {
+    margin-left: 6px;
+}

@@ -12,7 +12,7 @@
         <div class="page-title">Thêm Học viên mới</div>
     </div>
 
-    <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start;">
+    <div class="student-form-columns">
 
         <form class="form-card" method="POST" action="{{ route('hocvien.store') }}" enctype="multipart/form-data"
             id="createStudentForm">
@@ -24,7 +24,7 @@
                         src="https://ui-avatars.com/api/?name=Hoc+Vien&background=EFEAFB&color=6C5DD3&bold=true"
                         alt=""></div>
                 <div>
-                    <input type="file" name="avatar" id="createAvatarInput" accept="image/*" style="display:none"
+                    <input type="file" name="avatar" id="createAvatarInput" accept="image/*" class="student-hidden-file-input"
                         onchange="previewCreateAvatar(this)">
                     <button type="button" class="btn btn-light btn-sm"
                         onclick="document.getElementById('createAvatarInput').click()"><i class="ri-upload-2-line"></i> Tải
@@ -33,11 +33,10 @@
                 </div>
             </div>
 
-            <div id="tuTraiNghiemBanner" style="display:none;margin-bottom:16px;">
-                <div class="badge purple"
-                    style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;">
+            <div id="tuTraiNghiemBanner" class="student-tn-banner">
+                <div class="badge purple student-tn-banner-inner">
                     <span>Đang tạo từ Học viên trải nghiệm: <b id="tuTraiNghiemName"></b></span>
-                    <span style="cursor:pointer;" onclick="boChonTraiNghiem()"><i class="ri-close-line"></i></span>
+                    <span class="student-tn-close" onclick="boChonTraiNghiem()"><i class="ri-close-line"></i></span>
                 </div>
             </div>
 
@@ -45,22 +44,22 @@
                 <div class="field"><label>Mã số</label>
                     <input name="ma_so" value="{{ old('ma_so') }}" type="text" id="c_ma_so" autocomplete="off"
                         oninput="goiYMaSo(this.value)" data-suggest-url="{{ route('hocvien.goiymaso') }}">
-                    <div id="maSoHint" class="text-2" style="font-size:12px;margin-top:5px;min-height:16px;"></div>
+                    <div id="maSoHint" class="text-2 student-code-hint"></div>
                     @error('ma_so')
-                        <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                        <div class="badge red student-field-error">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="field"><label>Họ tên</label><input id="c_name" name="ho_ten" value="{{ old('ho_ten') }}"
                         type="text">
                     @error('ho_ten')
-                        <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                        <div class="badge red student-field-error">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="field"><label>Nickname</label><input name="nickname" value="{{ old('nickname') }}"
                         type="text"></div>
                 <div class="field"><label>Ngày sinh</label><input id="c_dob" name="ngay_sinh"
                         value="{{ old('ngay_sinh') }}" type="date"></div>
-                <div class="field span-2" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+                <div class="field span-2 student-triple-col">
                     <div>
                         <label>Giới tính</label>
                         <select name="gioi_tinh">
@@ -75,7 +74,7 @@
                         <input name="chieu_cao" value="{{ old('chieu_cao') }}" type="number" step="0.1"
                             placeholder="VD: 145.5">
                         @error('chieu_cao')
-                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                            <div class="badge red student-field-error">{{ $message }}</div>
                         @enderror
                     </div>
                     <div>
@@ -83,14 +82,14 @@
                         <input name="can_nang" value="{{ old('can_nang') }}" type="number" step="0.1"
                             placeholder="VD: 38.2">
                         @error('can_nang')
-                            <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                            <div class="badge red student-field-error">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
                 <div class="field"><label>Số điện thoại</label><input id="c_phone" name="sdt"
                         value="{{ old('sdt') }}" type="text">
                     @error('sdt')
-                        <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                        <div class="badge red student-field-error">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="field"><label>Trường</label><input name="truong" value="{{ old('truong') }}" type="text">
@@ -101,21 +100,19 @@
                     <label>Ghi chú</label>
                     <textarea name="ghi_chu" rows="3" placeholder="Ghi chú về học viên">{{ old('ghi_chu') }}</textarea>
                     @error('ghi_chu')
-                        <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                        <div class="badge red student-field-error">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="field span-2">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                        <label style="margin:0;">Cơ sở (chọn ít nhất 1 cơ sở)</label>
-                        <span id="branchCount" class="badge purple" style="font-size:12px;">0 đã chọn</span>
+                    <div class="student-branch-head">
+                        <label class="student-label-flush">Cơ sở (chọn ít nhất 1 cơ sở)</label>
+                        <span id="branchCount" class="badge purple student-branch-count">0 đã chọn</span>
                     </div>
 
-                    <div style="display:flex;gap:8px;margin-bottom:10px;">
-                        <div style="position:relative;flex:1;">
-                            <i class="ri-search-line"
-                                style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-2);font-size:15px;"></i>
+                    <div class="student-branch-toolbar">
+                        <div class="search-mini student-search-wrap">
                             <input type="text" id="branchSearch" placeholder="Tìm cơ sở..."
-                                style="width:100%;padding:8px 12px 8px 32px;border:1px solid var(--border);border-radius:9px;background:var(--bg);">
+                                class="student-branch-search-input">
                         </div>
                         {{-- <button type="button" class="btn btn-light btn-sm" onclick="chonTatCaCoSo(true)">Chọn tất
                             cả</button> --}}
@@ -124,7 +121,7 @@
                     </div>
 
                     <div id="c_branches"
-                        style="display:flex;flex-wrap:wrap;gap:8px;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);">
+                        class="student-branch-chips">
                         @foreach ($coSos->sortBy(fn($cs) => (int) filter_var($cs->ten, FILTER_SANITIZE_NUMBER_INT) ?: $cs->id) as $cs)
                             <label class="branch-chip" data-name="{{ strtolower($cs->ten) }}">
                                 <input type="checkbox" name="co_so_ids[]" value="{{ $cs->id }}"
@@ -136,7 +133,7 @@
                         @endforeach
                     </div>
                     @error('co_so_ids')
-                        <div class="badge red" style="margin-top:6px;">{{ $message }}</div>
+                        <div class="badge red student-field-error">{{ $message }}</div>
                     @enderror
                 </div>
 
@@ -160,15 +157,14 @@
             <div class="card-head">
                 <h3><i class="ri-user-star-line"></i> Chọn từ Học viên trải nghiệm</h3>
             </div>
-            <div class="search-mini" style="position:relative;margin-bottom:14px;">
-                <i class="ri-search-line"
-                    style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-2);font-size:15px;"></i>
+            <div class="search-mini student-tn-search-wrap">
+                <i class="ri-search-line"></i>
                 <input type="text" id="traiNghiemSearch" placeholder="Tìm theo tên..." oninput="locTraiNghiem()"
-                    style="width:100%;padding:9px 13px 9px 32px;border:1px solid var(--border);border-radius:9px;background:var(--bg);">
+                    class="student-tn-search-input">
             </div>
-            <div class="row-list" id="traiNghiemList" style="max-height:520px;overflow-y:auto;">
+            <div class="row-list student-tn-list" id="traiNghiemList">
                 @forelse ($traiNghiems as $t)
-                    <div class="item tn-item" data-name="{{ strtolower($t->ho_ten) }}" style="cursor:pointer;"
+                    <div class="item tn-item student-tn-item" data-name="{{ strtolower($t->ho_ten) }}"
                         onclick='chonTraiNghiem(@json($t))'>
                         <img src="https://ui-avatars.com/api/?name={{ urlencode($t->ho_ten) }}&background=FFA45C&color=fff&bold=true"
                             alt="">
@@ -180,7 +176,7 @@
                         <span class="badge {{ $t->trang_thai->getBadge() }}">{{ $t->trang_thai->getLabel() }}</span>
                     </div>
                 @empty
-                    <div class="text-2" style="text-align:center;padding:20px;">Không có học viên trải nghiệm nào chưa
+                    <div class="text-2 student-tn-empty">Không có học viên trải nghiệm nào chưa
                         đăng ký</div>
                 @endforelse
             </div>

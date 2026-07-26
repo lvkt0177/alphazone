@@ -2,17 +2,21 @@
 @section('title', 'Dashboard')
 @section('content')
 
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('css/pages/dashboard.css') }}">
+    @endpush
+
     <div class="page-head">
         <div>
             <div class="page-title">Bảng điều khiển</div>
-            <div class="text-2" style="margin-top:4px;">Thống kê tổng quan tháng {{ $thangHienTai->format('n/Y') }}</div>
+            <div class="text-2 dashboard-subtitle">Thống kê tổng quan tháng {{ $thangHienTai->format('n/Y') }}</div>
         </div>
     </div>
 
     <div class="stat-grid">
         <div class="card stat-card">
             <div class="top">
-                <div class="stat-icon" style="background:var(--green-bg);color:var(--green);"><i
+                <div class="stat-icon dashboard-icon--green"><i
                         class="ri-money-dollar-circle-line"></i></div>
             </div>
             <div class="label">Học phí thu được (Tháng {{ $thangHienTai->format('n/Y') }})</div>
@@ -20,7 +24,7 @@
         </div>
         <div class="card stat-card">
             <div class="top">
-                <div class="stat-icon" style="background:var(--blue-bg);color:var(--blue);"><i class="ri-t-shirt-line"></i>
+                <div class="stat-icon dashboard-icon--blue"><i class="ri-t-shirt-line"></i>
                 </div>
             </div>
             <div class="label">Đồng phục thu được (Tháng {{ $thangHienTai->format('n/Y') }})</div>
@@ -28,7 +32,7 @@
         </div>
         <div class="card stat-card">
             <div class="top">
-                <div class="stat-icon" style="background:var(--purple-bg);color:var(--purple);"><i
+                <div class="stat-icon dashboard-icon--purple"><i
                         class="ri-group-line"></i></div>
             </div>
             <div class="label">Tổng Học viên</div>
@@ -36,7 +40,7 @@
         </div>
         <div class="card stat-card">
             <div class="top">
-                <div class="stat-icon" style="background:var(--red-bg);color:var(--red);"><i
+                <div class="stat-icon dashboard-icon--red"><i
                         class="ri-alarm-warning-line"></i></div>
             </div>
             <div class="label">Chưa đóng học phí tháng này</div>
@@ -44,7 +48,7 @@
         </div>
         <div class="card stat-card">
             <div class="top">
-                <div class="stat-icon" style="background:var(--orange-bg);color:var(--orange);"><i
+                <div class="stat-icon dashboard-icon--orange"><i
                         class="ri-basketball-line"></i></div>
             </div>
             <div class="label">Tiền sân tháng {{ $thangHienTai->format('n/Y') }}</div>
@@ -58,8 +62,8 @@
                 <h3><i class="ri-line-chart-line"></i> Doanh thu Học phí &amp; Đồng phục (6 tháng gần nhất)</h3>
             </div>
             <div class="legend">
-                <span><i class="dot-legend" style="background:#6C5DD3"></i>Học phí</span>
-                <span><i class="dot-legend" style="background:#FFA45C"></i>Đồng phục</span>
+                <span><i class="dot-legend dashboard-legend-dot--fee"></i>Học phí</span>
+                <span><i class="dot-legend dashboard-legend-dot--uniform"></i>Đồng phục</span>
             </div>
             <canvas id="revenueChart" height="230"></canvas>
         </div>
@@ -69,10 +73,10 @@
                 <h3><i class="ri-pie-chart-2-line"></i> Trạng thái Học viên</h3>
             </div>
             <canvas id="statusChart" height="220"></canvas>
-            <div style="margin-top:16px;">
+            <div class="dashboard-status-legend-wrap">
                 @foreach ($thongKeTrangThai as $tk)
-                    <div class="legend" style="flex-wrap:wrap;">
-                        <span><span class="badge {{ $tk['badge'] }}" style="margin-right:6px;">{{ $tk['label'] }}</span>
+                    <div class="legend dashboard-status-legend-row">
+                        <span><span class="badge {{ $tk['badge'] }} dashboard-status-badge">{{ $tk['label'] }}</span>
                             {{ $tk['total'] }} học viên</span>
                     </div>
                 @endforeach
@@ -80,7 +84,7 @@
         </div>
     </div>
 
-    <div class="grid-2" style="grid-template-columns:1fr 1fr;">
+    <div class="grid-2 dashboard-grid-2col">
         <div class="card">
             <div class="card-head">
                 <h3><i class="ri-alarm-warning-line"></i> Học viên chưa đóng học phí tháng này</h3>
@@ -112,8 +116,7 @@
             <div class="row-list">
                 @forelse ($coSos as $cs)
                     <div class="item">
-                        <div class="stat-icon"
-                            style="width:38px;height:38px;font-size:16px;background:var(--primary-light);color:var(--primary);">
+                        <div class="stat-icon dashboard-icon-sm dashboard-icon--primary">
                             <i class="ri-building-4-line"></i>
                         </div>
                         <div class="info">
@@ -129,7 +132,7 @@
         </div>
     </div>
 
-    <div class="grid-2" style="grid-template-columns:1fr 1fr;">
+    <div class="grid-2 dashboard-grid-2col">
         <div class="card">
             <div class="card-head">
                 <h3><i class="ri-basketball-line"></i> Tiền sân theo Địa điểm (tháng này)</h3>
@@ -138,26 +141,23 @@
             </div>
             <div class="row-list">
                 @forelse ($tienSanTheoDiaDiem as $dd)
-                    <div class="item" style="align-items:center;">
-                        <div class="stat-icon"
-                            style="width:38px;height:38px;font-size:16px;background:var(--orange-bg);color:var(--orange);">
+                    <div class="item dashboard-item-centered">
+                        <div class="stat-icon dashboard-icon-sm dashboard-icon--orange">
                             <i class="ri-basketball-line"></i>
                         </div>
                         <div class="info">
                             <div class="t">{{ $dd->ten }}</div>
                             <div class="s">{{ $dd->coSos->count() }} cơ sở</div>
                         </div>
-                        <span class="amt"
-                            style="font-weight:800;">{{ number_format($dd->tong_tien_san ?? 0, 0, ',', '.') }} đ</span>
+                        <span class="amt dashboard-amt-bold">{{ number_format($dd->tong_tien_san ?? 0, 0, ',', '.') }} đ</span>
                     </div>
 
                     @foreach ($dd->coSos as $cs)
-                        <div class="item" style="padding-left:50px;">
+                        <div class="item dashboard-item-indent">
                             <div class="info">
-                                <div class="s" style="font-weight:600;color:var(--text);">{{ $cs->ten }}</div>
+                                <div class="s dashboard-sub-name">{{ $cs->ten }}</div>
                             </div>
-                            <span class="amt"
-                                style="font-weight:500;color:var(--text-2);">{{ number_format($cs->tong_tien_san ?? 0, 0, ',', '.') }}
+                            <span class="amt dashboard-sub-amt">{{ number_format($cs->tong_tien_san ?? 0, 0, ',', '.') }}
                                 đ</span>
                         </div>
                     @endforeach

@@ -1348,3 +1348,38 @@ textarea.note-input:focus {
 .referrer-option:hover {
   background: var(--bg);
 }
+
+.confirm-modal-box {
+  max-width: 500px;
+}
+
+.confirm-modal-body {
+  text-align: center;
+  padding: 30px 24px 10px;
+}
+
+.confirm-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--orange-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+}
+
+.confirm-icon {
+  font-size: 26px;
+  color: var(--orange);
+}
+
+.confirm-title {
+  font-weight: 800;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.confirm-modal-foot {
+  justify-content: center;
+}
