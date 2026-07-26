@@ -1,4 +1,8 @@
-<div class="breadcrumb"><a>Trang chủ</a> <i class="ri-arrow-right-s-line"></i> <a class="active">Tiền sân</a></div>
+<div class="breadcrumb">
+    <a>Trang chủ</a> 
+    <i class="ri-arrow-right-s-line"></i> 
+    <a class="active">Tiền sân</a>
+</div>
 <div class="page-head">
     <div class="page-title">Tính tiền Sân theo Cơ sở</div>
     <button type="button" class="btn btn-primary" onclick="openTienSanModal()"><i class="ri-add-line"></i> Tạo Tiền
@@ -52,10 +56,8 @@
                     <td>{{ number_format($ts->so_tien, 0, ',', '.') }} đ</td>
                     <td>
                         @if ($ts->bill_url)
-                            <a href="{{ $ts->bill_url }}" target="_blank" rel="noopener">
-                                <img src="{{ $ts->bill_url }}" alt="Bill"
-                                    class="tiensan-bill-thumb">
-                            </a>
+                            <img src="{{ $ts->bill_url }}" alt="Bill"
+                                class="tiensan-bill-thumb" onclick="openBillPreview('{{ $ts->bill_url }}')">
                         @else
                             <span class="text-2">—</span>
                         @endif
@@ -118,3 +120,20 @@
         });
     </script>
 @endif
+
+<div class="overlay" id="billPreviewModal">
+    <div class="modal tiensan-bill-modal">
+        <div class="modal-head">
+            <h3>Xem Bill</h3><i class="ri-close-line" onclick="closeModal('billPreviewModal')"></i>
+        </div>
+        <div class="modal-body tiensan-bill-modal-body">
+            <img id="billPreviewImg" src="" alt="Bill" class="tiensan-bill-modal-img">
+        </div>
+        <div class="modal-foot">
+            <a id="billPreviewDownload" href="#" target="_blank" rel="noopener" class="btn btn-outline">
+                <i class="ri-external-link-line"></i> Mở ảnh gốc
+            </a>
+            <button type="button" class="btn btn-primary" onclick="closeModal('billPreviewModal')">Đóng</button>
+        </div>
+    </div>
+</div>

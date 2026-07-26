@@ -59,7 +59,7 @@
                     <th>Ghi chú</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="attendanceTbody">
                 @forelse ($hocViens as $hv)
                     @php $rec = $existing->get($hv->id); @endphp
                     <tr>
@@ -91,7 +91,7 @@
                     </tr>
                 @empty
                     @if ($hocViensBu->isEmpty())
-                        <tr>
+                        <tr id="attendanceEmptyRow">
                             <td colspan="5" class="text-2 attendance-empty-row">Cơ sở này chưa có
                                 học
                                 viên đang hoạt động</td>
@@ -142,11 +142,9 @@
             </tbody>
         </table>
 
-        @if ($hocViens->isNotEmpty() || $hocViensBu->isNotEmpty())
-            <div class="attendance-save-wrap">
-                <button type="submit" class="btn btn-primary"><i class="ri-save-line"></i> Lưu điểm danh</button>
-            </div>
-        @endif
+        <div class="attendance-save-wrap" id="attendanceSaveWrap">
+            <button type="submit" class="btn btn-primary"><i class="ri-save-line"></i> Lưu điểm danh</button>
+        </div>
     </form>
 
     <form id="deleteHocBuForm" method="POST" class="attendance-hidden-form">
@@ -177,10 +175,9 @@
                             <div id="hb_list" class="attendance-search-list">
                             </div>
                         </div>
-                        @if ($hocViensChoHocBu->isEmpty())
-                            <div class="badge red attendance-hocbu-empty">Không còn học viên nào để thêm học bù.
-                            </div>
-                        @endif
+                        <div id="hbEmptyMsg" class="badge red attendance-hocbu-empty{{ $hocViensChoHocBu->isNotEmpty() ? ' attendance-hidden' : '' }}">
+                            Không còn học viên nào để thêm học bù.
+                        </div>
                     </div>
                     <div class="small-note attendance-hocbu-note">
                         Sau khi thêm, học viên sẽ xuất hiện trong bảng điểm danh bên dưới (đánh dấu "Học bù") — tick Đi
@@ -197,7 +194,18 @@
         </div>
     </div>
 
+    @php
+        $hocVienChoHocBuData = $hocViensChoHocBu->map(function ($hv) {
+            return [
+                'id' => $hv->id,
+                'ma_so' => $hv->ma_so,
+                'ho_ten' => $hv->ho_ten,
+                'avatar_url' => $hv->avatar_url,
+            ];
+        });
+    @endphp
     <script>
-        window.__hocVienChoHocBu = @json($hocViensChoHocBu->map(fn($hv) => ['id' => $hv->id, 'ma_so' => $hv->ma_so, 'ho_ten' => $hv->ho_ten]));
+        window.__hocVienChoHocBu = @json($hocVienChoHocBuData);
+        window.__hocVienShowUrlBase = @json(url('hoc-vien'));
     </script>
 @endif
