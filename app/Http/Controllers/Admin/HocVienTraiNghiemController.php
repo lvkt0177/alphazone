@@ -31,6 +31,10 @@ class HocVienTraiNghiemController extends Controller
             $query->whereDate('ngay_trai_nghiem', $request->ngay_trai_nghiem);
         }
 
+        if ($request->filled('trang_thai')) {
+            $query->where('trang_thai', $request->trang_thai);
+        }
+
         $traiNghiems = $query->orderBy('id', 'desc')->paginate(10)->withQueryString();
         $coSos = CoSo::where('trang_thai', TrangThaiCoSo::ACTIVE)->orderBy('ten')->get();
 
