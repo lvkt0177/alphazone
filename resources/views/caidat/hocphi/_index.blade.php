@@ -17,8 +17,7 @@
 
 <div class="table-card">
     <div class="text-2 caidathocphi-note">
-        "Giá 1 buổi" chỉ để tham khảo — được tự động tính bằng Học phí
-        ÷ Tổng số buổi.
+        "Giá 1 buổi" được tự động tính bằng Học phí ÷ Tổng số buổi.
     </div>
 
     <table>
