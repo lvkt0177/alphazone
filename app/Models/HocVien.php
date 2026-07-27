@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Enum\GioiTinh;
+use App\Enum\TrangThaiDiemDanh;
 use App\Enum\TrangThaiHocVien;
 use App\Traits\SearchableUnaccented;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -56,5 +58,53 @@ class HocVien extends Model
     public function hocPhis(): HasMany
     {
         return $this->hasMany(HocPhi::class);
+    }
+
+    public function duKienHocPhi(): ?array
+    {
+        $config = CaiDatHocPhi::layTheoSoLuongCoSo($this->coSos->count());
+
+        if (! $config) {
+            return null;
+        }
+
+        $soBuoiDaHoc = $this->diemDanhs->count();
+
+        $soTien = $soBuoiDaHoc >= $config->tong_so_buoi
+            ? $config->hoc_phi
+            : $soBuoiDaHoc * $config->gia_1_buoi;
+
+        return [
+            'so_tien' => $soTien,
+            'so_buoi_da_hoc' => $soBuoiDaHoc,
+            'tong_so_buoi' => $config->tong_so_buoi,
+        ];
+    }
+    
+    public function duKienHocPhiChoThang(Carbon $thangMucTieu): ?array
+    {
+        $config = CaiDatHocPhi::layTheoSoLuongCoSo($this->coSos->count());
+
+        if (! $config) {
+            return null;
+        }
+
+        $thangTruoc = $thangMucTieu->copy()->subMonth()->startOfMonth();
+
+        $soBuoiDaHoc = $this->diemDanhs()
+            ->whereBetween('ngay', [$thangTruoc->toDateString(), $thangTruoc->copy()->endOfMonth()->toDateString()])
+            ->where('trang_thai', TrangThaiDiemDanh::DI_HOC)
+            ->count();
+
+        $soTien = $soBuoiDaHoc >= $config->tong_so_buoi
+            ? $config->hoc_phi
+            : $soBuoiDaHoc * $config->gia_1_buoi;
+
+        return [
+            'thang' => $thangMucTieu,
+            'so_tien' => $soTien,
+            'so_buoi_da_hoc' => $soBuoiDaHoc,
+            'tong_so_buoi' => $config->tong_so_buoi,
+        ];
     }
 }

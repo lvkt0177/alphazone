@@ -40,6 +40,7 @@
     @include('partials.modals._teacher')
     @include('partials.modals._tiensan')
     @include('partials.modals._confirm')
+    @include('partials.modals._caidathocphi')
     
     {{-- TOAST --}}
     @include('partials._toast')

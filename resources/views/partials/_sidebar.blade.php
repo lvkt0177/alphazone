@@ -58,6 +58,22 @@
             <i @class(['ri-bar-chart-2-line'])></i> Thống kê
         </a> --}}
 
+        <div @class(['nav-group', request()->routeIs('caidathocphi.*') ? 'open' : ''])>
+            <div @class(['nav-item', 'nav-group-toggle']) onclick="toggleNavGroup(this)">
+                <i @class(['ri-settings-3-line'])></i> Cài đặt
+                <i @class(['ri-arrow-down-s-line', 'nav-group-arrow'])></i>
+            </div>
+            <div @class(['nav-submenu'])>
+                <a href="{{ route('caidathocphi.index') }}" @class([
+                    'nav-item',
+                    'nav-subitem',
+                    request()->routeIs('caidathocphi.*') ? 'active' : '',
+                ]) data-view="caidathocphi">
+                    <i @class(['ri-money-dollar-circle-line'])></i> Tiền học phí
+                </a>
+            </div>
+        </div>
+
         <div @class(['nav-label'])>Tài khoản</div>
 
         <a href="{{ route('doi-mat-khau') }}" @class([

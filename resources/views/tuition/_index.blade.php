@@ -81,6 +81,7 @@
                 <th>Họ tên</th>
                 <th>Cơ sở</th>
                 <th>Học phí</th>
+                <th title="Tính dựa vào điểm danh của tháng trước tháng đang xem">Học phí dự kiến</th>
                 <th class="trang-thai-hoc-phi">Trạng thái</th>
                 <th>Ngày đóng</th>
                 <th></th>
@@ -108,6 +109,15 @@
                     <td>
                         @if ($rec)
                             {{ number_format($rec->hoc_phi, 0, ',', '.') }} đ
+                        @else
+                            —
+                        @endif
+                    </td>
+                    <td class="text-2">
+                        @php $duKien = $hv->duKienHocPhi(); @endphp
+                        @if ($duKien)
+                            {{ number_format($duKien['so_tien'], 0, ',', '.') }} đ
+                            ({{ $duKien['so_buoi_da_hoc'] }}/{{ $duKien['tong_so_buoi'] }})
                         @else
                             —
                         @endif
@@ -140,7 +150,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" class="text-2 tuition-empty-row">Không có học viên nào</td>
+                    <td colspan="7" class="text-2 tuition-empty-row">Không có học viên nào</td>
                 </tr>
             @endforelse
         </tbody>

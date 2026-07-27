@@ -1383,3 +1383,33 @@ textarea.note-input:focus {
 .confirm-modal-foot {
   justify-content: center;
 }
+/* ---- Sidebar: nhóm menu dạng dropdown (VD: Cài đặt) ---- */
+.nav-group-toggle {
+  cursor: pointer;
+  justify-content: flex-start;
+}
+
+.nav-group-arrow {
+  margin-left: auto;
+  font-size: 16px;
+  transition: transform .2s;
+}
+
+.nav-group.open .nav-group-arrow {
+  transform: rotate(180deg);
+}
+
+.nav-submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .2s ease;
+}
+
+.nav-group.open .nav-submenu {
+  max-height: 300px;
+}
+
+.nav-subitem {
+  padding-left: 20px;
+  font-size: 13.5px;
+}
