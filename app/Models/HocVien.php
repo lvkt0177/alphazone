@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enum\GioiTinh;
 use App\Enum\TrangThaiHocVien;
+use App\Traits\SearchableUnaccented;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 
 class HocVien extends Model
 {
-    use HasFactory;
+    use HasFactory, SearchableUnaccented;
 
     protected $table = 'hoc_viens';
 

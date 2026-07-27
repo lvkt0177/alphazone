@@ -24,7 +24,7 @@ class HocVienController extends Controller
         if ($request->filled('q')) {
             $q = $request->q;
             $query->where(fn ($sub) => $sub->where('ma_so', 'like', "%{$q}%")
-                ->orWhere('ho_ten', 'like', "%{$q}%")
+                ->orWhereUnaccentedLike('ho_ten', $q)
                 ->orWhere('sdt', 'like', "%{$q}%"));
         }
 
@@ -36,7 +36,7 @@ class HocVienController extends Controller
             $query->where('trang_thai', $request->trang_thai);
         }
 
-        $hocViens = $query->orderBy('id', 'desc')->paginate(8)->withQueryString();
+        $hocViens = $query->orderBy('id', 'desc')->paginate(20)->withQueryString();
         $coSos = CoSo::orderBy('ten')->get();
 
         return view('students.index', compact('hocViens', 'coSos'));

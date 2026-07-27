@@ -25,7 +25,7 @@ class HocPhiController extends Controller
         if ($request->filled('q')) {
             $q = $request->q;
             $query->where(fn ($sub) => $sub->where('ma_so', 'like', "%{$q}%")
-                ->orWhere('ho_ten', 'like', "%{$q}%")
+                ->orWhereUnaccentedLike('ho_ten', $q)
                 ->orWhere('sdt', 'like', "%{$q}%"));
         }
 
