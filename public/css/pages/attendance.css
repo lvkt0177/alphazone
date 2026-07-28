@@ -4,6 +4,16 @@
     margin-bottom: 16px;
 }
 
+.attendance-alert-error {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+}
+
+.attendance-locked-note {
+    font-size: 13px;
+}
+
 .attendance-filter-field {
     margin: 0;
     min-width: 220px;

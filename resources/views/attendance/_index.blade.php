@@ -6,6 +6,9 @@
 @if (session('success'))
     <div class="badge green attendance-alert-success">{{ session('success') }}</div>
 @endif
+@if (session('error'))
+    <div class="badge red attendance-alert-error">{{ session('error') }}</div>
+@endif
 
 <div class="table-card">
     <form method="GET" action="{{ route('diemdanh.index') }}" class="attendance-toolbar">
@@ -33,6 +36,14 @@
             <div class="text-2 attendance-status-line">
                 Đang điểm danh cho <b>{{ optional($coSos->firstWhere('id', $selectedCoSoId))->ten }}</b>
                 — ngày <b>{{ \Carbon\Carbon::parse($selectedDate)->format('d/m/Y') }}</b>
+            </div>
+
+            <div class="text-2 attendance-status-line">
+                <span class="badge green">Đi học: {{ $soDiHoc }}</span>
+                <span class="badge red">Vắng: {{ $soVang }}</span>
+                @if ($nguoiCapNhatCuoi)
+                    <span class="badge purple">Người điểm danh gần nhất: {{ $nguoiCapNhatCuoi->ho_ten }}</span>
+                @endif
             </div>
 
             <div class="attendance-hocbu-btn-wrap">
@@ -147,8 +158,12 @@
         </table>
 
         <div class="attendance-save-wrap" id="attendanceSaveWrap">
-            @if (hasQuyen('diemdanh', 'them'))
+            @if (hasQuyen('diemdanh', 'them') && (! $daDiemDanh || hasQuyen('diemdanh', 'sua')))
                 <button type="submit" class="btn btn-primary"><i class="ri-save-line"></i> Lưu điểm danh</button>
+            @elseif ($daDiemDanh)
+                <span class="text-2 attendance-locked-note">
+                    <i class="ri-lock-line"></i> Bạn đã điểm danh ngày hôm nay rồi. Nếu có sai sót, vui liên hệ với Người quản trị.
+                </span>
             @endif
         </div>
     </form>
