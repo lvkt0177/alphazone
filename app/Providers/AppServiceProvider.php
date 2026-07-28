@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\HocVien;
 use App\Models\HocVienTraiNghiem;
+use App\Models\ChucNang;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -41,6 +42,12 @@ class AppServiceProvider extends ServiceProvider
             $view->with([
                 'diaDiems' => DiaDiem::orderBy('ten')->get(),
                 'giaoViens' => GiaoVien::where('trang_thai', TrangThaiGiaoVien::DANG_DAY)->orderBy('ho_ten')->get(),
+            ]);
+        });
+
+        View::composer('partials.modals._quyengiaovien', function ($view) {
+            $view->with([
+                'chucNangs' => ChucNang::orderBy('id')->get(),
             ]);
         });
     }

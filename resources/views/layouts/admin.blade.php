@@ -38,6 +38,7 @@
     @include('partials.modals._trial')
     @include('partials.modals._branch')
     @include('partials.modals._teacher')
+    @include('partials.modals._quyengiaovien')
     @include('partials.modals._tiensan')
     @include('partials.modals._confirm')
     @include('partials.modals._caidathocphi')

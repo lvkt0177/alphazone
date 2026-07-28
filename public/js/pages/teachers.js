@@ -21,3 +21,23 @@ function openTeacherModal(id, hoTen, ngaySinh, sdt, chucDanh){
 
   openModal('teacherModal');
 }
+
+function openQuyenModal(giaoVienId, hoTen, quyenData) {
+  const form = document.getElementById('quyenForm');
+
+  document.getElementById('quyenGvName').textContent = hoTen || '';
+  form.action = `${form.dataset.saveUrlBase}/${giaoVienId}/quyen`;
+
+  form.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+
+  (quyenData || []).forEach(row => {
+    ['xem', 'them', 'sua', 'xoa'].forEach(hanhDong => {
+      if (row[hanhDong]) {
+        const cb = document.getElementById(`qgv_${row.chuc_nang_id}_${hanhDong}`);
+        if (cb) cb.checked = true;
+      }
+    });
+  });
+
+  openModal('quyenModal');
+}

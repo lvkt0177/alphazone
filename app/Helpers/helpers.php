@@ -35,3 +35,28 @@ if (! function_exists('remove_vietnamese_accents')) {
         return strtr(mb_strtolower($str), $map);
     }
 }
+
+if (! function_exists('generate_username_from_name')) {
+    function generate_username_from_name(string $hoTen): string
+    {
+        $base = str_replace(' ', '', remove_vietnamese_accents($hoTen));
+        $username = $base;
+        $i = 2;
+
+        while (\App\Models\User::where('name', $username)->exists()) {
+            $username = $base.$i;
+            $i++;
+        }
+
+        return $username;
+    }
+}
+
+if (! function_exists('hasQuyen')) {
+    function hasQuyen(string $chucNangKey, string $hanhDong = 'xem'): bool
+    {
+        $user = auth()->user();
+
+        return $user ? $user->hasQuyen($chucNangKey, $hanhDong) : false;
+    }
+}

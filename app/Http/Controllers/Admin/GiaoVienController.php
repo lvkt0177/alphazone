@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enum\RoleUser;
 use App\Enum\TrangThaiCoSo;
 use App\Enum\TrangThaiGiaoVien;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GiaoVien\GiaoVienRequest;
+use App\Models\ChucNang;
 use App\Models\GiaoVien;
+use App\Models\User;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 
 class GiaoVienController extends Controller
 {
     public function index()
     {
-        $giaoViens = GiaoVien::orderBy('id')->get();
+        $giaoViens = GiaoVien::with(['coSos', 'user.permissions'])->orderBy('id')->get();
 
         return view('teachers.index', compact('giaoViens'));
     }
@@ -68,5 +72,77 @@ class GiaoVienController extends Controller
         $giaovien->save();
 
         return redirect()->route('giaovien.index')->with('success', 'Cập nhật trạng thái giáo viên thành công');
+    }
+
+    public function capTaiKhoan(GiaoVien $giaovien)
+    {
+        if ($giaovien->user) {
+            return redirect()->route('giaovien.index')->with('error', 'Giáo viên này đã có tài khoản.');
+        }
+
+        if (empty($giaovien->sdt)) {
+            return redirect()->route('giaovien.index')->with('error',
+                'Giáo viên chưa có số điện thoại. Vui lòng cập nhật số điện thoại trước khi cấp tài khoản.'
+            );
+        }
+
+        $username = generate_username_from_name($giaovien->ho_ten);
+
+        User::create([
+            'name' => $username,
+            'ho_ten' => $giaovien->ho_ten,
+            'password' => $giaovien->sdt,
+            'role' => RoleUser::GIAO_VIEN,
+            'giao_vien_id' => $giaovien->id,
+        ]);
+
+        return redirect()->route('giaovien.index')->with('success',
+            "Cấp tài khoản thành công. Tài khoản đăng nhập: {$username} — Mật khẩu: {$giaovien->sdt}"
+        );
+    }
+
+    public function luuQuyen(Request $request, GiaoVien $giaovien)
+    {
+        if (! $giaovien->user) {
+            return redirect()->route('giaovien.index')->with('error', 'Giáo viên này chưa có tài khoản để cấp quyền.');
+        }
+
+        $quyenInput = $request->input('quyen', []);
+
+        foreach (ChucNang::all() as $chucNang) {
+            $data = $quyenInput[$chucNang->id] ?? [];
+
+            $giaovien->user->permissions()->updateOrCreate(
+                ['chuc_nang_id' => $chucNang->id],
+                [
+                    'xem' => isset($data['xem']),
+                    'them' => isset($data['them']),
+                    'sua' => isset($data['sua']),
+                    'xoa' => isset($data['xoa']),
+                ]
+            );
+        }
+
+        return redirect()->route('giaovien.index')->with('success', 'Cập nhật phân quyền thành công');
+    }
+
+    public function doiMatKhauTaiKhoan(GiaoVien $giaovien)
+    {
+        if (! $giaovien->user) {
+            return redirect()->route('giaovien.index')->with('error', 'Giáo viên này chưa có tài khoản.');
+        }
+
+        if (empty($giaovien->sdt)) {
+            return redirect()->route('giaovien.index')->with('error',
+                'Giáo viên chưa có số điện thoại để đặt làm mật khẩu.'
+            );
+        }
+
+        $giaovien->user->password = $giaovien->sdt;
+        $giaovien->user->save();
+
+        return redirect()->route('giaovien.index')->with('success',
+            'Đổi mật khẩu thành công. Mật khẩu mới là số điện thoại của giáo viên.'
+        );
     }
 }

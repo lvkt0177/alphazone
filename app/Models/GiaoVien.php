@@ -31,4 +31,9 @@ class GiaoVien extends Model
     {
         return $this->hasMany(CoSo::class, 'giao_vien_id');
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'giao_vien_id');
+    }
 }

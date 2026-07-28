@@ -21,6 +21,8 @@
                 <th>Ngày sinh</th>
                 <th>Số điện thoại</th>
                 <th>Chức danh</th>
+                <th>Cơ sở phụ trách</th>
+                <th>Tài khoản</th>
                 <th>Trạng thái</th>
                 <th></th>
             </tr>
@@ -40,6 +42,14 @@
                     <td>{{ $gv->sdt ?? '—' }}</td>
                     <td>
                         <span class="badge {{ $gv->chuc_danh->getBadge() }}">{{ $gv->chuc_danh->getLabel() }}</span>
+                    </td>
+                    <td>{{ $gv->coSos->pluck('ten')->join(', ') ?: '—' }}</td>
+                    <td>
+                        @if ($gv->user)
+                            <span class="badge blue">{{ $gv->user->name }}</span>
+                        @else
+                            <span class="text-2">Chưa có</span>
+                        @endif
                     </td>
                     <td>
                         <span class="badge {{ $gv->trang_thai->getBadge() }}">{{ $gv->trang_thai->getLabel() }}</span>
@@ -68,12 +78,37 @@
                                             class="ri-delete-bin-line del"></i></button>
                                 </form>
                             @endif
+
+                            @if (! $gv->user)
+                                <form action="{{ route('giaovien.captaikhoan', $gv) }}" method="POST"
+                                    class="teacher-inline-form confirm-delete-form"
+                                    data-confirm-title="Cấp tài khoản đăng nhập"
+                                    data-confirm-message="Tài khoản đăng nhập: {{ generate_username_from_name($gv->ho_ten) }} — Mật khẩu là Số điện thoại: {{ $gv->sdt ?? 'Chưa có SĐT' }}. Xác nhận cấp tài khoản?">
+                                    @csrf
+                                    <button type="submit" class="teacher-icon-btn" title="Cấp tài khoản">
+                                        <i class="ri-user-add-line"></i>
+                                    </button>
+                                </form>
+                            @else
+                                <i class="ri-shield-user-line" title="Cấp quyền"
+                                    onclick="openQuyenModal({{ $gv->id }}, {{ Js::from($gv->ho_ten) }}, {{ Js::from($gv->user->permissions) }})"></i>
+
+                                <form action="{{ route('giaovien.doimatkhau', $gv) }}" method="POST"
+                                    class="teacher-inline-form confirm-delete-form"
+                                    data-confirm-title="Đổi mật khẩu"
+                                    data-confirm-message="Mật khẩu sẽ đổi thành Số điện thoại: {{ $gv->sdt ?? 'Chưa có SĐT' }}. Xác nhận?">
+                                    @csrf
+                                    <button type="submit" class="teacher-icon-btn" title="Đổi mật khẩu về SĐT">
+                                        <i class="ri-key-2-line"></i>
+                                    </button>
+                                </form>
+                            @endif
                         </div>
                     </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" class="text-2 teacher-empty-row">Chưa có giáo viên nào</td>
+                    <td colspan="8" class="text-2 teacher-empty-row">Chưa có giáo viên nào</td>
                 </tr>
             @endforelse
         </tbody>
