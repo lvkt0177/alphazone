@@ -60,10 +60,14 @@
             @if (request()->hasAny(['q', 'co_so_id', 'trang_thai_dong', 'thang']))
                 <a href="{{ route('hocphi.index') }}" class="btn btn-outline btn-sm">Làm mới bộ lọc</a>
             @endif
+
+            <div class="field tuition-filter-field--tongthu">
+                <label class="tuition-filter-label">Học phí tháng {{ $thang->format('n/Y') }}</label>
+                <span class="badge blue tuition-tongthu-badge">{{ number_format($tongHocPhiThang, 0, ',', '.') }} đ</span>
+            </div>
         </div>
 
-        <div class="text-2 tuition-count-text">{{ $hocViens->total() }} học viên — đang xem Tháng
-            {{ $thang->format('n/Y') }}</div>
+        <div class="text-2 tuition-count-text">{{ $hocViens->total() }} học viên</div>
 
     </form>
 

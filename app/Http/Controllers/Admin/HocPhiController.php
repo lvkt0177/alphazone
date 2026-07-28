@@ -69,12 +69,18 @@ class HocPhiController extends Controller
             ->whereDoesntHave('hocPhis', fn ($sub) => $sub->where('thang', $thang->toDateString()))
             ->count();
 
+        $tongHocPhiThang = HocPhi::where('thang', $thang->toDateString())
+            ->when($request->filled('co_so_id'), function ($q) use ($request) {
+                $q->whereHas('hocVien.coSos', fn ($sub) => $sub->where('co_sos.id', $request->co_so_id));
+            })
+            ->sum('hoc_phi');
+
         $coSos = CoSo::orderBy('ten')->get();
 
         $hocVienOptions = HocVien::select('id', 'ma_so', 'ho_ten')->orderBy('ho_ten')->get();
 
         return view('tuition.index', compact(
-            'hocViens', 'thang', 'danhSachThang', 'countDaDong', 'countChuaDong', 'coSos', 'hocVienOptions'
+            'hocViens', 'thang', 'danhSachThang', 'countDaDong', 'countChuaDong', 'tongHocPhiThang', 'coSos', 'hocVienOptions'
         ));
     }
 

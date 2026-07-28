@@ -1,147 +1,136 @@
-.tuition-alert-success {
-    display: block;
-    padding: 10px 14px;
-    margin-bottom: 16px;
-}
-
-.tuition-filters {
-    align-items: flex-end;
-}
-
-.tuition-filter-field {
-    margin: 0;
-    min-width: 220px;
-}
-
-.tuition-filter-field--coso {
-    margin: 0;
-    min-width: 200px;
-}
-
-.tuition-filter-field--trangthai {
-    margin: 0;
-    min-width: 170px;
-}
-
-.tuition-filter-field--thang {
-    margin: 0;
-    min-width: 150px;
-}
-
-.tuition-filter-label {
-    font-size: 12.5px;
-    margin-bottom: 5px;
-}
-
-.tuition-count-text {
-    font-size: 13px;
-}
-
-.tuition-stats-line {
-    font-size: 14px;
-    margin: -8px 0 14px;
-}
-
-.tuition-giothieu-tag {
+.dashboard-subtitle {
     margin-top: 4px;
 }
 
-.tuition-empty-row {
-    text-align: center;
-    padding: 30px;
+.dashboard-icon--green {
+    background: var(--green-bg);
+    color: var(--green);
 }
 
-.tuition-page-disabled {
-    opacity: .5;
-    padding: 8px 14px;
+.dashboard-icon--blue {
+    background: var(--blue-bg);
+    color: var(--blue);
 }
 
-/* ---- partials/modals/_tuition.blade.php ---- */
-.tuition-fee-head {
+.dashboard-icon--purple {
+    background: var(--purple-bg);
+    color: var(--purple);
+}
+
+.dashboard-icon--red {
+    background: var(--red-bg);
+    color: var(--red);
+}
+
+.dashboard-icon--orange {
+    background: var(--orange-bg);
+    color: var(--orange);
+}
+
+.dashboard-icon--primary {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.dashboard-legend-dot--fee {
+    background: #6C5DD3;
+}
+
+.dashboard-legend-dot--uniform {
+    background: #FFA45C;
+}
+
+.dashboard-status-legend-wrap {
+    margin-top: 16px;
+}
+
+.dashboard-status-legend-row {
+    flex-wrap: wrap;
+}
+
+.dashboard-status-badge {
+    margin-right: 6px;
+}
+
+.dashboard-grid-2col {
+    grid-template-columns: 1fr 1fr;
+}
+
+.dashboard-icon-sm {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+}
+
+.dashboard-card-shrink {
+    align-self: start;
+}
+
+.dashboard-trial-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-trial-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 7px;
-}
-
-.tuition-label-flush {
-    margin: 0;
-}
-
-.tuition-switch-label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12.5px;
-    font-weight: 600;
-    color: var(--text-2);
-    cursor: pointer;
-}
-
-.tuition-field-error {
-    margin-top: 6px;
-}
-
-.tuition-referrer-wrap {
-    display: none;
-}
-
-.tuition-referrer-search-wrap {
-    position: relative;
-}
-
-.tuition-referrer-list {
-    display: none;
-    position: absolute;
-    z-index: 20;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    margin-top: 4px;
-    max-height: 220px;
-    overflow-y: auto;
-    box-shadow: var(--shadow);
-}
-
-.tuition-modal-foot {
-    justify-content: space-between;
-}
-
-.tuition-delete-wrap {
-    display: none;
-}
-
-.tuition-delete-btn {
-    color: #dc2626;
-    border-color: #dc2626;
-}
-
-.tuition-modal-actions {
-    display: flex;
-    gap: 8px;
-    margin-left: auto;
-}
-
-.tuition-hidden-form {
-    display: none;
-}
-
-.tuition-referrer-option {
-    padding: 9px 14px;
-    cursor: pointer;
-    font-size: 13.5px;
+    flex-wrap: nowrap;
+    gap: 10px;
+    padding: 8px 0;
     border-bottom: 1px solid var(--border);
 }
 
-.tuition-referrer-empty {
-    padding: 10px 14px;
-    font-size: 13px;
+.dashboard-trial-item:last-child {
+    border: none;
 }
 
-.tuition-du-kien-hint {
-    font-size: 12.5px;
-    margin-top: 6px;
+.dashboard-trial-info {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.dashboard-trial-name {
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.dashboard-trial-meta {
+    color: var(--text-2);
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dashboard-trial-badge {
+    font-size: 11px;
+    padding: 3px 9px;
+    flex-shrink: 0;
+}
+
+.dashboard-item-centered {
+    align-items: center;
+}
+
+.dashboard-amt-bold {
+    font-weight: 800;
+}
+
+.dashboard-item-indent {
+    padding-left: 50px;
+}
+
+.dashboard-sub-name {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.dashboard-sub-amt {
+    font-weight: 500;
+    color: var(--text-2);
 }
