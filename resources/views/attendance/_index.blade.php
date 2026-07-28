@@ -36,9 +36,11 @@
             </div>
 
             <div class="attendance-hocbu-btn-wrap">
-                <button type="button" class="btn btn-outline btn-sm" onclick="openModal('hocBuModal')">
-                    <i class="ri-user-add-line"></i> Học viên học bù
-                </button>
+                @if (hasQuyen('diemdanh', 'them'))
+                    <button type="button" class="btn btn-outline btn-sm" onclick="openModal('hocBuModal')">
+                        <i class="ri-user-add-line"></i> Học viên học bù
+                    </button>
+                @endif
             </div>
         @endif
     </form>
@@ -111,8 +113,10 @@
                                     <div class="name">{{ $hv->ho_ten }}</div>
                                     <div class="attendance-hocbu-meta">
                                         <span class="badge orange attendance-hocbu-badge">Học bù</span>
-                                        <i class="ri-close-circle-line del attendance-hocbu-del"
-                                            onclick="xoaHocVienHocBu('{{ route('diemdanh.hocbu.destroy', $rec) }}', {{ Js::from($hv->ho_ten) }})"></i>
+                                        @if (hasQuyen('diemdanh', 'xoa'))
+                                            <i class="ri-close-circle-line del attendance-hocbu-del"
+                                                onclick="xoaHocVienHocBu('{{ route('diemdanh.hocbu.destroy', $rec) }}', {{ Js::from($hv->ho_ten) }})"></i>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +147,9 @@
         </table>
 
         <div class="attendance-save-wrap" id="attendanceSaveWrap">
-            <button type="submit" class="btn btn-primary"><i class="ri-save-line"></i> Lưu điểm danh</button>
+            @if (hasQuyen('diemdanh', 'them'))
+                <button type="submit" class="btn btn-primary"><i class="ri-save-line"></i> Lưu điểm danh</button>
+            @endif
         </div>
     </form>
 

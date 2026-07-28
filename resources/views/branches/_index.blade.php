@@ -6,7 +6,9 @@
 
 <div class="page-head">
     <div class="page-title">Quản lý Cơ sở</div>
-    <button class="btn btn-primary" onclick="openBranchModal()"><i class="ri-add-line"></i> Tạo Cơ sở</button>
+    @if (hasQuyen('coso', 'them'))
+        <button class="btn btn-primary" onclick="openBranchModal()"><i class="ri-add-line"></i> Tạo Cơ sở</button>
+    @endif
 </div>
 
 @if (session('error'))
@@ -43,19 +45,21 @@
                     </td>
                     <td>
                         <div class="actions-cell">
-                            <i class="ri-edit-line"
-                                onclick="openBranchModal({{ $b->id }}, {{ Js::from($b->ten) }}, {{ $b->giao_vien_id ?? 'null' }}, {{ $b->dia_diem_id ?? 'null' }})"></i>
+                            @if (hasQuyen('coso', 'sua'))
+                                <i class="ri-edit-line"
+                                    onclick="openBranchModal({{ $b->id }}, {{ Js::from($b->ten) }}, {{ $b->giao_vien_id ?? 'null' }}, {{ $b->dia_diem_id ?? 'null' }})"></i>
 
-                            <form action="{{ route('coso.trangthai', $b) }}" method="POST" class="branches-inline-form">
-                                @csrf @method('PATCH')
-                                <button type="submit" class="branches-icon-btn"
-                                    title="{{ $b->trang_thai === \App\Enum\TrangThaiCoSo::ACTIVE ? 'Ngừng hoạt động' : 'Kích hoạt lại' }}">
-                                    <i
-                                        class="ri-user-{{ $b->trang_thai === \App\Enum\TrangThaiCoSo::ACTIVE ? 'unfollow' : 'follow' }}-line"></i>
-                                </button>
-                            </form>
+                                <form action="{{ route('coso.trangthai', $b) }}" method="POST" class="branches-inline-form">
+                                    @csrf @method('PATCH')
+                                    <button type="submit" class="branches-icon-btn"
+                                        title="{{ $b->trang_thai === \App\Enum\TrangThaiCoSo::ACTIVE ? 'Ngừng hoạt động' : 'Kích hoạt lại' }}">
+                                        <i
+                                            class="ri-user-{{ $b->trang_thai === \App\Enum\TrangThaiCoSo::ACTIVE ? 'unfollow' : 'follow' }}-line"></i>
+                                    </button>
+                                </form>
+                            @endif
 
-                            @if ($b->trang_thai === \App\Enum\TrangThaiCoSo::ACTIVE)
+                            @if ($b->trang_thai === \App\Enum\TrangThaiCoSo::ACTIVE && hasQuyen('coso', 'xoa'))
                                 <form action="{{ route('coso.destroy', $b) }}" method="POST" class="branches-inline-form confirm-delete-form"
                                     data-confirm-title="Xoá cơ sở"
                                     data-confirm-message="Bạn có chắc muốn xoá cơ sở {{ $b->ten }}?">

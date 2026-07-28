@@ -5,8 +5,10 @@
 </div>
 <div class="page-head">
     <div class="page-title">Tính tiền Sân theo Cơ sở</div>
-    <button type="button" class="btn btn-primary" onclick="openTienSanModal()"><i class="ri-add-line"></i> Tạo Tiền
-        sân</button>
+    @if (hasQuyen('tiensan', 'them'))
+        <button type="button" class="btn btn-primary" onclick="openTienSanModal()"><i class="ri-add-line"></i> Tạo Tiền
+            sân</button>
+    @endif
 </div>
 
 @if (session('success'))
@@ -65,14 +67,18 @@
                     <td class="text-2">{{ $ts->ghi_chu ?? '—' }}</td>
                     <td>
                         <div class="actions-cell">
-                            <i class="ri-edit-line" onclick='openTienSanModal(@json($ts))'></i>
-                            <form action="{{ route('tiensan.destroy', $ts) }}" method="POST"
-                                class="tiensan-inline-form confirm-delete-form" data-confirm-title="Xoá bản ghi Tiền sân"
-                                data-confirm-message="Bạn có chắc muốn xoá bản ghi ngày {{ $ts->ngay->format('d/m/Y') }} của Cơ sở {{ $ts->coSo->ten }}?">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="tiensan-icon-btn"><i
-                                        class="ri-delete-bin-line del"></i></button>
-                            </form>
+                            @if (hasQuyen('tiensan', 'sua'))
+                                <i class="ri-edit-line" onclick='openTienSanModal(@json($ts))'></i>
+                            @endif
+                            @if (hasQuyen('tiensan', 'xoa'))
+                                <form action="{{ route('tiensan.destroy', $ts) }}" method="POST"
+                                    class="tiensan-inline-form confirm-delete-form" data-confirm-title="Xoá bản ghi Tiền sân"
+                                    data-confirm-message="Bạn có chắc muốn xoá bản ghi ngày {{ $ts->ngay->format('d/m/Y') }} của Cơ sở {{ $ts->coSo->ten }}?">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="tiensan-icon-btn"><i
+                                            class="ri-delete-bin-line del"></i></button>
+                                </form>
+                            @endif
                         </div>
                     </td>
                 </tr>

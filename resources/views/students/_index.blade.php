@@ -9,7 +9,9 @@
     <div class="student-header-actions">
         <a href="{{ route('hocvien.export', request()->query()) }}" class="btn btn-outline"><i
                 class="ri-file-excel-2-line"></i> Xuất Excel</a>
-        <a href="{{ route('hocvien.create') }}" class="btn btn-primary"><i class="ri-add-line"></i> Thêm Học viên</a>
+        @if (hasQuyen('hocvien', 'them'))
+            <a href="{{ route('hocvien.create') }}" class="btn btn-primary"><i class="ri-add-line"></i> Thêm Học viên</a>
+        @endif
     </div>
 </div>
 
@@ -102,15 +104,19 @@
                             <div class="actions-cell">
                                 <a href="{{ route('hocvien.show', $hv) }}" class=""><i
                                         class="ri-eye-line"></i></a>
-                                <i class="ri-edit-line edit-student-btn" data-student='{{ json_encode($hv) }}'></i>
-                                <form action="{{ route('hocvien.destroy', $hv) }}" method="POST"
-                                    class="student-inline-form confirm-delete-form"
-                                    data-confirm-title="Xoá học viên"
-                                    data-confirm-message="Bạn có chắc muốn xoá {{ $hv->ho_ten }}?">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="student-icon-btn"><i
-                                            class="ri-delete-bin-line del"></i></button>
-                                </form>
+                                @if (hasQuyen('hocvien', 'sua'))
+                                    <i class="ri-edit-line edit-student-btn" data-student='{{ json_encode($hv) }}'></i>
+                                @endif
+                                @if (hasQuyen('hocvien', 'xoa'))
+                                    <form action="{{ route('hocvien.destroy', $hv) }}" method="POST"
+                                        class="student-inline-form confirm-delete-form"
+                                        data-confirm-title="Xoá học viên"
+                                        data-confirm-message="Bạn có chắc muốn xoá {{ $hv->ho_ten }}?">
+                                        @csrf @method('DELETE')
+                                        <button type="submit" class="student-icon-btn"><i
+                                                class="ri-delete-bin-line del"></i></button>
+                                    </form>
+                                @endif
                             </div>
                         </td>
                     </tr>

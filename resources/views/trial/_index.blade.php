@@ -5,8 +5,10 @@
 </div>
 <div class="page-head">
     <div class="page-title">Học viên Trải nghiệm</div>
-    <button class="btn btn-primary" onclick="openTrialModal()"><i class="ri-add-line"></i> Tạo Học viên Trải
-        nghiệm</button>
+    @if (hasQuyen('trainghiem', 'them'))
+        <button class="btn btn-primary" onclick="openTrialModal()"><i class="ri-add-line"></i> Tạo Học viên Trải
+            nghiệm</button>
+    @endif
 </div>
 
 @if (session('success'))
@@ -108,16 +110,18 @@
                     <td class="text-2">{{ $t->ghi_chu ?? '—' }}</td>
                     <td>
                         <div class="actions-cell">
-                            <i class="ri-edit-line"
-                                onclick="openTrialModal({{ $t->id }}, 
-                                {{ Js::from($t->ho_ten) }}, 
-                                {{ Js::from($t->sdt) }}, 
-                                {{ Js::from($t->nam_sinh) }}, 
-                                {{ Js::from($t->ngay_trai_nghiem?->format('Y-m-d')) }}, 
-                                {{ $t->trang_thai->value }}, {{ Js::from($t->ghi_chu) }},
-                                {{ Js::from($t->coSos->pluck('id')) }})">
-                            </i>
-                            @if ($t->trang_thai !== \App\Enum\TrangThaiLoaiDangKyTraiNghiem::DA_DANG_KY)
+                            @if (hasQuyen('trainghiem', 'sua'))
+                                <i class="ri-edit-line"
+                                    onclick="openTrialModal({{ $t->id }}, 
+                                    {{ Js::from($t->ho_ten) }}, 
+                                    {{ Js::from($t->sdt) }}, 
+                                    {{ Js::from($t->nam_sinh) }}, 
+                                    {{ Js::from($t->ngay_trai_nghiem?->format('Y-m-d')) }}, 
+                                    {{ $t->trang_thai->value }}, {{ Js::from($t->ghi_chu) }},
+                                    {{ Js::from($t->coSos->pluck('id')) }})">
+                                </i>
+                            @endif
+                            @if ($t->trang_thai !== \App\Enum\TrangThaiLoaiDangKyTraiNghiem::DA_DANG_KY && hasQuyen('trainghiem', 'xoa'))
                                 <form action="{{ route('trainghiem.destroy', $t) }}" method="POST"
                                     class="trial-inline-form confirm-delete-form"
                                     data-confirm-title="Xoá học viên trải nghiệm"

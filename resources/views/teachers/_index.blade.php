@@ -5,7 +5,9 @@
 </div>
 <div class="page-head">
     <div class="page-title">Quản lý Giáo viên</div>
-    <button class="btn btn-primary" onclick="openTeacherModal()"><i class="ri-add-line"></i> Tạo Giáo viên</button>
+    @if (hasQuyen('giaovien', 'them'))
+        <button class="btn btn-primary" onclick="openTeacherModal()"><i class="ri-add-line"></i> Tạo Giáo viên</button>
+    @endif
 </div>
 
 @if (session('error'))
@@ -56,19 +58,21 @@
                     </td>
                     <td>
                         <div class="actions-cell">
-                            <i class="ri-edit-line"
-                                onclick="openTeacherModal({{ $gv->id }}, {{ Js::from($gv->ho_ten) }}, {{ Js::from($gv->ngay_sinh?->format('Y-m-d')) }}, {{ Js::from($gv->sdt) }}, {{ Js::from($gv->chuc_danh->value) }})"></i>
+                            @if (hasQuyen('giaovien', 'sua'))
+                                <i class="ri-edit-line"
+                                    onclick="openTeacherModal({{ $gv->id }}, {{ Js::from($gv->ho_ten) }}, {{ Js::from($gv->ngay_sinh?->format('Y-m-d')) }}, {{ Js::from($gv->sdt) }}, {{ Js::from($gv->chuc_danh->value) }})"></i>
 
-                            <form action="{{ route('giaovien.trangthai', $gv) }}" method="POST"
-                                class="teacher-inline-form">
-                                @csrf @method('PATCH')
-                                <button type="submit" class="teacher-icon-btn"
-                                    title="{{ $gv->trang_thai === \App\Enum\TrangThaiGiaoVien::DANG_DAY ? 'Cho nghỉ dạy' : 'Cho dạy lại' }}">
-                                    <i
-                                        class="ri-user-{{ $gv->trang_thai === \App\Enum\TrangThaiGiaoVien::DANG_DAY ? 'unfollow' : 'follow' }}-line"></i>
-                                </button>
-                            </form>
-                            @if ($gv->trang_thai === \App\Enum\TrangThaiGiaoVien::DANG_DAY)
+                                <form action="{{ route('giaovien.trangthai', $gv) }}" method="POST"
+                                    class="teacher-inline-form">
+                                    @csrf @method('PATCH')
+                                    <button type="submit" class="teacher-icon-btn"
+                                        title="{{ $gv->trang_thai === \App\Enum\TrangThaiGiaoVien::DANG_DAY ? 'Cho nghỉ dạy' : 'Cho dạy lại' }}">
+                                        <i
+                                            class="ri-user-{{ $gv->trang_thai === \App\Enum\TrangThaiGiaoVien::DANG_DAY ? 'unfollow' : 'follow' }}-line"></i>
+                                    </button>
+                                </form>
+                            @endif
+                            @if ($gv->trang_thai === \App\Enum\TrangThaiGiaoVien::DANG_DAY && hasQuyen('giaovien', 'xoa'))
                                 <form action="{{ route('giaovien.destroy', $gv) }}" method="POST"
                                     class="teacher-inline-form confirm-delete-form"
                                     data-confirm-title="Xoá giáo viên"
@@ -80,28 +84,32 @@
                             @endif
 
                             @if (! $gv->user)
-                                <form action="{{ route('giaovien.captaikhoan', $gv) }}" method="POST"
-                                    class="teacher-inline-form confirm-delete-form"
-                                    data-confirm-title="Cấp tài khoản đăng nhập"
-                                    data-confirm-message="Tài khoản đăng nhập: {{ generate_username_from_name($gv->ho_ten) }} — Mật khẩu là Số điện thoại: {{ $gv->sdt ?? 'Chưa có SĐT' }}. Xác nhận cấp tài khoản?">
-                                    @csrf
-                                    <button type="submit" class="teacher-icon-btn" title="Cấp tài khoản">
-                                        <i class="ri-user-add-line"></i>
-                                    </button>
-                                </form>
+                                @if (hasQuyen('giaovien', 'them'))
+                                    <form action="{{ route('giaovien.captaikhoan', $gv) }}" method="POST"
+                                        class="teacher-inline-form confirm-delete-form"
+                                        data-confirm-title="Cấp tài khoản đăng nhập"
+                                        data-confirm-message="Tài khoản đăng nhập: {{ generate_username_from_name($gv->ho_ten) }} — Mật khẩu là Số điện thoại: {{ $gv->sdt ?? 'Chưa có SĐT' }}. Xác nhận cấp tài khoản?">
+                                        @csrf
+                                        <button type="submit" class="teacher-icon-btn" title="Cấp tài khoản">
+                                            <i class="ri-user-add-line"></i>
+                                        </button>
+                                    </form>
+                                @endif
                             @else
-                                <i class="ri-shield-user-line" title="Cấp quyền"
-                                    onclick="openQuyenModal({{ $gv->id }}, {{ Js::from($gv->ho_ten) }}, {{ Js::from($gv->user->permissions) }})"></i>
+                                @if (hasQuyen('giaovien', 'sua'))
+                                    <i class="ri-shield-user-line" title="Cấp quyền"
+                                        onclick="openQuyenModal({{ $gv->id }}, {{ Js::from($gv->ho_ten) }}, {{ Js::from($gv->user->permissions) }})"></i>
 
-                                <form action="{{ route('giaovien.doimatkhau', $gv) }}" method="POST"
-                                    class="teacher-inline-form confirm-delete-form"
-                                    data-confirm-title="Đổi mật khẩu"
-                                    data-confirm-message="Mật khẩu sẽ đổi thành Số điện thoại: {{ $gv->sdt ?? 'Chưa có SĐT' }}. Xác nhận?">
-                                    @csrf
-                                    <button type="submit" class="teacher-icon-btn" title="Đổi mật khẩu về SĐT">
-                                        <i class="ri-key-2-line"></i>
-                                    </button>
-                                </form>
+                                    <form action="{{ route('giaovien.doimatkhau', $gv) }}" method="POST"
+                                        class="teacher-inline-form confirm-delete-form"
+                                        data-confirm-title="Đổi mật khẩu"
+                                        data-confirm-message="Mật khẩu sẽ đổi thành Số điện thoại: {{ $gv->sdt ?? 'Chưa có SĐT' }}. Xác nhận?">
+                                        @csrf
+                                        <button type="submit" class="teacher-icon-btn" title="Đổi mật khẩu về SĐT">
+                                            <i class="ri-key-2-line"></i>
+                                        </button>
+                                    </form>
+                                @endif
                             @endif
                         </div>
                     </td>

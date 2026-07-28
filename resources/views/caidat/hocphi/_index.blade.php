@@ -8,7 +8,9 @@
 
 <div class="page-head">
     <div class="page-title">Cấu hình Tiền học phí theo số lượng Cơ sở</div>
-    <button class="btn btn-primary" onclick="openCaiDatHocPhiModal()"><i class="ri-add-line"></i> Thêm cấu hình</button>
+    @if (hasQuyen('caidathocphi', 'them'))
+        <button class="btn btn-primary" onclick="openCaiDatHocPhiModal()"><i class="ri-add-line"></i> Thêm cấu hình</button>
+    @endif
 </div>
 
 @if (session('success'))
@@ -41,16 +43,20 @@
                     <td class="text-2">{{ number_format($cd->gia_1_buoi, 0, ',', '.') }} đ</td>
                     <td>
                         <div class="actions-cell">
-                            <i class="ri-edit-line"
-                                onclick="openCaiDatHocPhiModal({{ $cd->id }}, {{ $cd->so_luong_co_so }}, {{ $cd->hoc_phi }}, {{ $cd->tong_so_buoi }})"></i>
-                            <form action="{{ route('caidathocphi.destroy', $cd) }}" method="POST"
-                                class="caidathocphi-inline-form confirm-delete-form"
-                                data-confirm-title="Xoá cấu hình học phí"
-                                data-confirm-message="Bạn có chắc muốn xoá cấu hình cho {{ $cd->so_luong_co_so }} cơ sở?">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="caidathocphi-icon-btn"><i
-                                        class="ri-delete-bin-line del"></i></button>
-                            </form>
+                            @if (hasQuyen('caidathocphi', 'sua'))
+                                <i class="ri-edit-line"
+                                    onclick="openCaiDatHocPhiModal({{ $cd->id }}, {{ $cd->so_luong_co_so }}, {{ $cd->hoc_phi }}, {{ $cd->tong_so_buoi }})"></i>
+                            @endif
+                            @if (hasQuyen('caidathocphi', 'xoa'))
+                                <form action="{{ route('caidathocphi.destroy', $cd) }}" method="POST"
+                                    class="caidathocphi-inline-form confirm-delete-form"
+                                    data-confirm-title="Xoá cấu hình học phí"
+                                    data-confirm-message="Bạn có chắc muốn xoá cấu hình cho {{ $cd->so_luong_co_so }} cơ sở?">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="caidathocphi-icon-btn"><i
+                                            class="ri-delete-bin-line del"></i></button>
+                                </form>
+                            @endif
                         </div>
                     </td>
                 </tr>
