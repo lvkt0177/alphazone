@@ -50,6 +50,13 @@ class GiaoVienController extends Controller
             return redirect()->route('giaovien.index')->with('error', "Không thể xoá: giáo viên này đang phụ trách cơ sở \"{$activeCoSo->ten}\" đang hoạt động.");
         }
 
+        if ($giaovien->diemDanhs()->exists()) {
+            return redirect()->route('giaovien.index')->with('error',
+                'Không thể xoá: giáo viên này đã có lịch sử điểm danh (đã từng dạy thật). '
+                .'Không thể xoá để đảm bảo tính toàn vẹn dữ liệu điểm danh.'
+            );
+        }
+
         try {
             $giaovien->delete();
         } catch (QueryException $e) {
