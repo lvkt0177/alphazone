@@ -68,12 +68,21 @@
             </a>
         @endif
 
+        @if (hasQuyen('giaoan'))
+            <a href="{{ route('giaoan.menu') }}" @class(['nav-item', request()->routeIs('giaoan.*') ? 'active' : '']) data-view="giaoan">
+                <i @class(['ri-file-list-3-line'])></i> Giáo án
+            </a>
+        @endif
+
         {{-- <a href="" @class(['nav-item', request()->routeIs('stats.*') ? 'active' : '']) data-view="stats">
             <i @class(['ri-bar-chart-2-line'])></i> Thống kê
         </a> --}}
 
         @if (hasQuyen('caidathocphi'))
-            <div @class(['nav-group', request()->routeIs('caidathocphi.*') ? 'open' : ''])>
+            <div @class([
+                'nav-group',
+                request()->routeIs('caidathocphi.*') ? 'open' : '',
+            ])>
                 <div @class(['nav-item', 'nav-group-toggle']) onclick="toggleNavGroup(this)">
                     <i @class(['ri-settings-3-line'])></i> Cài đặt
                     <i @class(['ri-arrow-down-s-line', 'nav-group-arrow'])></i>

@@ -18,6 +18,7 @@ class ChucNangSeeder extends Seeder
             ['key' => 'tiensan', 'ten' => 'Tiền sân'],
             ['key' => 'trainghiem', 'ten' => 'Trải nghiệm'],
             ['key' => 'caidathocphi', 'ten' => 'Cài đặt học phí'],
+            ['key' => 'giaoan', 'ten' => 'Giáo án'],
         ];
 
         foreach ($danhSach as $item) {
