@@ -1,4 +1,4 @@
-function openTeacherModal(id, hoTen, ngaySinh, sdt){
+function openTeacherModal(id, hoTen, ngaySinh, sdt, chucDanh){
   const form = document.getElementById('teacherForm');
   const methodField = document.getElementById('teacherMethodField');
 
@@ -17,6 +17,7 @@ function openTeacherModal(id, hoTen, ngaySinh, sdt){
   document.getElementById('gv_name').value = hoTen || '';
   document.getElementById('gv_dob').value = ngaySinh || '';
   document.getElementById('gv_phone').value = sdt || '';
+  document.getElementById('gv_chucdanh').value = chucDanh || '1';
 
   openModal('teacherModal');
 }

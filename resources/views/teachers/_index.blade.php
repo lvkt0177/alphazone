@@ -20,6 +20,7 @@
                 <th>Họ tên</th>
                 <th>Ngày sinh</th>
                 <th>Số điện thoại</th>
+                <th>Chức danh</th>
                 <th>Trạng thái</th>
                 <th></th>
             </tr>
@@ -38,12 +39,15 @@
                     <td>{{ $gv->ngay_sinh?->format('d/m/Y') ?? '—' }}</td>
                     <td>{{ $gv->sdt ?? '—' }}</td>
                     <td>
+                        <span class="badge {{ $gv->chuc_danh->getBadge() }}">{{ $gv->chuc_danh->getLabel() }}</span>
+                    </td>
+                    <td>
                         <span class="badge {{ $gv->trang_thai->getBadge() }}">{{ $gv->trang_thai->getLabel() }}</span>
                     </td>
                     <td>
                         <div class="actions-cell">
                             <i class="ri-edit-line"
-                                onclick="openTeacherModal({{ $gv->id }}, {{ Js::from($gv->ho_ten) }}, {{ Js::from($gv->ngay_sinh?->format('Y-m-d')) }}, {{ Js::from($gv->sdt) }})"></i>
+                                onclick="openTeacherModal({{ $gv->id }}, {{ Js::from($gv->ho_ten) }}, {{ Js::from($gv->ngay_sinh?->format('Y-m-d')) }}, {{ Js::from($gv->sdt) }}, {{ Js::from($gv->chuc_danh->value) }})"></i>
 
                             <form action="{{ route('giaovien.trangthai', $gv) }}" method="POST"
                                 class="teacher-inline-form">
@@ -69,7 +73,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5" class="text-2 teacher-empty-row">Chưa có giáo viên nào</td>
+                    <td colspan="6" class="text-2 teacher-empty-row">Chưa có giáo viên nào</td>
                 </tr>
             @endforelse
         </tbody>
@@ -83,7 +87,8 @@
                 {{ old('_editing_id') ? (int) old('_editing_id') : 'null' }},
                 {{ Js::from(old('ho_ten')) }},
                 {{ Js::from(old('ngay_sinh')) }},
-                {{ Js::from(old('sdt')) }}
+                {{ Js::from(old('sdt')) }},
+                {{ Js::from(old('chuc_danh')) }}
             );
         });
     </script>
