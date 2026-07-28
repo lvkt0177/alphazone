@@ -54,7 +54,7 @@ function renderReferrerList(query) {
   list.style.display = 'block';
 }
 
-function openTuitionModal(hocVienId, maSo, hoTen, thang, hocPhi, dongPhuc, ngayDong, gioiThieuBan, nguoiGioiThieuId) {
+function openTuitionModal(hocVienId, maSo, hoTen, thang, hocPhi, dongPhuc, ngayDong, gioiThieuBan, nguoiGioiThieuId, duKienSoTien, duKienSoBuoi, duKienTongBuoi) {
   let formattedThang = thang;
   if (thang && thang.includes('-')) {
     const parts = thang.split('-');
@@ -73,6 +73,13 @@ function openTuitionModal(hocVienId, maSo, hoTen, thang, hocPhi, dongPhuc, ngayD
   document.getElementById('tu_fee').value = formatMoney(hocPhi);
   document.getElementById('tu_fee_raw').value = hocPhi ?? '';
   document.getElementById('tu_fee').readOnly = false;
+
+  const hint = document.getElementById('tu_du_kien_hint');
+  if (duKienSoTien !== null && duKienSoTien !== undefined) {
+    hint.textContent = `Học phí dự kiến: ${formatMoney(duKienSoTien)} đ (${duKienSoBuoi}/${duKienTongBuoi} buổi)`;
+  } else {
+    hint.textContent = '';
+  }
 
   document.getElementById('tu_uniform').value = formatMoney(dongPhuc);
   document.getElementById('tu_uniform_raw').value = dongPhuc ?? '';
@@ -157,6 +164,9 @@ document.addEventListener('click', function (e) {
     btn.dataset.dongPhuc ? Number(btn.dataset.dongPhuc) : null,
     btn.dataset.ngayDong || null,
     btn.dataset.gioiThieuBan,
-    btn.dataset.nguoiGioiThieuId || null
+    btn.dataset.nguoiGioiThieuId || null,
+    btn.dataset.duKienSoTien !== '' ? Number(btn.dataset.duKienSoTien) : null,
+    btn.dataset.duKienSoBuoi !== '' ? Number(btn.dataset.duKienSoBuoi) : null,
+    btn.dataset.duKienTongBuoi !== '' ? Number(btn.dataset.duKienTongBuoi) : null
   );
 });

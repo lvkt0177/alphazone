@@ -27,6 +27,10 @@ function showToast(msg, type = 'success') {
 function openModal(id) { document.getElementById(id).classList.add('active'); }
 function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
+function toggleNavGroup(el) {
+    el.closest('.nav-group').classList.toggle('open');
+}
+
 function confirmAction(title, msg, onOk) {
     document.getElementById('confirmTitle').textContent = title;
     document.getElementById('confirmMsg').textContent = msg;

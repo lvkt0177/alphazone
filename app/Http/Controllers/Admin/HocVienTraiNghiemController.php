@@ -18,7 +18,7 @@ class HocVienTraiNghiemController extends Controller
 
         if ($request->filled('ho_ten')) {
             $kw = $request->ho_ten;
-            $query->where(fn ($sub) => $sub->where('ho_ten', 'like', "%{$kw}%")
+            $query->where(fn ($sub) => $sub->whereUnaccentedLike('ho_ten', $kw)
                 ->orWhere('sdt', 'like', "%{$kw}%"));
         }
 
@@ -31,7 +31,11 @@ class HocVienTraiNghiemController extends Controller
             $query->whereDate('ngay_trai_nghiem', $request->ngay_trai_nghiem);
         }
 
-        $traiNghiems = $query->orderBy('id', 'desc')->paginate(8)->withQueryString();
+        if ($request->filled('trang_thai')) {
+            $query->where('trang_thai', $request->trang_thai);
+        }
+
+        $traiNghiems = $query->orderBy('id', 'desc')->paginate(10)->withQueryString();
         $coSos = CoSo::where('trang_thai', TrangThaiCoSo::ACTIVE)->orderBy('ten')->get();
 
         return view('trial.index', compact('traiNghiems', 'coSos'));

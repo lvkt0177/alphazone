@@ -29,6 +29,7 @@
                         </div>
                         <input id="tu_fee" type="text" inputmode="numeric" autocomplete="off"
                             placeholder="VD: 500,000">
+                        <div id="tu_du_kien_hint" class="text-2 tuition-du-kien-hint"></div>
                         @error('hoc_phi')
                             <div class="badge red tuition-field-error">{{ $message }}</div>
                         @enderror

@@ -24,7 +24,7 @@ class HocVienController extends Controller
         if ($request->filled('q')) {
             $q = $request->q;
             $query->where(fn ($sub) => $sub->where('ma_so', 'like', "%{$q}%")
-                ->orWhere('ho_ten', 'like', "%{$q}%")
+                ->orWhereUnaccentedLike('ho_ten', $q)
                 ->orWhere('sdt', 'like', "%{$q}%"));
         }
 
@@ -36,7 +36,7 @@ class HocVienController extends Controller
             $query->where('trang_thai', $request->trang_thai);
         }
 
-        $hocViens = $query->orderBy('id', 'desc')->paginate(8)->withQueryString();
+        $hocViens = $query->orderBy('id', 'desc')->paginate(20)->withQueryString();
         $coSos = CoSo::orderBy('ten')->get();
 
         return view('students.index', compact('hocViens', 'coSos'));
@@ -63,7 +63,23 @@ class HocVienController extends Controller
             ->orderByDesc('thang')
             ->paginate(10, ['*'], 'trang_hoc_phi');
 
-        return view('students.detail', compact('hocvien', 'diemDanhs', 'hocPhis'));
+        $duKienTheoThang = $hocPhis->getCollection()->mapWithKeys(
+            fn ($hp) => [$hp->thang->format('Y-m') => $hocvien->duKienHocPhiChoThang($hp->thang)]
+        );
+       
+        $thangHienTai = now()->startOfMonth();
+        $duKienThangChuaToi = collect(range(2, 1))->map(function ($i) use ($hocvien, $thangHienTai) {
+            $thangMucTieu = $thangHienTai->copy()->addMonths($i);
+
+            return array_merge(
+                ['thang' => $thangMucTieu],
+                $hocvien->duKienHocPhiChoThang($thangMucTieu) ?? ['so_tien' => null, 'so_buoi_da_hoc' => 0, 'tong_so_buoi' => 0]
+            );
+        });
+
+        return view('students.detail', compact(
+            'hocvien', 'diemDanhs', 'hocPhis', 'duKienTheoThang', 'duKienThangChuaToi'
+        ));
     }
 
     public function create()

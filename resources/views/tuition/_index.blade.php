@@ -81,6 +81,7 @@
                 <th>Họ tên</th>
                 <th>Cơ sở</th>
                 <th>Học phí</th>
+                <th title="Tính dựa vào điểm danh của tháng trước tháng đang xem">Học phí dự kiến</th>
                 <th class="trang-thai-hoc-phi">Trạng thái</th>
                 <th>Ngày đóng</th>
                 <th></th>
@@ -111,6 +112,15 @@
                         @else
                             —
                         @endif
+                    </td>
+                    <td class="text-2">
+                        @php $duKien = $hv->duKienHocPhi(); @endphp
+                        @if ($duKien)
+                            {{ number_format($duKien['so_tien'], 0, ',', '.') }} đ
+                            ({{ $duKien['so_buoi_da_hoc'] }}/{{ $duKien['tong_so_buoi'] }})
+                        @else
+                            —
+                        @endif
                     <td>
                         @if ($rec)
                             <span class="badge green">Đã đóng</span>
@@ -133,14 +143,17 @@
                             data-hoc-phi="{{ $rec->hoc_phi ?? '' }}" data-dong-phuc="{{ $rec->dong_phuc ?? '' }}"
                             data-ngay-dong="{{ $rec?->ngay_dong?->format('Y-m-d') }}"
                             data-gioi-thieu-ban="{{ $rec->gioi_thieu_ban ?? 0 }}"
-                            data-nguoi-gioi-thieu-id="{{ $rec->nguoi_gioi_thieu_id ?? '' }}">
+                            data-nguoi-gioi-thieu-id="{{ $rec->nguoi_gioi_thieu_id ?? '' }}"
+                            data-du-kien-so-tien="{{ $duKien['so_tien'] ?? '' }}"
+                            data-du-kien-so-buoi="{{ $duKien['so_buoi_da_hoc'] ?? '' }}"
+                            data-du-kien-tong-buoi="{{ $duKien['tong_so_buoi'] ?? '' }}">
                             <i class="ri-edit-line"></i> {{ $rec ? 'Sửa' : 'Tạo' }} học phí
                         </button>
                     </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" class="text-2 tuition-empty-row">Không có học viên nào</td>
+                    <td colspan="7" class="text-2 tuition-empty-row">Không có học viên nào</td>
                 </tr>
             @endforelse
         </tbody>
@@ -169,7 +182,10 @@
 @endpush
 
 @if ($errors->any() && old('hoc_vien_id'))
-    @php $errHv = $hocViens->firstWhere('id', (int) old('hoc_vien_id')); @endphp
+    @php
+        $errHv = $hocViens->firstWhere('id', (int) old('hoc_vien_id'));
+        $errDuKien = $errHv?->duKienHocPhi();
+    @endphp
     @if ($errHv)
         <script>
             document.addEventListener('DOMContentLoaded', () => {
@@ -182,7 +198,10 @@
                     {{ old('dong_phuc') !== null ? (int) old('dong_phuc') : 'null' }},
                     {{ Js::from(old('ngay_dong')) }},
                     {{ old('gioi_thieu_ban') ? 1 : 0 }},
-                    {{ old('nguoi_gioi_thieu_id') ? (int) old('nguoi_gioi_thieu_id') : 'null' }}
+                    {{ old('nguoi_gioi_thieu_id') ? (int) old('nguoi_gioi_thieu_id') : 'null' }},
+                    {{ $errDuKien ? $errDuKien['so_tien'] : 'null' }},
+                    {{ $errDuKien ? $errDuKien['so_buoi_da_hoc'] : 'null' }},
+                    {{ $errDuKien ? $errDuKien['tong_so_buoi'] : 'null' }}
                 );
             });
         </script>

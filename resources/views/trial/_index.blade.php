@@ -1,4 +1,8 @@
-<div class="breadcrumb"><a>Trang chủ</a> <i class="ri-arrow-right-s-line"></i> <a class="active">Trải nghiệm</a></div>
+<div class="breadcrumb">
+    <a>Trang chủ</a> 
+    <i class="ri-arrow-right-s-line"></i> 
+    <a class="active">Trải nghiệm</a>
+</div>
 <div class="page-head">
     <div class="page-title">Học viên Trải nghiệm</div>
     <button class="btn btn-primary" onclick="openTrialModal()"><i class="ri-add-line"></i> Tạo Học viên Trải
@@ -43,8 +47,19 @@
                     onchange="this.form.submit()">
             </div>
 
+            <div class="field trial-filter-field">
+                <label class="trial-filter-label">Trạng thái</label>
+                <select name="trang_thai" onchange="this.form.submit()">
+                    <option value="">Tất cả trạng thái</option>
+                    @foreach (\App\Enum\TrangThaiLoaiDangKyTraiNghiem::cases() as $st)
+                        <option value="{{ $st->value }}" {{ request('trang_thai') !== null && (int) request('trang_thai') === $st->value ? 'selected' : '' }}>
+                            {{ $st->getLabel() }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <button type="submit" class="btn btn-primary btn-sm">Lọc</button>
-            @if (request()->hasAny(['ho_ten', 'co_so_id', 'ngay_trai_nghiem']))
+            @if (request()->hasAny(['ho_ten', 'co_so_id', 'ngay_trai_nghiem', 'trang_thai']))
                 <a href="{{ route('trainghiem.index') }}" class="btn btn-outline btn-sm">Làm mới bộ lọc</a>
             @endif
         </div>

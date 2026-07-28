@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use App\Enum\TrangThaiLoaiDangKyTraiNghiem;
+use App\Traits\SearchableUnaccented;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class HocVienTraiNghiem extends Model
 {
-    use HasFactory;
+    use HasFactory, SearchableUnaccented;
 
     protected $table = 'hoc_vien_trai_nghiems';
 

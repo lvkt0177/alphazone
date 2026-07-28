@@ -219,3 +219,11 @@
 .student-giothieu-tag {
     margin-left: 6px;
 }
+
+.student-hocphi-dukien-row {
+    background: var(--bg);
+}
+
+.student-dukien-tag {
+    margin-left: 6px;
+}

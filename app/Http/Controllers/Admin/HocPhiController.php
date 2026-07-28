@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enum\TrangThaiDiemDanh;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\HocPhi\HocPhiRequest;
 use App\Models\CoSo;
@@ -17,15 +18,21 @@ class HocPhiController extends Controller
         $thangInput = $request->input('thang') ?: now()->format('Y-m');
         $thang = Carbon::createFromFormat('Y-m', $thangInput)->startOfMonth();
 
+        $thangTruoc = $thang->copy()->subMonth();
+
         $query = HocVien::with([
             'coSos',
             'hocPhis' => fn ($q) => $q->where('thang', $thang->toDateString())->with('nguoiGioiThieu'),
+            'diemDanhs' => fn ($q) => $q->whereBetween('ngay', [
+                $thangTruoc->toDateString(),
+                $thangTruoc->copy()->endOfMonth()->toDateString(),
+            ])->where('trang_thai', TrangThaiDiemDanh::DI_HOC),
         ]);
 
         if ($request->filled('q')) {
             $q = $request->q;
             $query->where(fn ($sub) => $sub->where('ma_so', 'like', "%{$q}%")
-                ->orWhere('ho_ten', 'like', "%{$q}%")
+                ->orWhereUnaccentedLike('ho_ten', $q)
                 ->orWhere('sdt', 'like', "%{$q}%"));
         }
 

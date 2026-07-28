@@ -151,11 +151,33 @@
                 <tr>
                     <th>Tháng</th>
                     <th>Học phí</th>
+                    <th>Học phí dự kiến</th>
                     <th>Đồng phục</th>
                     <th>Ngày đóng</th>
                 </tr>
             </thead>
             <tbody>
+                @if ($hocPhis->onFirstPage())
+                    @foreach ($duKienThangChuaToi as $dk)
+                        <tr class="student-hocphi-dukien-row">
+                            <td>Tháng {{ $dk['thang']->format('n/Y') }}
+                                <span class="badge blue student-dukien-tag">Sắp tới</span>
+                            </td>
+                            <td class="text-2">—</td>
+                            <td>
+                                @if ($dk['so_tien'] !== null)
+                                    {{ number_format($dk['so_tien'], 0, ',', '.') }} đ
+                                    <span class="text-2">({{ $dk['so_buoi_da_hoc'] }}/{{ $dk['tong_so_buoi'] }}
+                                        buổi)</span>
+                                @else
+                                    <span class="text-2">—</span>
+                                @endif
+                            </td>
+                            <td class="text-2">—</td>
+                            <td class="text-2">—</td>
+                        </tr>
+                    @endforeach
+                @endif
                 @forelse ($hocPhis as $hp)
                     <tr>
                         <td>Tháng {{ $hp->thang->format('n/Y') }}</td>
@@ -168,12 +190,21 @@
                                 </span>
                             @endif
                         </td>
+                        <td class="text-2">
+                            @php $dk = $duKienTheoThang[$hp->thang->format('Y-m')] ?? null; @endphp
+                            @if ($dk)
+                                {{ number_format($dk['so_tien'], 0, ',', '.') }} đ
+                                ({{ $dk['so_buoi_da_hoc'] }}/{{ $dk['tong_so_buoi'] }})
+                            @else
+                                —
+                            @endif
+                        </td>
                         <td>{{ $hp->dong_phuc ? number_format($hp->dong_phuc, 0, ',', '.') . ' đ' : '—' }}</td>
                         <td>{{ $hp->ngay_dong->format('d/m/Y') }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-2 student-empty-row">Chưa có dữ liệu học
+                        <td colspan="5" class="text-2 student-empty-row">Chưa có dữ liệu học
                             phí</td>
                     </tr>
                 @endforelse
