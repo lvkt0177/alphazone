@@ -123,6 +123,10 @@
             .ga-doc-actions {
                 display: none;
             }
+
+            .ga-print-hide {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -197,7 +201,7 @@
         @endif
 
         @if ($giaoan->video_path)
-            <div class="ga-section">
+            <div class="ga-section ga-print-hide">
                 <div class="ga-section-title">Video</div>
                 <div class="ga-video-wrap">
                     <video controls src="{{ $giaoan->videoUrl() }}"></video>
