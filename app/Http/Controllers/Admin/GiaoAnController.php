@@ -45,6 +45,13 @@ class GiaoAnController extends Controller
     {
         $data = $request->validated();
 
+        // Quan trọng: so_do gửi lên là chuỗi JSON (từ hidden input) — phải decode thành mảng PHP
+        // trước khi gán, nếu không Eloquent (cast 'array') sẽ json_encode chuỗi này thêm 1 lần nữa
+        // gây lỗi double-encode, khiến lúc mở lại trang Sửa không đọc lại được sơ đồ đã lưu.
+        if (isset($data['so_do'])) {
+            $data['so_do'] = json_decode($data['so_do'], true) ?: null;
+        }
+
         if ($request->hasFile('video')) {
             $data['video_path'] = $request->file('video')->store('giaoan-videos', 'public');
         }
@@ -66,6 +73,10 @@ class GiaoAnController extends Controller
     public function update(GiaoAnRequest $request, GiaoAn $giaoan)
     {
         $data = $request->validated();
+
+        if (isset($data['so_do'])) {
+            $data['so_do'] = json_decode($data['so_do'], true) ?: null;
+        }
 
         if ($request->hasFile('video')) {
             if ($giaoan->video_path) {

@@ -26,6 +26,7 @@
     let arrowDangChon = null;
     let dangKeoDiem = null;
     let dangKeoCaMuiTen = null;
+    let dangKeoVatDung = null;
 
     function taoId() {
         return 'o' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
@@ -428,6 +429,22 @@
         };
     });
 
+    objectsLayer.addEventListener('pointerdown', function (e) {
+        if (e.button !== 0) return;
+        if (congCuHienTai !== 'select') return;
+        const g = e.target.closest('.ga-object');
+        if (!g) return;
+        e.stopPropagation();
+        const obj = state.objects.find(function (o) { return o.id === g.dataset.id; });
+        if (!obj) return;
+
+        dangKeoVatDung = {
+            id: obj.id,
+            diemBatDauKeo: toaDoTrongSvg(e.clientX, e.clientY),
+            viTriGoc: { x: obj.x, y: obj.y },
+        };
+    });
+
     document.addEventListener('pointermove', function (e) {
         if (dangKeoDiem) {
             const p = toaDoTrongSvg(e.clientX, e.clientY);
@@ -450,6 +467,20 @@
                 });
                 veLaiMuiTen(arrow.id);
             }
+            return;
+        }
+
+        if (dangKeoVatDung) {
+            const p = toaDoTrongSvg(e.clientX, e.clientY);
+            const dx = p.x - dangKeoVatDung.diemBatDauKeo.x;
+            const dy = p.y - dangKeoVatDung.diemBatDauKeo.y;
+            const obj = state.objects.find(function (o) { return o.id === dangKeoVatDung.id; });
+            if (obj) {
+                obj.x = Math.round(dangKeoVatDung.viTriGoc.x + dx);
+                obj.y = Math.round(dangKeoVatDung.viTriGoc.y + dy);
+                const g = objectsLayer.querySelector('[data-id="' + obj.id + '"]');
+                if (g) g.setAttribute('transform', 'translate(' + obj.x + ',' + obj.y + ')');
+            }
         }
     });
 
@@ -463,6 +494,13 @@
 
         if (dangKeoCaMuiTen) {
             dangKeoCaMuiTen = null;
+            dongBoHiddenInput();
+            baoDaThayDoi();
+            return;
+        }
+
+        if (dangKeoVatDung) {
+            dangKeoVatDung = null;
             dongBoHiddenInput();
             baoDaThayDoi();
         }

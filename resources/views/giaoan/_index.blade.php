@@ -40,6 +40,7 @@
     <table>
         <thead>
             <tr>
+                <th>STT</th>
                 <th>Tên trò chơi</th>
                 <th>Cách chơi</th>
                 <th>Video</th>
@@ -49,6 +50,7 @@
         <tbody>
             @forelse ($giaoAns as $ga)
                 <tr>
+                    <td>{{ $loop->iteration }}</td>
                     <td class="giaoan-name-cell">{{ $ga->ten_tro_choi }}</td>
                     <td class="text-2 giaoan-desc-cell">{{ $ga->cach_choi ? \Illuminate\Support\Str::limit($ga->cach_choi, 80) : '—' }}</td>
                     <td>
@@ -77,7 +79,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4" class="text-2 giaoan-empty-row">Chưa có giáo án nào</td>
+                    <td colspan="5" class="text-2 giaoan-empty-row">Chưa có giáo án nào</td>
                 </tr>
             @endforelse
         </tbody>
