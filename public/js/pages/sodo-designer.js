@@ -23,6 +23,9 @@
     let diemBatDau = null;
     let previewLine = null;
     let arrowDangSuaSo = null;
+    let arrowDangChon = null;
+    let dangKeoDiem = null;
+    let dangKeoCaMuiTen = null;
 
     function taoId() {
         return 'o' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
@@ -112,6 +115,24 @@
         g.setAttribute('class', 'ga-arrow');
         g.dataset.id = arrow.id;
 
+        if (arrow.type === 'dan_bong') {
+            renderMuiTenDanBong(g, arrow);
+        } else {
+            renderMuiTenThang(g, arrow);
+        }
+
+        arrowsLayer.appendChild(g);
+    }
+
+    function veLaiMuiTen(id) {
+        const arrow = state.arrows.find(function (a) { return a.id === id; });
+        if (!arrow) return;
+        const node = arrowsLayer.querySelector('[data-id="' + id + '"]');
+        if (node) node.remove();
+        renderArrow(arrow);
+    }
+
+    function renderMuiTenThang(g, arrow) {
         const p1 = arrow.points[0];
         const p2 = arrow.points[arrow.points.length - 1];
         const midX = (p1[0] + p2[0]) / 2;
@@ -126,7 +147,7 @@
         const py = ux;
 
         // Đầu mũi tên: vẽ tam giác riêng, căn đúng theo hướng đường vẽ (không dùng SVG marker vì dễ bị lệch/méo)
-        const dai = 22;
+        const dai = 35;
         const rong = 15;
         const dinh = [p2[0], p2[1]];
         const goc1 = [p2[0] - ux * dai + px * rong, p2[1] - uy * dai + py * rong];
@@ -148,8 +169,67 @@
         const nhanSo = '<circle cx="' + midX + '" cy="' + midY + '" r="11" fill="#ffffff" stroke="#000000" stroke-width="1.5" class="ga-arrow-so-bg"></circle>'
             + '<text x="' + midX + '" y="' + (midY + 4) + '" font-size="12" font-weight="700" fill="#000000" text-anchor="middle" class="ga-arrow-so-text">' + arrow.so + '</text>';
 
-        g.innerHTML = thanMarkup + dauMuiTen + nhanSo;
-        arrowsLayer.appendChild(g);
+        // Vùng bấm vô hình, dày hơn nhiều so với nét vẽ thật, để bấm/kéo dễ trúng hơn
+        const vungBam = '<line x1="' + p1[0] + '" y1="' + p1[1] + '" x2="' + cuoiThan[0] + '" y2="' + cuoiThan[1] + '" stroke="#000000" stroke-opacity="0" stroke-width="24" pointer-events="stroke"></line>';
+
+        g.innerHTML = vungBam + thanMarkup + dauMuiTen + nhanSo;
+    }
+
+    function duongCongCatmullRom(diem) {
+        if (diem.length < 2) return '';
+        let d = 'M ' + diem[0][0] + ' ' + diem[0][1] + ' ';
+        for (let i = 0; i < diem.length - 1; i++) {
+            const p0 = diem[i - 1] || diem[i];
+            const p1 = diem[i];
+            const p2 = diem[i + 1];
+            const p3 = diem[i + 2] || p2;
+            const cp1x = p1[0] + (p2[0] - p0[0]) / 6;
+            const cp1y = p1[1] + (p2[1] - p0[1]) / 6;
+            const cp2x = p2[0] - (p3[0] - p1[0]) / 6;
+            const cp2y = p2[1] - (p3[1] - p1[1]) / 6;
+            d += 'C ' + cp1x + ' ' + cp1y + ' ' + cp2x + ' ' + cp2y + ' ' + p2[0] + ' ' + p2[1] + ' ';
+        }
+        return d;
+    }
+
+    function renderMuiTenDanBong(g, arrow) {
+        g.classList.add('ga-arrow--dan-bong');
+        const diem = arrow.points;
+        const duongCong = duongCongCatmullRom(diem);
+
+        const pTruocCuoi = diem[diem.length - 2];
+        const pCuoi = diem[diem.length - 1];
+        const dx = pCuoi[0] - pTruocCuoi[0];
+        const dy = pCuoi[1] - pTruocCuoi[1];
+        const len = Math.sqrt(dx * dx + dy * dy) || 1;
+        const ux = dx / len;
+        const uy = dy / len;
+        const px = -uy;
+        const py = ux;
+
+        const dai = 35;
+        const rong = 15;
+        const goc1 = [pCuoi[0] - ux * dai + px * rong, pCuoi[1] - uy * dai + py * rong];
+        const goc2 = [pCuoi[0] - ux * dai - px * rong, pCuoi[1] - uy * dai - py * rong];
+        const dauMuiTen = '<polygon points="' + pCuoi[0] + ',' + pCuoi[1] + ' ' + goc1[0] + ',' + goc1[1] + ' ' + goc2[0] + ',' + goc2[1] + '" fill="#000000"></polygon>';
+
+        const duongMarkup = '<path d="' + duongCong + '" fill="none" stroke="#000000" stroke-width="3" stroke-dasharray="10,7" stroke-linecap="round"></path>';
+
+        const diemGiua = diem[Math.floor(diem.length / 2)];
+        const nhanSo = '<circle cx="' + diemGiua[0] + '" cy="' + diemGiua[1] + '" r="11" fill="#ffffff" stroke="#000000" stroke-width="1.5" class="ga-arrow-so-bg"></circle>'
+            + '<text x="' + diemGiua[0] + '" y="' + (diemGiua[1] + 4) + '" font-size="12" font-weight="700" fill="#000000" text-anchor="middle" class="ga-arrow-so-text">' + arrow.so + '</text>';
+
+        let taySamMarkup = '';
+        if (arrow.id === arrowDangChon) {
+            taySamMarkup = diem.map(function (p, idx) {
+                return '<circle class="ga-arrow-handle" data-index="' + idx + '" cx="' + p[0] + '" cy="' + p[1] + '" r="7" fill="#2563EB" stroke="#ffffff" stroke-width="2"></circle>';
+            }).join('');
+        }
+
+        // Vùng bấm vô hình, dày và liền mạch (không đứt đoạn như nét vẽ thật) để bấm/kéo dễ trúng hơn
+        const vungBam = '<path d="' + duongCong + '" fill="none" stroke="#000000" stroke-opacity="0" stroke-width="28" pointer-events="stroke"></path>';
+
+        g.innerHTML = vungBam + duongMarkup + dauMuiTen + nhanSo + taySamMarkup;
     }
 
     function laySoLonNhatHienTai() {
@@ -159,11 +239,25 @@
     }
 
     function themMuiTen(type, p1, p2) {
+        let points;
+        if (type === 'dan_bong') {
+            points = [];
+            for (let i = 0; i <= 4; i++) {
+                const t = i / 4;
+                points.push([
+                    Math.round(p1.x + (p2.x - p1.x) * t),
+                    Math.round(p1.y + (p2.y - p1.y) * t),
+                ]);
+            }
+        } else {
+            points = [[Math.round(p1.x), Math.round(p1.y)], [Math.round(p2.x), Math.round(p2.y)]];
+        }
+
         const arrow = {
             id: taoId(),
             type: type,
             so: laySoLonNhatHienTai() + 1,
-            points: [[Math.round(p1.x), Math.round(p1.y)], [Math.round(p2.x), Math.round(p2.y)]],
+            points: points,
         };
         state.arrows.push(arrow);
         renderArrow(arrow);
@@ -175,6 +269,7 @@
         state.arrows = state.arrows.filter(function (a) { return a.id !== id; });
         const node = arrowsLayer.querySelector('[data-id="' + id + '"]');
         if (node) node.remove();
+        if (arrowDangChon === id) arrowDangChon = null;
         dongBoHiddenInput();
         baoDaThayDoi();
     }
@@ -261,7 +356,7 @@
 
     canvas.addEventListener('pointerdown', function (e) {
         if (e.button !== 0) return;
-        if (congCuHienTai !== 'chuyen' && congCuHienTai !== 'sut') return;
+        if (congCuHienTai !== 'chuyen' && congCuHienTai !== 'sut' && congCuHienTai !== 'dan_bong') return;
         dangVe = true;
         diemBatDau = toaDoTrongSvg(e.clientX, e.clientY);
 
@@ -298,6 +393,97 @@
             themMuiTen(congCuHienTai, diemBatDau, diemKetThuc);
         }
         chonCongCu('select');
+    });
+
+    function chonMuiTenDanBong(id) {
+        const idCu = arrowDangChon;
+        if (idCu === id) return;
+        arrowDangChon = id;
+        if (idCu) veLaiMuiTen(idCu);
+        if (id) veLaiMuiTen(id);
+    }
+
+    arrowsLayer.addEventListener('pointerdown', function (e) {
+        if (e.button !== 0) return;
+        const handle = e.target.closest('.ga-arrow-handle');
+        if (handle) {
+            e.stopPropagation();
+            const parentG = handle.closest('.ga-arrow');
+            if (!parentG) return;
+            dangKeoDiem = { arrowId: parentG.dataset.id, index: parseInt(handle.dataset.index, 10) };
+            return;
+        }
+
+        if (congCuHienTai !== 'select') return;
+        const g = e.target.closest('.ga-arrow');
+        if (!g) return;
+        e.stopPropagation();
+        const arrow = state.arrows.find(function (a) { return a.id === g.dataset.id; });
+        if (!arrow) return;
+
+        dangKeoCaMuiTen = {
+            id: arrow.id,
+            diemBatDauKeo: toaDoTrongSvg(e.clientX, e.clientY),
+            diemGoc: arrow.points.map(function (p) { return [p[0], p[1]]; }),
+        };
+    });
+
+    document.addEventListener('pointermove', function (e) {
+        if (dangKeoDiem) {
+            const p = toaDoTrongSvg(e.clientX, e.clientY);
+            const arrow = state.arrows.find(function (a) { return a.id === dangKeoDiem.arrowId; });
+            if (arrow) {
+                arrow.points[dangKeoDiem.index] = [Math.round(p.x), Math.round(p.y)];
+                veLaiMuiTen(arrow.id);
+            }
+            return;
+        }
+
+        if (dangKeoCaMuiTen) {
+            const p = toaDoTrongSvg(e.clientX, e.clientY);
+            const dx = p.x - dangKeoCaMuiTen.diemBatDauKeo.x;
+            const dy = p.y - dangKeoCaMuiTen.diemBatDauKeo.y;
+            const arrow = state.arrows.find(function (a) { return a.id === dangKeoCaMuiTen.id; });
+            if (arrow) {
+                arrow.points = dangKeoCaMuiTen.diemGoc.map(function (p0) {
+                    return [Math.round(p0[0] + dx), Math.round(p0[1] + dy)];
+                });
+                veLaiMuiTen(arrow.id);
+            }
+        }
+    });
+
+    document.addEventListener('pointerup', function () {
+        if (dangKeoDiem) {
+            dangKeoDiem = null;
+            dongBoHiddenInput();
+            baoDaThayDoi();
+            return;
+        }
+
+        if (dangKeoCaMuiTen) {
+            dangKeoCaMuiTen = null;
+            dongBoHiddenInput();
+            baoDaThayDoi();
+        }
+    });
+
+    arrowsLayer.addEventListener('click', function (e) {
+        if (congCuHienTai !== 'select') return;
+        if (e.target.closest('.ga-arrow-handle')) return;
+
+        const g = e.target.closest('.ga-arrow');
+        if (!g) return;
+        const arrow = state.arrows.find(function (a) { return a.id === g.dataset.id; });
+        if (arrow && arrow.type === 'dan_bong') {
+            chonMuiTenDanBong(arrow.id);
+        }
+    });
+
+    canvas.addEventListener('click', function (e) {
+        if (congCuHienTai !== 'select') return;
+        if (e.target.closest('.ga-arrow') || e.target.closest('.ga-object')) return;
+        chonMuiTenDanBong(null);
     });
 
     arrowsLayer.addEventListener('dblclick', function (e) {

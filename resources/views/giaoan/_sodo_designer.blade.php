@@ -115,6 +115,9 @@
             <button type="button" class="sodo-tool-btn" data-tool="sut" title="Sút">
                 <i class="ri-arrow-right-double-line"></i> Sút
             </button>
+            <button type="button" class="sodo-tool-btn" data-tool="dan_bong" title="Nét đứt - Dẫn bóng">
+                <i class="ri-route-line"></i> Dẫn bóng
+            </button>
         </div>
 
         <svg id="gaCanvas" viewBox="0 0 1040 600" class="sodo-canvas">

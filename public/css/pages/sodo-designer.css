@@ -139,3 +139,11 @@
 .ga-arrow {
     cursor: pointer;
 }
+
+.ga-arrow-handle {
+    cursor: grab;
+}
+
+.ga-arrow-handle:active {
+    cursor: grabbing;
+}
