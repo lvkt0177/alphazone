@@ -8,7 +8,8 @@
     <a href="{{ route('giaoan.menu', ['cap_hoc' => $capHoc->value]) }}">{{ $capHoc->getLabel() }}</a>
     <i class="ri-arrow-right-s-line"></i>
     @if ($chuDe)
-        <a href="{{ route('giaoan.menu', ['cap_hoc' => $capHoc->value, 'loai_game' => $loaiGame->value]) }}">{{ $loaiGame->getLabel() }}</a>
+        <a
+            href="{{ route('giaoan.menu', ['cap_hoc' => $capHoc->value, 'loai_game' => $loaiGame->value]) }}">{{ $loaiGame->getLabel() }}</a>
         <i class="ri-arrow-right-s-line"></i>
         <a class="active">{{ $chuDe->getLabelCoSo() }}</a>
     @else
@@ -51,17 +52,25 @@
             @forelse ($giaoAns as $ga)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td class="giaoan-name-cell">{{ $ga->ten_tro_choi }}</td>
-                    <td class="text-2 giaoan-desc-cell">{{ $ga->cach_choi ? \Illuminate\Support\Str::limit($ga->cach_choi, 80) : '—' }}</td>
+                    <td class="giaoan-name-cell">
+                        <a href="{{ route('giaoan.show', $ga) }}" target="_blank"
+                            class="giaoan-name-link">{{ $ga->ten_tro_choi }}</a>
+                    </td>
+                    <td class="text-2 giaoan-desc-cell">
+                        {{ $ga->cach_choi ? \Illuminate\Support\Str::limit($ga->cach_choi, 80) : '—' }}</td>
                     <td>
                         @if ($ga->video_path)
-                            <span class="badge green">Có video</span>
+                            <a href="{{ $ga->videoUrl() }}" target="_blank" class="badge green giaoan-video-badge">
+                                <i class="ri-play-circle-line"></i> Xem video
+                            </a>
                         @else
                             <span class="text-2">—</span>
                         @endif
                     </td>
                     <td>
                         <div class="actions-cell">
+                            <a href="{{ route('giaoan.show', $ga) }}" target="_blank" title="Xem chi tiết"><i
+                                    class="ri-eye-line"></i></a>
                             @if (hasQuyen('giaoan', 'sua'))
                                 <a href="{{ route('giaoan.edit', $ga) }}"><i class="ri-edit-line"></i></a>
                             @endif
@@ -86,13 +95,14 @@
     </table>
 
     <div class="pagination">
-        @if (! $giaoAns->onFirstPage())
+        @if (!$giaoAns->onFirstPage())
             <a href="{{ $giaoAns->previousPageUrl() }}">Trước</a>
         @else
             <span class="giaoan-page-disabled">Trước</span>
         @endif
         @for ($i = 1; $i <= $giaoAns->lastPage(); $i++)
-            <a href="{{ $giaoAns->url($i) }}" class="{{ $i == $giaoAns->currentPage() ? 'active' : '' }}">{{ $i }}</a>
+            <a href="{{ $giaoAns->url($i) }}"
+                class="{{ $i == $giaoAns->currentPage() ? 'active' : '' }}">{{ $i }}</a>
         @endfor
         @if ($giaoAns->hasMorePages())
             <a href="{{ $giaoAns->nextPageUrl() }}">Sau</a>

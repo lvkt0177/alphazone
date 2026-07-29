@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GiaoAn\GiaoAnRequest;
 use App\Models\GiaoAn;
 use App\Models\SodoMauSac;
+use App\Support\SoDoRenderer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -28,7 +29,7 @@ class GiaoAnController extends Controller
             $query->whereNull('chu_de');
         }
 
-        $giaoAns = $query->orderBy('ten_tro_choi')->paginate(20)->withQueryString();
+        $giaoAns = $query->orderBy('id')->paginate(20)->withQueryString();
 
         return view('giaoan.index', compact('giaoAns', 'capHoc', 'loaiGame', 'chuDe'));
     }
@@ -69,6 +70,15 @@ class GiaoAnController extends Controller
     public function edit(GiaoAn $giaoan)
     {
         return view('giaoan.edit', ['giaoAn' => $giaoan]);
+    }
+
+    // N4: Trang xem chi tiết Giáo án — đứng riêng, không dùng layout admin, để in ra được.
+    public function show(GiaoAn $giaoan)
+    {
+        $mauSac = SodoMauSac::hienTai();
+        $sodoMarkup = SoDoRenderer::render($giaoan->so_do, $mauSac);
+
+        return view('giaoan.show', compact('giaoan', 'sodoMarkup'));
     }
 
     public function update(GiaoAnRequest $request, GiaoAn $giaoan)
