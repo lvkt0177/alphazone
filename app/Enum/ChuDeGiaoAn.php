@@ -2,12 +2,12 @@
 
 namespace App\Enum;
 
-use App\Traits\EnumValues;
 use App\Traits\EnumOptions;
+use App\Traits\EnumValues;
 
 enum ChuDeGiaoAn: int
 {
-    use EnumValues, EnumOptions;
+    use EnumOptions, EnumValues;
 
     case CD_1 = 1;
     case CD_2 = 2;
@@ -31,5 +31,17 @@ enum ChuDeGiaoAn: int
     public function getLabelCoSo(): string
     {
         return "CĐ{$this->value}: {$this->getLabel()}";
+    }
+
+    public function getAnh(): string
+    {
+        return match ($this) {
+            self::CD_1 => 'images/giao-an/chuyen-bong-kiem-soat-bong.jpg',
+            self::CD_2 => 'images/giao-an/dan-bong-qua-nguoi.jpg',
+            self::CD_3 => 'images/giao-an/sut-bong-tan-cong.jpg',
+            self::CD_4 => 'images/giao-an/phong-ngu.jpg',
+            self::CD_5 => 'images/giao-an/di-chuyen-khong-bong-to-chuc.jpg',
+            self::CD_6 => 'images/giao-an/tong-hop.jpg',
+        };
     }
 }

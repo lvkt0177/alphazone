@@ -2,12 +2,12 @@
 
 namespace App\Enum;
 
-use App\Traits\EnumValues;
 use App\Traits\EnumOptions;
+use App\Traits\EnumValues;
 
 enum CapHocGiaoAn: int
 {
-    use EnumValues, EnumOptions;
+    use EnumOptions, EnumValues;
 
     case MAM_NON = 1;
     case TIEU_HOC = 2;
@@ -30,7 +30,16 @@ enum CapHocGiaoAn: int
             self::CAP_2 => 'ri-football-line',
         };
     }
-    
+
+    public function getAnh(): string
+    {
+        return match ($this) {
+            self::MAM_NON => 'images/giao-an/mam-non.jpg',
+            self::TIEU_HOC => 'images/giao-an/tieu-hoc.png',
+            self::CAP_2 => 'images/giao-an/cap-2.jpg',
+        };
+    }
+
     public function danhSachLoaiGame(): array
     {
         return match ($this) {
@@ -47,7 +56,7 @@ enum CapHocGiaoAn: int
             ],
         };
     }
-   
+
     public function coChuDe(): bool
     {
         return $this !== self::MAM_NON;

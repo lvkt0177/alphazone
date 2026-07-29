@@ -10,8 +10,8 @@
 
     <div class="giaoan-box-grid">
         @foreach (\App\Enum\CapHocGiaoAn::cases() as $ch)
-            <a href="{{ route('giaoan.menu', ['cap_hoc' => $ch->value]) }}" class="giaoan-box">
-                <i class="{{ $ch->getIcon() }} giaoan-box-icon"></i>
+            <a href="{{ route('giaoan.menu', ['cap_hoc' => $ch->value]) }}" class="giaoan-box giaoan-box--img">
+                <img src="{{ asset($ch->getAnh()) }}" alt="{{ $ch->getLabel() }}" class="giaoan-box-img">
                 <div class="giaoan-box-title">{{ $ch->getLabel() }}</div>
             </a>
         @endforeach
@@ -32,7 +32,8 @@
     <div class="giaoan-box-grid">
         @foreach ($dsLoaiGame as $lg)
             <a href="{{ route('giaoan.menu', ['cap_hoc' => $capHoc->value, 'loai_game' => $lg->value]) }}"
-                class="giaoan-box">
+                class="giaoan-box giaoan-box--img">
+                <img src="{{ asset($lg->getAnh()) }}" alt="{{ $lg->getLabel() }}" class="giaoan-box-img">
                 <div class="giaoan-box-title">{{ $lg->getLabelCoSo() }}</div>
             </a>
         @endforeach
@@ -56,7 +57,8 @@
     <div class="giaoan-box-grid">
         @foreach ($dsChuDe as $cd)
             <a href="{{ route('giaoan.menu', ['cap_hoc' => $capHoc->value, 'loai_game' => $loaiGame->value, 'chu_de' => $cd->value]) }}"
-                class="giaoan-box giaoan-box--chude">
+                class="giaoan-box giaoan-box--img">
+                <img src="{{ asset($cd->getAnh()) }}" alt="{{ $cd->getLabel() }}" class="giaoan-box-img">
                 <div class="giaoan-box-title">{{ $cd->getLabelCoSo() }}</div>
             </a>
         @endforeach

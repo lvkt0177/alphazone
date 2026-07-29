@@ -2,12 +2,12 @@
 
 namespace App\Enum;
 
-use App\Traits\EnumValues;
 use App\Traits\EnumOptions;
+use App\Traits\EnumValues;
 
 enum LoaiGameGiaoAn: int
 {
-    use EnumValues, EnumOptions;
+    use EnumOptions, EnumValues;
 
     case KHOI_DONG = 1;
     case GAME_1 = 2;
@@ -27,5 +27,15 @@ enum LoaiGameGiaoAn: int
     public function getLabelCoSo(): string
     {
         return "{$this->value}. {$this->getLabel()}";
+    }
+
+    public function getAnh(): string
+    {
+        return match ($this) {
+            self::KHOI_DONG => 'images/giao-an/khoi-dong.png',
+            self::GAME_1 => 'images/giao-an/game-1.png',
+            self::GAME_2 => 'images/giao-an/game-2.png',
+            self::GAME_3 => 'images/giao-an/game-3.jpg',
+        };
     }
 }
