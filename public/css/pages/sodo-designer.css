@@ -101,3 +101,41 @@
 .sodo-context-menu button:hover {
     background: var(--red-bg);
 }
+
+.sodo-toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.sodo-tool-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--text);
+}
+
+.sodo-tool-btn:hover {
+    border-color: var(--primary);
+}
+
+.sodo-tool-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+.sodo-canvas--drawing {
+    cursor: crosshair;
+}
+
+.ga-arrow {
+    cursor: pointer;
+}

@@ -3,16 +3,26 @@
 
     const canvas = document.getElementById('gaCanvas');
     const objectsLayer = document.getElementById('gaObjectsLayer');
+    const arrowsLayer = document.getElementById('gaArrowsLayer');
     const hiddenInput = document.getElementById('ga_so_do');
     const contextMenu = document.getElementById('gaContextMenu');
     const contextMenuDeleteBtn = document.getElementById('gaContextMenuDelete');
+    const toolButtons = document.querySelectorAll('.sodo-tool-btn');
+    const gaSoInput = document.getElementById('gaSoInput');
+    const gaSoSaveBtn = document.getElementById('gaSoSaveBtn');
 
-    if (!canvas || !objectsLayer || !hiddenInput) {
+    if (!canvas || !objectsLayer || !arrowsLayer || !hiddenInput) {
         return;
     }
 
     let state = { objects: [], arrows: [] };
     let contextMenuTargetId = null;
+    let contextMenuTargetType = null;
+    let congCuHienTai = 'select';
+    let dangVe = false;
+    let diemBatDau = null;
+    let previewLine = null;
+    let arrowDangSuaSo = null;
 
     function taoId() {
         return 'o' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
@@ -97,12 +107,85 @@
         baoDaThayDoi();
     }
 
+    function renderArrow(arrow) {
+        const g = document.createElementNS(SVG_NS, 'g');
+        g.setAttribute('class', 'ga-arrow');
+        g.dataset.id = arrow.id;
+
+        const p1 = arrow.points[0];
+        const p2 = arrow.points[arrow.points.length - 1];
+        const midX = (p1[0] + p2[0]) / 2;
+        const midY = (p1[1] + p2[1]) / 2;
+
+        const dx = p2[0] - p1[0];
+        const dy = p2[1] - p1[1];
+        const len = Math.sqrt(dx * dx + dy * dy) || 1;
+        const ux = dx / len;
+        const uy = dy / len;
+        const px = -uy;
+        const py = ux;
+
+        // Đầu mũi tên: vẽ tam giác riêng, căn đúng theo hướng đường vẽ (không dùng SVG marker vì dễ bị lệch/méo)
+        const dai = 22;
+        const rong = 15;
+        const dinh = [p2[0], p2[1]];
+        const goc1 = [p2[0] - ux * dai + px * rong, p2[1] - uy * dai + py * rong];
+        const goc2 = [p2[0] - ux * dai - px * rong, p2[1] - uy * dai - py * rong];
+        const cuoiThan = [p2[0] - ux * dai, p2[1] - uy * dai];
+
+        const dauMuiTen = '<polygon points="' + dinh[0] + ',' + dinh[1] + ' ' + goc1[0] + ',' + goc1[1] + ' ' + goc2[0] + ',' + goc2[1] + '" fill="#000000"></polygon>';
+
+        let thanMarkup = '';
+        if (arrow.type === 'sut') {
+            const ox = px * 4;
+            const oy = py * 4;
+            thanMarkup = '<line x1="' + (p1[0] + ox) + '" y1="' + (p1[1] + oy) + '" x2="' + (cuoiThan[0] + ox) + '" y2="' + (cuoiThan[1] + oy) + '" stroke="#000000" stroke-width="3"></line>'
+                + '<line x1="' + (p1[0] - ox) + '" y1="' + (p1[1] - oy) + '" x2="' + (cuoiThan[0] - ox) + '" y2="' + (cuoiThan[1] - oy) + '" stroke="#000000" stroke-width="3"></line>';
+        } else {
+            thanMarkup = '<line x1="' + p1[0] + '" y1="' + p1[1] + '" x2="' + cuoiThan[0] + '" y2="' + cuoiThan[1] + '" stroke="#000000" stroke-width="3"></line>';
+        }
+
+        const nhanSo = '<circle cx="' + midX + '" cy="' + midY + '" r="11" fill="#ffffff" stroke="#000000" stroke-width="1.5" class="ga-arrow-so-bg"></circle>'
+            + '<text x="' + midX + '" y="' + (midY + 4) + '" font-size="12" font-weight="700" fill="#000000" text-anchor="middle" class="ga-arrow-so-text">' + arrow.so + '</text>';
+
+        g.innerHTML = thanMarkup + dauMuiTen + nhanSo;
+        arrowsLayer.appendChild(g);
+    }
+
+    function laySoLonNhatHienTai() {
+        return state.arrows.reduce(function (max, a) {
+            return Math.max(max, Number(a.so) || 0);
+        }, 0);
+    }
+
+    function themMuiTen(type, p1, p2) {
+        const arrow = {
+            id: taoId(),
+            type: type,
+            so: laySoLonNhatHienTai() + 1,
+            points: [[Math.round(p1.x), Math.round(p1.y)], [Math.round(p2.x), Math.round(p2.y)]],
+        };
+        state.arrows.push(arrow);
+        renderArrow(arrow);
+        dongBoHiddenInput();
+        baoDaThayDoi();
+    }
+
+    function xoaMuiTen(id) {
+        state.arrows = state.arrows.filter(function (a) { return a.id !== id; });
+        const node = arrowsLayer.querySelector('[data-id="' + id + '"]');
+        if (node) node.remove();
+        dongBoHiddenInput();
+        baoDaThayDoi();
+    }
+
     function baoDaThayDoi() {
         window.dispatchEvent(new CustomEvent('ga:sodo-changed'));
     }
 
-    function moContextMenu(clientX, clientY, id) {
+    function moContextMenu(clientX, clientY, id, type) {
         contextMenuTargetId = id;
+        contextMenuTargetType = type;
         contextMenu.style.left = clientX + 'px';
         contextMenu.style.top = clientY + 'px';
         contextMenu.style.display = 'block';
@@ -111,6 +194,7 @@
     function dongContextMenu() {
         contextMenu.style.display = 'none';
         contextMenuTargetId = null;
+        contextMenuTargetType = null;
     }
 
     document.addEventListener('click', function () {
@@ -119,7 +203,11 @@
 
     contextMenuDeleteBtn.addEventListener('click', function () {
         if (contextMenuTargetId) {
-            xoaVatDung(contextMenuTargetId);
+            if (contextMenuTargetType === 'arrow') {
+                xoaMuiTen(contextMenuTargetId);
+            } else {
+                xoaVatDung(contextMenuTargetId);
+            }
         }
         dongContextMenu();
     });
@@ -139,9 +227,12 @@
 
     canvas.addEventListener('contextmenu', function (e) {
         e.preventDefault();
-        const target = e.target.closest('.ga-object');
-        if (target) {
-            moContextMenu(e.clientX, e.clientY, target.dataset.id);
+        const targetObj = e.target.closest('.ga-object');
+        const targetArrow = e.target.closest('.ga-arrow');
+        if (targetObj) {
+            moContextMenu(e.clientX, e.clientY, targetObj.dataset.id, 'object');
+        } else if (targetArrow) {
+            moContextMenu(e.clientX, e.clientY, targetArrow.dataset.id, 'arrow');
         }
     });
 
@@ -154,6 +245,89 @@
         themVatDung(data.type, data.color, p.x, p.y);
     });
 
+    function chonCongCu(ten) {
+        congCuHienTai = ten;
+        toolButtons.forEach(function (b) {
+            b.classList.toggle('active', b.dataset.tool === ten);
+        });
+        canvas.classList.toggle('sodo-canvas--drawing', ten !== 'select');
+    }
+
+    toolButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            chonCongCu(btn.dataset.tool);
+        });
+    });
+
+    canvas.addEventListener('pointerdown', function (e) {
+        if (e.button !== 0) return;
+        if (congCuHienTai !== 'chuyen' && congCuHienTai !== 'sut') return;
+        dangVe = true;
+        diemBatDau = toaDoTrongSvg(e.clientX, e.clientY);
+
+        previewLine = document.createElementNS(SVG_NS, 'line');
+        previewLine.setAttribute('stroke', '#000000');
+        previewLine.setAttribute('stroke-width', '2');
+        previewLine.setAttribute('stroke-dasharray', '6,4');
+        previewLine.setAttribute('x1', diemBatDau.x);
+        previewLine.setAttribute('y1', diemBatDau.y);
+        previewLine.setAttribute('x2', diemBatDau.x);
+        previewLine.setAttribute('y2', diemBatDau.y);
+        arrowsLayer.appendChild(previewLine);
+    });
+
+    canvas.addEventListener('pointermove', function (e) {
+        if (!dangVe || !previewLine) return;
+        const p = toaDoTrongSvg(e.clientX, e.clientY);
+        previewLine.setAttribute('x2', p.x);
+        previewLine.setAttribute('y2', p.y);
+    });
+
+    canvas.addEventListener('pointerup', function (e) {
+        if (!dangVe) return;
+        dangVe = false;
+
+        const diemKetThuc = toaDoTrongSvg(e.clientX, e.clientY);
+        if (previewLine) {
+            previewLine.remove();
+            previewLine = null;
+        }
+
+        const khoangCach = Math.hypot(diemKetThuc.x - diemBatDau.x, diemKetThuc.y - diemBatDau.y);
+        if (khoangCach > 5) {
+            themMuiTen(congCuHienTai, diemBatDau, diemKetThuc);
+        }
+        chonCongCu('select');
+    });
+
+    arrowsLayer.addEventListener('dblclick', function (e) {
+        const g = e.target.closest('.ga-arrow');
+        if (!g) return;
+        const arrow = state.arrows.find(function (a) { return a.id === g.dataset.id; });
+        if (!arrow) return;
+
+        arrowDangSuaSo = arrow;
+        gaSoInput.value = arrow.so;
+        openModal('gaSoModal');
+    });
+
+    gaSoSaveBtn.addEventListener('click', function () {
+        if (!arrowDangSuaSo) return;
+        const soMoi = parseInt(gaSoInput.value, 10);
+        if (isNaN(soMoi)) return;
+
+        arrowDangSuaSo.so = soMoi;
+        const g = arrowsLayer.querySelector('[data-id="' + arrowDangSuaSo.id + '"]');
+        if (g) {
+            const textEl = g.querySelector('.ga-arrow-so-text');
+            if (textEl) textEl.textContent = soMoi;
+        }
+        dongBoHiddenInput();
+        baoDaThayDoi();
+        closeModal('gaSoModal');
+        arrowDangSuaSo = null;
+    });
+
     function naploLaiDuLieuCu() {
         if (!hiddenInput.value) return;
         try {
@@ -164,6 +338,7 @@
             }
             if (parsed && Array.isArray(parsed.arrows)) {
                 state.arrows = parsed.arrows;
+                state.arrows.forEach(renderArrow);
             }
         } catch (err) {
             state = { objects: [], arrows: [] };

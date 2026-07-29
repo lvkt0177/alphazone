@@ -105,6 +105,18 @@
     </div>
 
     <div class="sodo-canvas-wrap">
+        <div class="sodo-toolbar" id="sodoToolbar">
+            <button type="button" class="sodo-tool-btn active" data-tool="select" title="Chọn / Di chuyển">
+                <i class="ri-cursor-line"></i> Chọn
+            </button>
+            <button type="button" class="sodo-tool-btn" data-tool="chuyen" title="Nét liền - Chuyền">
+                <i class="ri-arrow-right-line"></i> Chuyền
+            </button>
+            <button type="button" class="sodo-tool-btn" data-tool="sut" title="Sút">
+                <i class="ri-arrow-right-double-line"></i> Sút
+            </button>
+        </div>
+
         <svg id="gaCanvas" viewBox="0 0 1040 600" class="sodo-canvas">
             <rect x="40" y="40" width="960" height="520" fill="#4d8a35"></rect>
             @for ($i = 0; $i < 16; $i++)
@@ -123,6 +135,7 @@
             <rect x="24" y="255" width="16" height="90" fill="none" stroke="#ffffff" stroke-width="2"></rect>
             <rect x="1000" y="255" width="16" height="90" fill="none" stroke="#ffffff" stroke-width="2"></rect>
 
+
             <g id="gaObjectsLayer"></g>
             <g id="gaArrowsLayer"></g>
         </svg>
@@ -131,6 +144,25 @@
 
 <div id="gaContextMenu" class="sodo-context-menu">
     <button type="button" id="gaContextMenuDelete"><i class="ri-delete-bin-line"></i> Xoá</button>
+</div>
+
+<div class="overlay" id="gaSoModal">
+    <div class="modal">
+        <div class="modal-head">
+            <h3>Sửa số thứ tự</h3>
+            <i class="ri-close-line" onclick="closeModal('gaSoModal')"></i>
+        </div>
+        <div class="modal-body">
+            <div class="field">
+                <label>Số thứ tự</label>
+                <input type="number" id="gaSoInput" min="1">
+            </div>
+        </div>
+        <div class="modal-foot">
+            <button type="button" class="btn btn-outline" onclick="closeModal('gaSoModal')">Huỷ</button>
+            <button type="button" class="btn btn-primary" id="gaSoSaveBtn"><i class="ri-save-line"></i> Lưu</button>
+        </div>
+    </div>
 </div>
 
 @push('scripts')
