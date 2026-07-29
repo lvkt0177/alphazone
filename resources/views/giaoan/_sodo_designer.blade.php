@@ -91,7 +91,8 @@
                 </div>
                 <div class="sodo-palette-item" draggable="true" data-type="nguoi" data-color="green"
                     title="Người xanh lá">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="color:{{ $mauSac['green'] }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        style="color:{{ $mauSac['green'] }}">
                         <path d="M0 0h24v24H0z" fill="none"></path>
                         <path fill="currentColor"
                             d="M12 2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m-1.5 5h3a2 2 0 0 1 2 2v5.5H14V22h-4v-7.5H8.5V9a2 2 0 0 1 2-2">
@@ -100,7 +101,8 @@
                 </div>
                 <div class="sodo-palette-item" draggable="true" data-type="nguoi" data-color="yellow"
                     title="Người vàng">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="color:{{ $mauSac['yellow'] }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        style="color:{{ $mauSac['yellow'] }}">
                         <path d="M0 0h24v24H0z" fill="none"></path>
                         <path fill="currentColor"
                             d="M12 2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m-1.5 5h3a2 2 0 0 1 2 2v5.5H14V22h-4v-7.5H8.5V9a2 2 0 0 1 2-2">
@@ -109,7 +111,8 @@
                 </div>
                 <div class="sodo-palette-item" draggable="true" data-type="nguoi" data-color="orange"
                     title="Người cam">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="color:{{ $mauSac['orange'] }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        style="color:{{ $mauSac['orange'] }}">
                         <path d="M0 0h24v24H0z" fill="none"></path>
                         <path fill="currentColor"
                             d="M12 2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m-1.5 5h3a2 2 0 0 1 2 2v5.5H14V22h-4v-7.5H8.5V9a2 2 0 0 1 2-2">
@@ -196,6 +199,8 @@
 </div>
 
 <div id="gaContextMenu" class="sodo-context-menu">
+    <button type="button" id="gaContextMenuEdit" style="display:none;"><i class="ri-edit-line"></i> Chỉnh
+        sửa</button>
     <button type="button" id="gaContextMenuDelete"><i class="ri-delete-bin-line"></i> Xoá</button>
 </div>
 
@@ -228,26 +233,27 @@
         <div class="modal-body">
             <div class="form-grid">
                 <div class="field">
-                    <label>Xanh biển</label>
+                    <label>Màu 1</label>
                     <input type="color" id="gaMauBlue" value="{{ $mauSac['blue'] }}">
                 </div>
                 <div class="field">
-                    <label>Xanh lá</label>
+                    <label>Màu 2</label>
                     <input type="color" id="gaMauGreen" value="{{ $mauSac['green'] }}">
                 </div>
                 <div class="field">
-                    <label>Vàng</label>
+                    <label>Màu 3</label>
                     <input type="color" id="gaMauYellow" value="{{ $mauSac['yellow'] }}">
                 </div>
                 <div class="field">
-                    <label>Cam</label>
+                    <label>Màu 4</label>
                     <input type="color" id="gaMauOrange" value="{{ $mauSac['orange'] }}">
                 </div>
             </div>
         </div>
         <div class="modal-foot">
             <button type="button" class="btn btn-outline" onclick="closeModal('gaMauSacModal')">Huỷ</button>
-            <button type="button" class="btn btn-primary" id="gaMauSacSaveBtn"><i class="ri-save-line"></i> Lưu màu</button>
+            <button type="button" class="btn btn-primary" id="gaMauSacSaveBtn"><i class="ri-save-line"></i> Lưu
+                màu</button>
         </div>
     </div>
 </div>

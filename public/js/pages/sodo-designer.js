@@ -6,6 +6,7 @@
     const arrowsLayer = document.getElementById('gaArrowsLayer');
     const hiddenInput = document.getElementById('ga_so_do');
     const contextMenu = document.getElementById('gaContextMenu');
+    const contextMenuEditBtn = document.getElementById('gaContextMenuEdit');
     const contextMenuDeleteBtn = document.getElementById('gaContextMenuDelete');
     const toolButtons = document.querySelectorAll('.sodo-tool-btn');
     const gaSoInput = document.getElementById('gaSoInput');
@@ -283,6 +284,7 @@
     function moContextMenu(clientX, clientY, id, type) {
         contextMenuTargetId = id;
         contextMenuTargetType = type;
+        contextMenuEditBtn.style.display = type === 'arrow' ? 'flex' : 'none';
         contextMenu.style.left = clientX + 'px';
         contextMenu.style.top = clientY + 'px';
         contextMenu.style.display = 'block';
@@ -306,6 +308,19 @@
                 xoaVatDung(contextMenuTargetId);
             }
         }
+        dongContextMenu();
+    });
+
+    function moModalSuaSo(arrow) {
+        arrowDangSuaSo = arrow;
+        gaSoInput.value = arrow.so;
+        openModal('gaSoModal');
+    }
+
+    contextMenuEditBtn.addEventListener('click', function () {
+        if (contextMenuTargetType !== 'arrow' || !contextMenuTargetId) return;
+        const arrow = state.arrows.find(function (a) { return a.id === contextMenuTargetId; });
+        if (arrow) moModalSuaSo(arrow);
         dongContextMenu();
     });
 
@@ -531,9 +546,7 @@
         const arrow = state.arrows.find(function (a) { return a.id === g.dataset.id; });
         if (!arrow) return;
 
-        arrowDangSuaSo = arrow;
-        gaSoInput.value = arrow.so;
-        openModal('gaSoModal');
+        moModalSuaSo(arrow);
     });
 
     gaSoSaveBtn.addEventListener('click', function () {

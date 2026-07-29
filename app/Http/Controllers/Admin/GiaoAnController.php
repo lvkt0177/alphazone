@@ -47,9 +47,6 @@ class GiaoAnController extends Controller
     {
         $data = $request->validated();
 
-        // Quan trọng: so_do gửi lên là chuỗi JSON (từ hidden input) — phải decode thành mảng PHP
-        // trước khi gán, nếu không Eloquent (cast 'array') sẽ json_encode chuỗi này thêm 1 lần nữa
-        // gây lỗi double-encode, khiến lúc mở lại trang Sửa không đọc lại được sơ đồ đã lưu.
         if (isset($data['so_do'])) {
             $data['so_do'] = json_decode($data['so_do'], true) ?: null;
         }
@@ -72,7 +69,6 @@ class GiaoAnController extends Controller
         return view('giaoan.edit', ['giaoAn' => $giaoan]);
     }
 
-    // N4: Trang xem chi tiết Giáo án — đứng riêng, không dùng layout admin, để in ra được.
     public function show(GiaoAn $giaoan)
     {
         $mauSac = SodoMauSac::hienTai();
@@ -102,7 +98,7 @@ class GiaoAnController extends Controller
             'cap_hoc' => $giaoan->cap_hoc->value,
             'loai_game' => $giaoan->loai_game->value,
             'chu_de' => $giaoan->chu_de?->value,
-        ])->with('success', 'Cập nhật giáo án thành công');
+        ])->with('success', "Cập nhật giáo án \"{$giaoan->ten_tro_choi}\" thành công");
     }
 
     public function destroy(GiaoAn $giaoan)
