@@ -651,6 +651,27 @@
         });
     }
 
+    const sodoClearAllBtn = document.getElementById('sodoClearAllBtn');
+    if (sodoClearAllBtn) {
+        sodoClearAllBtn.addEventListener('click', function () {
+            if (state.objects.length === 0 && state.arrows.length === 0) return;
+
+            confirmAction(
+                'Xoá tất cả?',
+                'Toàn bộ vật dụng và mũi tên đang có trên sân sẽ bị xoá hết. Bạn có chắc chắn?',
+                function () {
+                    state.objects = [];
+                    state.arrows = [];
+                    arrowDangChon = null;
+                    objectsLayer.innerHTML = '';
+                    arrowsLayer.innerHTML = '';
+                    dongBoHiddenInput();
+                    baoDaThayDoi();
+                }
+            );
+        });
+    }
+
     naploLaiDuLieuCu();
     dongBoHiddenInput();
 })();

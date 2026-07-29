@@ -151,6 +151,10 @@
         </div>
 
         <div class="text-2 sodo-palette-hint">Kéo vật dụng vào sân. Chuột phải vào vật đã đặt để xoá.</div>
+
+        <button type="button" class="btn btn-outline sodo-clear-all-btn" id="sodoClearAllBtn">
+            <i class="ri-delete-bin-line"></i> Xoá tất cả
+        </button>
     </div>
 
     <div class="sodo-canvas-wrap">
