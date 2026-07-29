@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Models\DiaDiem;
 use App\Models\GiaoVien;
+use App\Models\SodoMauSac;
 use App\Enum\TrangThaiGiaoVien;
 
 class AppServiceProvider extends ServiceProvider
@@ -48,6 +49,12 @@ class AppServiceProvider extends ServiceProvider
         View::composer('partials.modals._quyengiaovien', function ($view) {
             $view->with([
                 'chucNangs' => ChucNang::orderBy('id')->get(),
+            ]);
+        });
+
+        View::composer('giaoan._sodo_designer', function ($view) {
+            $view->with([
+                'mauSac' => SodoMauSac::hienTai(),
             ]);
         });
     }

@@ -8,6 +8,7 @@ use App\Enum\LoaiGameGiaoAn;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GiaoAn\GiaoAnRequest;
 use App\Models\GiaoAn;
+use App\Models\SodoMauSac;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -120,5 +121,22 @@ class GiaoAnController extends Controller
         $chuDe = $request->filled('chu_de') ? ChuDeGiaoAn::tryFrom((int) $request->query('chu_de')) : null;
 
         return [$capHoc, $loaiGame, $chuDe];
+    }
+
+    public function capNhatMauSac(Request $request)
+    {
+        $data = $request->validate([
+            'blue' => ['required', 'string', 'max:9'],
+            'green' => ['required', 'string', 'max:9'],
+            'yellow' => ['required', 'string', 'max:9'],
+            'orange' => ['required', 'string', 'max:9'],
+        ]);
+
+        SodoMauSac::luu($data);
+
+        return response()->json([
+            'success' => true,
+            'mau_sac' => $data,
+        ]);
     }
 }

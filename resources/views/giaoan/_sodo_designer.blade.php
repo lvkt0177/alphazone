@@ -4,30 +4,35 @@
 
 <div class="sodo-wrap">
     <div class="sodo-palette" id="sodoPalette">
+        <div class="sodo-palette-top">
+            <span class="sodo-palette-top-title">Vật dụng</span>
+            <i class="ri-settings-3-line sodo-settings-icon" onclick="openModal('gaMauSacModal')" title="Cài đặt màu"></i>
+        </div>
+
         <div class="sodo-palette-group">
             <div class="sodo-palette-label">Nấm</div>
             <div class="sodo-palette-row">
                 <div class="sodo-palette-item" draggable="true" data-type="nam" data-color="blue" title="Nấm xanh biển">
                     <svg viewBox="0 0 34 34">
-                        <circle cx="17" cy="17" r="13" fill="#0ffdfd"></circle>
+                        <circle cx="17" cy="17" r="13" fill="{{ $mauSac['blue'] }}"></circle>
                         <circle cx="17" cy="17" r="4" fill="#111111"></circle>
                     </svg>
                 </div>
                 <div class="sodo-palette-item" draggable="true" data-type="nam" data-color="green" title="Nấm xanh lá">
                     <svg viewBox="0 0 34 34">
-                        <circle cx="17" cy="17" r="13" fill="#0af15f"></circle>
+                        <circle cx="17" cy="17" r="13" fill="{{ $mauSac['green'] }}"></circle>
                         <circle cx="17" cy="17" r="4" fill="#111111"></circle>
                     </svg>
                 </div>
                 <div class="sodo-palette-item" draggable="true" data-type="nam" data-color="yellow" title="Nấm vàng">
                     <svg viewBox="0 0 34 34">
-                        <circle cx="17" cy="17" r="13" fill="#fffc32"></circle>
+                        <circle cx="17" cy="17" r="13" fill="{{ $mauSac['yellow'] }}"></circle>
                         <circle cx="17" cy="17" r="4" fill="#111111"></circle>
                     </svg>
                 </div>
                 <div class="sodo-palette-item" draggable="true" data-type="nam" data-color="orange" title="Nấm cam">
                     <svg viewBox="0 0 34 34">
-                        <circle cx="17" cy="17" r="13" fill="#ffcf66"></circle>
+                        <circle cx="17" cy="17" r="13" fill="{{ $mauSac['orange'] }}"></circle>
                         <circle cx="17" cy="17" r="4" fill="#111111"></circle>
                     </svg>
                 </div>
@@ -38,7 +43,7 @@
             <div class="sodo-palette-label">Côn</div>
             <div class="sodo-palette-row">
                 <div class="sodo-palette-item" draggable="true" data-type="con" data-color="blue" title="Côn xanh biển">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" style="color:#0ffdfd">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" style="color:{{ $mauSac['blue'] }}">
                         <path d="M0 0h16v16H0z" fill="none"></path>
                         <path fill="currentColor"
                             d="M7.03 1.88c.252-1.01 1.688-1.01 1.94 0l2.905 11.62H14a.5.5 0 0 1 0 1H2a.5.5 0 0 1 0-1h2.125z">
@@ -46,7 +51,7 @@
                     </svg>
                 </div>
                 <div class="sodo-palette-item" draggable="true" data-type="con" data-color="green" title="Côn xanh lá">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" style="color:#0af15f">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" style="color:{{ $mauSac['green'] }}">
                         <path d="M0 0h16v16H0z" fill="none"></path>
                         <path fill="currentColor"
                             d="M7.03 1.88c.252-1.01 1.688-1.01 1.94 0l2.905 11.62H14a.5.5 0 0 1 0 1H2a.5.5 0 0 1 0-1h2.125z">
@@ -54,7 +59,7 @@
                     </svg>
                 </div>
                 <div class="sodo-palette-item" draggable="true" data-type="con" data-color="yellow" title="Côn vàng">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" style="color:#fffc32">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" style="color:{{ $mauSac['yellow'] }}">
                         <path d="M0 0h16v16H0z" fill="none"></path>
                         <path fill="currentColor"
                             d="M7.03 1.88c.252-1.01 1.688-1.01 1.94 0l2.905 11.62H14a.5.5 0 0 1 0 1H2a.5.5 0 0 1 0-1h2.125z">
@@ -62,7 +67,7 @@
                     </svg>
                 </div>
                 <div class="sodo-palette-item" draggable="true" data-type="con" data-color="orange" title="Côn cam">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" style="color:#ffcf66">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" style="color:{{ $mauSac['orange'] }}">
                         <path d="M0 0h16v16H0z" fill="none"></path>
                         <path fill="currentColor"
                             d="M7.03 1.88c.252-1.01 1.688-1.01 1.94 0l2.905 11.62H14a.5.5 0 0 1 0 1H2a.5.5 0 0 1 0-1h2.125z">
@@ -77,7 +82,7 @@
             <div class="sodo-palette-row">
                 <div class="sodo-palette-item" draggable="true" data-type="nguoi" data-color="blue"
                     title="Người xanh biển">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="color:#0ffdfd">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="color:{{ $mauSac['blue'] }}">
                         <path d="M0 0h24v24H0z" fill="none"></path>
                         <path fill="currentColor"
                             d="M12 2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m-1.5 5h3a2 2 0 0 1 2 2v5.5H14V22h-4v-7.5H8.5V9a2 2 0 0 1 2-2">
@@ -86,7 +91,7 @@
                 </div>
                 <div class="sodo-palette-item" draggable="true" data-type="nguoi" data-color="green"
                     title="Người xanh lá">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="color:#0af15f">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="color:{{ $mauSac['green'] }}">
                         <path d="M0 0h24v24H0z" fill="none"></path>
                         <path fill="currentColor"
                             d="M12 2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m-1.5 5h3a2 2 0 0 1 2 2v5.5H14V22h-4v-7.5H8.5V9a2 2 0 0 1 2-2">
@@ -95,7 +100,7 @@
                 </div>
                 <div class="sodo-palette-item" draggable="true" data-type="nguoi" data-color="yellow"
                     title="Người vàng">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="color:#fffc32">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="color:{{ $mauSac['yellow'] }}">
                         <path d="M0 0h24v24H0z" fill="none"></path>
                         <path fill="currentColor"
                             d="M12 2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m-1.5 5h3a2 2 0 0 1 2 2v5.5H14V22h-4v-7.5H8.5V9a2 2 0 0 1 2-2">
@@ -104,7 +109,7 @@
                 </div>
                 <div class="sodo-palette-item" draggable="true" data-type="nguoi" data-color="orange"
                     title="Người cam">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="color:#ffcf66">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="color:{{ $mauSac['orange'] }}">
                         <path d="M0 0h24v24H0z" fill="none"></path>
                         <path fill="currentColor"
                             d="M12 2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m-1.5 5h3a2 2 0 0 1 2 2v5.5H14V22h-4v-7.5H8.5V9a2 2 0 0 1 2-2">
@@ -213,6 +218,45 @@
         </div>
     </div>
 </div>
+
+<div class="overlay" id="gaMauSacModal">
+    <div class="modal">
+        <div class="modal-head">
+            <h3>Cài đặt màu vật dụng</h3>
+            <i class="ri-close-line" onclick="closeModal('gaMauSacModal')"></i>
+        </div>
+        <div class="modal-body">
+            <div class="form-grid">
+                <div class="field">
+                    <label>Xanh biển</label>
+                    <input type="color" id="gaMauBlue" value="{{ $mauSac['blue'] }}">
+                </div>
+                <div class="field">
+                    <label>Xanh lá</label>
+                    <input type="color" id="gaMauGreen" value="{{ $mauSac['green'] }}">
+                </div>
+                <div class="field">
+                    <label>Vàng</label>
+                    <input type="color" id="gaMauYellow" value="{{ $mauSac['yellow'] }}">
+                </div>
+                <div class="field">
+                    <label>Cam</label>
+                    <input type="color" id="gaMauOrange" value="{{ $mauSac['orange'] }}">
+                </div>
+            </div>
+        </div>
+        <div class="modal-foot">
+            <button type="button" class="btn btn-outline" onclick="closeModal('gaMauSacModal')">Huỷ</button>
+            <button type="button" class="btn btn-primary" id="gaMauSacSaveBtn"><i class="ri-save-line"></i> Lưu màu</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.__gaMauSac = @json($mauSac);
+    window.__gaMauSacUrl = @json(route('giaoan.mausac.update'));
+    window.__gaCsrfToken = @json(csrf_token());
+</script>
 
 @push('scripts')
     <script src="{{ asset('js/pages/sodo-designer.js') }}"></script>

@@ -76,11 +76,12 @@
     }
 
     function mauSac(color) {
+        const bang = window.__gaMauSac || {};
         switch (color) {
-            case 'blue': return '#0ffdfd';
-            case 'green': return '#0af15f';
-            case 'yellow': return '#fffc32';
-            case 'orange': return '#ffcf66';
+            case 'blue': return bang.blue || '#0ffdfd';
+            case 'green': return bang.green || '#0af15f';
+            case 'yellow': return bang.yellow || '#fffc32';
+            case 'orange': return bang.orange || '#ffcf66';
             default: return '#111111';
         }
     }
@@ -567,6 +568,74 @@
         } catch (err) {
             state = { objects: [], arrows: [] };
         }
+    }
+
+    // Giai đoạn 6: Cài đặt 4 màu vật dụng — lưu qua AJAX, KHÔNG load lại trang
+    // (tránh mất sơ đồ đang vẽ dở nếu đang ở trang Tạo mới chưa lưu).
+    const gaMauSacSaveBtn = document.getElementById('gaMauSacSaveBtn');
+    const gaMauBlue = document.getElementById('gaMauBlue');
+    const gaMauGreen = document.getElementById('gaMauGreen');
+    const gaMauYellow = document.getElementById('gaMauYellow');
+    const gaMauOrange = document.getElementById('gaMauOrange');
+
+    function capNhatMauPalette(mau) {
+        document.querySelectorAll('.sodo-palette-item').forEach(function (item) {
+            const type = item.dataset.type;
+            const mauKey = item.dataset.color;
+            if (!mauKey || !mau[mauKey]) return;
+            const svgEl = item.querySelector('svg');
+            if (!svgEl) return;
+
+            if (type === 'nam') {
+                const vong = svgEl.querySelector('circle');
+                if (vong) vong.setAttribute('fill', mau[mauKey]);
+            } else if (type === 'con' || type === 'nguoi') {
+                svgEl.style.color = mau[mauKey];
+            }
+        });
+    }
+
+    function veLaiTatCaSauKhiDoiMau() {
+        state.objects.forEach(function (obj) {
+            const g = objectsLayer.querySelector('[data-id="' + obj.id + '"]');
+            if (g) g.remove();
+            renderObject(obj);
+        });
+        state.arrows.forEach(function (arrow) {
+            veLaiMuiTen(arrow.id);
+        });
+    }
+
+    if (gaMauSacSaveBtn) {
+        gaMauSacSaveBtn.addEventListener('click', function () {
+            const duLieu = {
+                blue: gaMauBlue.value,
+                green: gaMauGreen.value,
+                yellow: gaMauYellow.value,
+                orange: gaMauOrange.value,
+            };
+
+            fetch(window.__gaMauSacUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': window.__gaCsrfToken || '',
+                },
+                body: JSON.stringify(duLieu),
+            })
+                .then(function (res) { return res.json(); })
+                .then(function (json) {
+                    if (!json || !json.success) return;
+                    window.__gaMauSac = json.mau_sac;
+                    capNhatMauPalette(json.mau_sac);
+                    veLaiTatCaSauKhiDoiMau();
+                    closeModal('gaMauSacModal');
+                })
+                .catch(function () {
+                    // 
+                });
+        });
     }
 
     naploLaiDuLieuCu();
