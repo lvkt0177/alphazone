@@ -539,11 +539,6 @@
 
             <div class="actions">
                 <button class="btn btn-primary" onclick="window.location.reload()">Tải lại trang</button>
-                <button class="btn btn-ghost" onclick="window.location.href='/'">Về trang chủ</button>
-            </div>
-
-            <div class="contact">
-                Cần hỗ trợ gấp? Liên hệ <a href="mailto:support@example.com">support@example.com</a>
             </div>
         </div>
 
