@@ -1,0 +1,103 @@
+.sodo-wrap {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.sodo-palette {
+    flex: 0 0 220px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+}
+
+.sodo-palette-group {
+    margin-bottom: 14px;
+}
+
+.sodo-palette-label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-2);
+    margin-bottom: 8px;
+}
+
+.sodo-palette-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sodo-palette-item {
+    width: 38px;
+    height: 38px;
+    cursor: grab;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2px;
+    background: #fafafa;
+}
+
+.sodo-palette-item:active {
+    cursor: grabbing;
+}
+
+.sodo-palette-item svg {
+    width: 100%;
+    height: 100%;
+}
+
+.sodo-palette-hint {
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 4px;
+}
+
+.sodo-canvas-wrap {
+    flex: 1 1 480px;
+    min-width: 320px;
+}
+
+.sodo-canvas {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    background: #4d8a35;
+}
+
+.sodo-canvas .ga-object {
+    cursor: pointer;
+}
+
+.sodo-context-menu {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 4px;
+}
+
+.sodo-context-menu button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: var(--red);
+    cursor: pointer;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+.sodo-context-menu button:hover {
+    background: var(--red-bg);
+}

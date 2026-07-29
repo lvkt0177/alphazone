@@ -26,4 +26,8 @@
         @method('PUT')
         @include('giaoan._form', ['capHoc' => $capHoc, 'loaiGame' => $loaiGame, 'chuDe' => $chuDe, 'giaoAn' => $giaoAn])
     </form>
+
+    @push('scripts')
+        <script src="{{ asset('js/pages/giaoan-form.js') }}"></script>
+    @endpush
 @endsection

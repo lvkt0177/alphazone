@@ -22,4 +22,8 @@
         @csrf
         @include('giaoan._form', ['capHoc' => $capHoc, 'loaiGame' => $loaiGame, 'chuDe' => $chuDe])
     </form>
+
+    @push('scripts')
+        <script src="{{ asset('js/pages/giaoan-form.js') }}"></script>
+    @endpush
 @endsection

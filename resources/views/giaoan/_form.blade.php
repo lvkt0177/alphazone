@@ -38,9 +38,7 @@
 
     <div class="field span-2">
         <label>Sơ đồ</label>
-        <div class="giaoan-sodo-placeholder text-2">
-            <i class="ri-tools-line"></i> Trình vẽ sơ đồ sẽ được bổ sung ở giai đoạn tiếp theo.
-        </div>
+        @include('giaoan._sodo_designer')
         <input type="hidden" name="so_do" id="ga_so_do"
             value="{{ old('so_do', isset($giaoAn) && $giaoAn->so_do ? json_encode($giaoAn->so_do) : '') }}">
     </div>
