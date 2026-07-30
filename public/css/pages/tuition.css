@@ -1,3 +1,7 @@
+.modal-hoc-phi {
+    max-width: 750px;
+}
+
 .dashboard-subtitle {
     margin-top: 4px;
 }
@@ -133,4 +137,27 @@
 .dashboard-sub-amt {
     font-weight: 500;
     color: var(--text-2);
+}
+
+.tuition-fee-head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tuition-uniform-row {
+    display: flex;
+    gap: 10px;
+}
+
+.tuition-uniform-col--muc {
+    flex: 7;
+}
+
+.tuition-uniform-col--size {
+    flex: 3;
+}
+
+.tuition-du-kien-hint {
+    font-size: 12px;
+    margin-top: 5px;
 }

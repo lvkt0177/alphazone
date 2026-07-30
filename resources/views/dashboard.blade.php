@@ -20,7 +20,13 @@
                         class="ri-money-dollar-circle-line"></i></div>
             </div>
             <div class="label">Học phí thu được (Tháng {{ $thangHienTai->format('n/Y') }})</div>
-            <div class="value">{{ number_format($tongHocPhi, 0, ',', '.') }} đ</div>
+            <div class="value">
+                @if (hasQuyen('dashboard', 'xem'))
+                    {{ number_format($tongHocPhi, 0, ',', '.') }} đ
+                @else
+                    ******
+                @endif
+            </div>
         </div>
         <div class="card stat-card">
             <div class="top">
@@ -28,7 +34,13 @@
                 </div>
             </div>
             <div class="label">Đồng phục thu được (Tháng {{ $thangHienTai->format('n/Y') }})</div>
-            <div class="value">{{ number_format($tongDongPhuc, 0, ',', '.') }} đ</div>
+            <div class="value">
+                @if (hasQuyen('dashboard', 'xem'))
+                    {{ number_format($tongDongPhuc, 0, ',', '.') }} đ
+                @else
+                    ******
+                @endif
+            </div>
         </div>
         <div class="card stat-card">
             <div class="top">
@@ -44,7 +56,7 @@
                         class="ri-alarm-warning-line"></i></div>
             </div>
             <div class="label">Chưa đóng học phí tháng này</div>
-            <div class="value">{{ $soChuaDong }} học viên</div>
+            <div class="value">{{ $soChuaDong }} &nbsp;học viên</div>
         </div>
         <div class="card stat-card">
             <div class="top">
@@ -52,7 +64,13 @@
                         class="ri-basketball-line"></i></div>
             </div>
             <div class="label">Tiền sân tháng {{ $thangHienTai->format('n/Y') }}</div>
-            <div class="value">{{ number_format($tongTienSan, 0, ',', '.') }} đ</div>
+            <div class="value">
+                @if (hasQuyen('dashboard', 'xem'))
+                    {{ number_format($tongTienSan, 0, ',', '.') }} đ
+                @else
+                    ******
+                @endif
+            </div>
         </div>
     </div>
 
@@ -145,8 +163,13 @@
         <div class="card">
             <div class="card-head">
                 <h3><i class="ri-basketball-line"></i> Tiền sân theo Địa điểm (tháng này)</h3>
-                <span class="badge orange">{{ number_format($tienSanTheoDiaDiem->sum('tong_tien_san'), 0, ',', '.') }}
-                    đ</span>
+                <span class="badge orange">
+                    @if (hasQuyen('dashboard', 'xem'))
+                        {{ number_format($tienSanTheoDiaDiem->sum('tong_tien_san'), 0, ',', '.') }} đ
+                    @else
+                        ******
+                    @endif
+                </span>
             </div>
             <div class="row-list">
                 @forelse ($tienSanTheoDiaDiem as $dd)
@@ -158,7 +181,13 @@
                             <div class="t">{{ $dd->ten }}</div>
                             <div class="s">{{ $dd->coSos->count() }} cơ sở</div>
                         </div>
-                        <span class="amt dashboard-amt-bold">{{ number_format($dd->tong_tien_san ?? 0, 0, ',', '.') }} đ</span>
+                        <span class="amt dashboard-amt-bold">
+                            @if (hasQuyen('dashboard', 'xem'))
+                                {{ number_format($dd->tong_tien_san ?? 0, 0, ',', '.') }} đ
+                            @else
+                                ******
+                            @endif
+                        </span>
                     </div>
 
                     @foreach ($dd->coSos as $cs)
@@ -166,8 +195,13 @@
                             <div class="info">
                                 <div class="s dashboard-sub-name">{{ $cs->ten }}</div>
                             </div>
-                            <span class="amt dashboard-sub-amt">{{ number_format($cs->tong_tien_san ?? 0, 0, ',', '.') }}
-                                đ</span>
+                            <span class="amt dashboard-sub-amt">
+                                @if (hasQuyen('dashboard', 'xem'))
+                                    {{ number_format($cs->tong_tien_san ?? 0, 0, ',', '.') }} đ
+                                @else
+                                    ******
+                                @endif
+                            </span>
                         </div>
                     @endforeach
                 @empty

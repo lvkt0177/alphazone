@@ -85,6 +85,7 @@
                 <th>Họ tên</th>
                 <th>Cơ sở</th>
                 <th>Học phí</th>
+                <th>Đồng phục</th>
                 <th title="Tính dựa vào điểm danh của tháng trước tháng đang xem">Học phí dự kiến</th>
                 <th class="trang-thai-hoc-phi">Trạng thái</th>
                 <th>Ngày đóng</th>
@@ -118,6 +119,16 @@
                         @endif
                     </td>
                     <td class="text-2">
+                        @if ($rec && $rec->dong_phuc)
+                            {{ number_format($rec->dong_phuc, 0, ',', '.') }} đ
+                            @if ($rec->dong_phuc_size)
+                                (Size {{ $rec->dong_phuc_size }})
+                            @endif
+                        @else
+                            —
+                        @endif
+                    </td>
+                    <td class="text-2">
                         @php $duKien = $hv->duKienHocPhi(); @endphp
                         @if ($duKien)
                             {{ number_format($duKien['so_tien'], 0, ',', '.') }} đ
@@ -146,6 +157,7 @@
                                 data-hoc-vien-id="{{ $hv->id }}" data-ma-so="{{ $hv->ma_so }}"
                                 data-ho-ten="{{ $hv->ho_ten }}" data-thang="{{ $thang->format('Y-m-d') }}"
                                 data-hoc-phi="{{ $rec->hoc_phi ?? '' }}" data-dong-phuc="{{ $rec->dong_phuc ?? '' }}"
+                                data-dong-phuc-size="{{ $rec->dong_phuc_size ?? '' }}"
                                 data-ngay-dong="{{ $rec?->ngay_dong?->format('Y-m-d') }}"
                                 data-gioi-thieu-ban="{{ $rec->gioi_thieu_ban ?? 0 }}"
                                 data-nguoi-gioi-thieu-id="{{ $rec->nguoi_gioi_thieu_id ?? '' }}"
@@ -159,7 +171,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" class="text-2 tuition-empty-row">Không có học viên nào</td>
+                    <td colspan="8" class="text-2 tuition-empty-row">Không có học viên nào</td>
                 </tr>
             @endforelse
         </tbody>
@@ -202,6 +214,7 @@
                     {{ Js::from(old('thang')) }},
                     {{ old('hoc_phi') !== null ? (int) old('hoc_phi') : 'null' }},
                     {{ old('dong_phuc') !== null ? (int) old('dong_phuc') : 'null' }},
+                    {{ Js::from(old('dong_phuc_size')) }},
                     {{ Js::from(old('ngay_dong')) }},
                     {{ old('gioi_thieu_ban') ? 1 : 0 }},
                     {{ old('nguoi_gioi_thieu_id') ? (int) old('nguoi_gioi_thieu_id') : 'null' }},

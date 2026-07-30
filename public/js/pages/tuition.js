@@ -54,7 +54,7 @@ function renderReferrerList(query) {
   list.style.display = 'block';
 }
 
-function openTuitionModal(hocVienId, maSo, hoTen, thang, hocPhi, dongPhuc, ngayDong, gioiThieuBan, nguoiGioiThieuId, duKienSoTien, duKienSoBuoi, duKienTongBuoi) {
+function openTuitionModal(hocVienId, maSo, hoTen, thang, hocPhi, dongPhuc, dongPhucSize, ngayDong, gioiThieuBan, nguoiGioiThieuId, duKienSoTien, duKienSoBuoi, duKienTongBuoi) {
   let formattedThang = thang;
   if (thang && thang.includes('-')) {
     const parts = thang.split('-');
@@ -81,8 +81,8 @@ function openTuitionModal(hocVienId, maSo, hoTen, thang, hocPhi, dongPhuc, ngayD
     hint.textContent = '';
   }
 
-  document.getElementById('tu_uniform').value = formatMoney(dongPhuc);
-  document.getElementById('tu_uniform_raw').value = dongPhuc ?? '';
+  document.getElementById('tu_uniform').value = dongPhuc ?? '';
+  document.getElementById('tu_uniform_size').value = dongPhucSize ?? '';
 
   document.getElementById('tu_date').value = ngayDong ?? new Date().toISOString().slice(0, 10);
 
@@ -106,7 +106,6 @@ function openTuitionModal(hocVienId, maSo, hoTen, thang, hocPhi, dongPhuc, ngayD
 
 document.addEventListener('DOMContentLoaded', function () {
   attachMoneyFormatter('tu_fee', 'tu_fee_raw');
-  attachMoneyFormatter('tu_uniform', 'tu_uniform_raw');
 
   const gioiThieuBanToggle = document.getElementById('tu_gioi_thieu_ban');
   if (gioiThieuBanToggle) {
@@ -162,6 +161,7 @@ document.addEventListener('click', function (e) {
     btn.dataset.thang,
     btn.dataset.hocPhi ? Number(btn.dataset.hocPhi) : null,
     btn.dataset.dongPhuc ? Number(btn.dataset.dongPhuc) : null,
+    btn.dataset.dongPhucSize || null,
     btn.dataset.ngayDong || null,
     btn.dataset.gioiThieuBan,
     btn.dataset.nguoiGioiThieuId || null,
