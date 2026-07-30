@@ -8,8 +8,7 @@
     <a href="{{ route('giaoan.menu', ['cap_hoc' => $capHoc->value]) }}">{{ $capHoc->getLabel() }}</a>
     <i class="ri-arrow-right-s-line"></i>
     @if ($chuDe)
-        <a
-            href="{{ route('giaoan.menu', ['cap_hoc' => $capHoc->value, 'loai_game' => $loaiGame->value]) }}">{{ $loaiGame->getLabel() }}</a>
+        <a href="{{ route('giaoan.menu', ['cap_hoc' => $capHoc->value, 'loai_game' => $loaiGame->value]) }}">{{ $loaiGame->getLabel() }}</a>
         <i class="ri-arrow-right-s-line"></i>
         <a class="active">{{ $chuDe->getLabelCoSo() }}</a>
     @else
@@ -44,6 +43,7 @@
                 <th>STT</th>
                 <th>Tên trò chơi</th>
                 <th>Cách chơi</th>
+                <th>Sơ đồ</th>
                 <th>Video</th>
                 <th></th>
             </tr>
@@ -58,6 +58,9 @@
                     </td>
                     <td class="text-2 giaoan-desc-cell">
                         {{ $ga->cach_choi ? \Illuminate\Support\Str::limit($ga->cach_choi, 80) : '—' }}</td>
+                    <td>
+                        @include('giaoan._sodo_thumb', ['ga' => $ga])
+                    </td>
                     <td>
                         @if ($ga->video_path)
                             <a href="{{ $ga->videoUrl() }}" target="_blank" class="badge green giaoan-video-badge">
@@ -88,7 +91,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5" class="text-2 giaoan-empty-row">Chưa có giáo án nào</td>
+                    <td colspan="6" class="text-2 giaoan-empty-row">Chưa có giáo án nào</td>
                 </tr>
             @endforelse
         </tbody>

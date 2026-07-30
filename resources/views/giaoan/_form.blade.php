@@ -22,7 +22,7 @@
 
     <div class="field span-2">
         <label>Cách chơi</label>
-        <textarea name="cach_choi" rows="4">{{ old('cach_choi', $giaoAn->cach_choi ?? '') }}</textarea>
+        <textarea name="cach_choi" rows="4" class="auto-grow" data-max-height="2000">{{ old('cach_choi', $giaoAn->cach_choi ?? '') }}</textarea>
         @error('cach_choi')
             <div class="badge red giaoan-field-error">{{ $message }}</div>
         @enderror
@@ -30,7 +30,7 @@
 
     <div class="field span-2">
         <label>Luật chơi</label>
-        <textarea name="luat_choi" rows="4">{{ old('luat_choi', $giaoAn->luat_choi ?? '') }}</textarea>
+        <textarea name="luat_choi" rows="4" class="auto-grow" data-max-height="2000">{{ old('luat_choi', $giaoAn->luat_choi ?? '') }}</textarea>
         @error('luat_choi')
             <div class="badge red giaoan-field-error">{{ $message }}</div>
         @enderror
