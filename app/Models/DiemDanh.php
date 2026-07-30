@@ -14,7 +14,7 @@ class DiemDanh extends Model
     protected $table = 'diem_danhs';
 
     protected $fillable = [
-        'hoc_vien_id', 'co_so_id', 'hoc_bu', 'giao_vien_id', 'ngay', 'trang_thai', 'ghi_chu',
+        'hoc_vien_id', 'co_so_id', 'hoc_bu', 'giao_vien_id', 'ngay', 'trang_thai', 'ghi_chu', 'updated_by_user_id',
     ];
 
     protected $casts = [
@@ -35,5 +35,10 @@ class DiemDanh extends Model
     public function giaoVien(): BelongsTo
     {
         return $this->belongsTo(GiaoVien::class);
+    }
+
+    public function updatedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'updated_by_user_id');
     }
 }

@@ -33,6 +33,17 @@
                             <div class="badge red teacher-field-error">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="field">
+                        <label>Chức danh</label>
+                        <select id="gv_chucdanh" name="chuc_danh">
+                            @foreach (\App\Enum\ChucDanhGiaoVien::cases() as $cd)
+                                <option value="{{ $cd->value }}">{{ $cd->getLabel() }}</option>
+                            @endforeach
+                        </select>
+                        @error('chuc_danh')
+                            <div class="badge red teacher-field-error">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
             </div>
             <div class="modal-foot">

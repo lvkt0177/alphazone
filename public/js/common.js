@@ -47,14 +47,16 @@ function fillSelect(sel, list, includeEmpty, labelFn) {
 
 function initAutoGrowTextareas() {
     document.querySelectorAll('textarea.auto-grow').forEach(el => {
+        const chieuCaoToiDa = parseInt(el.dataset.maxHeight, 10) || 110;
         const resize = () => {
             el.style.height = 'auto';
-            el.style.height = Math.min(el.scrollHeight, 110) + 'px';
+            el.style.height = Math.min(el.scrollHeight, chieuCaoToiDa) + 'px';
         };
         el.addEventListener('input', resize);
         resize();
     });
 }
+
 document.addEventListener('DOMContentLoaded', initAutoGrowTextareas);
 
 document.addEventListener('submit', function (e) {

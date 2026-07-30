@@ -60,10 +60,14 @@
             @if (request()->hasAny(['q', 'co_so_id', 'trang_thai_dong', 'thang']))
                 <a href="{{ route('hocphi.index') }}" class="btn btn-outline btn-sm">Làm mới bộ lọc</a>
             @endif
+
+            <div class="field tuition-filter-field--tongthu">
+                <label class="tuition-filter-label">Học phí tháng {{ $thang->format('n/Y') }}</label>
+                <span class="badge blue tuition-tongthu-badge">{{ number_format($tongHocPhiThang, 0, ',', '.') }} đ</span>
+            </div>
         </div>
 
-        <div class="text-2 tuition-count-text">{{ $hocViens->total() }} học viên — đang xem Tháng
-            {{ $thang->format('n/Y') }}</div>
+        <div class="text-2 tuition-count-text">{{ $hocViens->total() }} học viên</div>
 
     </form>
 
@@ -136,19 +140,21 @@
                     </td>
                     <td>{{ $rec ? $rec->ngay_dong->format('d/m/Y') : '—' }}</td>
                     <td>
-                        <button type="button"
-                            class="btn btn-sm {{ $rec ? 'btn-warning' : 'btn-primary' }} open-tuition-btn"
-                            data-hoc-vien-id="{{ $hv->id }}" data-ma-so="{{ $hv->ma_so }}"
-                            data-ho-ten="{{ $hv->ho_ten }}" data-thang="{{ $thang->format('Y-m-d') }}"
-                            data-hoc-phi="{{ $rec->hoc_phi ?? '' }}" data-dong-phuc="{{ $rec->dong_phuc ?? '' }}"
-                            data-ngay-dong="{{ $rec?->ngay_dong?->format('Y-m-d') }}"
-                            data-gioi-thieu-ban="{{ $rec->gioi_thieu_ban ?? 0 }}"
-                            data-nguoi-gioi-thieu-id="{{ $rec->nguoi_gioi_thieu_id ?? '' }}"
-                            data-du-kien-so-tien="{{ $duKien['so_tien'] ?? '' }}"
-                            data-du-kien-so-buoi="{{ $duKien['so_buoi_da_hoc'] ?? '' }}"
-                            data-du-kien-tong-buoi="{{ $duKien['tong_so_buoi'] ?? '' }}">
-                            <i class="ri-edit-line"></i> {{ $rec ? 'Sửa' : 'Tạo' }} học phí
-                        </button>
+                        @if (hasQuyen('hocphi', 'them'))
+                            <button type="button"
+                                class="btn btn-sm {{ $rec ? 'btn-warning' : 'btn-primary' }} open-tuition-btn"
+                                data-hoc-vien-id="{{ $hv->id }}" data-ma-so="{{ $hv->ma_so }}"
+                                data-ho-ten="{{ $hv->ho_ten }}" data-thang="{{ $thang->format('Y-m-d') }}"
+                                data-hoc-phi="{{ $rec->hoc_phi ?? '' }}" data-dong-phuc="{{ $rec->dong_phuc ?? '' }}"
+                                data-ngay-dong="{{ $rec?->ngay_dong?->format('Y-m-d') }}"
+                                data-gioi-thieu-ban="{{ $rec->gioi_thieu_ban ?? 0 }}"
+                                data-nguoi-gioi-thieu-id="{{ $rec->nguoi_gioi_thieu_id ?? '' }}"
+                                data-du-kien-so-tien="{{ $duKien['so_tien'] ?? '' }}"
+                                data-du-kien-so-buoi="{{ $duKien['so_buoi_da_hoc'] ?? '' }}"
+                                data-du-kien-tong-buoi="{{ $duKien['tong_so_buoi'] ?? '' }}">
+                                <i class="ri-edit-line"></i> {{ $rec ? 'Sửa' : 'Tạo' }} học phí
+                            </button>
+                        @endif
                     </td>
                 </tr>
             @empty

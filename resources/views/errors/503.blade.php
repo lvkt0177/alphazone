@@ -1,331 +1,620 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>503 · Mèo cưng đang bận</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>503 — Hệ thống đang bảo trì</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1a1a1a;
+            --muted: #6b6b76;
+            --violet: #5b21b6;
+            --violet-deep: #3c1361;
+            --violet-tint: #f3eefc;
+            --gold: #f4c430;
+            --paper: #ffffff;
+            --line: #ece8f5;
+        }
 
-  :root{
-    --bg-1: #0c0e1f;
-    --bg-2: #1a1440;
-    --card: #191c3a;
-    --card-2: #20244a;
-    --ink: #eef0fb;
-    --ink-dim: #9aa0c4;
-    --violet: #6c63ff;
-    --violet-soft: #4b447f;
-    --red: #ef4a63;
-    --red-deep: #d63653;
-    --green-eye: #7bffa0;
-    --outline: rgba(180, 190, 230, 0.16);
-  }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  *{ box-sizing:border-box; }
-  html,body{ margin:0; padding:0; height:100%; }
+        html,
+        body {
+            height: 100%;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: 'Be Vietnam Pro', sans-serif;
+            overflow-x: hidden;
+        }
 
-  body{
-    min-height:100vh;
-    font-family:'Inter', sans-serif;
-    background: radial-gradient(1100px 700px at 15% 10%, #211a4d 0%, transparent 55%),
-                linear-gradient(160deg, var(--bg-2) 0%, var(--bg-1) 70%);
-    color: var(--ink);
-    display:flex;
-    flex-direction:column;
-    overflow-x:hidden;
-  }
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 24px;
+        }
 
-  /* ---------- header ---------- */
-  header{
-    display:flex; align-items:center; justify-content:space-between;
-    padding: 28px clamp(20px,5vw,64px) 0;
-  }
-  .icon-btn{
-    width:38px; height:38px;
-    display:flex; align-items:center; justify-content:center;
-    border-radius:50%;
-    color: var(--ink-dim);
-    cursor:pointer;
-    transition: background .2s ease, color .2s ease;
-  }
-  .icon-btn:hover{ background: rgba(255,255,255,0.06); color: var(--ink); }
-  .icon-btn svg{ width:19px; height:19px; }
+        .wrap {
+            width: 100%;
+            max-width: 1080px;
+            display: grid;
+            grid-template-columns: 1.05fr 1fr;
+            align-items: center;
+            gap: 48px;
+        }
 
-  /* ---------- main ---------- */
-  main{
-    flex:1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding: 20px clamp(20px,5vw,64px) 48px;
-  }
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: .08em;
+            color: var(--violet);
+            text-transform: uppercase;
+            margin-bottom: 22px;
+        }
 
-  .stage{
-    position:relative;
-    width:100%;
-    max-width: 1180px;
-    min-height: 560px;
-    display:flex;
-    align-items:center;
-    border-radius: 28px;
-    overflow:hidden;
-  }
+        .eyebrow::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 0 3px var(--violet-tint);
+        }
 
-  /* organic blob card */
-  .blob{
-    position:absolute; inset:0;
-    z-index:0;
-  }
-  .blob svg{ width:100%; height:100%; }
-  .blob-shape{
-    fill: var(--card);
-    animation: breathe 9s ease-in-out infinite;
-    transform-origin: 60% 50%;
-  }
-  @keyframes breathe{
-    0%,100%{ transform: scale(1); }
-    50%{ transform: scale(1.012); }
-  }
+        .code {
+            font-weight: 800;
+            font-size: clamp(72px, 11vw, 128px);
+            line-height: 0.9;
+            letter-spacing: -.03em;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
 
-  /* ---------- copy ---------- */
-  .copy{
-    position:relative; z-index:2;
-    width: 100%;
-    max-width: 380px;
-    padding: 0 0 0 clamp(24px, 4vw, 64px);
-  }
-  .copy .code{
-    font-family:'Quicksand', sans-serif;
-    font-weight:700;
-    font-size: clamp(38px, 5vw, 50px);
-    letter-spacing:-.01em;
-    margin: 0 0 12px;
-    color: var(--ink);
-  }
-  .copy .code span{ color: var(--red); }
-  .copy p{
-    font-size:14.5px;
-    line-height:1.6;
-    color: var(--ink-dim);
-    margin: 0 0 28px;
-    max-width: 300px;
-  }
-  .btn{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-family:'Inter', sans-serif;
-    font-weight:600;
-    font-size:14px;
-    color:#fff;
-    background: linear-gradient(135deg, var(--red), var(--red-deep));
-    border:none;
-    padding: 13px 26px;
-    border-radius: 30px;
-    cursor:pointer;
-    box-shadow: 0 10px 26px -8px rgba(239,74,99,.55);
-    transition: transform .18s ease, box-shadow .18s ease;
-  }
-  .btn:hover{ transform: translateY(-2px); box-shadow: 0 14px 30px -8px rgba(239,74,99,.7); }
-  .btn svg{ width:15px; height:15px; animation: spin 3.5s linear infinite paused; }
-  .btn:hover svg{ animation-play-state: running; }
-  @keyframes spin{ to{ transform: rotate(360deg); } }
+        .code span {
+            color: var(--violet);
+        }
 
-  /* ---------- illustration ---------- */
-  .illus{
-    position:relative; z-index:2;
-    flex: 1;
-    height: 560px;
-    display:flex; align-items:flex-end; justify-content:center;
-  }
-  .illus svg{ width: 92%; max-width: 520px; height:auto; overflow:visible; }
+        h1 {
+            font-weight: 700;
+            font-size: clamp(22px, 3vw, 30px);
+            margin-bottom: 14px;
+            letter-spacing: -.01em;
+        }
 
-  .dot{ animation: twinkle 3s ease-in-out infinite; }
-  .dot.d2{ animation-delay:.6s; }
-  .dot.d3{ animation-delay:1.2s; }
-  @keyframes twinkle{
-    0%,100%{ opacity:.35; transform:scale(1); }
-    50%{ opacity:1; transform:scale(1.25); }
-  }
+        p.desc {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.65;
+            color: var(--muted);
+            max-width: 440px;
+            margin-bottom: 8px;
+        }
 
-  .lamp-group{ animation: swing 4.5s ease-in-out infinite; transform-origin: 50% 0%; }
-  @keyframes swing{
-    0%,100%{ transform: rotate(-2.5deg); }
-    50%{ transform: rotate(2.5deg); }
-  }
-  .lamp-glow{ animation: glow 3s ease-in-out infinite; }
-  @keyframes glow{
-    0%,100%{ opacity:.35; }
-    50%{ opacity:.7; }
-  }
+        .reason {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 22px 0 18px;
+            padding: 12px 16px;
+            background: var(--violet-tint);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--violet-deep);
+            max-width: 440px;
+        }
 
-  .cat-tail{ animation: tail 3.2s ease-in-out infinite; transform-origin: 260px 300px; }
-  @keyframes tail{
-    0%,100%{ transform: rotate(0deg); }
-    50%{ transform: rotate(4deg); }
-  }
-  .cat-eyes{ animation: blink 4.8s ease-in-out infinite; transform-origin:center; }
-  @keyframes blink{
-    0%, 92%, 100%{ transform: scaleY(1); }
-    95%{ transform: scaleY(0.12); }
-  }
-  .yarn{ animation: roll 5s ease-in-out infinite; transform-origin: 400px 400px; }
-  @keyframes roll{
-    0%,100%{ transform: rotate(0deg); }
-    50%{ transform: rotate(-8deg); }
-  }
-  .string{ stroke-dasharray: 4 5; animation: dash 6s linear infinite; }
-  @keyframes dash{ to{ stroke-dashoffset: -80; } }
+        .reason svg {
+            flex: 0 0 auto;
+        }
 
-  .cactus{ animation: sway 6s ease-in-out infinite; transform-origin: 460px 420px; }
-  @keyframes sway{
-    0%,100%{ transform: rotate(-1.4deg); }
-    50%{ transform: rotate(1.4deg); }
-  }
+        .retry {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: var(--muted);
+        }
 
-  @media (max-width: 880px){
-    .stage{ flex-direction:column; min-height:auto; padding-top:36px; }
-    .copy{ max-width:100%; padding: 0 24px; text-align:center; }
-    .copy p{ max-width:100%; margin-left:auto; margin-right:auto; }
-    .illus{ height:auto; margin-top: 8px; }
-  }
+        .retry .count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 34px;
+            height: 26px;
+            padding: 0 8px;
+            border-radius: 999px;
+            background: var(--ink);
+            color: #fff;
+            font-weight: 700;
+            font-size: 13px;
+            font-variant-numeric: tabular-nums;
+        }
 
-  @media (prefers-reduced-motion: reduce){
-    *{ animation: none !important; }
-  }
-</style>
+        .actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            appearance: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 14px 26px;
+            border-radius: 999px;
+            transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+        }
+
+        .btn-primary {
+            background: var(--violet);
+            color: #fff;
+            box-shadow: 0 8px 20px -8px rgba(91, 33, 182, .55);
+        }
+
+        .btn-primary:hover {
+            background: var(--violet-deep);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -8px rgba(91, 33, 182, .6);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--ink);
+            border: 1.5px solid var(--line);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--violet);
+            color: var(--violet);
+            transform: translateY(-2px);
+        }
+
+        .contact {
+            margin-top: 26px;
+            font-size: 13.5px;
+            color: var(--muted);
+        }
+
+        .contact a {
+            color: var(--violet);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .contact a:hover {
+            text-decoration: underline;
+        }
+
+        /* Illustration */
+        .stage {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            height: 420px;
+        }
+
+        .ground {
+            position: absolute;
+            bottom: 26px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--line);
+        }
+
+        .rig-wrap {
+            position: relative;
+            width: 250px;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        .server {
+            position: relative;
+            width: 210px;
+            margin: 0 auto;
+            background: var(--violet-deep);
+            border: 3px solid var(--violet);
+            border-radius: 18px;
+            box-shadow: 0 20px 40px -18px rgba(60, 19, 97, .45);
+            padding: 16px 18px;
+        }
+
+        .rack-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 30px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, .06);
+            margin-bottom: 10px;
+            padding: 0 12px;
+        }
+
+        .rack-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .led {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4b2a86;
+        }
+
+        .led.on {
+            background: var(--gold);
+            box-shadow: 0 0 8px 1px rgba(244, 196, 48, .7);
+            animation: pulse 1.6s ease-in-out infinite;
+        }
+
+        .led.on.d1 {
+            animation-delay: .2s;
+        }
+
+        .led.on.d2 {
+            animation-delay: .6s;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .25;
+            }
+        }
+
+        .bars {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            margin-left: auto;
+        }
+
+        .bars span {
+            width: 3px;
+            background: #c9b6f0;
+            border-radius: 2px;
+            animation: bar 1.4s ease-in-out infinite;
+        }
+
+        .bars span:nth-child(1) {
+            height: 6px;
+            animation-delay: 0s;
+        }
+
+        .bars span:nth-child(2) {
+            height: 11px;
+            animation-delay: .2s;
+        }
+
+        .bars span:nth-child(3) {
+            height: 8px;
+            animation-delay: .4s;
+        }
+
+        .bars span:nth-child(4) {
+            height: 14px;
+            animation-delay: .6s;
+        }
+
+        @keyframes bar {
+
+            0%,
+            100% {
+                transform: scaleY(.4);
+            }
+
+            50% {
+                transform: scaleY(1);
+            }
+        }
+
+        .gear {
+            position: absolute;
+            right: -22px;
+            bottom: -22px;
+            width: 64px;
+            height: 64px;
+            animation: spin 6s linear infinite;
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, .2));
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .zzz {
+            position: absolute;
+            top: -34px;
+            right: 6px;
+            font-weight: 800;
+            color: var(--violet);
+            font-size: 15px;
+            opacity: 0;
+            animation: zfloat 3.2s ease-in infinite;
+        }
+
+        .zzz.z1 {
+            animation-delay: 0s;
+            right: 2px;
+        }
+
+        .zzz.z2 {
+            font-size: 11px;
+            animation-delay: .6s;
+            right: -16px;
+            top: -24px;
+        }
+
+        .zzz.z3 {
+            font-size: 19px;
+            animation-delay: 1.2s;
+            right: 16px;
+            top: -46px;
+        }
+
+        @keyframes zfloat {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(.8);
+            }
+
+            20% {
+                opacity: .85;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-26px) scale(1.1);
+            }
+        }
+
+        .tape {
+            position: absolute;
+            left: -28px;
+            right: -28px;
+            height: 24px;
+            background: repeating-linear-gradient(-45deg,
+                    var(--gold),
+                    var(--gold) 12px,
+                    #1a1a1a 12px,
+                    #1a1a1a 14px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px -4px rgba(0, 0, 0, .25);
+            transform: rotate(-2deg);
+        }
+
+        .tape span {
+            background: var(--gold);
+            padding: 0 10px;
+            font-size: 10.5px;
+            font-weight: 800;
+            letter-spacing: .05em;
+            color: #1a1a1a;
+            white-space: nowrap;
+        }
+
+        .tape.t1 {
+            top: -10px;
+        }
+
+        .tape.t2 {
+            bottom: -10px;
+            transform: rotate(2deg);
+        }
+
+        .grass {
+            position: absolute;
+            bottom: 22px;
+            width: 14px;
+            height: 16px;
+        }
+
+        .grass.g1 {
+            left: -46px;
+        }
+
+        .grass.g2 {
+            right: -46px;
+        }
+
+        .grass svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width:820px) {
+            .wrap {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .actions {
+                justify-content: center;
+            }
+
+            p.desc,
+            .reason,
+            .retry {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .retry {
+                justify-content: center;
+            }
+
+            .stage {
+                height: 340px;
+                margin-top: 12px;
+            }
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+
+            .rig-wrap,
+            .gear,
+            .led.on,
+            .bars span,
+            .zzz {
+                animation: none;
+            }
+
+            .zzz {
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<header>
-  <div class="icon-btn" aria-label="menu">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-  </div>
-  <div class="icon-btn" aria-label="search">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-  </div>
-</header>
+    <div class="wrap">
 
-<main>
-  <div class="stage">
+        <div class="text-col">
+            <div class="eyebrow">Mã lỗi 503</div>
+            <div class="code">5<span>0</span>3</div>
+            <h1>Hệ thống đang bảo trì</h1>
+            <p class="desc">
+                Dịch vụ tạm thời không khả dụng do đang được nâng cấp hoặc bảo trì.
+                Chúng tôi sẽ sớm hoạt động trở lại, mong bạn thông cảm.
+            </p>
 
-    <div class="blob">
-      <svg viewBox="0 0 1180 560" preserveAspectRatio="none">
-        <path class="blob-shape" d="M0,60
-          C120,-10 340,0 470,55
-          C640,125 720,10 900,25
-          C1060,38 1180,120 1180,240
-          L1180,560 L0,560 Z"/>
-      </svg>
+            <div class="reason">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"
+                        stroke="#5b21b6" stroke-width="1.8" stroke-linecap="round" />
+                    <circle cx="12" cy="12" r="4" stroke="#5b21b6" stroke-width="1.8" />
+                </svg>
+                Đội kỹ thuật đang xử lý, hệ thống sẽ quay lại trong ít phút.
+            </div>
+
+            <div class="retry">
+                Tự động thử lại sau <span class="count" id="countdown">30</span> giây
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-primary" onclick="window.location.reload()">Tải lại trang</button>
+            </div>
+        </div>
+
+        <div class="stage">
+            <div class="ground"></div>
+            <div class="rig-wrap">
+                <div class="grass g1"><svg viewBox="0 0 14 16">
+                        <path d="M2 16C2 10 4 6 2 0" stroke="#c9c2e6" stroke-width="1.5" fill="none" />
+                        <path d="M7 16C7 9 9 5 7 0" stroke="#c9c2e6" stroke-width="1.5" fill="none" />
+                        <path d="M12 16C12 11 13 7 12 2" stroke="#c9c2e6" stroke-width="1.5" fill="none" />
+                    </svg></div>
+                <div class="grass g2"><svg viewBox="0 0 14 16">
+                        <path d="M2 16C2 10 4 6 2 0" stroke="#c9c2e6" stroke-width="1.5" fill="none" />
+                        <path d="M7 16C7 9 9 5 7 0" stroke="#c9c2e6" stroke-width="1.5" fill="none" />
+                        <path d="M12 16C12 11 13 7 12 2" stroke="#c9c2e6" stroke-width="1.5" fill="none" />
+                    </svg></div>
+
+                <div class="zzz z1">z</div>
+                <div class="zzz z2">z</div>
+                <div class="zzz z3">Z</div>
+
+                <div class="server">
+                    <div class="tape t1"><span>ĐANG BẢO TRÌ HỆ THỐNG</span></div>
+
+                    <div class="rack-row">
+                        <div class="led on d1"></div>
+                        <div class="led on d2"></div>
+                        <div class="led"></div>
+                        <div class="bars"><span></span><span></span><span></span><span></span></div>
+                    </div>
+                    <div class="rack-row">
+                        <div class="led on"></div>
+                        <div class="led"></div>
+                        <div class="led on d2"></div>
+                        <div class="bars"><span></span><span></span><span></span><span></span></div>
+                    </div>
+                    <div class="rack-row">
+                        <div class="led"></div>
+                        <div class="led on d1"></div>
+                        <div class="led"></div>
+                        <div class="bars"><span></span><span></span><span></span><span></span></div>
+                    </div>
+
+                    <div class="tape t2"><span>VUI LÒNG QUAY LẠI SAU</span></div>
+
+                    <svg class="gear" viewBox="0 0 48 48" fill="none">
+                        <path
+                            d="M24 4l2.6 4.4 5-1.4 1 5.1 5.1 1-1.4 5 4.4 2.6-3.1 4.3 3.1 4.3-4.4 2.6 1.4 5-5.1 1-1 5.1-5-1.4L24 44l-2.6-4.4-5 1.4-1-5.1-5.1-1 1.4-5-4.4-2.6 3.1-4.3L6.3 21 4 24l2.3-3.1L4 24l2.3-3.1L4 24"
+                            fill="var(--gold)" opacity="0" />
+                        <path
+                            d="M24 3.5c.7 0 1.4.4 1.7 1.1l1.7 3.4 3.6-1c.9-.3 1.9.1 2.4.9l2 3.3c.5.8.4 1.8-.2 2.5l-2.4 2.9 2.4 2.9c.6.7.7 1.7.2 2.5l-2 3.3c-.5.8-1.5 1.2-2.4.9l-3.6-1-1.7 3.4c-.3.7-1 1.1-1.7 1.1h-.0c-.7 0-1.4-.4-1.7-1.1l-1.7-3.4-3.6 1c-.9.3-1.9-.1-2.4-.9l-2-3.3c-.5-.8-.4-1.8.2-2.5l2.4-2.9-2.4-2.9c-.6-.7-.7-1.7-.2-2.5l2-3.3c.5-.8 1.5-1.2 2.4-.9l3.6 1 1.7-3.4c.3-.7 1-1.1 1.7-1.1z"
+                            fill="var(--gold)" />
+                        <circle cx="24" cy="24" r="6.5" fill="var(--violet-deep)" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="copy">
-      <h1 class="code">Error <span>503</span></h1>
-      <p>Trang web hiện đang bảo trì, vui lòng quay lại sau.</p>
-      <button class="btn" onclick="location.reload()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v6h-6"/></svg>
-        Tải lại
-      </button>
-    </div>
-
-    <div class="illus">
-      <svg viewBox="0 0 560 500">
-
-        <!-- floating dots -->
-        <circle class="dot" cx="90" cy="70" r="5" fill="#ef4a63"/>
-        <circle class="dot d2" cx="470" cy="120" r="4" fill="#7bffa0"/>
-        <circle class="dot d3" cx="510" cy="300" r="4.5" fill="#6c63ff"/>
-
-        <!-- wall frame -->
-        <g>
-          <rect x="70" y="140" width="58" height="72" rx="10" fill="none" stroke="#3a3f6e" stroke-width="3"/>
-          <path d="M84 195 L100 172 L112 186 L124 165" fill="none" stroke="#4b447f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="112" cy="158" r="6" fill="#4b447f"/>
-        </g>
-
-        <!-- hanging lamp -->
-        <g class="lamp-group">
-          <line x1="330" y1="0" x2="330" y2="80" stroke="#3a3f6e" stroke-width="3"/>
-          <path d="M300 80 L360 80 L348 110 L312 110 Z" fill="#2a2f5c" stroke="#4b447f" stroke-width="2.5" stroke-linejoin="round"/>
-          <ellipse class="lamp-glow" cx="330" cy="150" rx="55" ry="60" fill="#fddc6c" opacity="0.4"/>
-          <circle cx="330" cy="112" r="4" fill="#fddc6c"/>
-        </g>
-
-        <!-- cactus -->
-        <g class="cactus">
-          <rect x="440" y="405" width="60" height="26" rx="6" fill="#2a2f5c" stroke="#4b447f" stroke-width="2.5"/>
-          <path d="M462 405 C462 350 476 330 470 300 M470 300 C470 300 486 305 486 330 C486 350 470 355 470 355"
-                fill="none" stroke="#3fae7a" stroke-width="10" stroke-linecap="round"/>
-          <path d="M462 380 C462 380 445 378 445 360 C445 345 458 342 458 342"
-                fill="none" stroke="#3fae7a" stroke-width="8" stroke-linecap="round"/>
-        </g>
-
-        <!-- yarn ball with string -->
-        <g>
-          <path class="string" d="M370 400 C 330 420, 300 380, 250 360" fill="none" stroke="#ef4a63" stroke-width="2"/>
-          <g class="yarn">
-            <circle cx="390" cy="400" r="30" fill="#ef4a63"/>
-            <path d="M365 388 C385 378 400 392 415 384" fill="none" stroke="#d63653" stroke-width="2"/>
-            <path d="M362 402 C384 398 400 412 418 402" fill="none" stroke="#d63653" stroke-width="2"/>
-            <path d="M368 416 C388 424 402 410 412 420" fill="none" stroke="#d63653" stroke-width="2"/>
-          </g>
-        </g>
-
-        <!-- cat -->
-        <g>
-          <!-- tail -->
-          <path class="cat-tail" d="M260 300 C 210 300 190 350 220 390 C 235 410 260 400 258 380"
-                fill="none" stroke="#242849" stroke-width="16" stroke-linecap="round"/>
-
-          <!-- body -->
-          <path d="M150 460
-                   C140 380 165 320 235 320
-                   C305 320 330 380 320 460
-                   Z"
-                fill="#242849"/>
-
-          <!-- ears -->
-          <path d="M168 330 L150 275 L200 305 Z" fill="#242849"/>
-          <path d="M302 330 L322 275 L272 305 Z" fill="#242849"/>
-          <path d="M172 320 L162 288 L192 305 Z" fill="#3a3f6e"/>
-          <path d="M298 320 L308 288 L278 305 Z" fill="#3a3f6e"/>
-
-          <!-- head -->
-          <ellipse cx="235" cy="345" rx="72" ry="62" fill="#242849"/>
-
-          <!-- face highlight -->
-          <ellipse cx="235" cy="365" rx="46" ry="32" fill="#2c3159"/>
-
-          <!-- eyes -->
-          <g class="cat-eyes">
-            <ellipse cx="208" cy="345" rx="10" ry="13" fill="#7bffa0"/>
-            <ellipse cx="264" cy="345" rx="10" ry="13" fill="#7bffa0"/>
-            <ellipse cx="208" cy="348" rx="3.4" ry="6" fill="#0c0e1f"/>
-            <ellipse cx="264" cy="348" rx="3.4" ry="6" fill="#0c0e1f"/>
-          </g>
-
-          <!-- nose -->
-          <path d="M228 372 L242 372 L235 380 Z" fill="#ef4a63"/>
-
-          <!-- whiskers -->
-          <g stroke="#5a5f92" stroke-width="1.6" stroke-linecap="round">
-            <line x1="150" y1="368" x2="112" y2="360"/>
-            <line x1="150" y1="378" x2="112" y2="380"/>
-            <line x1="320" y1="368" x2="358" y2="360"/>
-            <line x1="320" y1="378" x2="358" y2="380"/>
-          </g>
-
-          <!-- front paws -->
-          <ellipse cx="205" cy="450" rx="20" ry="14" fill="#2c3159"/>
-          <ellipse cx="265" cy="450" rx="20" ry="14" fill="#2c3159"/>
-        </g>
-
-      </svg>
-    </div>
-
-  </div>
-</main>
+    <script>
+        (function() {
+            var seconds = 30;
+            var el = document.getElementById('countdown');
+            var timer = setInterval(function() {
+                seconds -= 1;
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    window.location.reload();
+                    return;
+                }
+                el.textContent = seconds;
+            }, 1000);
+        })();
+    </script>
 
 </body>
+
 </html>

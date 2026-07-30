@@ -3,7 +3,7 @@
 @section('content')
 
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('css/pages/dashboard.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/pages/dashboard.css') }}?v={{ @filemtime(public_path('css/pages/dashboard.css')) ?: time() }}">
     @endpush
 
     <div class="page-head">
@@ -57,15 +57,24 @@
     </div>
 
     <div class="grid-2">
-        <div class="card">
+        <div class="card card-hoc-vien-trai-nghiem" >
             <div class="card-head">
-                <h3><i class="ri-line-chart-line"></i> Doanh thu Học phí &amp; Đồng phục (6 tháng gần nhất)</h3>
+                <h3><i class="ri-calendar-check-line"></i> Học viên Trải nghiệm hôm nay ({{ now()->format('d/m/Y') }})</h3>
+                <a href="{{ route('trainghiem.index') }}" class="btn btn-light btn-sm">Xem tất cả</a>
             </div>
-            <div class="legend">
-                <span><i class="dot-legend dashboard-legend-dot--fee"></i>Học phí</span>
-                <span><i class="dot-legend dashboard-legend-dot--uniform"></i>Đồng phục</span>
+            <div style="display:flex;flex-direction:column;">
+                @forelse ($traiNghiemHomNay as $tn)
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);">
+                        <div style="display:flex;align-items:baseline;gap:8px;min-width:0;overflow:hidden;">
+                            <span style="font-weight:700;font-size:13.5px;white-space:nowrap;">{{ $tn->ho_ten }}</span>
+                            <span style="color:var(--text-2);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ $tn->sdt ?? 'Chưa có Số điện thoại' }} · {{ $tn->coSos->pluck('ten')->join(', ') ?: '—' }}</span>
+                        </div>
+                        <span class="badge {{ $tn->trang_thai->getBadge() }}" style="font-size:11px;padding:3px 9px;flex-shrink:0;">{{ $tn->trang_thai->getLabel() }}</span>
+                    </div>
+                @empty
+                    <div class="text-2">Không có</div>
+                @endforelse
             </div>
-            <canvas id="revenueChart" height="230"></canvas>
         </div>
 
         <div class="card">
@@ -171,9 +180,6 @@
     @push('scripts')
         <script>
             window.__dashboardData = {
-                thangLabels: @json($bieuDoThang->pluck('label')),
-                hocPhi: @json($bieuDoThang->pluck('hoc_phi')),
-                dongPhuc: @json($bieuDoThang->pluck('dong_phuc')),
                 trangThaiLabels: @json($thongKeTrangThai->pluck('label')),
                 trangThaiData: @json($thongKeTrangThai->pluck('total')),
             };

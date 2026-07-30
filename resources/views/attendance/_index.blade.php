@@ -6,6 +6,9 @@
 @if (session('success'))
     <div class="badge green attendance-alert-success">{{ session('success') }}</div>
 @endif
+@if (session('error'))
+    <div class="badge red attendance-alert-error">{{ session('error') }}</div>
+@endif
 
 <div class="table-card">
     <form method="GET" action="{{ route('diemdanh.index') }}" class="attendance-toolbar">
@@ -35,10 +38,20 @@
                 — ngày <b>{{ \Carbon\Carbon::parse($selectedDate)->format('d/m/Y') }}</b>
             </div>
 
+            <div class="text-2 attendance-status-line">
+                <span class="badge green">Đi học: {{ $soDiHoc }}</span>
+                <span class="badge red">Vắng: {{ $soVang }}</span>
+                @if ($nguoiCapNhatCuoi)
+                    <span class="badge purple">Người điểm danh gần nhất: {{ $nguoiCapNhatCuoi->ho_ten }}</span>
+                @endif
+            </div>
+
             <div class="attendance-hocbu-btn-wrap">
-                <button type="button" class="btn btn-outline btn-sm" onclick="openModal('hocBuModal')">
-                    <i class="ri-user-add-line"></i> Học viên học bù
-                </button>
+                @if (hasQuyen('diemdanh', 'them'))
+                    <button type="button" class="btn btn-outline btn-sm" onclick="openModal('hocBuModal')">
+                        <i class="ri-user-add-line"></i> Học viên học bù
+                    </button>
+                @endif
             </div>
         @endif
     </form>
@@ -111,8 +124,10 @@
                                     <div class="name">{{ $hv->ho_ten }}</div>
                                     <div class="attendance-hocbu-meta">
                                         <span class="badge orange attendance-hocbu-badge">Học bù</span>
-                                        <i class="ri-close-circle-line del attendance-hocbu-del"
-                                            onclick="xoaHocVienHocBu('{{ route('diemdanh.hocbu.destroy', $rec) }}', {{ Js::from($hv->ho_ten) }})"></i>
+                                        @if (hasQuyen('diemdanh', 'xoa'))
+                                            <i class="ri-close-circle-line del attendance-hocbu-del"
+                                                onclick="xoaHocVienHocBu('{{ route('diemdanh.hocbu.destroy', $rec) }}', {{ Js::from($hv->ho_ten) }})"></i>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +158,13 @@
         </table>
 
         <div class="attendance-save-wrap" id="attendanceSaveWrap">
-            <button type="submit" class="btn btn-primary"><i class="ri-save-line"></i> Lưu điểm danh</button>
+            @if (hasQuyen('diemdanh', 'them') && (! $daDiemDanh || hasQuyen('diemdanh', 'sua')))
+                <button type="submit" class="btn btn-primary"><i class="ri-save-line"></i> Lưu điểm danh</button>
+            @elseif ($daDiemDanh)
+                <span class="text-2 attendance-locked-note">
+                    <i class="ri-lock-line"></i> Bạn đã điểm danh ngày hôm nay rồi. Nếu có sai sót, vui liên hệ với Người quản trị.
+                </span>
+            @endif
         </div>
     </form>
 

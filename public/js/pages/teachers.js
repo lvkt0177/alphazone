@@ -1,4 +1,4 @@
-function openTeacherModal(id, hoTen, ngaySinh, sdt){
+function openTeacherModal(id, hoTen, ngaySinh, sdt, chucDanh){
   const form = document.getElementById('teacherForm');
   const methodField = document.getElementById('teacherMethodField');
 
@@ -17,6 +17,27 @@ function openTeacherModal(id, hoTen, ngaySinh, sdt){
   document.getElementById('gv_name').value = hoTen || '';
   document.getElementById('gv_dob').value = ngaySinh || '';
   document.getElementById('gv_phone').value = sdt || '';
+  document.getElementById('gv_chucdanh').value = chucDanh || '1';
 
   openModal('teacherModal');
+}
+
+function openQuyenModal(giaoVienId, hoTen, quyenData) {
+  const form = document.getElementById('quyenForm');
+
+  document.getElementById('quyenGvName').textContent = hoTen || '';
+  form.action = `${form.dataset.saveUrlBase}/${giaoVienId}/quyen`;
+
+  form.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+
+  (quyenData || []).forEach(row => {
+    ['xem', 'them', 'sua', 'xoa'].forEach(hanhDong => {
+      if (row[hanhDong]) {
+        const cb = document.getElementById(`qgv_${row.chuc_nang_id}_${hanhDong}`);
+        if (cb) cb.checked = true;
+      }
+    });
+  });
+
+  openModal('quyenModal');
 }

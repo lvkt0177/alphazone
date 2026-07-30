@@ -64,9 +64,11 @@
             </div>
             <div class="modal-foot tuition-modal-foot">
                 <div id="tu_delete_wrap" class="tuition-delete-wrap">
-                    <button type="button" class="btn btn-outline tuition-delete-btn" id="tu_delete_btn">
-                        <i class="ri-delete-bin-line"></i> Xoá bản ghi
-                    </button>
+                    @if (hasQuyen('hocphi', 'xoa'))
+                        <button type="button" class="btn btn-outline tuition-delete-btn" id="tu_delete_btn">
+                            <i class="ri-delete-bin-line"></i> Xoá bản ghi
+                        </button>
+                    @endif
                 </div>
                 <div class="tuition-modal-actions">
                     <button type="button" class="btn btn-outline" onclick="closeModal('tuitionModal')">Huỷ</button>

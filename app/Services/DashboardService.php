@@ -7,6 +7,7 @@ use App\Models\CoSo;
 use App\Models\DiaDiem;
 use App\Models\HocPhi;
 use App\Models\HocVien;
+use App\Models\HocVienTraiNghiem;
 use App\Models\TienSan;
 use Carbon\Carbon;
 
@@ -28,7 +29,7 @@ class DashboardService
             'soChuaDong' => $this->soHocVienChuaDong(),
             'danhSachChuaDong' => $this->danhSachHocVienChuaDong(),
             'coSos' => $this->soLuongHocVienTheoCoSo(),
-            'bieuDoThang' => $this->bieuDoHocPhi6ThangGanNhat(),
+            'traiNghiemHomNay' => $this->danhSachTraiNghiemHomNay(),
             'tongTienSan' => $this->tongTienSanThang(),
             'tienSanTheoDiaDiem' => $this->tienSanTheoDiaDiem(),
         ];
@@ -82,17 +83,12 @@ class DashboardService
         }])->orderBy('ten')->get();
     }
 
-    private function bieuDoHocPhi6ThangGanNhat()
+    private function danhSachTraiNghiemHomNay()
     {
-        return collect(range(5, 0))->map(function ($i) {
-            $d = $this->thangHienTai->copy()->subMonths($i);
-
-            return [
-                'label' => 'Tháng '.$d->format('n/Y'),
-                'hoc_phi' => HocPhi::where('thang', $d->toDateString())->sum('hoc_phi'),
-                'dong_phuc' => HocPhi::where('thang', $d->toDateString())->sum('dong_phuc'),
-            ];
-        });
+        return HocVienTraiNghiem::where('ngay_trai_nghiem', now()->toDateString())
+            ->with('coSos')
+            ->orderBy('ho_ten')
+            ->get();
     }
 
     private function tongTienSanThang(): int

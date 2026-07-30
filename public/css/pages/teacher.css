@@ -22,3 +22,26 @@
 .teacher-field-error {
     margin-top: 6px;
 }
+
+.quyen-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.quyen-table th,
+.quyen-table td {
+    padding: 8px 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.quyen-table th:first-child,
+.quyen-table td:first-child {
+    text-align: left;
+}
+
+.quyen-table input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}

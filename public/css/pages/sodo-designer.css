@@ -1,0 +1,201 @@
+.sodo-wrap {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+.sodo-palette {
+    flex: 0 0 220px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+}
+
+.sodo-palette-group {
+    margin-bottom: 14px;
+}
+
+.sodo-palette-label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-2);
+    margin-bottom: 8px;
+}
+
+.sodo-palette-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sodo-palette-item {
+    width: 38px;
+    height: 38px;
+    cursor: grab;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2px;
+    background: #fafafa;
+}
+
+.sodo-palette-item:active {
+    cursor: grabbing;
+}
+
+.sodo-palette-item svg {
+    width: 100%;
+    height: 100%;
+}
+
+.sodo-palette-hint {
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 4px;
+}
+
+.sodo-canvas-wrap {
+    flex: 1 1 480px;
+    min-width: 320px;
+}
+
+.sodo-canvas {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    background: #4d8a35;
+}
+
+.sodo-canvas .ga-object {
+    cursor: pointer;
+}
+
+.sodo-context-menu {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 4px;
+}
+
+.sodo-context-menu button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+.sodo-context-menu button:hover {
+    background: var(--bg);
+}
+
+.sodo-context-menu button#gaContextMenuDelete {
+    color: var(--red);
+}
+
+.sodo-context-menu button#gaContextMenuDelete:hover {
+    background: var(--red-bg);
+}
+
+.sodo-toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.sodo-tool-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--text);
+}
+
+.sodo-tool-btn:hover {
+    border-color: var(--primary);
+}
+
+.sodo-tool-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+.sodo-canvas--drawing {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='black' d='M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z'/></svg>") 2 22, crosshair;
+}
+
+.ga-arrow {
+    cursor: pointer;
+}
+
+.ga-arrow-handle {
+    cursor: grab;
+}
+
+.ga-arrow-handle:active {
+    cursor: grabbing;
+}
+
+.sodo-palette-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.sodo-palette-top-title {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.sodo-settings-icon {
+    font-size: 18px;
+    color: var(--text-2);
+    cursor: pointer;
+}
+
+.sodo-settings-icon:hover {
+    color: var(--primary);
+}
+
+.field input[type="color"] {
+    padding: 4px;
+    height: 44px;
+    cursor: pointer;
+}
+
+.sodo-clear-all-btn {
+    width: 100%;
+    margin-top: 12px;
+    justify-content: center;
+    color: var(--red);
+    border-color: var(--red);
+}
+
+.sodo-clear-all-btn:hover {
+    background: var(--red-bg);
+    border-color: var(--red);
+}

@@ -24,6 +24,10 @@ class DiemDanhController extends Controller
 
         $hocViens = collect();
         $existing = collect();
+        $soDiHoc = 0;
+        $soVang = 0;
+        $nguoiCapNhatCuoi = null;
+        $daDiemDanh = false;
 
         if ($selectedCoSoId) {
             $hocViens = HocVien::whereHas('coSos', fn ($q) => $q->where('co_sos.id', $selectedCoSoId))
@@ -31,10 +35,18 @@ class DiemDanhController extends Controller
                 ->orderBy('ho_ten')
                 ->get();
 
-            $existing = DiemDanh::where('co_so_id', $selectedCoSoId)
+            $existing = DiemDanh::with('updatedBy')
+                ->where('co_so_id', $selectedCoSoId)
                 ->where('ngay', $selectedDate)
                 ->get()
                 ->keyBy('hoc_vien_id');
+
+            $soDiHoc = $existing->where('trang_thai', TrangThaiDiemDanh::DI_HOC)->count();
+            $soVang = $existing->where('trang_thai', TrangThaiDiemDanh::VANG)->count();
+            $daDiemDanh = $existing->isNotEmpty();
+
+            $banGhiCapNhatCuoi = $existing->sortByDesc('updated_at')->first();
+            $nguoiCapNhatCuoi = $banGhiCapNhatCuoi?->updatedBy;
 
             $hocBuIds = $existing->filter(fn ($dd) => $dd->hoc_bu)->pluck('hoc_vien_id');
             $hocViensBu = $hocBuIds->isNotEmpty()
@@ -52,13 +64,24 @@ class DiemDanhController extends Controller
         }
 
         return view('attendance.index', compact(
-            'coSos', 'selectedCoSoId', 'selectedDate', 'hocViens', 'existing', 'hocViensBu', 'hocViensChoHocBu'
+            'coSos', 'selectedCoSoId', 'selectedDate', 'hocViens', 'existing', 'hocViensBu', 'hocViensChoHocBu',
+            'soDiHoc', 'soVang', 'nguoiCapNhatCuoi', 'daDiemDanh'
         ));
     }
 
     public function store(DiemDanhRequest $request)
     {
         $coSo = CoSo::findOrFail($request->co_so_id);
+
+        $daDiemDanhTruoc = DiemDanh::where('co_so_id', $request->co_so_id)
+            ->where('ngay', $request->ngay)
+            ->exists();
+
+        if ($daDiemDanhTruoc && ! hasQuyen('diemdanh', 'sua')) {
+            return redirect()
+                ->route('diemdanh.index', ['co_so_id' => $request->co_so_id, 'ngay' => $request->ngay])
+                ->with('error', 'Đã điểm danh cho ngày này rồi. Cần có quyền Sửa điểm danh để chỉnh lại.');
+        }
 
         foreach ($request->diem_danh as $row) {
             DiemDanh::updateOrCreate(
@@ -72,6 +95,7 @@ class DiemDanhController extends Controller
                     'trang_thai' => $row['trang_thai'],
                     'ghi_chu' => $row['ghi_chu'] ?? null,
                     'hoc_bu' => $row['hoc_bu'] ?? false,
+                    'updated_by_user_id' => auth()->id(),
                 ]
             );
         }
@@ -95,6 +119,7 @@ class DiemDanhController extends Controller
                 'giao_vien_id' => $coSo->giao_vien_id,
                 'trang_thai' => TrangThaiDiemDanh::DI_HOC,
                 'hoc_bu' => true,
+                'updated_by_user_id' => auth()->id(),
             ]
         );
 
