@@ -20,7 +20,7 @@
             <rect x="24" y="255" width="16" height="90" fill="none" stroke="#ffffff" stroke-width="2"></rect>
             <rect x="1000" y="255" width="16" height="90" fill="none" stroke="#ffffff" stroke-width="2">
             </rect>
-            {!! \App\Support\SoDoRenderer::render($ga->so_do, $mauSac) !!}
+            {!! \App\Support\SoDoRenderer::render($ga->so_do, $mauSac, $kichThuoc ?? []) !!}
         </svg>
     </div>
 @else

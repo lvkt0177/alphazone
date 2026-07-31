@@ -31,8 +31,9 @@ class GiaoAnController extends Controller
 
         $giaoAns = $query->orderBy('id')->paginate(20)->withQueryString();
         $mauSac = SodoMauSac::hienTai();
+        $kichThuoc = SodoMauSac::kichThuocHienTai();
 
-        return view('giaoan.index', compact('giaoAns', 'capHoc', 'loaiGame', 'chuDe', 'mauSac'));
+        return view('giaoan.index', compact('giaoAns', 'capHoc', 'loaiGame', 'chuDe', 'mauSac', 'kichThuoc'));
     }
 
     public function create(Request $request)
