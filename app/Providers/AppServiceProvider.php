@@ -55,6 +55,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('giaoan._sodo_designer', function ($view) {
             $view->with([
                 'mauSac' => SodoMauSac::hienTai(),
+                'kichThuoc' => SodoMauSac::kichThuocHienTai(),
             ]);
         });
     }

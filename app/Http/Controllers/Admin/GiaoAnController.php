@@ -73,7 +73,8 @@ class GiaoAnController extends Controller
     public function show(GiaoAn $giaoan)
     {
         $mauSac = SodoMauSac::hienTai();
-        $sodoMarkup = SoDoRenderer::render($giaoan->so_do, $mauSac);
+        $kichThuoc = SodoMauSac::kichThuocHienTai();
+        $sodoMarkup = SoDoRenderer::render($giaoan->so_do, $mauSac, $kichThuoc);
 
         return view('giaoan.show', compact('giaoan', 'sodoMarkup'));
     }
@@ -144,6 +145,24 @@ class GiaoAnController extends Controller
         return response()->json([
             'success' => true,
             'mau_sac' => $data,
+        ]);
+    }
+
+    public function capNhatKichThuoc(Request $request)
+    {
+        $data = $request->validate([
+            'nam' => ['required', 'integer', 'min:50', 'max:200'],
+            'con' => ['required', 'integer', 'min:50', 'max:200'],
+            'nguoi' => ['required', 'integer', 'min:50', 'max:200'],
+            'bong' => ['required', 'integer', 'min:50', 'max:200'],
+            'nhansu' => ['required', 'integer', 'min:50', 'max:200'],
+        ]);
+
+        SodoMauSac::luuKichThuoc($data);
+
+        return response()->json([
+            'success' => true,
+            'kich_thuoc' => $data,
         ]);
     }
 }
