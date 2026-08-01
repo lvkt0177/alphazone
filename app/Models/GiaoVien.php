@@ -15,6 +15,8 @@ class GiaoVien extends Model
 
     protected $fillable = [
         'ho_ten',
+        'ma_nhan_vien',
+        'cccd',
         'ngay_sinh',
         'sdt',
         'trang_thai',
