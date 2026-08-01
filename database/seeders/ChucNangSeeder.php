@@ -10,6 +10,7 @@ class ChucNangSeeder extends Seeder
     public function run(): void
     {
         $danhSach = [
+            ['key' => 'dashboard', 'ten' => 'Dashboard'],
             ['key' => 'coso', 'ten' => 'Cơ sở'],
             ['key' => 'giaovien', 'ten' => 'Giáo viên'],
             ['key' => 'hocvien', 'ten' => 'Học viên'],

@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Admin\HocPhi;
 
+use App\Enum\MucDongPhuc;
+use App\Enum\SizeDongPhuc;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class HocPhiRequest extends FormRequest
 {
@@ -26,7 +29,8 @@ class HocPhiRequest extends FormRequest
             'gioi_thieu_ban' => ['required', 'boolean'],
             'nguoi_gioi_thieu_id' => ['nullable', 'required_if:gioi_thieu_ban,1', 'exists:hoc_viens,id', 'different:hoc_vien_id'],
             'hoc_phi' => ['required_if:gioi_thieu_ban,0', 'nullable', 'integer', 'min:0'],
-            'dong_phuc' => ['nullable', 'integer', 'min:0'],
+            'dong_phuc' => ['nullable', Rule::enum(MucDongPhuc::class), 'required_with:dong_phuc_size'],
+            'dong_phuc_size' => ['nullable', Rule::enum(SizeDongPhuc::class), 'required_with:dong_phuc'],
             'ngay_dong' => ['required', 'date'],
         ];
     }
@@ -41,8 +45,10 @@ class HocPhiRequest extends FormRequest
             'hoc_phi.required' => 'Học phí không được để trống.',
             'hoc_phi.integer' => 'Học phí phải là một số nguyên.',
             'hoc_phi.min' => 'Học phí không được nhỏ hơn 0.',
-            'dong_phuc.integer' => 'Tiền đồng phục phải là một số nguyên.',
-            'dong_phuc.min' => 'Tiền đồng phục không được nhỏ hơn 0.',
+            'dong_phuc.enum' => 'Mức giá đồng phục không hợp lệ.',
+            'dong_phuc.required_with' => 'Vui lòng chọn Mức giá đồng phục.',
+            'dong_phuc_size.enum' => 'Size đồng phục không hợp lệ.',
+            'dong_phuc_size.required_with' => 'Vui lòng chọn Size đồng phục.',
             'ngay_dong.required' => 'Ngày đóng không được để trống.',
             'ngay_dong.date' => 'Ngày đóng không đúng định dạng ngày tháng.',
             'hoc_phi.required_if' => 'Học phí không được để trống (trừ khi bật Giới thiệu bạn).',

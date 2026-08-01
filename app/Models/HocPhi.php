@@ -12,7 +12,7 @@ class HocPhi extends Model
 
     protected $table = 'hoc_phis';
 
-    protected $fillable = ['hoc_vien_id', 'gioi_thieu_ban', 'nguoi_gioi_thieu_id', 'thang', 'hoc_phi', 'dong_phuc', 'ngay_dong'];
+    protected $fillable = ['hoc_vien_id', 'gioi_thieu_ban', 'nguoi_gioi_thieu_id', 'thang', 'hoc_phi', 'dong_phuc', 'dong_phuc_size', 'ngay_dong'];
 
     protected $casts = [
         'thang' => 'date',

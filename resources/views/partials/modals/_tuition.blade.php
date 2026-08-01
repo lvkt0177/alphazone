@@ -1,5 +1,5 @@
 <div class="overlay" id="tuitionModal">
-    <div class="modal">
+    <div class="modal modal-hoc-phi">
         <div class="modal-head">
             <h3 id="tuitionModalTitle">Tạo Học phí</h3><i class="ri-close-line" onclick="closeModal('tuitionModal')"></i>
         </div>
@@ -9,7 +9,6 @@
             <input type="hidden" name="hoc_vien_id" id="tu_hoc_vien_id">
             <input type="hidden" name="thang" id="tu_thang">
             <input type="hidden" name="hoc_phi" id="tu_fee_raw">
-            <input type="hidden" name="dong_phuc" id="tu_uniform_raw">
             <input type="hidden" name="nguoi_gioi_thieu_id" id="tu_referrer_id">
 
             <div class="modal-body">
@@ -34,10 +33,34 @@
                             <div class="badge red tuition-field-error">{{ $message }}</div>
                         @enderror
                     </div>
+
                     <div class="field">
-                        <label>Đồng phục (đ)</label>
-                        <input id="tu_uniform" type="text" inputmode="numeric" autocomplete="off"
-                            placeholder="VD: 150,000">
+                        <div class="tuition-uniform-row">
+                            <div class="tuition-uniform-col tuition-uniform-col--muc">
+                                <label>Đồng phục</label>
+                                <select id="tu_uniform" name="dong_phuc">
+                                    <option value="">— Không chọn —</option>
+                                    @foreach (\App\Enum\MucDongPhuc::cases() as $muc)
+                                        <option value="{{ $muc->value }}">{{ $muc->getLabel() }}</option>
+                                    @endforeach
+                                </select>
+                                @error('dong_phuc')
+                                    <div class="badge red tuition-field-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="tuition-uniform-col tuition-uniform-col--size">
+                                <label>Size quần áo</label>
+                                <select id="tu_uniform_size" name="dong_phuc_size">
+                                    <option value="">N/A</option>
+                                    @foreach (\App\Enum\SizeDongPhuc::cases() as $size)
+                                        <option value="{{ $size->value }}">{{ $size->getLabel() }}</option>
+                                    @endforeach
+                                </select>
+                                @error('dong_phuc_size')
+                                    <div class="badge red tuition-field-error mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
 
                     <div class="field span-2 tuition-referrer-wrap" id="tu_referrer_wrap">

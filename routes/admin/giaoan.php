@@ -14,3 +14,4 @@ Route::get('/giaoan/{giaoan}/chi-tiet', [GiaoAnController::class, 'show'])->name
 Route::put('/giaoan/{giaoan}', [GiaoAnController::class, 'update'])->name('giaoan.update')->middleware('quyen:giaoan,sua');
 Route::delete('/giaoan/{giaoan}', [GiaoAnController::class, 'destroy'])->name('giaoan.destroy')->middleware('quyen:giaoan,xoa');
 Route::post('/giaoan/mau-sac', [GiaoAnController::class, 'capNhatMauSac'])->name('giaoan.mausac.update')->middleware('quyen:giaoan,sua');
+Route::post('/giaoan/kich-thuoc', [GiaoAnController::class, 'capNhatKichThuoc'])->name('giaoan.kichthuoc.update')->middleware('quyen:giaoan,sua');
