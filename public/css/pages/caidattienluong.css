@@ -1,0 +1,31 @@
+.tienluong-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    gap: 20px;
+}
+
+.tienluong-box-title {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tienluong-alert-success,
+.tienluong-alert-error {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+}
+
+.tienluong-empty-row {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.tienluong-field-error {
+    display: block;
+    margin-top: 6px;
+}

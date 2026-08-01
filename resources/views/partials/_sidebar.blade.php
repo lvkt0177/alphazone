@@ -86,23 +86,34 @@
             <i @class(['ri-bar-chart-2-line'])></i> Thống kê
         </a> --}}
 
-        @if (hasQuyen('caidathocphi'))
+        @if (hasQuyen('caidathocphi') || hasQuyen('caidattienluong'))
             <div @class([
                 'nav-group',
-                request()->routeIs('caidathocphi.*') ? 'open' : '',
+                request()->routeIs('caidathocphi.*') || request()->routeIs('caidattienluong.*') ? 'open' : '',
             ])>
                 <div @class(['nav-item', 'nav-group-toggle']) onclick="toggleNavGroup(this)">
                     <i @class(['ri-settings-3-line'])></i> Cài đặt
                     <i @class(['ri-arrow-down-s-line', 'nav-group-arrow'])></i>
                 </div>
                 <div @class(['nav-submenu'])>
-                    <a href="{{ route('caidathocphi.index') }}" @class([
-                        'nav-item',
-                        'nav-subitem',
-                        request()->routeIs('caidathocphi.*') ? 'active' : '',
-                    ]) data-view="caidathocphi">
-                        <i @class(['ri-money-dollar-circle-line'])></i> Tiền học phí
-                    </a>
+                    @if (hasQuyen('caidathocphi'))
+                        <a href="{{ route('caidathocphi.index') }}" @class([
+                            'nav-item',
+                            'nav-subitem',
+                            request()->routeIs('caidathocphi.*') ? 'active' : '',
+                        ]) data-view="caidathocphi">
+                            <i @class(['ri-money-dollar-circle-line'])></i> Tiền học phí
+                        </a>
+                    @endif
+                    @if (hasQuyen('caidattienluong'))
+                        <a href="{{ route('caidattienluong.index') }}" @class([
+                            'nav-item',
+                            'nav-subitem',
+                            request()->routeIs('caidattienluong.*') ? 'active' : '',
+                        ]) data-view="caidattienluong">
+                            <i @class(['ri-wallet-3-line'])></i> Tiền lương
+                        </a>
+                    @endif
                 </div>
             </div>
         @endif

@@ -21,6 +21,8 @@ class GiaoVien extends Model
         'sdt',
         'trang_thai',
         'chuc_danh',
+        'luong_co_ban',
+        'don_gia_gio',
     ];
 
     protected $casts = [
