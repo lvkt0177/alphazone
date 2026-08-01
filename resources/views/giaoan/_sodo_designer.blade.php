@@ -89,6 +89,14 @@
                         </g>
                     </svg>
                 </div>
+                <div class="sodo-palette-item" draggable="true" data-type="nguoi_den" data-color="" title="Người (X đen)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34">
+                        <g transform="translate(17,17)" fill="#000000">
+                            <rect x="-11" y="-2.5" width="22" height="5" rx="2.5" transform="rotate(45)"></rect>
+                            <rect x="-11" y="-2.5" width="22" height="5" rx="2.5" transform="rotate(-45)"></rect>
+                        </g>
+                    </svg>
+                </div>
                 <div class="sodo-palette-item" draggable="true" data-type="bong" data-color="" title="Bóng">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
                         <path d="M0 0h64v64H0z" fill="none"></path>
@@ -120,6 +128,18 @@
             </div>
         </div>
 
+        <div class="sodo-palette-group">
+            <div class="sodo-palette-label">Cột chóp</div>
+            <div class="sodo-palette-row">
+                <div class="sodo-palette-item" draggable="true" data-type="cotchop" data-color="" title="Cột cắm chóp">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                        <rect x="48" y="10" width="4" height="65" fill="#FFD700"></rect>
+                        <path d="M 30,80 A 20,20 0 0 1 70,80 Z" fill="#FFD700"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
         <div class="text-2 sodo-palette-hint">Kéo vật dụng vào sân. Chuột phải vào vật đã đặt để xoá.</div>
 
         <button type="button" class="btn btn-outline sodo-clear-all-btn" id="sodoClearAllBtn">
@@ -138,8 +158,11 @@
             <button type="button" class="sodo-tool-btn" data-tool="sut" title="Sút">
                 <i class="ri-arrow-right-double-line"></i> Sút
             </button>
-            <button type="button" class="sodo-tool-btn" data-tool="dan_bong" title="Nét đứt - Dẫn bóng">
-                <i class="ri-route-line"></i> Dẫn bóng
+            <button type="button" class="sodo-tool-btn" data-tool="dan_bong" title="Nét đứt - Chạy">
+                <i class="ri-route-line"></i> Chạy
+            </button>
+            <button type="button" class="sodo-tool-btn" data-tool="dan_bong_ran" title="Đường lượn - Dẫn bóng">
+                <i class="ri-shuffle-line"></i> Dẫn bóng
             </button>
         </div>
 
@@ -346,6 +369,29 @@
                     </div>
                     <input type="range" min="50" max="200" step="5" id="gaSizeNhansu" data-group="nhansu"
                         value="{{ $kichThuoc['nhansu'] }}">
+                </div>
+            </div>
+            <div class="ga-size-field">
+                <div class="ga-size-preview">
+                    <svg viewBox="0 0 130 130" width="60" height="60">
+                        <g transform="translate(65,65)">
+                            <g class="ga-size-scale" data-group="cotchop"
+                                transform="scale({{ $kichThuoc['cotchop'] / 100 }})">
+                                <svg x="-25" y="-25" width="50" height="50" viewBox="0 0 100 100">
+                                    <rect x="48" y="10" width="4" height="65" fill="#FFD700"></rect>
+                                    <path d="M 30,80 A 20,20 0 0 1 70,80 Z" fill="#FFD700"></path>
+                                </svg>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                <div class="ga-size-controls">
+                    <div class="ga-size-row">
+                        <label>Cột chóp</label>
+                        <span class="ga-size-value" id="gaSizeCotchopValue">{{ $kichThuoc['cotchop'] }}%</span>
+                    </div>
+                    <input type="range" min="50" max="200" step="5" id="gaSizeCotchop" data-group="cotchop"
+                        value="{{ $kichThuoc['cotchop'] }}">
                 </div>
             </div>
         </div>

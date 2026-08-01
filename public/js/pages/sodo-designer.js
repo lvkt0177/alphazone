@@ -90,6 +90,26 @@
                     + '</g>'
                     + '</svg>';
             }
+            case 'nguoi_den': {
+                const ty = tySoKichThuoc('nguoi');
+                const nua = (30 * ty).toFixed(2);
+                const canh = (60 * ty).toFixed(2);
+                return '<svg x="-' + nua + '" y="-' + nua + '" width="' + canh + '" height="' + canh + '" viewBox="0 0 24 24">'
+                    + '<g transform="translate(12,12)" fill="#000000">'
+                    + '<rect x="-11" y="-2.5" width="22" height="5" rx="2.5" transform="rotate(45)"></rect>'
+                    + '<rect x="-11" y="-2.5" width="22" height="5" rx="2.5" transform="rotate(-45)"></rect>'
+                    + '</g>'
+                    + '</svg>';
+            }
+            case 'cotchop': {
+                const ty = tySoKichThuoc('cotchop');
+                const nua = (25 * ty).toFixed(2);
+                const canh = (50 * ty).toFixed(2);
+                return '<svg x="-' + nua + '" y="-' + nua + '" width="' + canh + '" height="' + canh + '" viewBox="0 0 100 100">'
+                    + '<rect x="48" y="10" width="4" height="65" fill="#FFD700"></rect>'
+                    + '<path d="M 30,80 A 20,20 0 0 1 70,80 Z" fill="#FFD700"></path>'
+                    + '</svg>';
+            }
             case 'giaovien': {
                 const ty = tySoKichThuoc('nhansu');
                 const r = (16 * ty).toFixed(2);
@@ -155,6 +175,8 @@
 
         if (arrow.type === 'dan_bong') {
             renderMuiTenDanBong(g, arrow);
+        } else if (arrow.type === 'dan_bong_ran') {
+            renderMuiTenDanBongRan(g, arrow);
         } else {
             renderMuiTenThang(g, arrow);
         }
@@ -210,7 +232,14 @@
         // Vùng bấm vô hình, dày hơn nhiều so với nét vẽ thật, để bấm/kéo dễ trúng hơn
         const vungBam = '<line x1="' + p1[0] + '" y1="' + p1[1] + '" x2="' + cuoiThan[0] + '" y2="' + cuoiThan[1] + '" stroke="#000000" stroke-opacity="0" stroke-width="24" pointer-events="stroke"></line>';
 
-        g.innerHTML = vungBam + thanMarkup + dauMuiTen + nhanSo;
+        let taySamMarkup = '';
+        if (arrow.id === arrowDangChon) {
+            taySamMarkup = arrow.points.map(function (p, idx) {
+                return '<circle class="ga-arrow-handle" data-index="' + idx + '" cx="' + p[0] + '" cy="' + p[1] + '" r="7" fill="#2563EB" stroke="#ffffff" stroke-width="2"></circle>';
+            }).join('');
+        }
+
+        g.innerHTML = vungBam + thanMarkup + dauMuiTen + nhanSo + taySamMarkup;
     }
 
     function duongCongCatmullRom(diem) {
@@ -270,6 +299,78 @@
         g.innerHTML = vungBam + duongMarkup + dauMuiTen + nhanSo + taySamMarkup;
     }
 
+    // Sinh dãy điểm lượn sóng (rắn) dọc theo các đoạn thẳng nối giữa các đốt — dùng chung cho cả JS lẫn PHP,
+    // nhằm khớp visual y hệt giữa Designer và trang Chi tiết.
+    function duongRanLuonSong(diem) {
+        const buocMoiDoan = 14;
+        const bienDo = 6;
+        const tanSo = 0.9;
+        const goc = [];
+
+        for (let i = 0; i < diem.length - 1; i++) {
+            const a = diem[i];
+            const b = diem[i + 1];
+            const batDau = i > 0 ? 1 : 0;
+            for (let s = batDau; s <= buocMoiDoan; s++) {
+                const t = s / buocMoiDoan;
+                goc.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]);
+            }
+        }
+
+        return goc.map(function (p, i) {
+            const prev = goc[Math.max(0, i - 1)];
+            const next = goc[Math.min(goc.length - 1, i + 1)];
+            const dx = next[0] - prev[0];
+            const dy = next[1] - prev[1];
+            const len = Math.sqrt(dx * dx + dy * dy) || 1;
+            const px = -dy / len;
+            const py = dx / len;
+            const offset = bienDo * Math.sin(i * tanSo);
+
+            return [p[0] + px * offset, p[1] + py * offset];
+        });
+    }
+
+    function renderMuiTenDanBongRan(g, arrow) {
+        g.classList.add('ga-arrow--dan-bong-ran');
+        const diem = arrow.points;
+        const diemRan = duongRanLuonSong(diem);
+        const duongRan = 'M ' + diemRan.map(function (p) { return p[0] + ' ' + p[1]; }).join(' L ');
+
+        const pTruocCuoi = diem[diem.length - 2];
+        const pCuoi = diem[diem.length - 1];
+        const dx = pCuoi[0] - pTruocCuoi[0];
+        const dy = pCuoi[1] - pTruocCuoi[1];
+        const len = Math.sqrt(dx * dx + dy * dy) || 1;
+        const ux = dx / len;
+        const uy = dy / len;
+        const px = -uy;
+        const py = ux;
+
+        const dai = 35;
+        const rong = 15;
+        const goc1 = [pCuoi[0] - ux * dai + px * rong, pCuoi[1] - uy * dai + py * rong];
+        const goc2 = [pCuoi[0] - ux * dai - px * rong, pCuoi[1] - uy * dai - py * rong];
+        const dauMuiTen = '<polygon points="' + pCuoi[0] + ',' + pCuoi[1] + ' ' + goc1[0] + ',' + goc1[1] + ' ' + goc2[0] + ',' + goc2[1] + '" fill="#000000"></polygon>';
+
+        const duongMarkup = '<path d="' + duongRan + '" fill="none" stroke="#000000" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"></path>';
+
+        const diemGiua = diem[Math.floor(diem.length / 2)];
+        const nhanSo = '<circle cx="' + diemGiua[0] + '" cy="' + diemGiua[1] + '" r="11" fill="#ffffff" stroke="#000000" stroke-width="1.5" class="ga-arrow-so-bg"></circle>'
+            + '<text x="' + diemGiua[0] + '" y="' + (diemGiua[1] + 4) + '" font-size="12" font-weight="700" fill="#000000" text-anchor="middle" class="ga-arrow-so-text">' + arrow.so + '</text>';
+
+        let taySamMarkup = '';
+        if (arrow.id === arrowDangChon) {
+            taySamMarkup = diem.map(function (p, idx) {
+                return '<circle class="ga-arrow-handle" data-index="' + idx + '" cx="' + p[0] + '" cy="' + p[1] + '" r="7" fill="#2563EB" stroke="#ffffff" stroke-width="2"></circle>';
+            }).join('');
+        }
+
+        const vungBam = '<path d="' + duongRan + '" fill="none" stroke="#000000" stroke-opacity="0" stroke-width="28" pointer-events="stroke"></path>';
+
+        g.innerHTML = vungBam + duongMarkup + dauMuiTen + nhanSo + taySamMarkup;
+    }
+
     function laySoLonNhatHienTai() {
         return state.arrows.reduce(function (max, a) {
             return Math.max(max, Number(a.so) || 0);
@@ -278,7 +379,7 @@
 
     function themMuiTen(type, p1, p2) {
         let points;
-        if (type === 'dan_bong') {
+        if (type === 'dan_bong' || type === 'dan_bong_ran') {
             points = [];
             for (let i = 0; i <= 4; i++) {
                 const t = i / 4;
@@ -408,7 +509,7 @@
 
     canvas.addEventListener('pointerdown', function (e) {
         if (e.button !== 0) return;
-        if (congCuHienTai !== 'chuyen' && congCuHienTai !== 'sut' && congCuHienTai !== 'dan_bong') return;
+        if (congCuHienTai !== 'chuyen' && congCuHienTai !== 'sut' && congCuHienTai !== 'dan_bong' && congCuHienTai !== 'dan_bong_ran') return;
         dangVe = true;
         diemBatDau = toaDoTrongSvg(e.clientX, e.clientY);
 
@@ -564,7 +665,7 @@
         const g = e.target.closest('.ga-arrow');
         if (!g) return;
         const arrow = state.arrows.find(function (a) { return a.id === g.dataset.id; });
-        if (arrow && arrow.type === 'dan_bong') {
+        if (arrow && (arrow.type === 'dan_bong' || arrow.type === 'dan_bong_ran' || arrow.type === 'chuyen')) {
             chonMuiTenDanBong(arrow.id);
         }
     });

@@ -87,6 +87,28 @@ class SoDoRenderer
                     .'</g>'
                     .'</svg>';
             })(),
+            'nguoi_den' => (function () use ($kichThuoc) {
+                $ty = self::tySo('nguoi', $kichThuoc);
+                $nua = round(30 * $ty, 2);
+                $canh = round(60 * $ty, 2);
+
+                return '<svg x="-'.$nua.'" y="-'.$nua.'" width="'.$canh.'" height="'.$canh.'" viewBox="0 0 24 24">'
+                    .'<g transform="translate(12,12)" fill="#000000">'
+                    .'<rect x="-11" y="-2.5" width="22" height="5" rx="2.5" transform="rotate(45)"></rect>'
+                    .'<rect x="-11" y="-2.5" width="22" height="5" rx="2.5" transform="rotate(-45)"></rect>'
+                    .'</g>'
+                    .'</svg>';
+            })(),
+            'cotchop' => (function () use ($kichThuoc) {
+                $ty = self::tySo('cotchop', $kichThuoc);
+                $nua = round(25 * $ty, 2);
+                $canh = round(50 * $ty, 2);
+
+                return '<svg x="-'.$nua.'" y="-'.$nua.'" width="'.$canh.'" height="'.$canh.'" viewBox="0 0 100 100">'
+                    .'<rect x="48" y="10" width="4" height="65" fill="#FFD700"></rect>'
+                    .'<path d="M 30,80 A 20,20 0 0 1 70,80 Z" fill="#FFD700"></path>'
+                    .'</svg>';
+            })(),
             'giaovien' => (function () use ($kichThuoc) {
                 $ty = self::tySo('nhansu', $kichThuoc);
                 $r = round(16 * $ty, 2);
@@ -117,9 +139,15 @@ class SoDoRenderer
             return '';
         }
 
-        return $type === 'dan_bong'
-            ? self::veMuiTenDanBong($diem, $so)
-            : self::veMuiTenThang($diem, $type, $so);
+        if ($type === 'dan_bong') {
+            return self::veMuiTenDanBong($diem, $so);
+        }
+
+        if ($type === 'dan_bong_ran') {
+            return self::veMuiTenDanBongRan($diem, $so);
+        }
+
+        return self::veMuiTenThang($diem, $type, $so);
     }
 
     private static function veMuiTenThang(array $diem, string $type, $so): string
@@ -197,6 +225,68 @@ class SoDoRenderer
         $dauMuiTen = '<polygon points="'.$pCuoi[0].','.$pCuoi[1].' '.$goc1[0].','.$goc1[1].' '.$goc2[0].','.$goc2[1].'" fill="#000000"></polygon>';
 
         $duongMarkup = '<path d="'.$duongCong.'" fill="none" stroke="#000000" stroke-width="3" stroke-dasharray="10,7" stroke-linecap="round"></path>';
+
+        $diemGiua = $diem[intdiv($n, 2)];
+        $nhanSo = '<circle cx="'.$diemGiua[0].'" cy="'.$diemGiua[1].'" r="11" fill="#ffffff" stroke="#000000" stroke-width="1.5"></circle>'
+            .'<text x="'.$diemGiua[0].'" y="'.($diemGiua[1] + 4).'" font-size="12" font-weight="700" fill="#000000" text-anchor="middle">'.$so.'</text>';
+
+        return '<g>'.$duongMarkup.$dauMuiTen.$nhanSo.'</g>';
+    }
+
+    private static function duongRanLuonSong(array $diem): array
+    {
+        $buocMoiDoan = 14;
+        $bienDo = 6;
+        $tanSo = 0.9;
+        $goc = [];
+
+        $n = count($diem);
+        for ($i = 0; $i < $n - 1; $i++) {
+            $a = $diem[$i];
+            $b = $diem[$i + 1];
+            $batDau = $i > 0 ? 1 : 0;
+            for ($s = $batDau; $s <= $buocMoiDoan; $s++) {
+                $t = $s / $buocMoiDoan;
+                $goc[] = [$a[0] + ($b[0] - $a[0]) * $t, $a[1] + ($b[1] - $a[1]) * $t];
+            }
+        }
+
+        $tong = count($goc);
+        $ketQua = [];
+        for ($i = 0; $i < $tong; $i++) {
+            $prev = $goc[max(0, $i - 1)];
+            $next = $goc[min($tong - 1, $i + 1)];
+            $dx = $next[0] - $prev[0];
+            $dy = $next[1] - $prev[1];
+            $len = sqrt($dx * $dx + $dy * $dy) ?: 1;
+            $px = -$dy / $len;
+            $py = $dx / $len;
+            $offset = $bienDo * sin($i * $tanSo);
+
+            $ketQua[] = [$goc[$i][0] + $px * $offset, $goc[$i][1] + $py * $offset];
+        }
+
+        return $ketQua;
+    }
+
+    private static function veMuiTenDanBongRan(array $diem, $so): string
+    {
+        $diemRan = self::duongRanLuonSong($diem);
+        $duongRan = 'M '.implode(' L ', array_map(fn ($p) => $p[0].' '.$p[1], $diemRan));
+
+        $n = count($diem);
+        $pTruocCuoi = $diem[$n - 2];
+        $pCuoi = $diem[$n - 1];
+
+        [$ux, $uy, $px, $py] = self::huongVaVuongGoc($pTruocCuoi, $pCuoi);
+
+        $dai = 35;
+        $rong = 15;
+        $goc1 = [$pCuoi[0] - $ux * $dai + $px * $rong, $pCuoi[1] - $uy * $dai + $py * $rong];
+        $goc2 = [$pCuoi[0] - $ux * $dai - $px * $rong, $pCuoi[1] - $uy * $dai - $py * $rong];
+        $dauMuiTen = '<polygon points="'.$pCuoi[0].','.$pCuoi[1].' '.$goc1[0].','.$goc1[1].' '.$goc2[0].','.$goc2[1].'" fill="#000000"></polygon>';
+
+        $duongMarkup = '<path d="'.$duongRan.'" fill="none" stroke="#000000" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"></path>';
 
         $diemGiua = $diem[intdiv($n, 2)];
         $nhanSo = '<circle cx="'.$diemGiua[0].'" cy="'.$diemGiua[1].'" r="11" fill="#ffffff" stroke="#000000" stroke-width="1.5"></circle>'
