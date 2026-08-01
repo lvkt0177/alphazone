@@ -16,7 +16,7 @@ enum ChucDanhGiaoVien: int
     {
         return match ($this) {
             self::THAY_PHU_TRACH => 'Thầy phụ trách',
-            self::TRO_GIANG => 'Trợ giảng',
+            self::TRO_GIANG => 'CTV Hỗ trợ bóng đá',
         };
     }
 

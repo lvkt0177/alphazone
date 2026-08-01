@@ -63,7 +63,8 @@
 
             <div class="field tuition-filter-field--tongthu">
                 <label class="tuition-filter-label">Học phí tháng {{ $thang->format('n/Y') }}</label>
-                <span class="badge blue tuition-tongthu-badge">{{ number_format($tongHocPhiThang, 0, ',', '.') }} đ</span>
+                <span class="badge blue tuition-tongthu-badge">{{ number_format($tongHocPhiThang, 0, ',', '.') }}
+                    đ</span>
             </div>
         </div>
 
@@ -119,8 +120,8 @@
                         @endif
                     </td>
                     <td class="text-2">
-                        @if ($rec && $rec->dong_phuc)
-                            {{ number_format($rec->dong_phuc, 0, ',', '.') }} đ
+                        @if ($rec && isset($rec->dong_phuc))
+                            {{ \App\Enum\MucDongPhuc::tryFrom($rec->dong_phuc)?->getLabel() ?? '—' }}
                             @if ($rec->dong_phuc_size)
                                 (Size {{ $rec->dong_phuc_size }})
                             @endif

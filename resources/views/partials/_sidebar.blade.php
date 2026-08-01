@@ -74,6 +74,8 @@
             </a>
         @endif
 
+        <div @class(['nav-label'])>Chứng từ</div>
+
         {{-- <a href="" @class(['nav-item', request()->routeIs('stats.*') ? 'active' : '']) data-view="stats">
             <i @class(['ri-bar-chart-2-line'])></i> Thống kê
         </a> --}}
