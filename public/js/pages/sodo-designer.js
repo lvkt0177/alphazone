@@ -299,33 +299,48 @@
         g.innerHTML = vungBam + duongMarkup + dauMuiTen + nhanSo + taySamMarkup;
     }
 
-    // Sinh dãy điểm lượn sóng (rắn) dọc theo các đoạn thẳng nối giữa các đốt — dùng chung cho cả JS lẫn PHP,
-    // nhằm khớp visual y hệt giữa Designer và trang Chi tiết.
+    // Sinh dãy điểm lượn sóng (rắn) theo khoảng cách thực tế (px) — không theo số điểm mẫu/đoạn,
+    // để hình dạng lượn sóng (biên độ + bước sóng) LUÔN cố định dù đường bị kéo dài/ngắn/uốn cong.
     function duongRanLuonSong(diem) {
-        const buocMoiDoan = 14;
-        const bienDo = 6;
-        const tanSo = 0.9;
-        const goc = [];
+        const buocLayMau = 4;
+        const bienDo = 7;
+        const buocSong = 26;
+        const doDaiTat = 26; // đoạn cuối (px) cho biên độ giảm dần về 0, để sóng hội tụ đúng điểm cuối, không lắc
 
+        const tho = [];
         for (let i = 0; i < diem.length - 1; i++) {
             const a = diem[i];
             const b = diem[i + 1];
+            const dx = b[0] - a[0];
+            const dy = b[1] - a[1];
+            const doDaiDoan = Math.sqrt(dx * dx + dy * dy) || 1;
+            const soBuoc = Math.max(1, Math.round(doDaiDoan / buocLayMau));
             const batDau = i > 0 ? 1 : 0;
-            for (let s = batDau; s <= buocMoiDoan; s++) {
-                const t = s / buocMoiDoan;
-                goc.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]);
+            for (let s = batDau; s <= soBuoc; s++) {
+                const t = s / soBuoc;
+                tho.push([a[0] + dx * t, a[1] + dy * t]);
             }
         }
 
-        return goc.map(function (p, i) {
-            const prev = goc[Math.max(0, i - 1)];
-            const next = goc[Math.min(goc.length - 1, i + 1)];
+        const luyKe = [0];
+        for (let i = 1; i < tho.length; i++) {
+            const dx = tho[i][0] - tho[i - 1][0];
+            const dy = tho[i][1] - tho[i - 1][1];
+            luyKe.push(luyKe[i - 1] + Math.sqrt(dx * dx + dy * dy));
+        }
+
+        const tongDoDai = luyKe[luyKe.length - 1] || 1;
+
+        return tho.map(function (p, i) {
+            const prev = tho[Math.max(0, i - 1)];
+            const next = tho[Math.min(tho.length - 1, i + 1)];
             const dx = next[0] - prev[0];
             const dy = next[1] - prev[1];
             const len = Math.sqrt(dx * dx + dy * dy) || 1;
             const px = -dy / len;
             const py = dx / len;
-            const offset = bienDo * Math.sin(i * tanSo);
+            const heSoTat = Math.min(1, (tongDoDai - luyKe[i]) / doDaiTat);
+            const offset = bienDo * heSoTat * Math.sin((luyKe[i] / buocSong) * 2 * Math.PI);
 
             return [p[0] + px * offset, p[1] + py * offset];
         });
@@ -335,17 +350,26 @@
         g.classList.add('ga-arrow--dan-bong-ran');
         const diem = arrow.points;
         const diemRan = duongRanLuonSong(diem);
-        const duongRan = 'M ' + diemRan.map(function (p) { return p[0] + ' ' + p[1]; }).join(' L ');
 
-        const pTruocCuoi = diem[diem.length - 2];
-        const pCuoi = diem[diem.length - 1];
-        const dx = pCuoi[0] - pTruocCuoi[0];
-        const dy = pCuoi[1] - pTruocCuoi[1];
+        // Hướng + vị trí mũi tên: lấy CỐ ĐỊNH theo điểm điều khiển cuối (đường sóng đã tự hội tụ về đúng
+        // điểm này nhờ biên độ giảm dần ở cuối) — không phụ thuộc pha sóng nên không còn bị lắc khi kéo đốt khác.
+        const pTruocCuoiDk = diem[diem.length - 2];
+        const pCuoiDk = diem[diem.length - 1];
+        const dx = pCuoiDk[0] - pTruocCuoiDk[0];
+        const dy = pCuoiDk[1] - pTruocCuoiDk[1];
         const len = Math.sqrt(dx * dx + dy * dy) || 1;
         const ux = dx / len;
         const uy = dy / len;
         const px = -uy;
         const py = ux;
+
+        // Nhích cả mũi tên lẫn điểm cuối đường sóng về phía trước theo đúng hướng mũi tên đang chỉ
+        // Nối THÊM điểm mới (không đè lên điểm cuối cũ) để không tạo khúc gãy/lòi ra
+        const nhichLen = 4;
+        const pCuoi = [pCuoiDk[0] + ux * nhichLen, pCuoiDk[1] + uy * nhichLen];
+        diemRan.push(pCuoi);
+
+        const duongRan = 'M ' + diemRan.map(function (p) { return p[0] + ' ' + p[1]; }).join(' L ');
 
         const dai = 35;
         const rong = 15;

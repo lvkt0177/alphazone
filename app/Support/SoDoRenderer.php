@@ -235,35 +235,50 @@ class SoDoRenderer
 
     private static function duongRanLuonSong(array $diem): array
     {
-        $buocMoiDoan = 14;
-        $bienDo = 6;
-        $tanSo = 0.9;
-        $goc = [];
+        $buocLayMau = 4;
+        $bienDo = 7;
+        $buocSong = 26;
+        $doDaiTat = 26; // đoạn cuối (px) cho biên độ giảm dần về 0, để sóng hội tụ đúng điểm cuối, không lắc
 
+        $tho = [];
         $n = count($diem);
         for ($i = 0; $i < $n - 1; $i++) {
             $a = $diem[$i];
             $b = $diem[$i + 1];
+            $dx = $b[0] - $a[0];
+            $dy = $b[1] - $a[1];
+            $doDaiDoan = sqrt($dx * $dx + $dy * $dy) ?: 1;
+            $soBuoc = max(1, (int) round($doDaiDoan / $buocLayMau));
             $batDau = $i > 0 ? 1 : 0;
-            for ($s = $batDau; $s <= $buocMoiDoan; $s++) {
-                $t = $s / $buocMoiDoan;
-                $goc[] = [$a[0] + ($b[0] - $a[0]) * $t, $a[1] + ($b[1] - $a[1]) * $t];
+            for ($s = $batDau; $s <= $soBuoc; $s++) {
+                $t = $s / $soBuoc;
+                $tho[] = [$a[0] + $dx * $t, $a[1] + $dy * $t];
             }
         }
 
-        $tong = count($goc);
+        $tong = count($tho);
+        $luyKe = [0];
+        for ($i = 1; $i < $tong; $i++) {
+            $dx = $tho[$i][0] - $tho[$i - 1][0];
+            $dy = $tho[$i][1] - $tho[$i - 1][1];
+            $luyKe[] = $luyKe[$i - 1] + sqrt($dx * $dx + $dy * $dy);
+        }
+
+        $tongDoDai = $luyKe[$tong - 1] ?: 1;
+
         $ketQua = [];
         for ($i = 0; $i < $tong; $i++) {
-            $prev = $goc[max(0, $i - 1)];
-            $next = $goc[min($tong - 1, $i + 1)];
+            $prev = $tho[max(0, $i - 1)];
+            $next = $tho[min($tong - 1, $i + 1)];
             $dx = $next[0] - $prev[0];
             $dy = $next[1] - $prev[1];
             $len = sqrt($dx * $dx + $dy * $dy) ?: 1;
             $px = -$dy / $len;
             $py = $dx / $len;
-            $offset = $bienDo * sin($i * $tanSo);
+            $heSoTat = min(1, ($tongDoDai - $luyKe[$i]) / $doDaiTat);
+            $offset = $bienDo * $heSoTat * sin(($luyKe[$i] / $buocSong) * 2 * M_PI);
 
-            $ketQua[] = [$goc[$i][0] + $px * $offset, $goc[$i][1] + $py * $offset];
+            $ketQua[] = [$tho[$i][0] + $px * $offset, $tho[$i][1] + $py * $offset];
         }
 
         return $ketQua;
@@ -272,13 +287,22 @@ class SoDoRenderer
     private static function veMuiTenDanBongRan(array $diem, $so): string
     {
         $diemRan = self::duongRanLuonSong($diem);
-        $duongRan = 'M '.implode(' L ', array_map(fn ($p) => $p[0].' '.$p[1], $diemRan));
 
+        // Hướng + vị trí mũi tên: lấy CỐ ĐỊNH theo điểm điều khiển cuối (đường sóng đã tự hội tụ về đúng
+        // điểm này nhờ biên độ giảm dần ở cuối) — không phụ thuộc pha sóng nên không còn bị lắc khi kéo đốt khác.
         $n = count($diem);
-        $pTruocCuoi = $diem[$n - 2];
-        $pCuoi = $diem[$n - 1];
+        $pTruocCuoiDk = $diem[$n - 2];
+        $pCuoiDk = $diem[$n - 1];
 
-        [$ux, $uy, $px, $py] = self::huongVaVuongGoc($pTruocCuoi, $pCuoi);
+        [$ux, $uy, $px, $py] = self::huongVaVuongGoc($pTruocCuoiDk, $pCuoiDk);
+
+        // Nhích cả mũi tên lẫn điểm cuối đường sóng về phía trước theo đúng hướng mũi tên đang chỉ
+        // Nối THÊM điểm mới (không đè lên điểm cuối cũ) để không tạo khúc gãy/lòi ra
+        $nhichLen = 4;
+        $pCuoi = [$pCuoiDk[0] + $ux * $nhichLen, $pCuoiDk[1] + $uy * $nhichLen];
+        $diemRan[] = $pCuoi;
+
+        $duongRan = 'M '.implode(' L ', array_map(fn ($p) => $p[0].' '.$p[1], $diemRan));
 
         $dai = 35;
         $rong = 15;
@@ -288,7 +312,7 @@ class SoDoRenderer
 
         $duongMarkup = '<path d="'.$duongRan.'" fill="none" stroke="#000000" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"></path>';
 
-        $diemGiua = $diem[intdiv($n, 2)];
+        $diemGiua = $diem[intdiv(count($diem), 2)];
         $nhanSo = '<circle cx="'.$diemGiua[0].'" cy="'.$diemGiua[1].'" r="11" fill="#ffffff" stroke="#000000" stroke-width="1.5"></circle>'
             .'<text x="'.$diemGiua[0].'" y="'.($diemGiua[1] + 4).'" font-size="12" font-weight="700" fill="#000000" text-anchor="middle">'.$so.'</text>';
 
