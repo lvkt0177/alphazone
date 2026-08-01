@@ -42,6 +42,7 @@
     @include('partials.modals._tiensan')
     @include('partials.modals._confirm')
     @include('partials.modals._caidathocphi')
+    @include('partials.modals._bieumau')
     
     {{-- TOAST --}}
     @include('partials._toast')

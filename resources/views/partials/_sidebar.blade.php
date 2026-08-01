@@ -76,6 +76,12 @@
 
         <div @class(['nav-label'])>Chứng từ</div>
 
+        @if (hasQuyen('bieumau'))
+            <a href="{{ route('bieumau.menu') }}" @class(['nav-item', request()->routeIs('bieumau.*') ? 'active' : '']) data-view="bieumau">
+                <i @class(['ri-file-copy-2-line'])></i> Biểu mẫu
+            </a>
+        @endif
+
         {{-- <a href="" @class(['nav-item', request()->routeIs('stats.*') ? 'active' : '']) data-view="stats">
             <i @class(['ri-bar-chart-2-line'])></i> Thống kê
         </a> --}}
