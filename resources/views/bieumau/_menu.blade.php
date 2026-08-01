@@ -9,8 +9,8 @@
 
 <div class="bieumau-box-grid">
     @foreach ($danhSachLoai as $loai)
-        <a href="{{ route('bieumau.index', ['loai' => $loai->value]) }}" class="bieumau-box">
-            <div class="bieumau-box-icon"><i class="{{ $loai->getIcon() }}"></i></div>
+        <a href="{{ route('bieumau.index', ['loai' => $loai->value]) }}" class="bieumau-box bieumau-box--img">
+            <img src="{{ asset($loai->getAnh()) }}" alt="{{ $loai->getLabel() }}" class="bieumau-box-img">
             <div class="bieumau-box-title">{{ $loai->getLabel() }}</div>
         </a>
     @endforeach

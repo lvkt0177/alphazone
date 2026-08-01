@@ -68,6 +68,13 @@ class BieuMauController extends Controller
             ->with('success', 'Cập nhật biểu mẫu thành công');
     }
 
+    public function download(BieuMau $bieumau)
+    {
+        abort_unless(Storage::disk('public')->exists($bieumau->file_path), 404);
+
+        return Storage::disk('public')->download($bieumau->file_path, $bieumau->file_name_goc);
+    }
+
     public function destroy(BieuMau $bieumau)
     {
         $loai = $bieumau->loai->value;

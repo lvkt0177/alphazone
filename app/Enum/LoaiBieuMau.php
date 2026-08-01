@@ -36,4 +36,15 @@ enum LoaiBieuMau: int
             self::BHXH => 'ri-shield-check-line',
         };
     }
+
+    public function getAnh(): string
+    {
+        return match ($this) {
+            self::HOAN_TAM_UNG => 'images/bieu-mau/bieu-mau-hoan-tien-tam-ung.png',
+            self::CONG_TAC_PHI => 'images/bieu-mau/bieu-mau-cong-tac-phi.png',
+            self::HOAN_DAN_9_CUC => 'images/bieu-mau/bieu-mau-hoan-dan-9-cuc.png',
+            self::KHAC => 'images/bieu-mau/bieu-mau-khac.png',
+            self::BHXH => 'images/bieu-mau/bhxh.png',
+        };
+    }
 }

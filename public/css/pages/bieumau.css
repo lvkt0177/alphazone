@@ -26,6 +26,24 @@
     transform: translateY(-2px);
 }
 
+.bieumau-box--img {
+    padding: 0;
+    gap: 0;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+.bieumau-box--img .bieumau-box-title {
+    padding: 14px 16px;
+}
+
+.bieumau-box-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+}
+
 .bieumau-box-icon {
     width: 56px;
     height: 56px;

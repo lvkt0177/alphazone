@@ -65,8 +65,8 @@
                     </td>
                     <td>
                         <div class="actions-cell">
-                            <a href="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($bm->file_path) }}"
-                                target="_blank" title="Tải file"><i class="ri-download-2-line"></i></a>
+                            <a href="{{ route('bieumau.download', $bm) }}" title="Tải file"><i
+                                    class="ri-download-2-line"></i></a>
                             @if (hasQuyen('bieumau', 'sua'))
                                 <i class="ri-edit-line"
                                     onclick="openBieuMauEditModal({{ $bm->id }}, {{ Js::from($bm->ten) }}, {{ Js::from(route('bieumau.update', $bm)) }})"></i>
