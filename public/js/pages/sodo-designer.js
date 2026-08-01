@@ -84,7 +84,10 @@
                 const nua = (30 * ty).toFixed(2);
                 const canh = (60 * ty).toFixed(2);
                 return '<svg x="-' + nua + '" y="-' + nua + '" width="' + canh + '" height="' + canh + '" viewBox="0 0 24 24">'
-                    + '<path fill="' + mauSac(color) + '" d="M12 2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m-1.5 5h3a2 2 0 0 1 2 2v5.5H14V22h-4v-7.5H8.5V9a2 2 0 0 1 2-2"></path>'
+                    + '<g transform="translate(12,12)" fill="#ffffff">'
+                    + '<rect x="-11" y="-2.5" width="22" height="5" rx="2.5" transform="rotate(45)"></rect>'
+                    + '<rect x="-11" y="-2.5" width="22" height="5" rx="2.5" transform="rotate(-45)"></rect>'
+                    + '</g>'
                     + '</svg>';
             }
             case 'giaovien': {
@@ -634,7 +637,7 @@
             if (type === 'nam') {
                 const vong = svgEl.querySelector('circle');
                 if (vong) vong.setAttribute('fill', mau[mauKey]);
-            } else if (type === 'con' || type === 'nguoi') {
+            } else if (type === 'con') {
                 svgEl.style.color = mau[mauKey];
             }
         });

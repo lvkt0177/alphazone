@@ -26,7 +26,7 @@ class GiaoAnRequest extends FormRequest
             'cach_choi' => ['nullable', 'string', 'max:5000'],
             'luat_choi' => ['nullable', 'string', 'max:5000'],
             'so_do' => ['nullable', 'json'],
-            'video' => ['nullable', 'file', 'mimetypes:video/mp4,video/quicktime,video/x-msvideo', 'max:51200'],
+            'video' => ['nullable', 'file', 'mimetypes:video/mp4,video/quicktime,video/x-msvideo', 'max:307200'],
         ];
     }
 
@@ -38,7 +38,7 @@ class GiaoAnRequest extends FormRequest
             'ten_tro_choi.required' => 'Tên trò chơi không được để trống.',
             'ten_tro_choi.max' => 'Tên trò chơi không được vượt quá 255 ký tự.',
             'video.mimetypes' => 'Video phải là định dạng mp4, mov hoặc avi.',
-            'video.max' => 'Video không được vượt quá 50MB.',
+            'video.max' => 'Video không được vượt quá 300MB.',
         ];
     }
 

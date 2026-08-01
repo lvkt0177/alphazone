@@ -80,43 +80,13 @@
         <div class="sodo-palette-group">
             <div class="sodo-palette-label">Người / Bóng</div>
             <div class="sodo-palette-row">
-                <div class="sodo-palette-item" draggable="true" data-type="nguoi" data-color="blue"
-                    title="Người xanh biển">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="color:{{ $mauSac['blue'] }}">
-                        <path d="M0 0h24v24H0z" fill="none"></path>
-                        <path fill="currentColor"
-                            d="M12 2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m-1.5 5h3a2 2 0 0 1 2 2v5.5H14V22h-4v-7.5H8.5V9a2 2 0 0 1 2-2">
-                        </path>
-                    </svg>
-                </div>
-                <div class="sodo-palette-item" draggable="true" data-type="nguoi" data-color="green"
-                    title="Người xanh lá">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                        style="color:{{ $mauSac['green'] }}">
-                        <path d="M0 0h24v24H0z" fill="none"></path>
-                        <path fill="currentColor"
-                            d="M12 2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m-1.5 5h3a2 2 0 0 1 2 2v5.5H14V22h-4v-7.5H8.5V9a2 2 0 0 1 2-2">
-                        </path>
-                    </svg>
-                </div>
-                <div class="sodo-palette-item" draggable="true" data-type="nguoi" data-color="yellow"
-                    title="Người vàng">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                        style="color:{{ $mauSac['yellow'] }}">
-                        <path d="M0 0h24v24H0z" fill="none"></path>
-                        <path fill="currentColor"
-                            d="M12 2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m-1.5 5h3a2 2 0 0 1 2 2v5.5H14V22h-4v-7.5H8.5V9a2 2 0 0 1 2-2">
-                        </path>
-                    </svg>
-                </div>
-                <div class="sodo-palette-item" draggable="true" data-type="nguoi" data-color="orange"
-                    title="Người cam">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                        style="color:{{ $mauSac['orange'] }}">
-                        <path d="M0 0h24v24H0z" fill="none"></path>
-                        <path fill="currentColor"
-                            d="M12 2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m-1.5 5h3a2 2 0 0 1 2 2v5.5H14V22h-4v-7.5H8.5V9a2 2 0 0 1 2-2">
-                        </path>
+                <div class="sodo-palette-item" draggable="true" data-type="nguoi" data-color="" title="Người (X)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34">
+                        <circle cx="17" cy="17" r="15" fill="#4d8a35"></circle>
+                        <g transform="translate(17,17)" fill="#ffffff">
+                            <rect x="-11" y="-2.5" width="22" height="5" rx="2.5" transform="rotate(45)"></rect>
+                            <rect x="-11" y="-2.5" width="22" height="5" rx="2.5" transform="rotate(-45)"></rect>
+                        </g>
                     </svg>
                 </div>
                 <div class="sodo-palette-item" draggable="true" data-type="bong" data-color="" title="Bóng">
@@ -308,10 +278,14 @@
                         <g transform="translate(65,65)">
                             <g class="ga-size-scale" data-group="nguoi"
                                 transform="scale({{ $kichThuoc['nguoi'] / 100 }})">
+                                <circle r="32" fill="#4d8a35"></circle>
                                 <svg x="-30" y="-30" width="60" height="60" viewBox="0 0 24 24">
-                                    <path fill="{{ $mauSac['orange'] }}"
-                                        d="M12 2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m-1.5 5h3a2 2 0 0 1 2 2v5.5H14V22h-4v-7.5H8.5V9a2 2 0 0 1 2-2">
-                                    </path>
+                                    <g transform="translate(12,12)" fill="#ffffff">
+                                        <rect x="-11" y="-2.5" width="22" height="5" rx="2.5" transform="rotate(45)">
+                                        </rect>
+                                        <rect x="-11" y="-2.5" width="22" height="5" rx="2.5" transform="rotate(-45)">
+                                        </rect>
+                                    </g>
                                 </svg>
                             </g>
                         </g>
