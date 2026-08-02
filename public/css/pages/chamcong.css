@@ -1,25 +1,27 @@
-.chamcong-date-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 16px;
-}
-
-.chamcong-date-bar label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-2);
-}
-
-.chamcong-date-bar input[type="date"] {
-    max-width: 200px;
-}
-
 .chamcong-alert-success,
 .chamcong-alert-error {
     display: block;
     padding: 10px 14px;
     margin-bottom: 16px;
+}
+
+.chamcong-toolbar {
+    margin-bottom: 4px;
+}
+
+.chamcong-filter-field--date {
+    margin: 0;
+    min-width: 180px;
+}
+
+.chamcong-filter-label {
+    font-size: 12.5px;
+    margin-bottom: 5px;
+}
+
+.chamcong-status-line {
+    font-size: 13px;
+    margin-top: 10px;
 }
 
 .chamcong-empty-row {
@@ -59,6 +61,17 @@
 .chamcong-ghichu-input {
     width: 100%;
     min-width: 120px;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    outline: none;
+    transition: .15s;
+}
+
+.chamcong-hotro-input:focus,
+.chamcong-ghichu-input:focus {
+    border-color: var(--primary);
 }
 
 .chamcong-ctv-action {
@@ -100,4 +113,9 @@
 .chamcong-field-error {
     display: block;
     margin-top: 6px;
+}
+
+.thong-tin-cham-cong{
+    display: flex;
+    justify-content: space-between;
 }

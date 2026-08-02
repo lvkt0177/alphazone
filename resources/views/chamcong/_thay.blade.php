@@ -14,17 +14,31 @@
     <div class="badge red chamcong-alert-error">{{ session('error') }}</div>
 @endif
 
-<form method="GET" action="{{ route('chamcong.thay') }}" class="chamcong-date-bar">
-    <label for="cc_thay_ngay">Ngày</label>
-    <input type="date" name="ngay" id="cc_thay_ngay" value="{{ $ngay }}" max="{{ now()->toDateString() }}"
-        onchange="this.form.submit()">
-</form>
+<div class="table-card">
+    <form method="GET" action="{{ route('chamcong.thay') }}" class="chamcong-toolbar">
+        <div class="filters">
+            <div class="field chamcong-filter-field--date">
+                <label class="chamcong-filter-label">Ngày chấm công</label>
+                <input type="date" name="ngay" value="{{ $ngay }}" max="{{ now()->toDateString() }}"
+                    onchange="this.form.submit()">
+            </div>
+        </div>
 
-<form method="POST" action="{{ route('chamcong.thay.luu') }}">
-    @csrf
-    <input type="hidden" name="ngay" value="{{ $ngay }}">
+        <div class="thong-tin-cham-cong">
+            <div class="text-2 chamcong-status-line">
+                Đang chấm công ngày <b>{{ \Carbon\Carbon::parse($ngay)->format('d/m/Y') }}</b>
+            </div>
+            <div class="text-2 chamcong-status-line">
+                <span class="badge green">Có đi làm: {{ $soCo }}</span>
+                <span class="badge red">Không đi làm: {{ $soKhong }}</span>
+            </div>
+        </div>
+    </form>
 
-    <div class="table-card">
+    <form method="POST" action="{{ route('chamcong.thay.luu') }}">
+        @csrf
+        <input type="hidden" name="ngay" value="{{ $ngay }}">
+
         <table>
             <thead>
                 <tr>
@@ -40,8 +54,7 @@
                     <tr>
                         <td>{{ $gv->ho_ten }}</td>
                         <td>
-                            <input type="hidden" name="rows[{{ $gv->id }}][co_di_lam]"
-                                id="cdl_{{ $gv->id }}"
+                            <input type="hidden" name="rows[{{ $gv->id }}][co_di_lam]" id="cdl_{{ $gv->id }}"
                                 value="{{ $rec && $rec->co_di_lam !== null ? ($rec->co_di_lam ? '1' : '0') : '' }}">
                             <div class="chamcong-pill-group">
                                 <button type="button"
@@ -56,13 +69,12 @@
                             <input type="text" id="htx_display_{{ $gv->id }}" class="chamcong-hotro-input"
                                 inputmode="numeric" autocomplete="off" placeholder="0"
                                 value="{{ $rec && $rec->ho_tro_xang_xe !== null ? number_format($rec->ho_tro_xang_xe, 0, ',', '.') : '' }}">
-                            <input type="hidden" name="rows[{{ $gv->id }}][ho_tro_xang_xe]"
-                                id="htx_{{ $gv->id }}" value="{{ $rec->ho_tro_xang_xe ?? '' }}">
+                            <input type="hidden" name="rows[{{ $gv->id }}][ho_tro_xang_xe]" id="htx_{{ $gv->id }}"
+                                value="{{ $rec->ho_tro_xang_xe ?? '' }}">
                         </td>
                         <td>
-                            <input type="text" name="rows[{{ $gv->id }}][ghi_chu]"
-                                class="chamcong-ghichu-input" value="{{ $rec->ghi_chu ?? '' }}"
-                                placeholder="Tuỳ chọn...">
+                            <input type="text" name="rows[{{ $gv->id }}][ghi_chu]" class="chamcong-ghichu-input"
+                                value="{{ $rec->ghi_chu ?? '' }}" placeholder="Tuỳ chọn...">
                         </td>
                     </tr>
                 @empty
@@ -73,11 +85,11 @@
                 @endforelse
             </tbody>
         </table>
-    </div>
 
-    @if (hasQuyen('chamcong', 'them') && $thayPhuTrachs->isNotEmpty())
-        <div class="chamcong-form-actions">
-            <button type="submit" class="btn btn-primary"><i class="ri-save-line"></i> Lưu</button>
-        </div>
-    @endif
-</form>
+        @if (hasQuyen('chamcong', 'them') && $thayPhuTrachs->isNotEmpty())
+            <div class="chamcong-form-actions">
+                <button type="submit" class="btn btn-primary"><i class="ri-save-line"></i> Lưu</button>
+            </div>
+        @endif
+    </form>
+</div>

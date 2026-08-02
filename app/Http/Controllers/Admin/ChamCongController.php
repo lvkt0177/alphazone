@@ -33,7 +33,10 @@ class ChamCongController extends Controller
             ->get()
             ->keyBy('giao_vien_id');
 
-        return view('chamcong.thay', compact('thayPhuTrachs', 'existing', 'ngay'));
+        $soCo = $existing->where('co_di_lam', true)->count();
+        $soKhong = $existing->where('co_di_lam', false)->count();
+
+        return view('chamcong.thay', compact('thayPhuTrachs', 'existing', 'ngay', 'soCo', 'soKhong'));
     }
 
     public function luuThay(ChamCongThayRequest $request)
@@ -86,7 +89,9 @@ class ChamCongController extends Controller
             ->get()
             ->keyBy('giao_vien_id');
 
-        return view('chamcong.ctv', compact('ctvs', 'existing', 'ngay'));
+        $soDaCham = $existing->count();
+
+        return view('chamcong.ctv', compact('ctvs', 'existing', 'ngay', 'soDaCham'));
     }
 
     public function luuCtv(ChamCongCtvRequest $request, GiaoVien $giaovien)
