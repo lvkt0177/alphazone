@@ -16,7 +16,9 @@
                 <div class="form-grid full">
                     <div class="field">
                         <label id="tl_field_label">Giá trị</label>
-                        <input type="number" min="0" id="tl_value" placeholder="0">
+                        <input type="text" id="tl_value_display" inputmode="numeric" autocomplete="off"
+                            placeholder="0">
+                        <input type="hidden" id="tl_value">
                         @error('luong_co_ban')
                             <div class="badge red tienluong-field-error">{{ $message }}</div>
                         @enderror
