@@ -114,6 +114,38 @@
             </div>
         @endif
 
+        @if (hasQuyen('phieuluongnhanvien') || hasQuyen('phieuluongctv'))
+            <div @class([
+                'nav-group',
+                request()->routeIs('phieuluongnhanvien.*') || request()->routeIs('phieuluongctv.*') ? 'open' : '',
+            ])>
+                <div @class(['nav-item', 'nav-group-toggle']) onclick="toggleNavGroup(this)">
+                    <i @class(['ri-file-paper-2-line'])></i> Phiếu lương
+                    <i @class(['ri-arrow-down-s-line', 'nav-group-arrow'])></i>
+                </div>
+                <div @class(['nav-submenu'])>
+                    @if (hasQuyen('phieuluongnhanvien'))
+                        <a href="{{ route('phieuluongnhanvien.index') }}" @class([
+                            'nav-item',
+                            'nav-subitem',
+                            request()->routeIs('phieuluongnhanvien.*') ? 'active' : '',
+                        ]) data-view="phieuluongnhanvien">
+                            <i @class(['ri-file-list-3-line'])></i> Phiếu lương Nhân viên chính thức
+                        </a>
+                    @endif
+                    @if (hasQuyen('phieuluongctv'))
+                        <a href="{{ route('phieuluongctv.index') }}" @class([
+                            'nav-item',
+                            'nav-subitem',
+                            request()->routeIs('phieuluongctv.*') ? 'active' : '',
+                        ]) data-view="phieuluongctv">
+                            <i @class(['ri-file-list-3-line'])></i> Phiếu lương Cộng tác viên
+                        </a>
+                    @endif
+                </div>
+            </div>
+        @endif
+
         @if (hasQuyen('caidathocphi') || hasQuyen('caidattienluong'))
             <div @class([
                 'nav-group',

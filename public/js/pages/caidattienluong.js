@@ -10,7 +10,7 @@ function openTienLuongModal(id, hoTen, field, label, giaTriHienTai, updateUrl) {
     document.getElementById('tl_label').value = label || '';
     document.getElementById('tl_field_label').textContent = label || 'Giá trị';
 
-    valueHidden.name = field; // luong_co_ban hoặc don_gia_gio — quyết định field nào thực sự được submit
+    valueHidden.name = field;
     const raw = giaTriHienTai === null || giaTriHienTai === undefined ? '' : String(giaTriHienTai);
     valueHidden.value = raw;
     valueDisplay.value = typeof formatMoney === 'function' ? formatMoney(raw) : raw;
@@ -23,5 +23,6 @@ function openTienLuongModal(id, hoTen, field, label, giaTriHienTai, updateUrl) {
 document.addEventListener('DOMContentLoaded', function () {
     if (typeof attachMoneyFormatter === 'function') {
         attachMoneyFormatter('tl_value_display', 'tl_value');
+        attachMoneyFormatter('tl_tru_ngay_display', 'tl_tru_ngay');
     }
 });

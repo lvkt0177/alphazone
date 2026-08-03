@@ -62,6 +62,38 @@
         <div class="tienluong-card-icon"><i class="ri-graduation-cap-line"></i></div>
         <div class="tienluong-card-title">Lương Thầy phụ trách</div>
     </div>
+
+    @if (hasQuyen('caidattienluong', 'sua'))
+        <form method="POST" action="{{ route('caidattienluong.ngaycong.update') }}" class="tienluong-ngaycong-form">
+            @csrf
+            @method('PUT')
+            <div class="form-grid full">
+                <div class="field">
+                    <label>Ngày công tối thiểu / tháng</label>
+                    <input type="number" name="ngay_cong_toi_thieu" min="1" max="31"
+                        value="{{ old('ngay_cong_toi_thieu', $caiDatLuongThay->ngay_cong_toi_thieu) }}">
+                    @error('ngay_cong_toi_thieu')
+                        <div class="badge red tienluong-field-error">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="field">
+                    <label>Tiền bị trừ 1 ngày (nếu vắng dưới mức tối thiểu)</label>
+                    <input type="text" id="tl_tru_ngay_display" inputmode="numeric" autocomplete="off"
+                        value="{{ number_format(old('tien_tru_1_ngay', $caiDatLuongThay->tien_tru_1_ngay), 0, ',', '.') }}">
+                    <input type="hidden" name="tien_tru_1_ngay" id="tl_tru_ngay"
+                        value="{{ old('tien_tru_1_ngay', $caiDatLuongThay->tien_tru_1_ngay) }}">
+                    @error('tien_tru_1_ngay')
+                        <div class="badge red tienluong-field-error">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary btn-sm mt-3"><i class="ri-save-line"></i> Lưu cấu hình ngày
+                    công</button>
+            </div>
+        </form>
+    @endif
+
     <table class="tienluong-table">
         <thead>
             <tr>
