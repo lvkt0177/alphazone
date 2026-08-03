@@ -301,6 +301,12 @@ ul {
   padding: 1px 5px;
 }
 
+.btn-trash {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
 .topbar-avatar {
   display: flex;
   align-items: center;

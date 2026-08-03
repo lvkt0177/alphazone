@@ -48,7 +48,7 @@
                         <input type="text" id="pl_ma_nv" readonly>
                     </div>
                     <div class="field">
-                        <label>Lương cơ bản (Config)</label>
+                        <label>Lương cơ bản</label>
                         <input type="text" id="pl_luong_co_ban" readonly>
                     </div>
                     <div class="field">
@@ -122,7 +122,7 @@
 
                 <div class="phieuluong-ketqua-box">
                     <div class="phieuluong-ketqua-label">Tổng thu nhập = Lương cơ bản + Trợ cấp + Năng suất + Thưởng
-                        khác (tự động)</div>
+                        khác</div>
                     <div class="phieuluong-ketqua-row"><span>Lương cơ bản</span><b id="ktLuongCoBanRef">0 đ</b></div>
                     <div class="phieuluong-ketqua-row phieuluong-ketqua-cong">
                         <span>+ Trợ cấp xăng xe</span><b id="ktTroCap">0 đ</b>
@@ -139,8 +139,7 @@
                 </div>
 
                 <div class="phieuluong-ketqua-box phieuluong-ketqua-box--thamkhao">
-                    <div class="phieuluong-ketqua-label">Tham khảo — đã gộp sẵn trong "Tổng khấu trừ" bạn tự nhập ở
-                        trên, không trừ thêm lần nữa ở đây</div>
+                    <div class="phieuluong-ketqua-label">Các khoản khấu trừ Bảo hiểm</div>
                     <div class="phieuluong-ketqua-row"><span>BHXH (8%)</span><b id="ktBhxh">0 đ</b></div>
                     <div class="phieuluong-ketqua-row"><span>BHYT (1.5%)</span><b id="ktBhyt">0 đ</b></div>
                     <div class="phieuluong-ketqua-row"><span>BHTN (1%)</span><b id="ktBhtn">0 đ</b></div>

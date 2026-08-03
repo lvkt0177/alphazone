@@ -93,7 +93,7 @@ class PhieuLuongCtvController extends Controller
             'giao_vien_id' => $giaoVien->id,
             'thang' => $thang->toDateString(),
             'ho_ten_snapshot' => $giaoVien->ho_ten,
-            'ma_nhan_vien_snapshot' => $giaoVien->ma_nhan_vien,
+            'ma_nhan_vien_snapshot' => $giaoVien->cccd,
             'tong_so_gio' => $tongSoGio,
             'don_gia' => $donGia,
             'tro_cap' => $data['tro_cap'] ?? null,

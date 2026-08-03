@@ -62,7 +62,7 @@
                                 class="phieuluong-inline-form confirm-delete-form" data-confirm-title="Xoá phiếu lương"
                                 data-confirm-message="Bạn có chắc muốn xoá phiếu lương của {{ $p->ho_ten_snapshot }}?">
                                 @csrf @method('DELETE')
-                                <button type="submit"><i class="ri-delete-bin-line del"></i></button>
+                                <button type="submit" class="btn-trash"><i class="ri-delete-bin-line del"></i></button>
                             </form>
                         @endif
                     </td>

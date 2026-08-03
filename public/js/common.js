@@ -100,3 +100,21 @@ function attachMoneyFormatter(displayId, hiddenId) {
         this.setSelectionRange(newPos, newPos);
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const scrollBox = document.querySelector('.sidebar-scroll');
+    const activeItem = scrollBox?.querySelector('.nav-item.active');
+    if (!scrollBox || !activeItem) return;
+
+    const padding = 120; 
+    const itemTop = activeItem.offsetTop;
+    const itemBottom = itemTop + activeItem.offsetHeight;
+    const viewTop = scrollBox.scrollTop;
+    const viewBottom = viewTop + scrollBox.clientHeight;
+
+    if (itemBottom + padding > viewBottom) {
+        scrollBox.scrollTop = itemBottom + padding - scrollBox.clientHeight;
+    } else if (itemTop - padding < viewTop) {
+        scrollBox.scrollTop = itemTop - padding;
+    }
+});

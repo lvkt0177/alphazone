@@ -55,7 +55,7 @@ function capNhatGoiYTruNgay(soNgayCoLuong) {
         const soNgayThieu = toiThieu - soNgayCoLuong;
         const soTien = soNgayThieu * tienTru;
         el.textContent = 'Thiếu ' + soNgayThieu + ' ngày × ' + formatMoney(tienTru) + 'đ = ' +
-            formatMoney(soTien) + 'đ (gợi ý cộng vào Tổng khấu trừ nếu cần)';
+            formatMoney(soTien) + 'đ';
     } else {
         el.textContent = '';
     }

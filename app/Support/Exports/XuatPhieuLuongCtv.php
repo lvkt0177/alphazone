@@ -32,9 +32,19 @@ class XuatPhieuLuongCtv
         $sheet->setCellValue('C6', 'Tháng '.$thang->format('n/Y'));
         $sheet->getStyle('A3:A6')->getFont()->setBold(true);
 
-        $tieuDe = ['A' => 'STT', 'B' => 'Họ và tên người được thuê', 'C' => 'Địa chỉ/CMND',
-            'D' => 'Nội dung công việc', 'E' => 'Số giờ', 'F' => 'Đơn giá', 'G' => 'Thành tiền',
-            'H' => 'Trợ cấp', 'I' => 'Khấu trừ', 'J' => 'Thực nhận', 'K' => 'Ký nhận'];
+        $tieuDe = [
+            'A' => 'STT',
+            'B' => 'Họ và tên người được thuê',
+            'C' => 'Địa chỉ/CMND',
+            'D' => 'Nội dung công việc',
+            'E' => 'Số giờ',
+            'F' => 'Đơn giá',
+            'G' => 'Thành tiền',
+            'H' => 'Trợ cấp',
+            'I' => 'Khấu trừ',
+            'J' => 'Thực nhận',
+            'K' => 'Ký nhận'
+        ];
         foreach ($tieuDe as $col => $ten) {
             $sheet->setCellValue($col.'8', $ten);
         }

@@ -130,7 +130,7 @@
                             'nav-subitem',
                             request()->routeIs('phieuluongnhanvien.*') ? 'active' : '',
                         ]) data-view="phieuluongnhanvien">
-                            <i @class(['ri-file-list-3-line'])></i> Phiếu lương Nhân viên chính thức
+                            <i @class(['ri-file-list-3-line'])></i> PL Nhân viên chính thức
                         </a>
                     @endif
                     @if (hasQuyen('phieuluongctv'))
@@ -139,7 +139,7 @@
                             'nav-subitem',
                             request()->routeIs('phieuluongctv.*') ? 'active' : '',
                         ]) data-view="phieuluongctv">
-                            <i @class(['ri-file-list-3-line'])></i> Phiếu lương Cộng tác viên
+                            <i @class(['ri-file-list-3-line'])></i> PL Cộng tác viên
                         </a>
                     @endif
                 </div>

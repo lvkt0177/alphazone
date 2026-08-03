@@ -52,7 +52,7 @@
                         <input type="text" id="pl_tong_so_gio" readonly>
                     </div>
                     <div class="field">
-                        <label>Đơn giá/giờ (Config)</label>
+                        <label>Đơn giá/giờ</label>
                         <input type="text" id="pl_don_gia" readonly>
                     </div>
                     <div class="field">

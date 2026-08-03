@@ -119,8 +119,7 @@
         </div>
 
         <div class="phieuluong-ketqua-box phieuluong-ketqua-box--thamkhao">
-            <div class="phieuluong-ketqua-label">Tham khảo — đã gộp sẵn trong "Tổng khấu trừ" bạn tự nhập ở trên,
-                không trừ thêm lần nữa ở đây</div>
+            <div class="phieuluong-ketqua-label">Các khoản khấu trừ Bảo hiểm</div>
             <div class="phieuluong-ketqua-row"><span>BHXH (8%)</span><b id="ktBhxh">0 đ</b></div>
             <div class="phieuluong-ketqua-row"><span>BHYT (1.5%)</span><b id="ktBhyt">0 đ</b></div>
             <div class="phieuluong-ketqua-row"><span>BHTN (1%)</span><b id="ktBhtn">0 đ</b></div>
