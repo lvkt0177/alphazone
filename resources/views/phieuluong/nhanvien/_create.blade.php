@@ -118,9 +118,19 @@
                             placeholder="0">
                         <input type="hidden" name="giam_tru_gia_canh" id="pl_giam_tru">
                     </div>
+                    <div class="field">
+                        <label>Thuế TNCN</label>
+                        <input type="text" id="pl_thue_tncn_display" inputmode="numeric" autocomplete="off"
+                            placeholder="0">
+                        <input type="hidden" name="thue_tncn" id="pl_thue_tncn">
+                        @error('thue_tncn')
+                            <div class="badge red phieuluong-field-error">{{ $message }}</div>
+                        @enderror
+                        {{-- <div class="text-2 phieuluong-goi-y" id="plGoiYThueTncn"></div> --}}
+                    </div>
                 </div>
 
-                <div class="phieuluong-ketqua-box">
+                <div class="phieuluong-ketqua-box mt-3">
                     <div class="phieuluong-ketqua-label">Tổng thu nhập = Lương cơ bản + Trợ cấp + Năng suất + Thưởng
                         khác</div>
                     <div class="phieuluong-ketqua-row"><span>Lương cơ bản</span><b id="ktLuongCoBanRef">0 đ</b></div>
@@ -161,7 +171,8 @@
                         <span>− Tạm ứng</span><b id="ktTamUng">0 đ</b>
                     </div>
                     <div class="phieuluong-ketqua-row phieuluong-ketqua-tru">
-                        <span>− Thuế TNCN (TNTT = <b id="ktTntt">0 đ</b>)</span><b id="ktThueTncn">0 đ</b>
+                        <span>− Thuế TNCN</span><b
+                            id="ktThueTncn">0 đ</b>
                     </div>
                     <div class="phieuluong-ketqua-row phieuluong-ketqua-final">
                         <span>= Lương thực nhận</span><b id="ktLuongThucNhan">0 đ</b>

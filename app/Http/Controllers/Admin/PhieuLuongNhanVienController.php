@@ -9,7 +9,6 @@ use App\Models\CaiDatLuongThay;
 use App\Models\ChamCongGiaoVien;
 use App\Models\GiaoVien;
 use App\Models\PhieuLuongNhanVien;
-use App\Support\ThueTNCN;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -91,7 +90,9 @@ class PhieuLuongNhanVienController extends Controller
 
         $thuNhapChiuThue = $tongThuNhap - $tongKhauTru;
         $tntt = max(0, $thuNhapChiuThue - $giamTru);
-        $thueTncn = ThueTNCN::tinh($tntt);
+        // Thuế TNCN nhập tay (có gợi ý theo biểu 5 bậc ở giao diện) — không ép tính cứng ở server,
+        // vì admin có thể cần điều chỉnh theo tình huống thực tế (quyết toán cuối năm, khấu trừ khác...)
+        $thueTncn = (int) ($d['thue_tncn'] ?? 0);
         // Không cộng lại Trợ cấp ở đây nữa — đã nằm sẵn trong Tổng thu nhập ở trên, tránh tính trùng
         $luongThucNhan = $thuNhapChiuThue + $congTacPhi - $tamUng - $thueTncn;
 

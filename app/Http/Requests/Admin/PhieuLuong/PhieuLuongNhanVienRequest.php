@@ -32,6 +32,7 @@ class PhieuLuongNhanVienRequest extends FormRequest
             'cong_tac_phi' => ['nullable', 'integer', 'min:0'],
             'tam_ung' => ['nullable', 'integer', 'min:0'],
             'giam_tru_gia_canh' => ['nullable', 'integer', 'min:0'],
+            'thue_tncn' => ['nullable', 'integer', 'min:0'],
         ];
     }
 
