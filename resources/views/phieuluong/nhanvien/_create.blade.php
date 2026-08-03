@@ -73,33 +73,24 @@
                     </div>
 
                     <div class="field">
-                        <label>Trợ cấp xăng xe, điện thoại (tham khảo)</label>
+                        <label>Trợ cấp xăng xe, điện thoại (tự động cộng dồn từ Chấm công)</label>
                         <input type="text" id="pl_tro_cap_display" inputmode="numeric" autocomplete="off"
                             placeholder="0">
                         <input type="hidden" name="tro_cap" id="pl_tro_cap">
                     </div>
                     <div class="field">
-                        <label>Năng suất công việc (tham khảo)</label>
+                        <label>Năng suất công việc</label>
                         <input type="text" id="pl_nang_suat_display" inputmode="numeric" autocomplete="off"
                             placeholder="0">
                         <input type="hidden" name="nang_suat" id="pl_nang_suat">
                     </div>
                     <div class="field">
-                        <label>Thưởng khác (tham khảo)</label>
+                        <label>Thưởng khác</label>
                         <input type="text" id="pl_thuong_khac_display" inputmode="numeric" autocomplete="off"
                             placeholder="0">
                         <input type="hidden" name="thuong_khac" id="pl_thuong_khac">
                     </div>
 
-                    <div class="field">
-                        <label>Tổng thu nhập <span class="phieuluong-required">*</span></label>
-                        <input type="text" id="pl_tong_thu_nhap_display" inputmode="numeric" autocomplete="off"
-                            placeholder="0">
-                        <input type="hidden" name="tong_thu_nhap" id="pl_tong_thu_nhap">
-                        @error('tong_thu_nhap')
-                            <div class="badge red phieuluong-field-error">{{ $message }}</div>
-                        @enderror
-                    </div>
                     <div class="field">
                         <label>Tổng khấu trừ (Bảo hiểm...) <span class="phieuluong-required">*</span></label>
                         <input type="text" id="pl_tong_khau_tru_display" inputmode="numeric" autocomplete="off"
@@ -130,26 +121,51 @@
                 </div>
 
                 <div class="phieuluong-ketqua-box">
-                    <div class="phieuluong-ketqua-row">
-                        <span>BHXH (8%)</span><b id="ktBhxh">0 đ</b>
+                    <div class="phieuluong-ketqua-label">Tổng thu nhập = Lương cơ bản + Trợ cấp + Năng suất + Thưởng
+                        khác (tự động)</div>
+                    <div class="phieuluong-ketqua-row"><span>Lương cơ bản</span><b id="ktLuongCoBanRef">0 đ</b></div>
+                    <div class="phieuluong-ketqua-row phieuluong-ketqua-cong">
+                        <span>+ Trợ cấp xăng xe</span><b id="ktTroCap">0 đ</b>
                     </div>
-                    <div class="phieuluong-ketqua-row">
-                        <span>BHYT (1.5%)</span><b id="ktBhyt">0 đ</b>
+                    <div class="phieuluong-ketqua-row phieuluong-ketqua-cong">
+                        <span>+ Năng suất công việc</span><b id="ktNangSuat">0 đ</b>
                     </div>
-                    <div class="phieuluong-ketqua-row">
-                        <span>BHTN (1%)</span><b id="ktBhtn">0 đ</b>
-                    </div>
-                    <div class="phieuluong-ketqua-row">
-                        <span>Thu nhập chịu thuế</span><b id="ktTncTthue">0 đ</b>
-                    </div>
-                    <div class="phieuluong-ketqua-row">
-                        <span>TNTT</span><b id="ktTntt">0 đ</b>
-                    </div>
-                    <div class="phieuluong-ketqua-row">
-                        <span>Thuế TNCN</span><b id="ktThueTncn">0 đ</b>
+                    <div class="phieuluong-ketqua-row phieuluong-ketqua-cong">
+                        <span>+ Thưởng khác</span><b id="ktThuongKhac">0 đ</b>
                     </div>
                     <div class="phieuluong-ketqua-row phieuluong-ketqua-final">
-                        <span>Lương thực nhận</span><b id="ktLuongThucNhan">0 đ</b>
+                        <span>= Tổng thu nhập</span><b id="ktTongThuNhap">0 đ</b>
+                    </div>
+                </div>
+
+                <div class="phieuluong-ketqua-box phieuluong-ketqua-box--thamkhao">
+                    <div class="phieuluong-ketqua-label">Tham khảo — đã gộp sẵn trong "Tổng khấu trừ" bạn tự nhập ở
+                        trên, không trừ thêm lần nữa ở đây</div>
+                    <div class="phieuluong-ketqua-row"><span>BHXH (8%)</span><b id="ktBhxh">0 đ</b></div>
+                    <div class="phieuluong-ketqua-row"><span>BHYT (1.5%)</span><b id="ktBhyt">0 đ</b></div>
+                    <div class="phieuluong-ketqua-row"><span>BHTN (1%)</span><b id="ktBhtn">0 đ</b></div>
+                </div>
+
+                <div class="phieuluong-ketqua-box">
+                    <div class="phieuluong-ketqua-label">Công thức tính Lương thực nhận</div>
+                    <div class="phieuluong-ketqua-row"><span>Tổng thu nhập</span><b id="ktTongThuNhap2">0 đ</b></div>
+                    <div class="phieuluong-ketqua-row phieuluong-ketqua-tru">
+                        <span>− Tổng khấu trừ</span><b id="ktTongKhauTruRef">0 đ</b>
+                    </div>
+                    <div class="phieuluong-ketqua-row">
+                        <span>= Thu nhập chịu thuế</span><b id="ktTncTthue">0 đ</b>
+                    </div>
+                    <div class="phieuluong-ketqua-row phieuluong-ketqua-cong">
+                        <span>+ Công tác phí</span><b id="ktCongTacPhi">0 đ</b>
+                    </div>
+                    <div class="phieuluong-ketqua-row phieuluong-ketqua-tru">
+                        <span>− Tạm ứng</span><b id="ktTamUng">0 đ</b>
+                    </div>
+                    <div class="phieuluong-ketqua-row phieuluong-ketqua-tru">
+                        <span>− Thuế TNCN (TNTT = <b id="ktTntt">0 đ</b>)</span><b id="ktThueTncn">0 đ</b>
+                    </div>
+                    <div class="phieuluong-ketqua-row phieuluong-ketqua-final">
+                        <span>= Lương thực nhận</span><b id="ktLuongThucNhan">0 đ</b>
                     </div>
                 </div>
 

@@ -15,6 +15,10 @@ function chonGiaoVien(id) {
     document.getElementById('pl_tong_so_gio').value = (data.tong_so_gio || 0) + ' giờ';
     document.getElementById('pl_don_gia').value = formatMoney(data.don_gia || 0) + ' đ/giờ';
 
+    const troCap = data.tro_cap || 0;
+    document.getElementById('pl_tro_cap').value = troCap;
+    document.getElementById('pl_tro_cap_display').value = formatMoney(troCap);
+
     ctvDonGiaHienTai = data.don_gia || 0;
     ctvSoGioHienTai = data.tong_so_gio || 0;
 
@@ -25,19 +29,25 @@ function chonGiaoVien(id) {
 }
 
 function ctvTinhLai() {
+    const troCap = parseInt(document.getElementById('pl_tro_cap').value, 10) || 0;
     const khauTru = parseInt(document.getElementById('pl_khau_tru').value, 10) || 0;
     const thanhTien = Math.round(ctvSoGioHienTai * ctvDonGiaHienTai);
-    const thucNhan = thanhTien - khauTru;
+    const thucNhan = thanhTien + troCap - khauTru;
 
     document.getElementById('ktThanhTien').textContent = formatMoney(thanhTien) + ' đ';
+    document.getElementById('ktTroCap').textContent = formatMoney(troCap) + ' đ';
+    document.getElementById('ktKhauTru').textContent = formatMoney(khauTru) + ' đ';
     document.getElementById('ktThucNhan').textContent = formatMoney(thucNhan) + ' đ';
 }
 
 document.addEventListener('DOMContentLoaded', function () {
     if (typeof attachMoneyFormatter !== 'function') return;
 
+    attachMoneyFormatter('pl_tro_cap_display', 'pl_tro_cap');
     attachMoneyFormatter('pl_khau_tru_display', 'pl_khau_tru');
 
-    const khauTruDisplay = document.getElementById('pl_khau_tru_display');
-    if (khauTruDisplay) khauTruDisplay.addEventListener('input', ctvTinhLai);
+    ['pl_tro_cap_display', 'pl_khau_tru_display'].forEach(function (id) {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', ctvTinhLai);
+    });
 });

@@ -54,12 +54,16 @@ class PhieuLuongCtvController extends Controller
                 ->whereBetween('ngay', [$dauThang, $cuoiThang])
                 ->whereNotNull('so_gio')
                 ->sum('so_gio');
+            $troCap = (int) ChamCongGiaoVien::where('giao_vien_id', $gv->id)
+                ->whereBetween('ngay', [$dauThang, $cuoiThang])
+                ->sum('ho_tro_xang_xe');
 
             return [$gv->id => [
                 'ho_ten' => $gv->ho_ten,
                 'ma_nhan_vien' => $gv->ma_nhan_vien,
                 'don_gia' => $gv->don_gia_gio,
                 'tong_so_gio' => (float) $tongGio,
+                'tro_cap' => $troCap,
             ]];
         });
 
@@ -83,6 +87,7 @@ class PhieuLuongCtvController extends Controller
         $donGia = $giaoVien->don_gia_gio ?? 0;
         $thanhTien = (int) round($tongSoGio * $donGia);
         $khauTru = (int) ($data['khau_tru'] ?? 0);
+        $troCap = (int) ($data['tro_cap'] ?? 0);
 
         PhieuLuongCtv::create([
             'giao_vien_id' => $giaoVien->id,
@@ -91,9 +96,10 @@ class PhieuLuongCtvController extends Controller
             'ma_nhan_vien_snapshot' => $giaoVien->ma_nhan_vien,
             'tong_so_gio' => $tongSoGio,
             'don_gia' => $donGia,
+            'tro_cap' => $data['tro_cap'] ?? null,
             'thanh_tien' => $thanhTien,
             'khau_tru' => $data['khau_tru'] ?? null,
-            'thuc_nhan' => $thanhTien - $khauTru,
+            'thuc_nhan' => $thanhTien + $troCap - $khauTru,
             'updated_by_user_id' => auth()->id(),
         ]);
 
@@ -112,10 +118,12 @@ class PhieuLuongCtvController extends Controller
     {
         $data = $request->validated();
         $khauTru = (int) ($data['khau_tru'] ?? 0);
+        $troCap = (int) ($data['tro_cap'] ?? 0);
 
         $phieu->update([
+            'tro_cap' => $data['tro_cap'] ?? null,
             'khau_tru' => $data['khau_tru'] ?? null,
-            'thuc_nhan' => $phieu->thanh_tien - $khauTru,
+            'thuc_nhan' => $phieu->thanh_tien + $troCap - $khauTru,
             'updated_by_user_id' => auth()->id(),
         ]);
 

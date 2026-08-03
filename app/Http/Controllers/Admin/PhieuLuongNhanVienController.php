@@ -59,6 +59,9 @@ class PhieuLuongNhanVienController extends Controller
             $soKhong = ChamCongGiaoVien::where('giao_vien_id', $gv->id)
                 ->whereBetween('ngay', [$dauThang, $cuoiThang])
                 ->where('co_di_lam', false)->count();
+            $troCap = (int) ChamCongGiaoVien::where('giao_vien_id', $gv->id)
+                ->whereBetween('ngay', [$dauThang, $cuoiThang])
+                ->sum('ho_tro_xang_xe');
 
             return [$gv->id => [
                 'ho_ten' => $gv->ho_ten,
@@ -66,26 +69,34 @@ class PhieuLuongNhanVienController extends Controller
                 'luong_co_ban' => $gv->luong_co_ban,
                 'so_ngay_co_luong' => $soCo,
                 'so_ngay_khong_luong' => $soKhong,
+                'tro_cap' => $troCap,
             ]];
         });
 
         return view('phieuluong.nhanvien.create', compact('giaoViens', 'thang', 'caiDat', 'duLieuGiaoVien'));
     }
 
-    private function tinhToan(array $d): array
+    private function tinhToan(array $d, int $luongCoBan): array
     {
-        $tongThuNhap = (int) ($d['tong_thu_nhap'] ?? 0);
+        $troCap = (int) ($d['tro_cap'] ?? 0);
+        $nangSuat = (int) ($d['nang_suat'] ?? 0);
+        $thuongKhac = (int) ($d['thuong_khac'] ?? 0);
         $tongKhauTru = (int) ($d['tong_khau_tru'] ?? 0);
         $congTacPhi = (int) ($d['cong_tac_phi'] ?? 0);
         $tamUng = (int) ($d['tam_ung'] ?? 0);
         $giamTru = (int) ($d['giam_tru_gia_canh'] ?? 0);
 
+        // Tổng thu nhập = Lương cơ bản + Trợ cấp + Năng suất + Thưởng khác (tự động tính, không nhập tay)
+        $tongThuNhap = $luongCoBan + $troCap + $nangSuat + $thuongKhac;
+
         $thuNhapChiuThue = $tongThuNhap - $tongKhauTru;
         $tntt = max(0, $thuNhapChiuThue - $giamTru);
         $thueTncn = ThueTNCN::tinh($tntt);
+        // Không cộng lại Trợ cấp ở đây nữa — đã nằm sẵn trong Tổng thu nhập ở trên, tránh tính trùng
         $luongThucNhan = $thuNhapChiuThue + $congTacPhi - $tamUng - $thueTncn;
 
         return [
+            'tong_thu_nhap' => $tongThuNhap,
             'thu_nhap_chiu_thue' => $thuNhapChiuThue,
             'tntt' => $tntt,
             'thue_tncn' => $thueTncn,
@@ -104,7 +115,7 @@ class PhieuLuongNhanVienController extends Controller
         $bhyt = (int) round($luongCoBan * 0.015);
         $bhtn = (int) round($luongCoBan * 0.01);
 
-        $tinh = $this->tinhToan($data);
+        $tinh = $this->tinhToan($data, $luongCoBan);
 
         PhieuLuongNhanVien::create([
             'giao_vien_id' => $giaoVien->id,
@@ -123,7 +134,6 @@ class PhieuLuongNhanVienController extends Controller
             'tro_cap' => $data['tro_cap'] ?? null,
             'nang_suat' => $data['nang_suat'] ?? null,
             'thuong_khac' => $data['thuong_khac'] ?? null,
-            'tong_thu_nhap' => $data['tong_thu_nhap'],
             'tong_khau_tru' => $data['tong_khau_tru'],
             'cong_tac_phi' => $data['cong_tac_phi'] ?? null,
             'tam_ung' => $data['tam_ung'] ?? null,
@@ -155,7 +165,7 @@ class PhieuLuongNhanVienController extends Controller
         $bhyt = (int) round($luongCoBan * 0.015);
         $bhtn = (int) round($luongCoBan * 0.01);
 
-        $tinh = $this->tinhToan($data);
+        $tinh = $this->tinhToan($data, $luongCoBan);
 
         $phieu->update([
             'ngay_chot' => $data['ngay_chot'] ?? null,
@@ -163,7 +173,6 @@ class PhieuLuongNhanVienController extends Controller
             'tro_cap' => $data['tro_cap'] ?? null,
             'nang_suat' => $data['nang_suat'] ?? null,
             'thuong_khac' => $data['thuong_khac'] ?? null,
-            'tong_thu_nhap' => $data['tong_thu_nhap'],
             'tong_khau_tru' => $data['tong_khau_tru'],
             'cong_tac_phi' => $data['cong_tac_phi'] ?? null,
             'tam_ung' => $data['tam_ung'] ?? null,

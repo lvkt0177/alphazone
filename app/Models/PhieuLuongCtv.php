@@ -19,6 +19,7 @@ class PhieuLuongCtv extends Model
         'ma_nhan_vien_snapshot',
         'tong_so_gio',
         'don_gia',
+        'tro_cap',
         'thanh_tien',
         'khau_tru',
         'thuc_nhan',

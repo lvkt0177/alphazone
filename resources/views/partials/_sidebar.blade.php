@@ -146,6 +146,8 @@
             </div>
         @endif
 
+        <div @class(['nav-label'])>Cấu hình</div>
+
         @if (hasQuyen('caidathocphi') || hasQuyen('caidattienluong'))
             <div @class([
                 'nav-group',

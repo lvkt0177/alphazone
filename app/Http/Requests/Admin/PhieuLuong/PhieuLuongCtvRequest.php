@@ -23,6 +23,7 @@ class PhieuLuongCtvRequest extends FormRequest
                 Rule::exists('giao_viens', 'id'),
             ],
             'thang' => ['required', 'date_format:Y-m'],
+            'tro_cap' => ['nullable', 'integer', 'min:0'],
             'khau_tru' => ['nullable', 'integer', 'min:0'],
         ];
     }

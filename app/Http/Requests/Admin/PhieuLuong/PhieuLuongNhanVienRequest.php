@@ -28,7 +28,6 @@ class PhieuLuongNhanVienRequest extends FormRequest
             'tro_cap' => ['nullable', 'integer', 'min:0'],
             'nang_suat' => ['nullable', 'integer', 'min:0'],
             'thuong_khac' => ['nullable', 'integer', 'min:0'],
-            'tong_thu_nhap' => ['required', 'integer', 'min:0'],
             'tong_khau_tru' => ['required', 'integer', 'min:0'],
             'cong_tac_phi' => ['nullable', 'integer', 'min:0'],
             'tam_ung' => ['nullable', 'integer', 'min:0'],
@@ -43,7 +42,6 @@ class PhieuLuongNhanVienRequest extends FormRequest
             'giao_vien_id.exists' => 'Giáo viên không hợp lệ.',
             'thang.required' => 'Vui lòng chọn tháng.',
             'thang.date_format' => 'Tháng không đúng định dạng.',
-            'tong_thu_nhap.required' => 'Vui lòng nhập Tổng thu nhập.',
             'tong_khau_tru.required' => 'Vui lòng nhập Tổng khấu trừ.',
         ];
     }

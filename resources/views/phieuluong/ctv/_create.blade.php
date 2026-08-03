@@ -56,6 +56,12 @@
                         <input type="text" id="pl_don_gia" readonly>
                     </div>
                     <div class="field">
+                        <label>Trợ cấp xăng xe (tự động cộng dồn từ Chấm công)</label>
+                        <input type="text" id="pl_tro_cap_display" inputmode="numeric" autocomplete="off"
+                            placeholder="0">
+                        <input type="hidden" name="tro_cap" id="pl_tro_cap">
+                    </div>
+                    <div class="field">
                         <label>Khấu trừ</label>
                         <input type="text" id="pl_khau_tru_display" inputmode="numeric" autocomplete="off"
                             placeholder="0">
@@ -67,8 +73,16 @@
                 </div>
 
                 <div class="phieuluong-ketqua-box">
-                    <div class="phieuluong-ketqua-row"><span>Thành tiền</span><b id="ktThanhTien">0 đ</b></div>
-                    <div class="phieuluong-ketqua-row phieuluong-ketqua-final"><span>Thực nhận</span><b
+                    <div class="phieuluong-ketqua-label">Công thức tính Thực nhận</div>
+                    <div class="phieuluong-ketqua-row"><span>Thành tiền (= Số giờ × Đơn giá)</span><b
+                            id="ktThanhTien">0 đ</b></div>
+                    <div class="phieuluong-ketqua-row phieuluong-ketqua-cong">
+                        <span>+ Trợ cấp xăng xe</span><b id="ktTroCap">0 đ</b>
+                    </div>
+                    <div class="phieuluong-ketqua-row phieuluong-ketqua-tru">
+                        <span>− Khấu trừ</span><b id="ktKhauTru">0 đ</b>
+                    </div>
+                    <div class="phieuluong-ketqua-row phieuluong-ketqua-final"><span>= Thực nhận</span><b
                             id="ktThucNhan">0 đ</b></div>
                 </div>
 

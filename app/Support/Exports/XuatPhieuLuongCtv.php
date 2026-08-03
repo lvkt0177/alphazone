@@ -18,7 +18,7 @@ class XuatPhieuLuongCtv
         $sheet->setTitle('Thang '.$thang->format('m-Y'));
 
         $sheet->setCellValue('A1', 'BẢNG THANH TOÁN TIỀN THUÊ CỘNG TÁC VIÊN');
-        $sheet->mergeCells('A1:I1');
+        $sheet->mergeCells('A1:J1');
         $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(13);
         $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
@@ -34,13 +34,13 @@ class XuatPhieuLuongCtv
 
         $tieuDe = ['A' => 'STT', 'B' => 'Họ và tên người được thuê', 'C' => 'Địa chỉ/CMND',
             'D' => 'Nội dung công việc', 'E' => 'Số giờ', 'F' => 'Đơn giá', 'G' => 'Thành tiền',
-            'H' => 'Khấu trừ', 'I' => 'Thực nhận', 'J' => 'Ký nhận'];
+            'H' => 'Trợ cấp', 'I' => 'Khấu trừ', 'J' => 'Thực nhận', 'K' => 'Ký nhận'];
         foreach ($tieuDe as $col => $ten) {
             $sheet->setCellValue($col.'8', $ten);
         }
-        $sheet->getStyle('A8:J8')->getFont()->setBold(true);
-        $sheet->getStyle('A8:J8')->getAlignment()->setWrapText(true)->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A8:J8')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+        $sheet->getStyle('A8:K8')->getFont()->setBold(true);
+        $sheet->getStyle('A8:K8')->getAlignment()->setWrapText(true)->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A8:K8')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
 
         $row = 9;
         $stt = 1;
@@ -52,8 +52,9 @@ class XuatPhieuLuongCtv
             $sheet->setCellValue('E'.$row, $p->tong_so_gio);
             $sheet->setCellValue('F'.$row, $p->don_gia);
             $sheet->setCellValue('G'.$row, "=E{$row}*F{$row}");
-            $sheet->setCellValue('H'.$row, $p->khau_tru);
-            $sheet->setCellValue('I'.$row, "=G{$row}-H{$row}");
+            $sheet->setCellValue('H'.$row, $p->tro_cap);
+            $sheet->setCellValue('I'.$row, $p->khau_tru);
+            $sheet->setCellValue('J'.$row, "=G{$row}+H{$row}-I{$row}");
 
             $row++;
             $stt++;
@@ -64,13 +65,13 @@ class XuatPhieuLuongCtv
         $sheet->mergeCells('A'.$row.':D'.$row);
 
         if ($dongDauCuoi >= 9) {
-            foreach (['E', 'F', 'G', 'H', 'I'] as $col) {
+            foreach (['E', 'F', 'G', 'H', 'I', 'J'] as $col) {
                 $sheet->setCellValue($col.$row, "=SUM({$col}9:{$col}{$dongDauCuoi})");
             }
         }
 
-        $sheet->getStyle('A9:J'.$row)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
-        foreach (['F', 'G', 'H', 'I'] as $col) {
+        $sheet->getStyle('A9:K'.$row)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+        foreach (['F', 'G', 'H', 'I', 'J'] as $col) {
             $sheet->getStyle($col.'9:'.$col.$row)->getNumberFormat()->setFormatCode('#,##0');
         }
 
@@ -78,7 +79,7 @@ class XuatPhieuLuongCtv
         $sheet->getColumnDimension('B')->setWidth(22);
         $sheet->getColumnDimension('C')->setWidth(16);
         $sheet->getColumnDimension('D')->setWidth(18);
-        foreach (['E', 'F', 'G', 'H', 'I', 'J'] as $col) {
+        foreach (['E', 'F', 'G', 'H', 'I', 'J', 'K'] as $col) {
             $sheet->getColumnDimension($col)->setWidth(13);
         }
 
