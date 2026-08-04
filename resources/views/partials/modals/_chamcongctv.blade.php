@@ -11,6 +11,7 @@
         <form id="chamCongCtvForm" method="POST">
             @csrf
             <input type="hidden" name="ngay" id="cc_ngay">
+            <input type="hidden" name="_editing_id" id="ccEditingId">
 
             <div class="modal-body">
                 <div class="form-grid full">

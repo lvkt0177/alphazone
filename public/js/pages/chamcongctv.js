@@ -9,6 +9,8 @@ function formatNgayHienThi(ngay) {
 function openChamCongCtvModal(id, hoTen, ngay, donGia, soGio, hoTro, ghiChu, postUrl, deleteUrl, daTonTai) {
     ccDonGiaHienTai = donGia || 0;
 
+    document.getElementById('ccEditingId').value = id || '';
+
     document.getElementById('ccModalTitle').textContent = (daTonTai ? 'Chỉnh sửa chấm công — ' : 'Chấm công — ') + hoTen;
     document.getElementById('ccModalNgay').textContent = 'Ngày ' + formatNgayHienThi(ngay);
 

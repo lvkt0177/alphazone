@@ -54,9 +54,11 @@
                 @endphp
                 <tr>
                     <td>{{ $gv->ho_ten }}</td>
-                    <td>{{ $rec && $rec->so_gio !== null ? rtrim(rtrim(number_format($rec->so_gio, 1), '0'), '.') : '—' }}</td>
+                    <td>{{ $rec && $rec->so_gio !== null ? rtrim(rtrim(number_format($rec->so_gio, 1), '0'), '.') : '—' }}
+                    </td>
                     <td>{{ $soTien !== null ? number_format($soTien, 0, ',', '.') . ' đ' : '—' }}</td>
-                    <td>{{ $rec && $rec->ho_tro_xang_xe !== null ? number_format($rec->ho_tro_xang_xe, 0, ',', '.') . ' đ' : '—' }}</td>
+                    <td>{{ $rec && $rec->ho_tro_xang_xe !== null ? number_format($rec->ho_tro_xang_xe, 0, ',', '.') . ' đ' : '—' }}
+                    </td>
                     <td>{{ $rec->ghi_chu ?? '—' }}</td>
                     <td class="chamcong-ctv-action">
                         @if ($donGia === null)
@@ -82,5 +84,30 @@
         </tbody>
     </table>
 </div>
+
+@if ($errors->any() && old('_editing_id'))
+    @php
+        $ccErrGv = $ctvs->firstWhere('id', (int) old('_editing_id'));
+        $ccErrRec = $ccErrGv ? $existing->get($ccErrGv->id) : null;
+    @endphp
+    @if ($ccErrGv)
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                openChamCongCtvModal(
+                    {{ $ccErrGv->id }},
+                    {{ Js::from($ccErrGv->ho_ten) }},
+                    {{ Js::from($ngay) }},
+                    {{ $ccErrGv->don_gia_gio ?? 0 }},
+                    {{ Js::from(old('so_gio', $ccErrRec?->so_gio)) }},
+                    {{ Js::from(old('ho_tro_xang_xe', $ccErrRec?->ho_tro_xang_xe)) }},
+                    {{ Js::from(old('ghi_chu', $ccErrRec?->ghi_chu)) }},
+                    {{ Js::from(route('chamcong.ctv.luu', $ccErrGv)) }},
+                    {{ Js::from(route('chamcong.ctv.xoa', $ccErrGv)) }},
+                    {{ $ccErrRec ? 'true' : 'false' }}
+                );
+            });
+        </script>
+    @endif
+@endif
 
 @include('partials.modals._chamcongctv')
