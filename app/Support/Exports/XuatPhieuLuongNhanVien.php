@@ -18,7 +18,7 @@ class XuatPhieuLuongNhanVien
         $sheet->setTitle('Thang '.$thang->format('m-Y'));
 
         $sheet->setCellValue('A1', 'BẢNG LƯƠNG THÁNG '.$thang->format('m/Y'));
-        $sheet->mergeCells('A1:V1');
+        $sheet->mergeCells('A1:U1');
         $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
         $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
@@ -27,8 +27,8 @@ class XuatPhieuLuongNhanVien
             'G' => "Lương cơ bản\n(VND)", 'H' => "Trợ cấp\n(VND)", 'I' => 'Năng suất công việc',
             'J' => "Thưởng khác\n(VND)", 'K' => 'Tổng Thu nhập', 'L' => 'BHXH (8%)', 'M' => 'BHYT (1,5%)',
             'N' => 'BHTN (1%)', 'O' => 'Tổng khấu trừ', 'P' => 'Công tác phí', 'Q' => 'Tạm ứng',
-            'R' => 'Thu nhập chịu thuế', 'S' => 'Giảm trừ gia cảnh', 'T' => 'TNTT', 'U' => 'Thuế TNCN',
-            'V' => "Lương thực nhận\n(VND)",
+            'R' => 'Thu nhập chịu thuế', 'S' => 'Giảm trừ gia cảnh', 'T' => 'Thuế TNCN',
+            'U' => "Lương thực nhận\n(VND)",
         ];
         foreach ($tieuDe as $col => $ten) {
             $sheet->setCellValue($col.'2', $ten);
@@ -37,17 +37,17 @@ class XuatPhieuLuongNhanVien
         $sheet->setCellValue('E3', "lương\n(P)");
         $sheet->setCellValue('F3', "không lương\n(k)");
 
-        foreach (['A', 'B', 'C', 'D', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'] as $col) {
+        foreach (['A', 'B', 'C', 'D', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U'] as $col) {
             $sheet->mergeCells($col.'2:'.$col.'4');
         }
         $sheet->mergeCells('E2:F2');
         $sheet->mergeCells('E3:E4');
         $sheet->mergeCells('F3:F4');
 
-        $sheet->getStyle('A2:V4')->getFont()->setBold(true);
-        $sheet->getStyle('A2:V4')->getAlignment()->setWrapText(true)
+        $sheet->getStyle('A2:U4')->getFont()->setBold(true);
+        $sheet->getStyle('A2:U4')->getAlignment()->setWrapText(true)
             ->setHorizontal(Alignment::HORIZONTAL_CENTER)->setVertical(Alignment::VERTICAL_CENTER);
-        $sheet->getStyle('A2:V4')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+        $sheet->getStyle('A2:U4')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
 
         $row = 5;
         $stt = 1;
@@ -73,9 +73,8 @@ class XuatPhieuLuongNhanVien
             $sheet->setCellValue('Q'.$row, $p->tam_ung);
             $sheet->setCellValue('R'.$row, $p->thu_nhap_chiu_thue);
             $sheet->setCellValue('S'.$row, $p->giam_tru_gia_canh);
-            $sheet->setCellValue('T'.$row, $p->tntt);
-            $sheet->setCellValue('U'.$row, $p->thue_tncn);
-            $sheet->setCellValue('V'.$row, $p->luong_thuc_nhan);
+            $sheet->setCellValue('T'.$row, $p->thue_tncn);
+            $sheet->setCellValue('U'.$row, $p->luong_thuc_nhan);
 
             $row++;
             $stt++;
@@ -86,14 +85,28 @@ class XuatPhieuLuongNhanVien
         $sheet->mergeCells('A'.$row.':C'.$row);
 
         if ($dongDauCuoi >= 5) {
-            foreach (['D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'] as $col) {
-                $sheet->setCellValue($col.$row, "=SUM({$col}5:{$col}{$dongDauCuoi})");
+            $tongCols = ['D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U'];
+            $truongTheoCot = [
+                'D' => null, 'E' => 'so_ngay_co_luong', 'F' => 'so_ngay_khong_luong',
+                'G' => 'luong_co_ban', 'H' => 'tro_cap', 'I' => 'nang_suat', 'J' => 'thuong_khac',
+                'K' => 'tong_thu_nhap', 'L' => 'bhxh', 'M' => 'bhyt', 'N' => 'bhtn', 'O' => 'tong_khau_tru',
+                'P' => 'cong_tac_phi', 'Q' => 'tam_ung', 'R' => 'thu_nhap_chiu_thue', 'S' => 'giam_tru_gia_canh',
+                'T' => 'thue_tncn', 'U' => 'luong_thuc_nhan',
+            ];
+
+            foreach ($tongCols as $col) {
+                if ($col === 'D') {
+                    $tong = $phieus->sum(fn ($p) => $p->ngay_cong_chuan ?? (($p->so_ngay_co_luong ?? 0) + ($p->so_ngay_khong_luong ?? 0)));
+                } else {
+                    $tong = $phieus->sum($truongTheoCot[$col]);
+                }
+                $sheet->setCellValue($col.$row, $tong);
             }
         }
 
-        $sheet->getStyle('A5:V'.$row)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+        $sheet->getStyle('A5:U'.$row)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
 
-        $tienCols = ['G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'];
+        $tienCols = ['G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U'];
         foreach ($tienCols as $col) {
             $sheet->getStyle($col.'5:'.$col.$row)->getNumberFormat()->setFormatCode('#,##0');
         }
@@ -103,7 +116,7 @@ class XuatPhieuLuongNhanVien
         foreach (['D', 'E', 'F'] as $col) {
             $sheet->getColumnDimension($col)->setWidth(10);
         }
-        foreach (['G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'] as $col) {
+        foreach (['G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U'] as $col) {
             $sheet->getColumnDimension($col)->setWidth(14);
         }
 

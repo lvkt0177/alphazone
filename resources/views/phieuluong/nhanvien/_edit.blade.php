@@ -14,7 +14,7 @@
         @method('PUT')
         <input type="hidden" name="thang" value="{{ $thang->format('Y-m') }}">
 
-        <div class="form-grid full">
+        <div class="form-row-3">
             <div class="field">
                 <label>Tên</label>
                 <input type="text" value="{{ $phieu->ho_ten_snapshot }}" readonly>
@@ -28,6 +28,9 @@
                 <input type="text" id="pl_luong_co_ban"
                     value="{{ number_format($phieu->luong_co_ban, 0, ',', '.') }} đ" readonly>
             </div>
+        </div>
+
+        <div class="form-row-3 mt-3">
             <div class="field">
                 <label>Ngày công (đã chốt lúc tạo phiếu)</label>
                 <input type="text"
@@ -50,7 +53,9 @@
                     <div class="badge red phieuluong-field-error">{{ $message }}</div>
                 @enderror
             </div>
+        </div>
 
+        <div class="form-row-3 mt-3">
             <div class="field">
                 <label>Trợ cấp xăng xe, điện thoại (tự động cộng dồn từ Chấm công)</label>
                 <input type="text" id="pl_tro_cap_display" inputmode="numeric" autocomplete="off"
@@ -69,16 +74,9 @@
                     value="{{ number_format($phieu->thuong_khac ?? 0, 0, ',', '.') }}">
                 <input type="hidden" name="thuong_khac" id="pl_thuong_khac" value="{{ $phieu->thuong_khac }}">
             </div>
+        </div>
 
-            <div class="field">
-                <label>Tổng khấu trừ (Bảo hiểm...) <span class="phieuluong-required">*</span></label>
-                <input type="text" id="pl_tong_khau_tru_display" inputmode="numeric" autocomplete="off"
-                    value="{{ number_format($phieu->tong_khau_tru, 0, ',', '.') }}">
-                <input type="hidden" name="tong_khau_tru" id="pl_tong_khau_tru" value="{{ $phieu->tong_khau_tru }}">
-                @error('tong_khau_tru')
-                    <div class="badge red phieuluong-field-error">{{ $message }}</div>
-                @enderror
-            </div>
+        <div class="form-row-3 mt-3">
             <div class="field">
                 <label>Công tác phí</label>
                 <input type="text" id="pl_cong_tac_phi_display" inputmode="numeric" autocomplete="off"
@@ -98,15 +96,17 @@
                 <input type="hidden" name="giam_tru_gia_canh" id="pl_giam_tru"
                     value="{{ $phieu->giam_tru_gia_canh }}">
             </div>
+        </div>
+
+        <div class="form-grid full mt-3">
             <div class="field">
-                <label>Thuế TNCN</label>
+                <label>Thuế TNCN (tự nhập)</label>
                 <input type="text" id="pl_thue_tncn_display" inputmode="numeric" autocomplete="off"
                     value="{{ number_format($phieu->thue_tncn ?? 0, 0, ',', '.') }}">
                 <input type="hidden" name="thue_tncn" id="pl_thue_tncn" value="{{ $phieu->thue_tncn }}">
                 @error('thue_tncn')
                     <div class="badge red phieuluong-field-error">{{ $message }}</div>
                 @enderror
-                {{-- <div class="text-2 phieuluong-goi-y" id="plGoiYThueTncn"></div> --}}
             </div>
         </div>
 
@@ -133,26 +133,34 @@
             <div class="phieuluong-ketqua-row"><span>BHXH (8%)</span><b id="ktBhxh">0 đ</b></div>
             <div class="phieuluong-ketqua-row"><span>BHYT (1.5%)</span><b id="ktBhyt">0 đ</b></div>
             <div class="phieuluong-ketqua-row"><span>BHTN (1%)</span><b id="ktBhtn">0 đ</b></div>
+            <div class="phieuluong-ketqua-row phieuluong-ketqua-final">
+                <span>= Tổng khấu trừ</span><b id="ktTongKhauTru">0 đ</b>
+            </div>
         </div>
 
         <div class="phieuluong-ketqua-box">
-            <div class="phieuluong-ketqua-label">Công thức tính Lương thực nhận</div>
+            <div class="phieuluong-ketqua-label">Thu nhập chịu thuế = Tổng thu nhập − Tổng khấu trừ − Tạm ứng +
+                Công tác phí</div>
             <div class="phieuluong-ketqua-row"><span>Tổng thu nhập</span><b id="ktTongThuNhap2">0 đ</b></div>
             <div class="phieuluong-ketqua-row phieuluong-ketqua-tru">
-                <span>− Tổng khấu trừ</span><b id="ktTongKhauTruRef">0 đ</b>
+                <span>− Tổng khấu trừ (Bảo hiểm)</span><b id="ktTongKhauTruRef">0 đ</b>
             </div>
-            <div class="phieuluong-ketqua-row">
-                <span>= Thu nhập chịu thuế</span><b id="ktTncTthue">0 đ</b>
+            <div class="phieuluong-ketqua-row phieuluong-ketqua-tru">
+                <span>− Tạm ứng</span><b id="ktTamUngRef">0 đ</b>
             </div>
             <div class="phieuluong-ketqua-row phieuluong-ketqua-cong">
-                <span>+ Công tác phí</span><b id="ktCongTacPhi">0 đ</b>
+                <span>+ Công tác phí</span><b id="ktCongTacPhiRef">0 đ</b>
             </div>
-            <div class="phieuluong-ketqua-row phieuluong-ketqua-tru">
-                <span>− Tạm ứng</span><b id="ktTamUng">0 đ</b>
+            <div class="phieuluong-ketqua-row phieuluong-ketqua-final">
+                <span>= Thu nhập chịu thuế</span><b id="ktTncTthue">0 đ</b>
             </div>
+        </div>
+
+        <div class="phieuluong-ketqua-box">
+            <div class="phieuluong-ketqua-label">Lương thực nhận = Thu nhập chịu thuế − Thuế TNCN</div>
+            <div class="phieuluong-ketqua-row"><span>Thu nhập chịu thuế</span><b id="ktTncTthue2">0 đ</b></div>
             <div class="phieuluong-ketqua-row phieuluong-ketqua-tru">
-                <span>− Thuế TNCN</span><b id="ktThueTncn">0
-                    đ</b>
+                <span>− Thuế TNCN</span><b id="ktThueTncn">0 đ</b>
             </div>
             <div class="phieuluong-ketqua-row phieuluong-ketqua-final">
                 <span>= Lương thực nhận</span><b id="ktLuongThucNhan">0 đ</b>

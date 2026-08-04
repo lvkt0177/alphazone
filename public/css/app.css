@@ -881,6 +881,12 @@ tbody tr:hover {
   grid-template-columns: 1fr;
 }
 
+.form-row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px 24px;
+}
+
 .field label {
   display: block;
   font-weight: 600;
@@ -1269,7 +1275,8 @@ textarea.note-input:focus {
     display: none;
   }
 
-  .form-grid {
+  .form-grid,
+  .form-row-3 {
     grid-template-columns: 1fr;
   }
 

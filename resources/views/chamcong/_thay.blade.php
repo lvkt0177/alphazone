@@ -44,7 +44,7 @@
                 <tr>
                     <th>Thầy phụ trách</th>
                     <th>Có đi làm</th>
-                    <th>Hỗ trợ xăng xe</th>
+                    {{-- <th>Hỗ trợ xăng xe</th> --}}
                     <th>Ghi chú</th>
                 </tr>
             </thead>
@@ -65,13 +65,13 @@
                                     onclick="chonCoKhong({{ $gv->id }}, '0')">Không</button>
                             </div>
                         </td>
-                        <td>
+                        {{-- <td>
                             <input type="text" id="htx_display_{{ $gv->id }}" class="chamcong-hotro-input"
                                 inputmode="numeric" autocomplete="off" placeholder="0"
                                 value="{{ $rec && $rec->ho_tro_xang_xe !== null ? number_format($rec->ho_tro_xang_xe, 0, ',', '.') : '' }}">
                             <input type="hidden" name="rows[{{ $gv->id }}][ho_tro_xang_xe]" id="htx_{{ $gv->id }}"
                                 value="{{ $rec->ho_tro_xang_xe ?? '' }}">
-                        </td>
+                        </td> --}}
                         <td>
                             <input type="text" name="rows[{{ $gv->id }}][ghi_chu]" class="chamcong-ghichu-input"
                                 value="{{ $rec->ghi_chu ?? '' }}" placeholder="Tuỳ chọn...">

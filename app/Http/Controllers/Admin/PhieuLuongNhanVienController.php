@@ -75,31 +75,29 @@ class PhieuLuongNhanVienController extends Controller
         return view('phieuluong.nhanvien.create', compact('giaoViens', 'thang', 'caiDat', 'duLieuGiaoVien'));
     }
 
-    private function tinhToan(array $d, int $luongCoBan): array
+    private function tinhToan(array $d, int $luongCoBan, int $tongKhauTru): array
     {
         $troCap = (int) ($d['tro_cap'] ?? 0);
         $nangSuat = (int) ($d['nang_suat'] ?? 0);
         $thuongKhac = (int) ($d['thuong_khac'] ?? 0);
-        $tongKhauTru = (int) ($d['tong_khau_tru'] ?? 0);
         $congTacPhi = (int) ($d['cong_tac_phi'] ?? 0);
         $tamUng = (int) ($d['tam_ung'] ?? 0);
-        $giamTru = (int) ($d['giam_tru_gia_canh'] ?? 0);
+        // Thuế TNCN nhập tay hoàn toàn — không còn gợi ý tự động, admin tự quyết định
+        $thueTncn = (int) ($d['thue_tncn'] ?? 0);
 
-        // Tổng thu nhập = Lương cơ bản + Trợ cấp + Năng suất + Thưởng khác (tự động tính, không nhập tay)
+        // Tổng thu nhập = Lương cơ bản + Trợ cấp + Năng suất + Thưởng khác
         $tongThuNhap = $luongCoBan + $troCap + $nangSuat + $thuongKhac;
 
-        $thuNhapChiuThue = $tongThuNhap - $tongKhauTru;
-        $tntt = max(0, $thuNhapChiuThue - $giamTru);
-        // Thuế TNCN nhập tay (có gợi ý theo biểu 5 bậc ở giao diện) — không ép tính cứng ở server,
-        // vì admin có thể cần điều chỉnh theo tình huống thực tế (quyết toán cuối năm, khấu trừ khác...)
-        $thueTncn = (int) ($d['thue_tncn'] ?? 0);
-        // Không cộng lại Trợ cấp ở đây nữa — đã nằm sẵn trong Tổng thu nhập ở trên, tránh tính trùng
-        $luongThucNhan = $thuNhapChiuThue + $congTacPhi - $tamUng - $thueTncn;
+        // Thu nhập chịu thuế = Tổng thu nhập - Tổng khấu trừ (BHXH+BHYT+BHTN) - Tạm ứng + Công tác phí
+        $thuNhapChiuThue = $tongThuNhap - $tongKhauTru - $tamUng + $congTacPhi;
+
+        // Lương thực nhận = Thu nhập chịu thuế - Thuế TNCN
+        $luongThucNhan = $thuNhapChiuThue - $thueTncn;
 
         return [
             'tong_thu_nhap' => $tongThuNhap,
+            'tong_khau_tru' => $tongKhauTru,
             'thu_nhap_chiu_thue' => $thuNhapChiuThue,
-            'tntt' => $tntt,
             'thue_tncn' => $thueTncn,
             'luong_thuc_nhan' => $luongThucNhan,
         ];
@@ -115,8 +113,9 @@ class PhieuLuongNhanVienController extends Controller
         $bhxh = (int) round($luongCoBan * 0.08);
         $bhyt = (int) round($luongCoBan * 0.015);
         $bhtn = (int) round($luongCoBan * 0.01);
+        $tongKhauTru = $bhxh + $bhyt + $bhtn;
 
-        $tinh = $this->tinhToan($data, $luongCoBan);
+        $tinh = $this->tinhToan($data, $luongCoBan, $tongKhauTru);
 
         PhieuLuongNhanVien::create([
             'giao_vien_id' => $giaoVien->id,
@@ -135,7 +134,6 @@ class PhieuLuongNhanVienController extends Controller
             'tro_cap' => $data['tro_cap'] ?? null,
             'nang_suat' => $data['nang_suat'] ?? null,
             'thuong_khac' => $data['thuong_khac'] ?? null,
-            'tong_khau_tru' => $data['tong_khau_tru'],
             'cong_tac_phi' => $data['cong_tac_phi'] ?? null,
             'tam_ung' => $data['tam_ung'] ?? null,
             'giam_tru_gia_canh' => $data['giam_tru_gia_canh'] ?? null,
@@ -165,8 +163,9 @@ class PhieuLuongNhanVienController extends Controller
         $bhxh = (int) round($luongCoBan * 0.08);
         $bhyt = (int) round($luongCoBan * 0.015);
         $bhtn = (int) round($luongCoBan * 0.01);
+        $tongKhauTru = $bhxh + $bhyt + $bhtn;
 
-        $tinh = $this->tinhToan($data, $luongCoBan);
+        $tinh = $this->tinhToan($data, $luongCoBan, $tongKhauTru);
 
         $phieu->update([
             'ngay_chot' => $data['ngay_chot'] ?? null,
@@ -174,7 +173,6 @@ class PhieuLuongNhanVienController extends Controller
             'tro_cap' => $data['tro_cap'] ?? null,
             'nang_suat' => $data['nang_suat'] ?? null,
             'thuong_khac' => $data['thuong_khac'] ?? null,
-            'tong_khau_tru' => $data['tong_khau_tru'],
             'cong_tac_phi' => $data['cong_tac_phi'] ?? null,
             'tam_ung' => $data['tam_ung'] ?? null,
             'giam_tru_gia_canh' => $data['giam_tru_gia_canh'] ?? null,
