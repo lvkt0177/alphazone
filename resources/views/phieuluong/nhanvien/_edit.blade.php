@@ -39,7 +39,7 @@
             </div>
             <div class="field">
                 <label>Ngày công chuẩn / tháng</label>
-                <input type="number" name="ngay_cong_chuan" min="1" max="31"
+                <input type="number" name="ngay_cong_chuan" id="pl_ngay_cong_chuan" min="1" max="31"
                     value="{{ old('ngay_cong_chuan', $phieu->ngay_cong_chuan) }}">
                 @error('ngay_cong_chuan')
                     <div class="badge red phieuluong-field-error">{{ $message }}</div>
@@ -57,7 +57,7 @@
 
         <div class="form-row-3 mt-3">
             <div class="field">
-                <label>Trợ cấp xăng xe, điện thoại (tự động cộng dồn từ Chấm công)</label>
+                <label>Trợ cấp xăng xe, điện thoại</label>
                 <input type="text" id="pl_tro_cap_display" inputmode="numeric" autocomplete="off"
                     value="{{ number_format($phieu->tro_cap ?? 0, 0, ',', '.') }}">
                 <input type="hidden" name="tro_cap" id="pl_tro_cap" value="{{ $phieu->tro_cap }}">
@@ -112,7 +112,7 @@
 
         <div class="phieuluong-ketqua-box mt-3">
             <div class="phieuluong-ketqua-label">Tổng thu nhập = Lương cơ bản + Trợ cấp + Năng suất + Thưởng khác
-                (tự động)</div>
+                − Trừ ngày công thiếu</div>
             <div class="phieuluong-ketqua-row"><span>Lương cơ bản</span><b id="ktLuongCoBanRef">0 đ</b></div>
             <div class="phieuluong-ketqua-row phieuluong-ketqua-cong">
                 <span>+ Trợ cấp xăng xe</span><b id="ktTroCap">0 đ</b>
@@ -122,6 +122,9 @@
             </div>
             <div class="phieuluong-ketqua-row phieuluong-ketqua-cong">
                 <span>+ Thưởng khác</span><b id="ktThuongKhac">0 đ</b>
+            </div>
+            <div class="phieuluong-ketqua-row phieuluong-ketqua-tru">
+                <span>− Trừ ngày công thiếu</span><b id="ktTruNgayThieu">0 đ</b>
             </div>
             <div class="phieuluong-ketqua-row phieuluong-ketqua-final">
                 <span>= Tổng thu nhập</span><b id="ktTongThuNhap">0 đ</b>
@@ -139,14 +142,14 @@
         </div>
 
         <div class="phieuluong-ketqua-box">
-            <div class="phieuluong-ketqua-label">Thu nhập chịu thuế = Tổng thu nhập − Tổng khấu trừ − Tạm ứng +
+            <div class="phieuluong-ketqua-label">Thu nhập chịu thuế = Tổng thu nhập − Tổng khấu trừ + Tạm ứng +
                 Công tác phí</div>
             <div class="phieuluong-ketqua-row"><span>Tổng thu nhập</span><b id="ktTongThuNhap2">0 đ</b></div>
             <div class="phieuluong-ketqua-row phieuluong-ketqua-tru">
                 <span>− Tổng khấu trừ (Bảo hiểm)</span><b id="ktTongKhauTruRef">0 đ</b>
             </div>
-            <div class="phieuluong-ketqua-row phieuluong-ketqua-tru">
-                <span>− Tạm ứng</span><b id="ktTamUngRef">0 đ</b>
+            <div class="phieuluong-ketqua-row phieuluong-ketqua-cong">
+                <span>+ Tạm ứng</span><b id="ktTamUngRef">0 đ</b>
             </div>
             <div class="phieuluong-ketqua-row phieuluong-ketqua-cong">
                 <span>+ Công tác phí</span><b id="ktCongTacPhiRef">0 đ</b>
@@ -176,6 +179,8 @@
 </div>
 
 <script>
+    window.__plSoNgayCoLuongHienTai = {{ $phieu->so_ngay_co_luong }};
+    window.__plTienTru1Ngay = {{ $caiDat->tien_tru_1_ngay }};
     document.addEventListener('DOMContentLoaded', function() {
         tinhLai();
     });

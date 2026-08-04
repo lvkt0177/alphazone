@@ -3,6 +3,8 @@ function layGiaTri(hiddenId) {
     return el ? (parseInt(el.value, 10) || 0) : 0;
 }
 
+// An toàn hơn document.getElementById(id).textContent = ... — không crash nếu HTML thiếu phần tử này
+// (ví dụ do cache trình duyệt cũ, hoặc lệch giữa bản JS/blade khi copy)
 function ganText(id, text) {
     const el = document.getElementById(id);
     if (el) el.textContent = text;
@@ -28,31 +30,17 @@ function chonGiaoVien(id) {
         ngayCongChuanInput.value = window.__plNgayCongToiThieu || '';
     }
 
-    const troCap = data.tro_cap || 0;
-    document.getElementById('pl_tro_cap').value = troCap;
-    document.getElementById('pl_tro_cap_display').value = formatMoney(troCap);
+    // Trợ cấp nhập tay hoàn toàn — không lấy từ Chấm công nữa, xoá trắng khi đổi giáo viên
+    document.getElementById('pl_tro_cap').value = '';
+    document.getElementById('pl_tro_cap_display').value = '';
+
+    // Lưu lại số ngày có lương thực tế của giáo viên đang chọn để tính trừ ngày công thiếu
+    window.__plSoNgayCoLuongHienTai = data.so_ngay_co_luong || 0;
 
     document.getElementById('chuaChonHint').style.display = 'none';
     document.getElementById('formBody').style.display = '';
 
-    capNhatGoiYTruNgay(data.so_ngay_co_luong);
     tinhLai();
-}
-
-function capNhatGoiYTruNgay(soNgayCoLuong) {
-    const toiThieu = window.__plNgayCongToiThieu || 0;
-    const tienTru = window.__plTienTru1Ngay || 0;
-    const el = document.getElementById('plGoiYTruNgay');
-    if (!el) return;
-
-    if (soNgayCoLuong < toiThieu && tienTru > 0) {
-        const soNgayThieu = toiThieu - soNgayCoLuong;
-        const soTien = soNgayThieu * tienTru;
-        el.textContent = 'Thiếu ' + soNgayThieu + ' ngày × ' + formatMoney(tienTru) + 'đ = ' +
-            formatMoney(soTien) + 'đ';
-    } else {
-        el.textContent = '';
-    }
 }
 
 function tinhLai() {
@@ -71,9 +59,16 @@ function tinhLai() {
     const tamUng = layGiaTri('pl_tam_ung');
     const thueTncn = layGiaTri('pl_thue_tncn');
 
-    const tongThuNhap = luongCoBan + troCap + nangSuat + thuongKhac;
+    const ngayCongChuanEl = document.getElementById('pl_ngay_cong_chuan');
+    const ngayCongChuan = ngayCongChuanEl ? (parseInt(ngayCongChuanEl.value, 10) || 0) : 0;
+    const soNgayCoLuong = window.__plSoNgayCoLuongHienTai || 0;
+    const tienTru1Ngay = window.__plTienTru1Ngay || 0;
+    const soNgayThieu = Math.max(0, ngayCongChuan - soNgayCoLuong);
+    const truNgayThieu = soNgayThieu * tienTru1Ngay;
 
-    const thuNhapChiuThue = tongThuNhap - tongKhauTru - tamUng + congTacPhi;
+    const tongThuNhap = luongCoBan + troCap + nangSuat + thuongKhac - truNgayThieu;
+
+    const thuNhapChiuThue = tongThuNhap - tongKhauTru + tamUng + congTacPhi;
 
     const luongThucNhan = thuNhapChiuThue - thueTncn;
 
@@ -81,6 +76,7 @@ function tinhLai() {
     ganText('ktTroCap', formatMoney(troCap) + ' đ');
     ganText('ktNangSuat', formatMoney(nangSuat) + ' đ');
     ganText('ktThuongKhac', formatMoney(thuongKhac) + ' đ');
+    ganText('ktTruNgayThieu', formatMoney(truNgayThieu) + ' đ' + (soNgayThieu > 0 ? ' (' + soNgayThieu + ' ngày)' : ''));
     ganText('ktTongThuNhap', formatMoney(tongThuNhap) + ' đ');
 
     ganText('ktBhxh', formatMoney(bhxh) + ' đ');
@@ -115,4 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const el = document.getElementById(id);
         if (el) el.addEventListener('input', tinhLai);
     });
+
+    const ngayCongChuanEl = document.getElementById('pl_ngay_cong_chuan');
+    if (ngayCongChuanEl) ngayCongChuanEl.addEventListener('input', tinhLai);
 });
