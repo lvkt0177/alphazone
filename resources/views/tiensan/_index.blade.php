@@ -32,9 +32,25 @@
                     @endforeach
                 </select>
             </div>
-            @if (request()->hasAny(['co_so_id']))
+
+            <div class="field tiensan-filter-field">
+                <label class="tiensan-filter-label">Tháng</label>
+                <select name="thang" onchange="this.form.submit()">
+                    @foreach ($danhSachThang as $t)
+                        <option value="{{ $t['value'] }}"
+                            {{ $thang->format('Y-m') == $t['value'] ? 'selected' : '' }}>{{ $t['label'] }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            @if (request()->hasAny(['co_so_id', 'thang']))
                 <a href="{{ route('tiensan.index') }}" class="btn btn-outline btn-sm">Làm mới bộ lọc</a>
             @endif
+
+            <div class="field tiensan-filter-field">
+                <label class="tiensan-filter-label">Tổng tiền sân tháng {{ $thang->format('n/Y') }}</label>
+                <span class="badge blue tiensan-tongthu-badge">{{ number_format($tongTienThang, 0, ',', '.') }} đ</span>
+            </div>
         </div>
         <div class="text-2 tiensan-count-text">{{ $tienSans->total() }} bản ghi</div>
     </form>

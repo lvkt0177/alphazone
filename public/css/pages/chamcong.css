@@ -1,0 +1,121 @@
+.chamcong-alert-success,
+.chamcong-alert-error {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+}
+
+.chamcong-toolbar {
+    margin-bottom: 4px;
+}
+
+.chamcong-filter-field--date {
+    margin: 0;
+    min-width: 180px;
+}
+
+.chamcong-filter-label {
+    font-size: 12.5px;
+    margin-bottom: 5px;
+}
+
+.chamcong-status-line {
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.chamcong-empty-row {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.chamcong-pill-group {
+    display: flex;
+    gap: 8px;
+}
+
+.chamcong-pill {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-2);
+}
+
+.chamcong-pill--co.active {
+    background: #E6F7EE;
+    border-color: #22C55E;
+    color: #16A34A;
+}
+
+.chamcong-pill--khong.active {
+    background: #FEECEC;
+    border-color: #EF4444;
+    color: #DC2626;
+}
+
+.chamcong-hotro-input,
+.chamcong-ghichu-input {
+    width: 100%;
+    min-width: 120px;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    outline: none;
+    transition: .15s;
+}
+
+.chamcong-hotro-input:focus,
+.chamcong-ghichu-input:focus {
+    border-color: var(--primary);
+}
+
+.chamcong-ctv-action {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.chamcong-canh-bao-donia {
+    color: #DC2626;
+    font-size: 12.5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    justify-content: flex-end;
+}
+
+.chamcong-canh-bao-donia a {
+    color: #DC2626;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.chamcong-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+.chamcong-so-tien-duoc-tinh {
+    font-size: 13px;
+    color: var(--text-2);
+    margin-top: -8px;
+}
+
+.chamcong-so-tien-duoc-tinh strong {
+    color: var(--primary);
+}
+
+.chamcong-field-error {
+    display: block;
+    margin-top: 6px;
+}
+
+.thong-tin-cham-cong{
+    display: flex;
+    justify-content: space-between;
+}

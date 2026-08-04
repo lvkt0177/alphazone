@@ -199,7 +199,16 @@
                                 —
                             @endif
                         </td>
-                        <td>{{ $hp->dong_phuc ? number_format($hp->dong_phuc, 0, ',', '.') . ' đ' : '—' }}</td>
+                        <td>
+                            @if (isset($hp->dong_phuc))
+                                {{ \App\Enum\MucDongPhuc::tryFrom($hp->dong_phuc)?->getLabel() ?? '—' }}
+                                @if ($hp->dong_phuc_size)
+                                    (Size {{ $hp->dong_phuc_size }})
+                                @endif
+                            @else
+                                —
+                            @endif
+                        </td>
                         <td>{{ $hp->ngay_dong->format('d/m/Y') }}</td>
                     </tr>
                 @empty

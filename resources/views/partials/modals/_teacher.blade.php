@@ -20,6 +20,20 @@
                         @enderror
                     </div>
                     <div class="field">
+                        <label>Mã nhân viên</label>
+                        <input id="gv_manv" name="ma_nhan_vien" type="text" placeholder="VD: ALPHA001">
+                        @error('ma_nhan_vien')
+                            <div class="badge red teacher-field-error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="field">
+                        <label>CCCD</label>
+                        <input id="gv_cccd" name="cccd" type="text" maxlength="12" placeholder="12 số">
+                        @error('cccd')
+                            <div class="badge red teacher-field-error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="field">
                         <label>Ngày sinh</label>
                         <input id="gv_dob" name="ngay_sinh" type="date">
                         @error('ngay_sinh')

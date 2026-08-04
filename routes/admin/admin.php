@@ -17,5 +17,9 @@ Route::middleware('auth')->group(function () {
     include('tiensan.php');
     include('caidathocphi.php');
     include('giaoan.php');
+    include('bieumau.php');
+    include('caidattienluong.php');
+    include('chamcong.php');
+    include('phieuluong.php');
     
 });

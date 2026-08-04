@@ -1,0 +1,170 @@
+.phieuluong-head-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.phieuluong-alert-success,
+.phieuluong-alert-error {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+}
+
+.phieuluong-thang-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.phieuluong-thang-bar label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-2);
+}
+
+.phieuluong-thang-bar input[type="month"] {
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #fff;
+    outline: none;
+}
+
+.phieuluong-empty-row {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.phieuluong-inline-form {
+    display: inline;
+}
+
+.phieuluong-2box {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .phieuluong-2box {
+        grid-template-columns: 1fr;
+    }
+}
+
+.phieuluong-box-title {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 14px;
+}
+
+.phieuluong-box-form--single {
+    max-width: 900px;
+}
+
+.phieuluong-danhsach-chon {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 560px;
+    overflow-y: auto;
+}
+
+.phieuluong-chon-item {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: .15s;
+}
+
+.phieuluong-chon-item:hover {
+    border-color: var(--primary);
+}
+
+.phieuluong-chon-item.active {
+    background: var(--primary-light);
+    border-color: var(--primary);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.phieuluong-chon-hint {
+    padding: 40px 0;
+    text-align: center;
+    font-size: 14px;
+}
+
+.phieuluong-required {
+    color: var(--red, #EF4444);
+}
+
+.phieuluong-goi-y {
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.phieuluong-field-error {
+    display: block;
+    margin-top: 6px;
+}
+
+.phieuluong-ketqua-box {
+    margin-top: 8px;
+    margin-bottom: 16px;
+    padding: 16px 18px;
+    background: var(--bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.phieuluong-ketqua-box--thamkhao {
+    background: #fff;
+    opacity: .75;
+}
+
+.phieuluong-ketqua-label {
+    font-size: 12px;
+    color: var(--text-2);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.phieuluong-ketqua-cong span {
+    color: #16A34A;
+}
+
+.phieuluong-ketqua-tru span {
+    color: #DC2626;
+}
+
+.phieuluong-ketqua-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 13.5px;
+}
+
+.phieuluong-ketqua-row + .phieuluong-ketqua-row {
+    border-top: 1px dashed var(--border);
+}
+
+.phieuluong-ketqua-final {
+    margin-top: 6px;
+    padding-top: 12px;
+    border-top: 2px solid var(--primary) !important;
+    font-size: 16px;
+}
+
+.phieuluong-ketqua-final b {
+    color: var(--primary);
+}
+
+.phieuluong-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 18px;
+}

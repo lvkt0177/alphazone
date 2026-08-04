@@ -157,6 +157,7 @@ class GiaoAnController extends Controller
             'nguoi' => ['required', 'integer', 'min:50', 'max:200'],
             'bong' => ['required', 'integer', 'min:50', 'max:200'],
             'nhansu' => ['required', 'integer', 'min:50', 'max:200'],
+            'cotchop' => ['required', 'integer', 'min:50', 'max:200'],
         ]);
 
         SodoMauSac::luuKichThuoc($data);

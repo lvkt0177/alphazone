@@ -36,6 +36,7 @@ class SodoMauSac extends Model
             'nguoi' => 100,
             'bong' => 100,
             'nhansu' => 100,
+            'cotchop' => 100,
         ];
     }
 

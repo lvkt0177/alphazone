@@ -74,27 +74,108 @@
             </a>
         @endif
 
+        <div @class(['nav-label'])>Chứng từ</div>
+
+        @if (hasQuyen('bieumau'))
+            <a href="{{ route('bieumau.menu') }}" @class(['nav-item', request()->routeIs('bieumau.*') ? 'active' : '']) data-view="bieumau">
+                <i @class(['ri-file-copy-2-line'])></i> Biểu mẫu
+            </a>
+        @endif
+
         {{-- <a href="" @class(['nav-item', request()->routeIs('stats.*') ? 'active' : '']) data-view="stats">
             <i @class(['ri-bar-chart-2-line'])></i> Thống kê
         </a> --}}
 
-        @if (hasQuyen('caidathocphi'))
+        @if (hasQuyen('chamcong'))
             <div @class([
                 'nav-group',
-                request()->routeIs('caidathocphi.*') ? 'open' : '',
+                request()->routeIs('chamcong.*') ? 'open' : '',
+            ])>
+                <div @class(['nav-item', 'nav-group-toggle']) onclick="toggleNavGroup(this)">
+                    <i @class(['ri-calendar-check-line'])></i> Chấm công
+                    <i @class(['ri-arrow-down-s-line', 'nav-group-arrow'])></i>
+                </div>
+                <div @class(['nav-submenu'])>
+                    <a href="{{ route('chamcong.thay') }}" @class([
+                        'nav-item',
+                        'nav-subitem',
+                        request()->routeIs('chamcong.thay*') ? 'active' : '',
+                    ]) data-view="chamcong-thay">
+                        <i @class(['ri-graduation-cap-line'])></i> Thầy phụ trách
+                    </a>
+                    <a href="{{ route('chamcong.ctv') }}" @class([
+                        'nav-item',
+                        'nav-subitem',
+                        request()->routeIs('chamcong.ctv*') ? 'active' : '',
+                    ]) data-view="chamcong-ctv">
+                        <i @class(['ri-user-follow-line'])></i> Cộng tác viên
+                    </a>
+                </div>
+            </div>
+        @endif
+
+        @if (hasQuyen('phieuluongnhanvien') || hasQuyen('phieuluongctv'))
+            <div @class([
+                'nav-group',
+                request()->routeIs('phieuluongnhanvien.*') || request()->routeIs('phieuluongctv.*') ? 'open' : '',
+            ])>
+                <div @class(['nav-item', 'nav-group-toggle']) onclick="toggleNavGroup(this)">
+                    <i @class(['ri-file-paper-2-line'])></i> Phiếu lương
+                    <i @class(['ri-arrow-down-s-line', 'nav-group-arrow'])></i>
+                </div>
+                <div @class(['nav-submenu'])>
+                    @if (hasQuyen('phieuluongnhanvien'))
+                        <a href="{{ route('phieuluongnhanvien.index') }}" @class([
+                            'nav-item',
+                            'nav-subitem',
+                            request()->routeIs('phieuluongnhanvien.*') ? 'active' : '',
+                        ]) data-view="phieuluongnhanvien">
+                            <i @class(['ri-file-list-3-line'])></i> PL Nhân viên chính thức
+                        </a>
+                    @endif
+                    @if (hasQuyen('phieuluongctv'))
+                        <a href="{{ route('phieuluongctv.index') }}" @class([
+                            'nav-item',
+                            'nav-subitem',
+                            request()->routeIs('phieuluongctv.*') ? 'active' : '',
+                        ]) data-view="phieuluongctv">
+                            <i @class(['ri-file-list-3-line'])></i> PL Cộng tác viên
+                        </a>
+                    @endif
+                </div>
+            </div>
+        @endif
+
+        <div @class(['nav-label'])>Cấu hình</div>
+
+        @if (hasQuyen('caidathocphi') || hasQuyen('caidattienluong'))
+            <div @class([
+                'nav-group',
+                request()->routeIs('caidathocphi.*') || request()->routeIs('caidattienluong.*') ? 'open' : '',
             ])>
                 <div @class(['nav-item', 'nav-group-toggle']) onclick="toggleNavGroup(this)">
                     <i @class(['ri-settings-3-line'])></i> Cài đặt
                     <i @class(['ri-arrow-down-s-line', 'nav-group-arrow'])></i>
                 </div>
                 <div @class(['nav-submenu'])>
-                    <a href="{{ route('caidathocphi.index') }}" @class([
-                        'nav-item',
-                        'nav-subitem',
-                        request()->routeIs('caidathocphi.*') ? 'active' : '',
-                    ]) data-view="caidathocphi">
-                        <i @class(['ri-money-dollar-circle-line'])></i> Tiền học phí
-                    </a>
+                    @if (hasQuyen('caidathocphi'))
+                        <a href="{{ route('caidathocphi.index') }}" @class([
+                            'nav-item',
+                            'nav-subitem',
+                            request()->routeIs('caidathocphi.*') ? 'active' : '',
+                        ]) data-view="caidathocphi">
+                            <i @class(['ri-money-dollar-circle-line'])></i> Tiền học phí
+                        </a>
+                    @endif
+                    @if (hasQuyen('caidattienluong'))
+                        <a href="{{ route('caidattienluong.index') }}" @class([
+                            'nav-item',
+                            'nav-subitem',
+                            request()->routeIs('caidattienluong.*') ? 'active' : '',
+                        ]) data-view="caidattienluong">
+                            <i @class(['ri-wallet-3-line'])></i> Tiền lương
+                        </a>
+                    @endif
                 </div>
             </div>
         @endif

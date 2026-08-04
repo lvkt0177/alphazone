@@ -14,6 +14,7 @@ enum SizeDongPhuc: string
     case SIZE_9 = '9';
     case SIZE_11 = '11';
     case SIZE_13 = '13';
+    case SIZE_15 = '15';
     case SIZE_S = 'S';
     case SIZE_M = 'M';
 

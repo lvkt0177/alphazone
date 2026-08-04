@@ -15,10 +15,14 @@ class GiaoVien extends Model
 
     protected $fillable = [
         'ho_ten',
+        'ma_nhan_vien',
+        'cccd',
         'ngay_sinh',
         'sdt',
         'trang_thai',
         'chuc_danh',
+        'luong_co_ban',
+        'don_gia_gio',
     ];
 
     protected $casts = [
@@ -26,6 +30,15 @@ class GiaoVien extends Model
         'trang_thai' => TrangThaiGiaoVien::class,
         'chuc_danh' => ChucDanhGiaoVien::class,
     ];
+
+    public function getKyTuDauAttribute(): string
+    {
+        $parts = preg_split('/\s+/', trim($this->ho_ten ?? ''));
+        $dau = $parts[0] ?? '';
+        $cuoi = end($parts) ?: '';
+
+        return mb_strtoupper(mb_substr($dau, 0, 1).mb_substr($cuoi, 0, 1));
+    }
 
     public function coSos()
     {

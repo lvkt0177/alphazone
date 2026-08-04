@@ -20,6 +20,7 @@
             <tr>
                 <th>STT</th>
                 <th>Họ tên</th>
+                <th>Mã nhân viên</th>
                 <th>Ngày sinh</th>
                 <th>Số điện thoại</th>
                 <th>Chức danh</th>
@@ -40,6 +41,7 @@
                             <div class="name">{{ $gv->ho_ten }}</div>
                         </div>
                     </td>
+                    <td>{{ $gv->ma_nhan_vien ?? '—' }}</td>
                     <td>{{ $gv->ngay_sinh?->format('d/m/Y') ?? '—' }}</td>
                     <td>{{ $gv->sdt ?? '—' }}</td>
                     <td>
@@ -60,7 +62,7 @@
                         <div class="actions-cell">
                             @if (hasQuyen('giaovien', 'sua'))
                                 <i class="ri-edit-line"
-                                    onclick="openTeacherModal({{ $gv->id }}, {{ Js::from($gv->ho_ten) }}, {{ Js::from($gv->ngay_sinh?->format('Y-m-d')) }}, {{ Js::from($gv->sdt) }}, {{ Js::from($gv->chuc_danh->value) }})"></i>
+                                    onclick="openTeacherModal({{ $gv->id }}, {{ Js::from($gv->ho_ten) }}, {{ Js::from($gv->ma_nhan_vien) }}, {{ Js::from($gv->cccd) }}, {{ Js::from($gv->ngay_sinh?->format('Y-m-d')) }}, {{ Js::from($gv->sdt) }}, {{ Js::from($gv->chuc_danh->value) }})"></i>
 
                                 <form action="{{ route('giaovien.trangthai', $gv) }}" method="POST"
                                     class="teacher-inline-form">
@@ -116,7 +118,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8" class="text-2 teacher-empty-row">Chưa có giáo viên nào</td>
+                    <td colspan="9" class="text-2 teacher-empty-row">Chưa có giáo viên nào</td>
                 </tr>
             @endforelse
         </tbody>
@@ -129,6 +131,8 @@
             openTeacherModal(
                 {{ old('_editing_id') ? (int) old('_editing_id') : 'null' }},
                 {{ Js::from(old('ho_ten')) }},
+                {{ Js::from(old('ma_nhan_vien')) }},
+                {{ Js::from(old('cccd')) }},
                 {{ Js::from(old('ngay_sinh')) }},
                 {{ Js::from(old('sdt')) }},
                 {{ Js::from(old('chuc_danh')) }}
