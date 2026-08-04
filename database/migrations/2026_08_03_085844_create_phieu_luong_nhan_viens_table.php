@@ -26,7 +26,7 @@ return new class extends Migration
             $table->unsignedInteger('nang_suat')->nullable();
             $table->unsignedInteger('thuong_khac')->nullable();
 
-            $table->unsignedInteger('tong_thu_nhap')->default(0);
+            $table->integer('tong_thu_nhap')->default(0);
             $table->unsignedInteger('tong_khau_tru')->default(0);
             $table->unsignedInteger('cong_tac_phi')->nullable();
             $table->unsignedInteger('tam_ung')->nullable();
