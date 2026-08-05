@@ -1096,6 +1096,10 @@ tbody tr:hover {
   padding: 14px;
 }
 
+[data-daterange] {
+  position: relative;
+}
+
 .dr-head {
   display: flex;
   justify-content: space-between;
@@ -1121,6 +1125,13 @@ tbody tr:hover {
 
 .dr-cell-inrange {
   background: var(--blue-bg);
+}
+
+.dr-cell-endpoint,
+.dr-cell-endpoint:hover {
+  background: var(--blue);
+  color: #fff;
+  font-weight: 600;
 }
 
 .dr-hint {

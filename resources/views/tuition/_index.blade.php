@@ -65,14 +65,14 @@
                 <input type="hidden" name="den_ngay" value="{{ request('den_ngay') }}" data-dr-end>
             </div>
 
-            <button type="submit" class="btn btn-outline btn-sm">Lọc theo ngày</button>
+            <button type="submit" class="btn btn-outline btn-sm btn-loc-theo-ngay">Lọc theo ngày</button>
 
             @if ($dangLocNgay ?? false)
-                <a href="{{ route('hocphi.index') }}" class="btn btn-outline btn-sm">Xoá lọc ngày</a>
+                <a href="{{ route('hocphi.index') }}" class="btn btn-outline btn-sm btn-xoa-loc-ngay">Xoá lọc ngày</a>
             @endif
 
             @if (request()->hasAny(['q', 'co_so_id', 'trang_thai_dong', 'thang']))
-                <a href="{{ route('hocphi.index') }}" class="btn btn-outline btn-sm">Làm mới bộ lọc</a>
+                <a href="{{ route('hocphi.index') }}" class="btn btn-outline btn-sm btn-lam-moi-bo-loc">Làm mới bộ lọc</a>
             @endif
 
             @unless ($dangLocNgay ?? false)

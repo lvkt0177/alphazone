@@ -36,6 +36,7 @@
         let base = start ? new Date(start.getFullYear(), start.getMonth(), 1) : new Date();
         base.setDate(1);
         let open = false;
+        let cellRefs = [];
 
         const trigger = document.createElement('button');
         trigger.type = 'button';
@@ -52,6 +53,44 @@
         function renderTrigger() {
             trigger.textContent = (start && end) ? (toDisplay(start) + ' - ' + toDisplay(end)) : 'Chọn khoảng ngày';
             trigger.classList.toggle('dp-trigger-empty', !(start && end));
+        }
+
+        function updateHighlights() {
+            const rangeEnd = end || hover;
+            const lo = start && rangeEnd ? (start < rangeEnd ? start : rangeEnd) : null;
+            const hi = start && rangeEnd ? (start < rangeEnd ? rangeEnd : start) : null;
+
+            cellRefs.forEach(({ el, date }) => {
+                const inRange = lo && hi && date >= lo && date <= hi;
+                el.classList.toggle('dr-cell-inrange', !!inRange);
+                el.classList.toggle('dr-cell-endpoint', sameDay(date, start) || sameDay(date, end));
+            });
+
+            const hint = panel.querySelector('.dr-hint');
+            if (hint) hint.textContent = start && !end ? 'Chọn ngày kết thúc' : 'Chọn ngày bắt đầu';
+        }
+
+        function selectDay(cellDate) {
+            if (!start || end) {
+                start = cellDate;
+                end = null;
+                hover = null;
+            } else {
+                if (cellDate < start) {
+                    end = start;
+                    start = cellDate;
+                } else {
+                    end = cellDate;
+                }
+                inputTu.value = toISO(start);
+                inputDen.value = toISO(end);
+                renderTrigger();
+                updateHighlights();
+                closePanel();
+                return;
+            }
+            renderTrigger();
+            updateHighlights();
         }
 
         function buildCalendar(offset) {
@@ -84,34 +123,12 @@
                 cell.textContent = d;
                 cell.className = 'dp-cell';
 
-                const rangeEnd = end || hover;
-                const inRange = start && rangeEnd && cellDate >= (start < rangeEnd ? start : rangeEnd) && cellDate <= (start < rangeEnd ? rangeEnd : start);
-                if (inRange) cell.classList.add('dr-cell-inrange');
-                if (sameDay(cellDate, start) || sameDay(cellDate, end)) cell.classList.add('dp-cell-selected');
-
                 cell.onmouseenter = () => {
-                    if (start && !end) { hover = cellDate; renderPanel(); }
+                    if (start && !end) { hover = cellDate; updateHighlights(); }
                 };
-                cell.onclick = () => {
-                    if (!start || end) {
-                        start = cellDate;
-                        end = null;
-                        hover = null;
-                    } else {
-                        if (cellDate < start) {
-                            end = start;
-                            start = cellDate;
-                        } else {
-                            end = cellDate;
-                        }
-                        inputTu.value = toISO(start);
-                        inputDen.value = toISO(end);
-                        renderTrigger();
-                        closePanel();
-                        return;
-                    }
-                    renderPanel();
-                };
+                cell.onclick = () => selectDay(cellDate);
+
+                cellRefs.push({ el: cell, date: cellDate });
                 grid.appendChild(cell);
             }
 
@@ -119,8 +136,11 @@
             return col;
         }
 
+        // Vẽ lại toàn bộ khung lịch — CHỈ gọi khi mở panel hoặc đổi tháng, không gọi
+        // lúc rê chuột/chọn ngày (tránh rebuild DOM ngay dưới con trỏ gây mất event click).
         function renderPanel() {
             panel.innerHTML = '';
+            cellRefs = [];
 
             const head = document.createElement('div');
             head.className = 'dr-head';
@@ -158,13 +178,14 @@
                 inputTu.value = '';
                 inputDen.value = '';
                 renderTrigger();
-                renderPanel();
+                updateHighlights();
             };
             const hint = document.createElement('span');
             hint.className = 'dr-hint';
-            hint.textContent = start && !end ? 'Chọn ngày kết thúc' : 'Chọn ngày bắt đầu';
             foot.append(clear, hint);
             panel.appendChild(foot);
+
+            updateHighlights();
         }
 
         function openPanel() {

@@ -171,3 +171,10 @@
     font-size: 12px;
     margin-top: 5px;
 }
+
+.btn-loc-theo-ngay,
+.btn-xoa-loc-ngay,
+.btn-lam-moi-bo-loc {
+    margin-top: 25px;
+    padding: 10px 13px;
+}
