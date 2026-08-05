@@ -72,8 +72,10 @@ document.addEventListener('submit', function (e) {
 });
 
 function formatMoney(value) {
-    const raw = String(value ?? '').replace(/[^\d]/g, '');
-    return raw ? Number(raw).toLocaleString('en-US') : '';
+    if (value === null || value === undefined || value === '') return '';
+    const num = Number(value);
+    if (Number.isNaN(num)) return '';
+    return num.toLocaleString('en-US');
 }
 
 function unformatMoney(value) {
@@ -106,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeItem = scrollBox?.querySelector('.nav-item.active');
     if (!scrollBox || !activeItem) return;
 
-    const padding = 120; 
+    const padding = 120;
     const itemTop = activeItem.offsetTop;
     const itemBottom = itemTop + activeItem.offsetHeight;
     const viewTop = scrollBox.scrollTop;

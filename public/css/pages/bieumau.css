@@ -4,6 +4,12 @@
     gap: 16px;
 }
 
+.bieumau-head-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 .bieumau-box {
     display: flex;
     flex-direction: column;

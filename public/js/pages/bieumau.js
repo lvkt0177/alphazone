@@ -5,3 +5,8 @@ function openBieuMauEditModal(id, ten, updateUrl) {
     form.action = updateUrl;
     openModal('bieuMauModal');
 }
+
+function openBieuMauMauTrongModal(uploadUrl) {
+    document.getElementById('bieuMauMauTrongForm').action = uploadUrl;
+    openModal('bieuMauMauTrongModal');
+}

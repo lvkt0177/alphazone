@@ -5,7 +5,20 @@
 </div>
 <div class="page-head">
     <div class="page-title">{{ $loaiBieuMau->getLabel() }}</div>
-    <a href="{{ route('bieumau.menu') }}" class="btn btn-outline"><i class="ri-arrow-left-line"></i> Quay lại</a>
+    <div class="bieumau-head-actions">
+        @if ($mauTrong)
+            <a href="{{ route('bieumau.mautrong.download', $loaiBieuMau->value) }}" class="btn btn-blue">
+                <i class="ri-file-download-line"></i> Tải mẫu trống
+            </a>
+        @endif
+        @if (hasQuyen('bieumau', 'sua'))
+            <button type="button" class="btn btn-outline"
+                onclick="openBieuMauMauTrongModal({{ Js::from(route('bieumau.mautrong.upload', $loaiBieuMau->value)) }})">
+                <i class="ri-upload-2-line"></i> {{ $mauTrong ? 'Đổi mẫu trống' : 'Tải lên mẫu trống' }}
+            </button>
+        @endif
+        <a href="{{ route('bieumau.menu') }}" class="btn btn-outline"><i class="ri-arrow-left-line"></i> Quay lại</a>
+    </div>
 </div>
 
 @if (session('success'))
@@ -117,6 +130,14 @@
                 {{ Js::from(old('ten')) }},
                 {{ Js::from(route('bieumau.update', old('_editing_id'))) }}
             );
+        });
+    </script>
+@endif
+
+@if ($errors->any() && old('_mau_trong'))
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            openBieuMauMauTrongModal({{ Js::from(route('bieumau.mautrong.upload', $loaiBieuMau->value)) }});
         });
     </script>
 @endif
