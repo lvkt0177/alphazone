@@ -59,14 +59,14 @@
         <table>
             <thead>
                 <tr>
-                    <th>Mã số</th>
-                    <th>Họ tên</th>
-                    <th>SĐT</th>
+                    <th class="w-px-100">Mã số</th>
+                    <th class="w-px-250">Họ tên</th>
+                    <th class="w-px-150">SĐT</th>
                     @for ($i = 1; $i <= $soCotCoSo; $i++)
-                        <th class="student-col-nowrap">Cơ sở {{ $i }}</th>
+                        <th class="student-col-nowrap w-px-350">Cơ sở {{ $i }}</th>
                     @endfor
-                    <th>Trạng thái</th>
-                    <th></th>
+                    <th class="w-px-150">Trạng thái</th>
+                    <th class="w-px-150">Hành động</th>
                 </tr>
             </thead>
             <tbody>

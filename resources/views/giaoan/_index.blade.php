@@ -40,12 +40,12 @@
     <table>
         <thead>
             <tr>
-                <th>STT</th>
-                <th>Tên trò chơi</th>
-                <th>Cách chơi</th>
-                <th>Sơ đồ</th>
-                <th>Video</th>
-                <th></th>
+                <th class="w-px-50">STT</th>
+                <th class="w-px-300">Tên trò chơi</th>
+                <th class="w-px-400">Cách chơi</th>
+                <th class="w-px-100">Sơ đồ</th>
+                <th class="w-px-100">Video</th>
+                <th class="w-px-100">Hành động</th>
             </tr>
         </thead>
         <tbody>

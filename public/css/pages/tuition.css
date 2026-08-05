@@ -220,3 +220,22 @@
     align-items: center;
     gap: 8px;
 }
+
+.stats-summary {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 14px 0 20px;
+    font-size: 14px;
+    color: #6b7280;
+    flex-wrap: wrap;
+}
+
+.stats-summary strong {
+    color: #111827;
+    font-weight: 600;
+}
+
+.tuition-info-count {
+    font-size: 13px;
+}

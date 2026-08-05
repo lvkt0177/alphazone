@@ -13,7 +13,7 @@
 @endif
 
 <div class="table-card">
-    <form method="GET" action="{{ route('hocphi.index') }}" class="table-toolbar">
+    <form method="GET" action="{{ route('hocphi.index') }}" class="table-toolbar mb-0">
         <div class="tuition-toolbar-row">
             <div class="filters tuition-filters">
                 <div class="field tuition-filter-field">
@@ -25,7 +25,7 @@
                     </div>
                 </div>
 
-                <div class="field tuition-filter-field--coso">
+                <div class="field tuition-filter-field--coso w-px-300">
                     <label class="tuition-filter-label">Cơ sở</label>
                     <select name="co_so_id" onchange="this.form.submit()">
                         <option value="">Tất cả Cơ sở</option>
@@ -42,12 +42,12 @@
                         <label class="tuition-filter-label">Trạng thái đóng</label>
                         <select name="trang_thai_dong" onchange="this.form.submit()">
                             <option value="">Tất cả trạng thái</option>
-                            <option value="da_dong" {{ request('trang_thai_dong') == 'da_dong' ? 'selected' : '' }}>Đã
-                                đóng
+                            <option value="da_dong" {{ request('trang_thai_dong') == 'da_dong' ? 'selected' : '' }}>
+                                Đã đóng
                             </option>
                             <option value="chua_dong" {{ request('trang_thai_dong') == 'chua_dong' ? 'selected' : '' }}>
-                                Chưa
-                                đóng</option>
+                                Chưa đóng
+                            </option>
                         </select>
                     </div>
 
@@ -64,8 +64,7 @@
                 @endif
 
                 @if (request()->hasAny(['q', 'co_so_id', 'trang_thai_dong', 'thang']))
-                    <a href="{{ route('hocphi.index') }}" class="btn btn-outline btn-sm btn-lam-moi-bo-loc">Làm mới
-                        bộ lọc</a>
+                    <a href="{{ route('hocphi.index') }}" class="btn btn-outline btn-sm btn-lam-moi-bo-loc">Đặt lại</a>
                 @endif
             </div>
 
@@ -78,22 +77,22 @@
 
                 <button type="submit" class="btn btn-outline btn-sm btn-loc-theo-ngay">Lọc theo ngày</button>
 
-                @if ($dangLocNgay ?? false)
+                {{-- @if ($dangLocNgay ?? false)
                     <a href="{{ route('hocphi.index', request()->except(['tu_ngay', 'den_ngay', 'trang_da_dong', 'trang_chua_dong'])) }}"
                         class="btn btn-outline btn-sm btn-xoa-loc-ngay">Xoá lọc ngày</a>
-                @endif
+                @endif --}}
             </div>
         </div>
 
         <div class="tuition-summary-bar">
-            <span class="text-2 tuition-count-text">
-                {{ ($dangLocNgay ?? false) ? $daDongList->total() . ' lượt đã đóng' : $hocViens->total() . ' học viên' }}
+            <span class="text-2 tuition-count-text tuition-info-count">
+                {{ ($dangLocNgay ?? false) ? $daDongList->total() . ' lượt đã đóng' : 'Sĩ số: ' . $hocViens->total() . ' hv' }}
             </span>
 
             @unless ($dangLocNgay ?? false)
-                <span class="tuition-summary-sep">·</span>
+                <span class="tuition-summary-sep">|</span>
                 <span class="tuition-tongthu-inline">
-                    Học phí tháng {{ $thang->format('n/Y') }}:
+                    Tổng thu (T{{ $thang->format('n/Y') }}):
                     <span class="badge blue tuition-tongthu-badge">
                         {{ number_format($tongHocPhiThang, 0, ',', '.') }} đ</span>
                 </span>
@@ -106,24 +105,23 @@
     @else
 
     <div class="text-2 tuition-stats-line">
-        Tháng {{ $thang->format('n/Y') }}:
-        <strong>{{ $countDaDong }}</strong> {{ \App\Enum\TrangThaiHocPhi::DA_DONG->getLabel() }}
-        ·
-        <strong>{{ $countChuaDong }}</strong> {{ \App\Enum\TrangThaiHocPhi::CHUA_DONG->getLabel() }}
+        {{ \App\Enum\TrangThaiHocPhi::DA_DONG->getLabel() }}: <strong>{{ $countDaDong }}</strong> 
+        |
+        {{ \App\Enum\TrangThaiHocPhi::CHUA_DONG->getLabel() }}: <strong>{{ $countChuaDong }}</strong> 
     </div>
 
-    <table>
+    <table class="mt-3">
         <thead>
             <tr>
-                <th>Mã số</th>
-                <th>Họ tên</th>
-                <th>Cơ sở</th>
-                <th>Học phí</th>
-                <th>Đồng phục</th>
-                <th title="Tính dựa vào điểm danh của tháng trước tháng đang xem">Học phí dự kiến</th>
-                <th class="trang-thai-hoc-phi">Trạng thái</th>
-                <th>Ngày đóng</th>
-                <th></th>
+                <th class="w-px-100">Mã số</th>
+                <th class="w-px-250">Họ tên</th>
+                <th class="w-px-350">Cơ sở</th>
+                <th class="w-px-100">Học phí</th>
+                <th class="w-px-150">Đồng phục</th>
+                <th class="w-px-150">Học phí dự kiến</th>
+                <th class="trang-thai-hoc-phi w-px-150">Trạng thái</th>
+                <th class="w-px-150">Ngày đóng</th>
+                <th class="w-px-150">Hành động</th>
             </tr>
         </thead>
         <tbody>

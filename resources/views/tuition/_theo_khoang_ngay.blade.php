@@ -1,8 +1,7 @@
-<div class="text-2 tuition-stats-line">
-    Từ {{ request('tu_ngay') }} đến {{ request('den_ngay') }}:
-    <strong>{{ $daDongList->total() }}</strong> lượt đã đóng
-    ·
-    <strong>{{ $chuaDongList->total() }}</strong> học viên chưa đóng
+<div class="stats-summary">
+    Từ <strong>01/08/2026</strong> đến <strong>15/08/2026</strong>-
+    <span class="stat-item">Đã đóng: <strong>2</strong></span> |
+    <span class="stat-item">Chưa đóng: <strong>28</strong></span>
 </div>
 
 <div class="tuition-section-title">Đã đóng</div>
