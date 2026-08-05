@@ -673,6 +673,13 @@ ul {
   flex-wrap: wrap;
 }
 
+.table-toolbar input,
+.table-toolbar select,
+.table-toolbar .btn,
+.table-toolbar .dp-trigger {
+  height: 42px;
+}
+
 .filters {
   display: flex;
   gap: 12px;
