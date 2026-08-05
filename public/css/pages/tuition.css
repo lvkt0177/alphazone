@@ -172,9 +172,51 @@
     margin-top: 5px;
 }
 
+.tuition-toolbar-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px 24px;
+}
+
+.tuition-daterange-group {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    padding-left: 20px;
+    border-left: 1px solid var(--border);
+}
+
+.tuition-filter-field--daterange {
+    min-width: 220px;
+}
+
 .btn-loc-theo-ngay,
 .btn-xoa-loc-ngay,
 .btn-lam-moi-bo-loc {
-    margin-top: 25px;
     padding: 10px 13px;
+    align-self: flex-end;
+}
+
+.tuition-summary-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+}
+
+.tuition-summary-sep {
+    color: var(--text-2);
+}
+
+.tuition-tongthu-inline {
+    color: var(--text-2);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }

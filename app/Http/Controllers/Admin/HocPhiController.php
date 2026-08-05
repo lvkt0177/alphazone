@@ -133,8 +133,19 @@ class HocPhiController extends Controller
 
     private function indexTheoKhoangNgay(Request $request)
     {
-        $tuNgay = Carbon::parse($request->tu_ngay)->startOfDay();
-        $denNgay = Carbon::parse($request->den_ngay)->endOfDay();
+        try {
+            $tuNgay = Carbon::parse($request->tu_ngay)->startOfDay();
+            $denNgay = Carbon::parse($request->den_ngay)->endOfDay();
+        } catch (\Exception $e) {
+            $request->query->remove('tu_ngay');
+            $request->query->remove('den_ngay');
+
+            return $this->index($request);
+        }
+
+        if ($tuNgay->greaterThan($denNgay)) {
+            [$tuNgay, $denNgay] = [$denNgay->copy()->startOfDay(), $tuNgay->copy()->endOfDay()];
+        }
 
         $apDungLoc = function ($query, ?string $quaHocVien = null) use ($request) {
             if ($request->filled('q')) {
@@ -160,7 +171,7 @@ class HocPhiController extends Controller
         $apDungLoc($daDongQuery, 'hocVien');
         $daDongList = $daDongQuery->orderBy('ngay_dong')->paginate(15, ['*'], 'trang_da_dong')->withQueryString();
 
-        $chuaDongQuery = HocVien::whereDoesntHave('hocPhis', function ($q) use ($tuNgay, $denNgay) {
+        $chuaDongQuery = HocVien::with('coSos')->whereDoesntHave('hocPhis', function ($q) use ($tuNgay, $denNgay) {
             $q->whereBetween('ngay_dong', [$tuNgay, $denNgay]);
         });
         $apDungLoc($chuaDongQuery);
