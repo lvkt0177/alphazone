@@ -95,13 +95,25 @@ class GiaoVienController extends Controller
 
         $username = generate_username_from_name($giaovien->ho_ten);
 
-        User::create([
-            'name' => $username,
-            'ho_ten' => $giaovien->ho_ten,
-            'password' => $giaovien->sdt,
-            'role' => RoleUser::GIAO_VIEN,
-            'giao_vien_id' => $giaovien->id,
-        ]);
+        try {
+            User::create([
+                'name' => $username,
+                'ho_ten' => $giaovien->ho_ten,
+                'password' => $giaovien->sdt,
+                'role' => RoleUser::GIAO_VIEN,
+                'giao_vien_id' => $giaovien->id,
+            ]);
+        } catch (QueryException $e) {
+            $username = generate_username_from_name($giaovien->ho_ten);
+
+            User::create([
+                'name' => $username,
+                'ho_ten' => $giaovien->ho_ten,
+                'password' => $giaovien->sdt,
+                'role' => RoleUser::GIAO_VIEN,
+                'giao_vien_id' => $giaovien->id,
+            ]);
+        }
 
         return redirect()->route('giaovien.index')->with('success',
             "Cấp tài khoản thành công. Tài khoản đăng nhập: {$username} — Mật khẩu: {$giaovien->sdt}"

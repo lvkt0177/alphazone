@@ -49,6 +49,7 @@
     @include('partials._toast')
     
     <script src="{{ asset('js/common.js') }}"></script>
+    <script src="{{ asset('js/datepicker.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             @if (session('success'))
