@@ -15,6 +15,10 @@ class HocPhiController extends Controller
 {
     public function index(Request $request)
     {
+        if ($request->filled('tu_ngay') && $request->filled('den_ngay')) {
+            return $this->indexTheoKhoangNgay($request);
+        }
+
         $thangInput = $request->input('thang') ?: now()->format('Y-m');
         $thang = Carbon::createFromFormat('Y-m', $thangInput)->startOfMonth();
 
@@ -125,5 +129,52 @@ class HocPhiController extends Controller
         return redirect()
             ->route('hocphi.index', ['thang' => Carbon::parse($thang)->format('Y-m')])
             ->with('success', 'Đã xoá bản ghi học phí, học viên trở về trạng thái Chưa đóng');
+    }
+
+    private function indexTheoKhoangNgay(Request $request)
+    {
+        $tuNgay = Carbon::parse($request->tu_ngay)->startOfDay();
+        $denNgay = Carbon::parse($request->den_ngay)->endOfDay();
+
+        $apDungLoc = function ($query, ?string $quaHocVien = null) use ($request) {
+            if ($request->filled('q')) {
+                $q = $request->q;
+                $dieuKien = function ($sub) use ($q) {
+                    $sub->where('ma_so', 'like', "%{$q}%")
+                        ->orWhereUnaccentedLike('ho_ten', $q)
+                        ->orWhere('sdt', 'like', "%{$q}%");
+                };
+                $quaHocVien ? $query->whereHas($quaHocVien, $dieuKien) : $dieuKien($query);
+            }
+
+            if ($request->filled('co_so_id')) {
+                $coSoId = $request->co_so_id;
+                $dieuKien = fn ($sub) => $sub->whereHas('coSos', fn ($s) => $s->where('co_sos.id', $coSoId));
+                $quaHocVien ? $query->whereHas($quaHocVien, $dieuKien) : $dieuKien($query);
+            }
+        };
+
+        $daDongQuery = HocPhi::with('hocVien')
+            ->whereHas('hocVien')
+            ->whereBetween('ngay_dong', [$tuNgay, $denNgay]);
+        $apDungLoc($daDongQuery, 'hocVien');
+        $daDongList = $daDongQuery->orderBy('ngay_dong')->paginate(15, ['*'], 'trang_da_dong')->withQueryString();
+
+        $chuaDongQuery = HocVien::whereDoesntHave('hocPhis', function ($q) use ($tuNgay, $denNgay) {
+            $q->whereBetween('ngay_dong', [$tuNgay, $denNgay]);
+        });
+        $apDungLoc($chuaDongQuery);
+        $chuaDongList = $chuaDongQuery->orderBy('ho_ten')->paginate(15, ['*'], 'trang_chua_dong')->withQueryString();
+
+        $coSos = CoSo::orderBy('ten')->get();
+        $hocVienOptions = HocVien::select('id', 'ma_so', 'ho_ten')->orderBy('ho_ten')->get();
+
+        return view('tuition.index', [
+            'dangLocNgay' => true,
+            'daDongList' => $daDongList,
+            'chuaDongList' => $chuaDongList,
+            'coSos' => $coSos,
+            'hocVienOptions' => $hocVienOptions,
+        ]);
     }
 }

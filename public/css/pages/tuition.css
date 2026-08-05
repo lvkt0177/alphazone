@@ -2,6 +2,16 @@
     max-width: 750px;
 }
 
+.tuition-section-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 4px 0 10px;
+}
+
+.tuition-section-title--spaced {
+    margin-top: 24px;
+}
+
 .dashboard-subtitle {
     margin-top: 4px;
 }

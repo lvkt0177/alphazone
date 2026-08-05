@@ -36,41 +36,63 @@
                 </select>
             </div>
 
-            <div class="field tuition-filter-field--status">
-                <label class="tuition-filter-label">Trạng thái đóng</label>
-                <select name="trang_thai_dong" onchange="this.form.submit()">
-                    <option value="">Tất cả trạng thái</option>
-                    <option value="da_dong" {{ request('trang_thai_dong') == 'da_dong' ? 'selected' : '' }}>Đã đóng
-                    </option>
-                    <option value="chua_dong" {{ request('trang_thai_dong') == 'chua_dong' ? 'selected' : '' }}>Chưa
-                        đóng</option>
-                </select>
+            @if (!($dangLocNgay ?? false))
+                <div class="field tuition-filter-field--status">
+                    <label class="tuition-filter-label">Trạng thái đóng</label>
+                    <select name="trang_thai_dong" onchange="this.form.submit()">
+                        <option value="">Tất cả trạng thái</option>
+                        <option value="da_dong" {{ request('trang_thai_dong') == 'da_dong' ? 'selected' : '' }}>Đã đóng
+                        </option>
+                        <option value="chua_dong" {{ request('trang_thai_dong') == 'chua_dong' ? 'selected' : '' }}>Chưa
+                            đóng</option>
+                    </select>
+                </div>
+
+                <div class="field tuition-filter-field--month">
+                    <label class="tuition-filter-label">Tháng</label>
+                    <select name="thang" onchange="this.form.submit()">
+                        @foreach ($danhSachThang as $t)
+                            <option value="{{ $t['value'] }}"
+                                {{ $thang->format('Y-m') == $t['value'] ? 'selected' : '' }}>{{ $t['label'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            @endif
+
+            <div class="field tuition-filter-field--daterange" data-daterange>
+                <label class="tuition-filter-label">Lọc theo khoảng ngày (Ngày đóng)</label>
+                <input type="hidden" name="tu_ngay" value="{{ request('tu_ngay') }}" data-dr-start>
+                <input type="hidden" name="den_ngay" value="{{ request('den_ngay') }}" data-dr-end>
             </div>
 
-            <div class="field tuition-filter-field--month">
-                <label class="tuition-filter-label">Tháng</label>
-                <select name="thang" onchange="this.form.submit()">
-                    @foreach ($danhSachThang as $t)
-                        <option value="{{ $t['value'] }}"
-                            {{ $thang->format('Y-m') == $t['value'] ? 'selected' : '' }}>{{ $t['label'] }}</option>
-                    @endforeach
-                </select>
-            </div>
+            <button type="submit" class="btn btn-outline btn-sm">Lọc theo ngày</button>
+
+            @if ($dangLocNgay ?? false)
+                <a href="{{ route('hocphi.index') }}" class="btn btn-outline btn-sm">Xoá lọc ngày</a>
+            @endif
 
             @if (request()->hasAny(['q', 'co_so_id', 'trang_thai_dong', 'thang']))
                 <a href="{{ route('hocphi.index') }}" class="btn btn-outline btn-sm">Làm mới bộ lọc</a>
             @endif
 
-            <div class="field tuition-filter-field--tongthu">
-                <label class="tuition-filter-label">Học phí tháng {{ $thang->format('n/Y') }}</label>
-                <span class="badge blue tuition-tongthu-badge">{{ number_format($tongHocPhiThang, 0, ',', '.') }}
-                    đ</span>
-            </div>
+            @unless ($dangLocNgay ?? false)
+                <div class="field tuition-filter-field--tongthu">
+                    <label class="tuition-filter-label">Học phí tháng {{ $thang->format('n/Y') }}</label>
+                    <span class="badge blue tuition-tongthu-badge">{{ number_format($tongHocPhiThang, 0, ',', '.') }}
+                        đ</span>
+                </div>
+            @endunless
         </div>
 
-        <div class="text-2 tuition-count-text">{{ $hocViens->total() }} học viên</div>
+        <div class="text-2 tuition-count-text">
+            {{ ($dangLocNgay ?? false) ? $daDongList->total() . ' lượt đã đóng' : $hocViens->total() . ' học viên' }}
+        </div>
 
     </form>
+
+    @if ($dangLocNgay ?? false)
+        @include('tuition._theo_khoang_ngay')
+    @else
 
     <div class="text-2 tuition-stats-line">
         Tháng {{ $thang->format('n/Y') }}:
@@ -195,6 +217,7 @@
         @endif
     </div>
 </div>
+@endif
 
 @push('modals')
     @include('partials.modals._tuition')
