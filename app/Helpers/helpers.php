@@ -12,6 +12,15 @@ if (! function_exists('safe_route')) {
 if (! function_exists('remove_vietnamese_accents')) {
     function remove_vietnamese_accents(string $str): string
     {
+        $str = mb_strtolower($str);
+
+        if (class_exists(\Normalizer::class)) {
+            $normalized = \Normalizer::normalize($str, \Normalizer::FORM_D);
+            if ($normalized !== false) {
+                $str = preg_replace('/\p{Mn}/u', '', $normalized);
+            }
+        }
+
         static $map = null;
 
         if ($map === null) {
@@ -32,7 +41,7 @@ if (! function_exists('remove_vietnamese_accents')) {
             ];
         }
 
-        return strtr(mb_strtolower($str), $map);
+        return strtr($str, $map);
     }
 }
 

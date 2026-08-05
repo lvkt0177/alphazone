@@ -19,12 +19,12 @@
         <thead>
             <tr>
                 <th>STT</th>
-                <th>Họ tên</th>
+                <th class="w-px-300">Họ tên</th>
                 <th>Mã nhân viên</th>
                 <th>Ngày sinh</th>
                 <th>Số điện thoại</th>
                 <th>Chức danh</th>
-                <th>Cơ sở phụ trách</th>
+                <th class="w-px-300">Cơ sở phụ trách</th>
                 <th>Tài khoản</th>
                 <th>Trạng thái</th>
                 <th></th>
@@ -47,7 +47,13 @@
                     <td>
                         <span class="badge {{ $gv->chuc_danh->getBadge() }}">{{ $gv->chuc_danh->getLabel() }}</span>
                     </td>
-                    <td>{{ $gv->coSos->pluck('ten')->join(', ') ?: '—' }}</td>
+                    <td>
+                        @forelse($gv->coSos as $coSo)
+                            <div>- {{ $coSo->ten }}</div>
+                        @empty
+                            <div class="text-2">Chưa có cơ sở phụ trách</div>
+                        @endforelse
+                    </td>
                     <td>
                         @if ($gv->user)
                             <span class="badge blue">{{ $gv->user->name }}</span>
@@ -76,8 +82,7 @@
                             @endif
                             @if ($gv->trang_thai === \App\Enum\TrangThaiGiaoVien::DANG_DAY && hasQuyen('giaovien', 'xoa'))
                                 <form action="{{ route('giaovien.destroy', $gv) }}" method="POST"
-                                    class="teacher-inline-form confirm-delete-form"
-                                    data-confirm-title="Xoá giáo viên"
+                                    class="teacher-inline-form confirm-delete-form" data-confirm-title="Xoá giáo viên"
                                     data-confirm-message="Bạn có chắc muốn xoá giáo viên {{ $gv->ho_ten }}?">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="teacher-icon-btn"><i
@@ -85,7 +90,7 @@
                                 </form>
                             @endif
 
-                            @if (! $gv->user)
+                            @if (!$gv->user)
                                 @if (hasQuyen('giaovien', 'them'))
                                     <form action="{{ route('giaovien.captaikhoan', $gv) }}" method="POST"
                                         class="teacher-inline-form confirm-delete-form"
