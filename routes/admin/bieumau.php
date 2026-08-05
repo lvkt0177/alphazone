@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/bieumau', [BieuMauController::class, 'menu'])->name('bieumau.menu')->middleware('quyen:bieumau,xem');
 Route::get('/bieumau/{loai}', [BieuMauController::class, 'index'])->name('bieumau.index')->middleware('quyen:bieumau,xem')->where('loai', '[0-9]+');
 Route::post('/bieumau/{loai}', [BieuMauController::class, 'store'])->name('bieumau.store')->middleware('quyen:bieumau,them')->where('loai', '[0-9]+');
+Route::post('/bieumau/{loai}/mau-trong', [BieuMauController::class, 'uploadMauTrong'])->name('bieumau.mautrong.upload')->middleware('quyen:bieumau,sua')->where('loai', '[0-9]+');
+Route::get('/bieumau/{loai}/mau-trong/tai', [BieuMauController::class, 'downloadMauTrong'])->name('bieumau.mautrong.download')->middleware('quyen:bieumau,xem')->where('loai', '[0-9]+');
 Route::put('/bieumau/{bieumau}', [BieuMauController::class, 'update'])->name('bieumau.update')->middleware('quyen:bieumau,sua');
 Route::get('/bieumau/{bieumau}/tai', [BieuMauController::class, 'download'])->name('bieumau.download')->middleware('quyen:bieumau,xem');
 Route::delete('/bieumau/{bieumau}', [BieuMauController::class, 'destroy'])->name('bieumau.destroy')->middleware('quyen:bieumau,xoa');
