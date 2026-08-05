@@ -2184,6 +2184,26 @@ textarea.note-input:focus {
   width: 100% !important;
 }
 
+.w-px-100 {
+  width: 100px !important;
+}
+
+.w-px-200 {
+  width: 200px !important;
+}
+
+.w-px-300 {
+  width: 300px !important;
+}
+
+.w-px-400 {
+  width: 400px !important;
+}
+
+.w-px-500 {
+  width: 500px !important;
+}
+
 .w-auto {
   width: auto !important;
 }

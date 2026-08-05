@@ -20,7 +20,7 @@
         <thead>
             <tr>
                 <th>STT</th>
-                <th>Tên cơ sở</th>
+                <th class="w-px-300">Tên cơ sở</th>
                 <th>Địa điểm</th>
                 <th>Người phụ trách</th>
                 <th>Trạng thái</th>
