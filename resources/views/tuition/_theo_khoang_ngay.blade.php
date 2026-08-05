@@ -1,5 +1,5 @@
 <div class="table-card mb-4">
-    <div class="tuition-section-title">Danh sách học viên đã đóng tiền tháng này</div>
+    <div class="tuition-section-title">Danh sách học viên Đã đóng tiền</div>
     <table>
         <thead>
             <tr>
@@ -53,7 +53,7 @@
 </div>
 
 <div class="table-card">
-    <div class="tuition-section-title">Danh sách học viên chưa đóng tiền tháng này</div>
+    <div class="tuition-section-title">Danh sách học viên Chưa đóng tiền</div>
     <table>
         <thead>
             <tr>
