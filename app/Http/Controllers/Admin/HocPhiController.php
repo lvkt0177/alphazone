@@ -155,13 +155,17 @@ class HocPhiController extends Controller
                         ->orWhereUnaccentedLike('ho_ten', $q)
                         ->orWhere('sdt', 'like', "%{$q}%");
                 };
-                $quaHocVien ? $query->whereHas($quaHocVien, $dieuKien) : $dieuKien($query);
+                $quaHocVien
+                    ? $query->whereHas($quaHocVien, $dieuKien)
+                    : $query->where(fn ($sub) => $dieuKien($sub));
             }
 
             if ($request->filled('co_so_id')) {
                 $coSoId = $request->co_so_id;
                 $dieuKien = fn ($sub) => $sub->whereHas('coSos', fn ($s) => $s->where('co_sos.id', $coSoId));
-                $quaHocVien ? $query->whereHas($quaHocVien, $dieuKien) : $dieuKien($query);
+                $quaHocVien
+                    ? $query->whereHas($quaHocVien, $dieuKien)
+                    : $query->where(fn ($sub) => $dieuKien($sub));
             }
         };
 

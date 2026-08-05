@@ -12,7 +12,7 @@
     <div class="badge green tuition-alert-success">{{ session('success') }}</div>
 @endif
 
-<div class="table-card">
+<div class="table-card mb-4">
     <form method="GET" action="{{ route('hocphi.index') }}" class="table-toolbar mb-0">
         <div class="tuition-toolbar-row">
             <div class="filters tuition-filters">
@@ -77,16 +77,16 @@
 
                 <button type="submit" class="btn btn-outline btn-sm btn-loc-theo-ngay">Lọc theo ngày</button>
 
-                {{-- @if ($dangLocNgay ?? false)
+                @if ($dangLocNgay ?? false)
                     <a href="{{ route('hocphi.index', request()->except(['tu_ngay', 'den_ngay', 'trang_da_dong', 'trang_chua_dong'])) }}"
                         class="btn btn-outline btn-sm btn-xoa-loc-ngay">Xoá lọc ngày</a>
-                @endif --}}
+                @endif
             </div>
         </div>
 
         <div class="tuition-summary-bar">
             <span class="text-2 tuition-count-text tuition-info-count">
-                {{ ($dangLocNgay ?? false) ? $daDongList->total() . ' lượt đã đóng' : 'Sĩ số: ' . $hocViens->total() . ' hv' }}
+                {{ $dangLocNgay ?? false ? $daDongList->total() . ' lượt đã đóng' : 'Sĩ số: ' . $hocViens->total() . ' hv' }}
             </span>
 
             @unless ($dangLocNgay ?? false)
@@ -98,134 +98,146 @@
                 </span>
             @endunless
         </div>
+        @if ($dangLocNgay ?? false)
+            <div class="stats-summary mb-0">
+                Từ <strong>{{ \Carbon\Carbon::parse(request('tu_ngay'))->format('d/m/Y') }}</strong> đến
+                <strong>{{ \Carbon\Carbon::parse(request('den_ngay'))->format('d/m/Y') }}</strong> -
+                <span class="stat-item">Đã đóng: <strong>{{ $daDongList->total() }}</strong></span> |
+                <span class="stat-item">Chưa đóng: <strong>{{ $chuaDongList->total() }}</strong></span>
+            </div>
+        @endif
+
     </form>
-
-    @if ($dangLocNgay ?? false)
-        @include('tuition._theo_khoang_ngay')
-    @else
-
-    <div class="text-2 tuition-stats-line">
-        {{ \App\Enum\TrangThaiHocPhi::DA_DONG->getLabel() }}: <strong>{{ $countDaDong }}</strong> 
-        |
-        {{ \App\Enum\TrangThaiHocPhi::CHUA_DONG->getLabel() }}: <strong>{{ $countChuaDong }}</strong> 
-    </div>
-
-    <table class="mt-3">
-        <thead>
-            <tr>
-                <th class="w-px-100">Mã số</th>
-                <th class="w-px-250">Họ tên</th>
-                <th class="w-px-350">Cơ sở</th>
-                <th class="w-px-100">Học phí</th>
-                <th class="w-px-150">Đồng phục</th>
-                <th class="w-px-150">Học phí dự kiến</th>
-                <th class="trang-thai-hoc-phi w-px-150">Trạng thái</th>
-                <th class="w-px-150">Ngày đóng</th>
-                <th class="w-px-150">Hành động</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($hocViens as $hv)
-                @php $rec = $hv->hocPhis->first(); @endphp
-                <tr>
-                    <td><a href="{{ route('hocvien.show', $hv) }}" class="code-link">{{ $hv->ma_so }}</a></td>
-                    <td>
-                        <div class="cell-user"><img src="{{ $hv->avatar_url }}" alt="">
-                            <div class="name">{{ $hv->ho_ten }}</div>
-                        </div>
-                    </td>
-                    <td>
-                        @if ($hv->coSos->isNotEmpty())
-                            @foreach ($hv->coSos as $coSo)
-                                <div>{{ $coSo->ten }} - {{ $coSo->giaoVien->ho_ten ?? 'N/A' }}</div>
-                            @endforeach
-                        @else
-                            -
-                        @endif
-                    </td>
-                    <td>
-                        @if ($rec)
-                            {{ number_format($rec->hoc_phi, 0, ',', '.') }} đ
-                        @else
-                            —
-                        @endif
-                    </td>
-                    <td class="text-2">
-                        @if ($rec && isset($rec->dong_phuc))
-                            {{ \App\Enum\MucDongPhuc::tryFrom($rec->dong_phuc)?->getLabel() ?? '—' }}
-                            @if ($rec->dong_phuc_size)
-                                (Size {{ $rec->dong_phuc_size }})
-                            @endif
-                        @else
-                            —
-                        @endif
-                    </td>
-                    <td class="text-2">
-                        @php $duKien = $hv->duKienHocPhi(); @endphp
-                        @if ($duKien)
-                            {{ number_format($duKien['so_tien'], 0, ',', '.') }} đ
-                            ({{ $duKien['so_buoi_da_hoc'] }}/{{ $duKien['tong_so_buoi'] }})
-                        @else
-                            —
-                        @endif
-                    <td>
-                        @if ($rec)
-                            <span class="badge green">Đã đóng</span>
-                            @if ($rec->gioi_thieu_ban)
-                                <span class="badge purple tuition-giothieu-tag">
-                                    Giới
-                                    thiệu{{ $rec->nguoiGioiThieu ? ' ' . $rec->nguoiGioiThieu->ma_so . ' - ' . $rec->nguoiGioiThieu->ho_ten : '' }}
-                                </span>
-                            @endif
-                        @else
-                            <span class="badge red">Chưa đóng</span>
-                        @endif
-                    </td>
-                    <td>{{ $rec ? $rec->ngay_dong->format('d/m/Y') : '—' }}</td>
-                    <td>
-                        @if (hasQuyen('hocphi', 'them'))
-                            <button type="button"
-                                class="btn btn-sm {{ $rec ? 'btn-warning' : 'btn-primary' }} open-tuition-btn"
-                                data-hoc-vien-id="{{ $hv->id }}" data-ma-so="{{ $hv->ma_so }}"
-                                data-ho-ten="{{ $hv->ho_ten }}" data-thang="{{ $thang->format('Y-m-d') }}"
-                                data-hoc-phi="{{ $rec->hoc_phi ?? '' }}" data-dong-phuc="{{ $rec->dong_phuc ?? '' }}"
-                                data-dong-phuc-size="{{ $rec->dong_phuc_size ?? '' }}"
-                                data-ngay-dong="{{ $rec?->ngay_dong?->format('Y-m-d') }}"
-                                data-gioi-thieu-ban="{{ $rec->gioi_thieu_ban ?? 0 }}"
-                                data-nguoi-gioi-thieu-id="{{ $rec->nguoi_gioi_thieu_id ?? '' }}"
-                                data-du-kien-so-tien="{{ $duKien['so_tien'] ?? '' }}"
-                                data-du-kien-so-buoi="{{ $duKien['so_buoi_da_hoc'] ?? '' }}"
-                                data-du-kien-tong-buoi="{{ $duKien['tong_so_buoi'] ?? '' }}">
-                                <i class="ri-edit-line"></i> {{ $rec ? 'Sửa' : 'Tạo' }} học phí
-                            </button>
-                        @endif
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="8" class="text-2 tuition-empty-row">Không có học viên nào</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-
-    <div class="pagination">
-        @if (!$hocViens->onFirstPage())
-            <a href="{{ $hocViens->previousPageUrl() }}">Trước</a>
-        @else
-            <span class="tuition-page-disabled">Trước</span>
-        @endif
-        @for ($i = 1; $i <= $hocViens->lastPage(); $i++)
-            <a href="{{ $hocViens->url($i) }}"
-                class="{{ $i == $hocViens->currentPage() ? 'active' : '' }}">{{ $i }}</a>
-        @endfor
-        @if ($hocViens->hasMorePages())
-            <a href="{{ $hocViens->nextPageUrl() }}">Sau</a>
-        @else
-            <span class="tuition-page-disabled">Sau</span>
-        @endif
-    </div>
 </div>
+
+@if ($dangLocNgay ?? false)
+    @include('tuition._theo_khoang_ngay')
+@else
+    <div class="table-card">
+
+        <div class="text-2 tuition-stats-line">
+            {{ \App\Enum\TrangThaiHocPhi::DA_DONG->getLabel() }}: <strong>{{ $countDaDong }}</strong>
+            |
+            {{ \App\Enum\TrangThaiHocPhi::CHUA_DONG->getLabel() }}: <strong>{{ $countChuaDong }}</strong>
+        </div>
+
+        <table class="mt-3">
+            <thead>
+                <tr>
+                    <th class="w-px-100">Mã số</th>
+                    <th class="w-px-250">Họ tên</th>
+                    <th class="w-px-350">Cơ sở</th>
+                    <th class="w-px-100">Học phí</th>
+                    <th class="w-px-150">Đồng phục</th>
+                    <th class="w-px-150">Học phí dự kiến</th>
+                    <th class="trang-thai-hoc-phi w-px-150">Trạng thái</th>
+                    <th class="w-px-150">Ngày đóng</th>
+                    <th class="w-px-150">Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($hocViens as $hv)
+                    @php $rec = $hv->hocPhis->first(); @endphp
+                    <tr>
+                        <td><a href="{{ route('hocvien.show', $hv) }}" class="code-link">{{ $hv->ma_so }}</a></td>
+                        <td>
+                            <div class="cell-user"><img src="{{ $hv->avatar_url }}" alt="">
+                                <div class="name">{{ $hv->ho_ten }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            @if ($hv->coSos->isNotEmpty())
+                                @foreach ($hv->coSos as $coSo)
+                                    <div>{{ $coSo->ten }} - {{ $coSo->giaoVien->ho_ten ?? 'N/A' }}</div>
+                                @endforeach
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td>
+                            @if ($rec)
+                                {{ number_format($rec->hoc_phi, 0, ',', '.') }} đ
+                            @else
+                                —
+                            @endif
+                        </td>
+                        <td class="text-2">
+                            @if ($rec && isset($rec->dong_phuc))
+                                {{ \App\Enum\MucDongPhuc::tryFrom($rec->dong_phuc)?->getLabel() ?? '—' }}
+                                @if ($rec->dong_phuc_size)
+                                    (Size {{ $rec->dong_phuc_size }})
+                                @endif
+                            @else
+                                —
+                            @endif
+                        </td>
+                        <td class="text-2">
+                            @php $duKien = $hv->duKienHocPhi(); @endphp
+                            @if ($duKien)
+                                {{ number_format($duKien['so_tien'], 0, ',', '.') }} đ
+                                ({{ $duKien['so_buoi_da_hoc'] }}/{{ $duKien['tong_so_buoi'] }})
+                            @else
+                                —
+                            @endif
+                        <td>
+                            @if ($rec)
+                                <span class="badge green">Đã đóng</span>
+                                @if ($rec->gioi_thieu_ban)
+                                    <span class="badge purple tuition-giothieu-tag">
+                                        Giới
+                                        thiệu{{ $rec->nguoiGioiThieu ? ' ' . $rec->nguoiGioiThieu->ma_so . ' - ' . $rec->nguoiGioiThieu->ho_ten : '' }}
+                                    </span>
+                                @endif
+                            @else
+                                <span class="badge red">Chưa đóng</span>
+                            @endif
+                        </td>
+                        <td>{{ $rec ? $rec->ngay_dong->format('d/m/Y') : '—' }}</td>
+                        <td>
+                            @if (hasQuyen('hocphi', 'them'))
+                                <button type="button"
+                                    class="btn btn-sm {{ $rec ? 'btn-warning' : 'btn-primary' }} open-tuition-btn"
+                                    data-hoc-vien-id="{{ $hv->id }}" data-ma-so="{{ $hv->ma_so }}"
+                                    data-ho-ten="{{ $hv->ho_ten }}" data-thang="{{ $thang->format('Y-m-d') }}"
+                                    data-hoc-phi="{{ $rec->hoc_phi ?? '' }}"
+                                    data-dong-phuc="{{ $rec->dong_phuc ?? '' }}"
+                                    data-dong-phuc-size="{{ $rec->dong_phuc_size ?? '' }}"
+                                    data-ngay-dong="{{ $rec?->ngay_dong?->format('Y-m-d') }}"
+                                    data-gioi-thieu-ban="{{ $rec->gioi_thieu_ban ?? 0 }}"
+                                    data-nguoi-gioi-thieu-id="{{ $rec->nguoi_gioi_thieu_id ?? '' }}"
+                                    data-du-kien-so-tien="{{ $duKien['so_tien'] ?? '' }}"
+                                    data-du-kien-so-buoi="{{ $duKien['so_buoi_da_hoc'] ?? '' }}"
+                                    data-du-kien-tong-buoi="{{ $duKien['tong_so_buoi'] ?? '' }}">
+                                    <i class="ri-edit-line"></i> {{ $rec ? 'Sửa' : 'Tạo' }} học phí
+                                </button>
+                            @endif
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="8" class="text-2 tuition-empty-row">Không có học viên nào</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            @if (!$hocViens->onFirstPage())
+                <a href="{{ $hocViens->previousPageUrl() }}">Trước</a>
+            @else
+                <span class="tuition-page-disabled">Trước</span>
+            @endif
+            @for ($i = 1; $i <= $hocViens->lastPage(); $i++)
+                <a href="{{ $hocViens->url($i) }}"
+                    class="{{ $i == $hocViens->currentPage() ? 'active' : '' }}">{{ $i }}</a>
+            @endfor
+            @if ($hocViens->hasMorePages())
+                <a href="{{ $hocViens->nextPageUrl() }}">Sau</a>
+            @else
+                <span class="tuition-page-disabled">Sau</span>
+            @endif
+        </div>
+    </div>
 @endif
 
 @push('modals')
