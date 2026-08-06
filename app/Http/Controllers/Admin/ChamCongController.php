@@ -4,126 +4,101 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enum\ChucDanhGiaoVien;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\ChamCong\ChamCongCtvRequest;
-use App\Http\Requests\Admin\ChamCong\ChamCongThayRequest;
+use App\Http\Requests\Admin\ChamCong\ChamCongHangLoatRequest;
 use App\Models\ChamCongGiaoVien;
 use App\Models\GiaoVien;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ChamCongController extends Controller
 {
-    private function ngayHopLe(?string $ngay): string
+    public function index(Request $request)
     {
-        $homNay = now()->toDateString();
-        $ngay = $ngay ?: $homNay;
-
-        return $ngay > $homNay ? $homNay : $ngay;
-    }
-
-    public function thay(Request $request)
-    {
-        $ngay = $this->ngayHopLe($request->input('ngay'));
+        $thangInput = $request->input('thang') ?: now()->format('Y-m');
+        $thang = Carbon::createFromFormat('Y-m', $thangInput)->startOfMonth();
 
         $thayPhuTrachs = GiaoVien::where('chuc_danh', ChucDanhGiaoVien::THAY_PHU_TRACH->value)
             ->orderBy('ho_ten')
             ->get();
 
-        $existing = ChamCongGiaoVien::whereIn('giao_vien_id', $thayPhuTrachs->pluck('id'))
-            ->where('ngay', $ngay)
-            ->get()
-            ->keyBy('giao_vien_id');
-
-        $soCo = $existing->where('co_di_lam', true)->count();
-        $soKhong = $existing->where('co_di_lam', false)->count();
-
-        return view('chamcong.thay', compact('thayPhuTrachs', 'existing', 'ngay', 'soCo', 'soKhong'));
-    }
-
-    public function luuThay(ChamCongThayRequest $request)
-    {
-        $ngay = $request->ngay;
-        $rows = $request->input('rows', []);
-
-        $thayIds = GiaoVien::where('chuc_danh', ChucDanhGiaoVien::THAY_PHU_TRACH->value)->pluck('id');
-
-        foreach ($thayIds as $giaoVienId) {
-            $row = $rows[$giaoVienId] ?? [];
-
-            $coDiLam = $row['co_di_lam'] ?? null;
-            $hoTro = $row['ho_tro_xang_xe'] ?? null;
-            $ghiChu = $row['ghi_chu'] ?? null;
-
-            $coDiLam = ($coDiLam === null || $coDiLam === '') ? null : (bool) $coDiLam;
-            $trong = $coDiLam === null && $hoTro === null && ($ghiChu === null || $ghiChu === '');
-
-            if ($trong) {
-                ChamCongGiaoVien::where('giao_vien_id', $giaoVienId)->where('ngay', $ngay)->delete();
-
-                continue;
-            }
-
-            ChamCongGiaoVien::updateOrCreate(
-                ['giao_vien_id' => $giaoVienId, 'ngay' => $ngay],
-                [
-                    'co_di_lam' => $coDiLam,
-                    'ho_tro_xang_xe' => $hoTro,
-                    'ghi_chu' => $ghiChu,
-                    'updated_by_user_id' => auth()->id(),
-                ]
-            );
-        }
-
-        return redirect()->route('chamcong.thay', ['ngay' => $ngay])->with('success', 'Lưu chấm công thành công');
-    }
-
-    public function ctv(Request $request)
-    {
-        $ngay = $this->ngayHopLe($request->input('ngay'));
-
         $ctvs = GiaoVien::where('chuc_danh', ChucDanhGiaoVien::TRO_GIANG->value)
             ->orderBy('ho_ten')
             ->get();
 
-        $existing = ChamCongGiaoVien::whereIn('giao_vien_id', $ctvs->pluck('id'))
-            ->where('ngay', $ngay)
+        $banGhiThang = ChamCongGiaoVien::with('giaoVien')
+            ->whereBetween('ngay', [$thang->toDateString(), $thang->copy()->endOfMonth()->toDateString()])
             ->get()
-            ->keyBy('giao_vien_id');
+            ->groupBy(fn ($r) => $r->ngay->toDateString());
 
-        $soDaCham = $existing->count();
+        $homNay = now()->toDateString();
+        $ngayTrongThang = [];
 
-        return view('chamcong.ctv', compact('ctvs', 'existing', 'ngay', 'soDaCham'));
-    }
+        for ($d = $thang->copy(); $d->month === $thang->month; $d->addDay()) {
+            $ngayIso = $d->toDateString();
+            $banGhi = $banGhiThang->get($ngayIso, collect());
 
-    public function luuCtv(ChamCongCtvRequest $request, GiaoVien $giaovien)
-    {
-        abort_unless($giaovien->chuc_danh === ChucDanhGiaoVien::TRO_GIANG, 404);
-
-        if ($giaovien->don_gia_gio === null) {
-            return redirect()->route('chamcong.ctv', ['ngay' => $request->ngay])->with(
-                'error',
-                'Giáo viên '.$giaovien->ho_ten.' chưa được cấu hình Đơn giá/giờ. Vui lòng vào Cài đặt Tiền lương để thiết lập trước khi chấm công.'
-            );
+            $ngayTrongThang[] = [
+                'ngay' => $d->copy(),
+                'la_tuong_lai' => $ngayIso > $homNay,
+                'ban_ghi_thay' => $banGhi->filter(fn ($r) => $r->giaoVien?->chuc_danh === ChucDanhGiaoVien::THAY_PHU_TRACH)->values(),
+                'ban_ghi_ctv' => $banGhi->filter(fn ($r) => $r->giaoVien?->chuc_danh === ChucDanhGiaoVien::TRO_GIANG)->values(),
+            ];
         }
 
-        ChamCongGiaoVien::updateOrCreate(
-            ['giao_vien_id' => $giaovien->id, 'ngay' => $request->ngay],
-            [
-                'so_gio' => $request->so_gio,
-                'ho_tro_xang_xe' => $request->ho_tro_xang_xe,
-                'ghi_chu' => $request->ghi_chu,
-                'updated_by_user_id' => auth()->id(),
-            ]
-        );
-
-        return redirect()->route('chamcong.ctv', ['ngay' => $request->ngay])->with('success', 'Lưu chấm công thành công');
+        return view('chamcong.index', compact('thang', 'ngayTrongThang', 'thayPhuTrachs', 'ctvs'));
     }
 
-    public function xoaCtv(Request $request, GiaoVien $giaovien)
+    public function luuHangLoat(ChamCongHangLoatRequest $request)
     {
-        $ngay = $this->ngayHopLe($request->input('ngay'));
+        $ngay = $request->ngay;
+        $rows = $request->input('rows', []);
 
-        ChamCongGiaoVien::where('giao_vien_id', $giaovien->id)->where('ngay', $ngay)->delete();
+        foreach ($rows as $row) {
+            $giaoVien = GiaoVien::find($row['giao_vien_id']);
 
-        return redirect()->route('chamcong.ctv', ['ngay' => $ngay])->with('success', 'Đã xoá chấm công');
+            if (! $giaoVien) {
+                continue;
+            }
+
+            if ($row['loai'] === 'ctv') {
+                if ($giaoVien->don_gia_gio === null) {
+                    return redirect()->route('chamcong.index', ['thang' => Carbon::parse($ngay)->format('Y-m')])
+                        ->with('error', 'Giáo viên '.$giaoVien->ho_ten.' chưa được cấu hình Đơn giá/giờ. Vui lòng vào Cài đặt Tiền lương để thiết lập trước khi chấm công.');
+                }
+
+                ChamCongGiaoVien::updateOrCreate(
+                    ['giao_vien_id' => $giaoVien->id, 'ngay' => $ngay],
+                    [
+                        'co_di_lam' => null,
+                        'so_gio' => $row['so_gio'] ?? 0,
+                        'ho_tro_xang_xe' => $row['ho_tro_xang_xe'] ?? null,
+                        'ghi_chu' => $row['ghi_chu'] ?? null,
+                        'updated_by_user_id' => auth()->id(),
+                    ]
+                );
+            } else {
+                ChamCongGiaoVien::updateOrCreate(
+                    ['giao_vien_id' => $giaoVien->id, 'ngay' => $ngay],
+                    [
+                        'co_di_lam' => (bool) ($row['co_di_lam'] ?? false),
+                        'so_gio' => null,
+                        'ho_tro_xang_xe' => null,
+                        'ghi_chu' => $row['ghi_chu'] ?? null,
+                        'updated_by_user_id' => auth()->id(),
+                    ]
+                );
+            }
+        }
+
+        return redirect()->route('chamcong.index', ['thang' => Carbon::parse($ngay)->format('Y-m')])
+            ->with('success', 'Lưu chấm công thành công');
+    }
+
+    public function xoa(ChamCongGiaoVien $chamcong)
+    {
+        $thang = $chamcong->ngay->format('Y-m');
+        $chamcong->delete();
+
+        return redirect()->route('chamcong.index', ['thang' => $thang])->with('success', 'Đã xoá chấm công');
     }
 }

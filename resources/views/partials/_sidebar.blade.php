@@ -87,31 +87,12 @@
         </a> --}}
 
         @if (hasQuyen('chamcong'))
-            <div @class([
-                'nav-group',
-                request()->routeIs('chamcong.*') ? 'open' : '',
-            ])>
-                <div @class(['nav-item', 'nav-group-toggle']) onclick="toggleNavGroup(this)">
-                    <i @class(['ri-calendar-check-line'])></i> Chấm công
-                    <i @class(['ri-arrow-down-s-line', 'nav-group-arrow'])></i>
-                </div>
-                <div @class(['nav-submenu'])>
-                    <a href="{{ route('chamcong.thay') }}" @class([
-                        'nav-item',
-                        'nav-subitem',
-                        request()->routeIs('chamcong.thay*') ? 'active' : '',
-                    ]) data-view="chamcong-thay">
-                        <i @class(['ri-graduation-cap-line'])></i> Thầy phụ trách
-                    </a>
-                    <a href="{{ route('chamcong.ctv') }}" @class([
-                        'nav-item',
-                        'nav-subitem',
-                        request()->routeIs('chamcong.ctv*') ? 'active' : '',
-                    ]) data-view="chamcong-ctv">
-                        <i @class(['ri-user-follow-line'])></i> Cộng tác viên
-                    </a>
-                </div>
-            </div>
+            <a href="{{ route('chamcong.index') }}" @class([
+                'nav-item',
+                request()->routeIs('chamcong.*') ? 'active' : '',
+            ]) data-view="chamcong">
+                <i @class(['ri-calendar-check-line'])></i> Chấm công
+            </a>
         @endif
 
         @if (hasQuyen('phieuluongnhanvien') || hasQuyen('phieuluongctv'))
