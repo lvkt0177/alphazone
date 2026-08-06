@@ -1,12 +1,10 @@
-/* ===== Bảng màu riêng cho trang Chấm công (Slate & Teal) =====
-   Khai báo biến riêng --cc-*, KHÔNG đụng tới :root gốc của app.css,
-   nên không ảnh hưởng Sidebar hay bất kỳ trang nào khác. */
 :root {
     --cc-bg: #F4F6F8;
     --cc-bg-secondary: #F1F4F7;
     --cc-ink: #1E293B;
     --cc-text-2: #5B6576;
     --cc-text-3: #94A0B2;
+    --cc-text-4: #000000;
     --cc-border: #E2E8F0;
     --cc-accent: #6357c0;
     --cc-accent-hover: #7a71bd;
@@ -24,7 +22,6 @@
     --cc-radius: 14px;
 }
 
-/* Nền trang — chỉ áp dụng trong lúc file CSS này được nạp (đúng trang Chấm công) */
 .page {
     background: var(--cc-bg);
 }
@@ -68,7 +65,7 @@
     text-align: center;
     font-size: 11px;
     font-weight: 700;
-    color: var(--cc-text-3);
+    color: var(--cc-text-4);
     text-transform: uppercase;
     letter-spacing: .06em;
 }
@@ -198,12 +195,12 @@
 
 .cc-day-name-item--ctv .cc-dot,
 .cc-dot--ctv {
-    background: var(--cc-accent2);
+    background: #e11717;
 }
 
 .cc-day-name-item--thay .cc-dot,
 .cc-dot--thay {
-    background: var(--cc-neutral-dark);
+    background: #12b32e;
 }
 
 .cc-day-trong {
