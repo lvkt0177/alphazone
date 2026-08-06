@@ -15,7 +15,7 @@
     --cc-accent2-light: #E7EAEE;
     --cc-neutral-dark: #2A2438;
     --cc-status-co: #2E8858;
-    --cc-status-co-bg: rgba(46, 136, 88, .12);
+    --cc-status-co-bg: rgb(71 239 150 / 15%);
     --cc-status-khong: #C34A3B;
     --cc-status-khong-bg: rgba(195, 74, 59, .12);
     --cc-shadow-sm: 0 1px 2px rgba(30, 41, 59, .06);
