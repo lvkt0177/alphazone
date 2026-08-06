@@ -68,6 +68,7 @@
                 @endif
             </div>
 
+            {{--
             <div class="tuition-daterange-group">
                 <div class="field tuition-filter-field--daterange" data-daterange>
                     <label class="tuition-filter-label">Lọc theo khoảng ngày (Ngày đóng)</label>
@@ -82,17 +83,18 @@
                         class="btn btn-outline btn-sm btn-xoa-loc-ngay">Xoá lọc ngày</a>
                 @endif
             </div>
+            --}}
         </div>
 
         <div class="tuition-summary-bar">
             <span class="text-2 tuition-count-text tuition-info-count">
-                {{ $dangLocNgay ?? false ? $daDongList->total() . ' lượt đã đóng' : 'Sĩ số: ' . $hocViens->total() . ' hv' }}
+                {{ $dangLocNgay ?? false ? $daDongList->total() . ' lượt đã đóng' : 'Sĩ số: ' . $hocViens->total() . ' học viên' }}
             </span>
 
             @unless ($dangLocNgay ?? false)
                 <span class="tuition-summary-sep">|</span>
                 <span class="tuition-tongthu-inline">
-                    Tổng thu (T{{ $thang->format('n/Y') }}):
+                    Tổng thu (Tháng {{ $thang->format('n/Y') }}):
                     <span class="badge blue tuition-tongthu-badge">
                         {{ number_format($tongHocPhiThang, 0, ',', '.') }} đ</span>
                 </span>
