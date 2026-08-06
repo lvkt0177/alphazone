@@ -124,3 +124,7 @@
     padding: 10px 14px;
     font-size: 13px;
 }
+
+.btn-xoa-toan-bo {
+    border: 1px solid var(--danger);
+}

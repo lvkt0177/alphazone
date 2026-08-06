@@ -101,6 +101,19 @@ function xoaHocVienHocBu(url, hoTen) {
   );
 }
 
+// Xoá TOÀN BỘ bản ghi điểm danh của 1 ngày cụ thể (chỉ hiện khi ngày đó đã được điểm danh - $daDiemDanh = true).
+function xoaToanBoDiemDanh(coSoId, ngay) {
+  confirmAction(
+    'Xoá toàn bộ bảng điểm danh',
+    `Bạn có chắc chắn muốn xoá TOÀN BỘ bản ghi điểm danh ngày ${ngay}? Hành động này không thể hoàn tác.`,
+    () => {
+      document.getElementById('deleteAll_co_so_id').value = coSoId;
+      document.getElementById('deleteAll_ngay').value = ngay;
+      document.getElementById('deleteAllDiemDanhForm').submit();
+    }
+  );
+}
+
 // ============================================================
 // Thêm học viên học bù CHỈ TRÊN GIAO DIỆN — chưa ghi vào DB.
 // Học viên chỉ thật sự được ghi vào bảng diem_danhs khi bấm "Lưu điểm danh".
