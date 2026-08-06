@@ -22,7 +22,7 @@ trait SearchableUnaccented
 
     protected static function unaccentSqlExpression(string $column): string
     {
-        $map = [
+        $mapThuong = [
             'à' => 'a', 'á' => 'a', 'ạ' => 'a', 'ả' => 'a', 'ã' => 'a',
             'â' => 'a', 'ầ' => 'a', 'ấ' => 'a', 'ậ' => 'a', 'ẩ' => 'a', 'ẫ' => 'a',
             'ă' => 'a', 'ằ' => 'a', 'ắ' => 'a', 'ặ' => 'a', 'ẳ' => 'a', 'ẵ' => 'a',
@@ -37,6 +37,11 @@ trait SearchableUnaccented
             'ỳ' => 'y', 'ý' => 'y', 'ỵ' => 'y', 'ỷ' => 'y', 'ỹ' => 'y',
             'đ' => 'd',
         ];
+
+        $map = $mapThuong;
+        foreach ($mapThuong as $co_dau => $khong_dau) {
+            $map[mb_strtoupper($co_dau)] = $khong_dau;
+        }
 
         $expr = "LOWER({$column})";
         foreach ($map as $accented => $plain) {
