@@ -320,6 +320,7 @@
 }
 
 @media (max-width: 820px) {
+
     .cc-thu-header,
     .cc-calendar-grid {
         grid-template-columns: repeat(7, minmax(90px, 1fr));

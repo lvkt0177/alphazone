@@ -44,6 +44,8 @@
     @include('partials.modals._caidathocphi')
     @include('partials.modals._bieumau')
     @include('partials.modals._tienluong')
+    @include('partials.modals._chamcongchitiet')
+    @include('partials.modals._chamconghangloat')
     
     {{-- TOAST --}}
     @include('partials._toast')

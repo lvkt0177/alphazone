@@ -115,8 +115,3 @@
     window.__ccCoQuyenXoa = {{ hasQuyen('chamcong', 'xoa') ? 'true' : 'false' }};
     window.__csrfToken = {{ Js::from(csrf_token()) }};
 </script>
-
-@push('modals')
-    @include('partials.modals._chamcongchitiet')
-    @include('partials.modals._chamconghangloat')
-@endpush
