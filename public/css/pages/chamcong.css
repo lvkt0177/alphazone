@@ -1,3 +1,34 @@
+/* ===== Bảng màu riêng cho trang Chấm công (Slate & Teal) =====
+   Khai báo biến riêng --cc-*, KHÔNG đụng tới :root gốc của app.css,
+   nên không ảnh hưởng Sidebar hay bất kỳ trang nào khác. */
+:root {
+    --cc-bg: #F4F6F8;
+    --cc-bg-secondary: #F1F4F7;
+    --cc-ink: #1E293B;
+    --cc-text-2: #5B6576;
+    --cc-text-3: #94A0B2;
+    --cc-border: #E2E8F0;
+    --cc-accent: #7973a7;
+    --cc-accent-hover: #7a71bd;
+    --cc-accent-light: #EDEAFB;
+    --cc-accent2: #64748B;
+    --cc-accent2-light: #E7EAEE;
+    --cc-neutral-dark: #2A2438;
+    --cc-status-co: #2E8858;
+    --cc-status-co-bg: rgba(46, 136, 88, .12);
+    --cc-status-khong: #C34A3B;
+    --cc-status-khong-bg: rgba(195, 74, 59, .12);
+    --cc-shadow-sm: 0 1px 2px rgba(30, 41, 59, .06);
+    --cc-shadow-md: 0 8px 20px rgba(30, 41, 59, .10);
+    --cc-shadow-accent: 0 6px 16px rgba(124, 111, 227, .22);
+    --cc-radius: 14px;
+}
+
+/* Nền trang — chỉ áp dụng trong lúc file CSS này được nạp (đúng trang Chấm công) */
+.page {
+    background: var(--cc-bg);
+}
+
 .chamcong-alert-success,
 .chamcong-alert-error {
     display: block;
@@ -15,10 +46,12 @@
 }
 
 .cc-thang-label {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
-    min-width: 120px;
+    min-width: 130px;
     text-align: center;
+    color: var(--cc-ink);
+    letter-spacing: .01em;
 }
 
 /* Lưới lịch */
@@ -26,15 +59,18 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 10px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--cc-border);
 }
 
 .cc-thu-header div {
     text-align: center;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    color: var(--text-2);
+    color: var(--cc-text-3);
     text-transform: uppercase;
+    letter-spacing: .06em;
 }
 
 .cc-calendar-grid {
@@ -48,49 +84,81 @@
 }
 
 .cc-day-card {
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    background: var(--bg);
+    border: 1px solid var(--cc-border);
+    border-radius: var(--cc-radius);
+    background: #fff;
     padding: 12px;
     display: flex;
     flex-direction: column;
     min-height: 150px;
+    box-shadow: var(--cc-shadow-sm);
+    transition: box-shadow .15s, border-color .15s, transform .15s;
+}
+
+.cc-day-card:hover {
+    border-color: #D3DBE3;
+    box-shadow: var(--cc-shadow-md);
+    transform: translateY(-2px);
 }
 
 .cc-day-card--today {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 1px var(--primary) inset;
+    border-color: var(--cc-accent);
+    box-shadow: 0 0 0 1px var(--cc-accent) inset, var(--cc-shadow-sm);
+}
+
+.cc-day-card--today:hover {
+    box-shadow: 0 0 0 1px var(--cc-accent) inset, var(--cc-shadow-md);
 }
 
 .cc-day-head {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .cc-day-so {
     font-size: 16px;
     font-weight: 700;
+    color: var(--cc-ink);
+    line-height: 24px;
+}
+
+.cc-day-card--today .cc-day-so {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--cc-accent);
+    color: #fff;
+    font-size: 13px;
+    line-height: 1;
 }
 
 .cc-day-add {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
-    border: 1.5px dashed var(--primary);
+    border: 1.5px dashed var(--cc-accent);
     background: none;
-    color: var(--primary);
+    color: var(--cc-accent);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     flex-shrink: 0;
     font-size: 14px;
+    transition: background .15s, border-style .15s, transform .15s;
 }
 
 .cc-day-add:hover {
-    background: var(--primary-light);
+    background: var(--cc-accent);
+    border-style: solid;
+    color: #fff;
+    transform: scale(1.08);
+    box-shadow: var(--cc-shadow-accent);
 }
 
 .cc-day-names {
@@ -102,66 +170,143 @@
 }
 
 .cc-day-name-item {
-    font-size: 12px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--cc-ink);
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .cc-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 3px;
     flex-shrink: 0;
-    background: var(--primary);
+    background: var(--cc-neutral-dark);
 }
 
 .cc-day-name-item--ctv .cc-dot,
 .cc-dot--ctv {
-    background: var(--blue);
+    background: var(--cc-accent2);
 }
 
 .cc-day-name-item--thay .cc-dot,
 .cc-dot--thay {
-    background: var(--primary);
+    background: var(--cc-neutral-dark);
 }
 
 .cc-day-trong {
     font-size: 12px;
+    color: var(--cc-text-3);
+    font-style: italic;
 }
 
 .cc-day-xemchitiet {
     border: none;
     background: none;
-    color: var(--primary);
+    color: var(--cc-neutral-dark);
     font-size: 12.5px;
-    font-weight: 600;
+    font-weight: 700;
     text-align: left;
     padding: 0;
+    margin-top: auto;
     cursor: pointer;
+    width: fit-content;
+    transition: color .15s;
 }
 
-/* Modal xem chi tiết */
+.cc-day-xemchitiet:hover {
+    color: var(--cc-accent);
+    text-decoration: underline;
+}
+
+/* Modal xem chi tiết — bố cục lại cho gọn, chỉ đổi trong phạm vi #chamCongChiTietModal */
+#chamCongChiTietModal .modal {
+    max-width: 560px;
+}
+
+#chamCongChiTietModal .modal-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 20px 22px 16px;
+    border-bottom: 1px solid var(--cc-border);
+}
+
+.cct-head-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.cct-head-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--cc-accent-light);
+    color: var(--cc-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
 .cct-phu-de {
-    margin-top: 2px;
+    margin-top: 3px;
+    font-size: 12.5px;
+    color: var(--cc-text-2);
+}
+
+.cct-close {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cc-text-2);
+    font-size: 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background .15s, color .15s;
+}
+
+.cct-close:hover {
+    background: var(--cc-status-khong-bg);
+    color: var(--cc-status-khong);
+}
+
+#chamCongChiTietModal .modal-body {
+    padding: 20px 22px;
+}
+
+.cct-section {
+    margin-bottom: 22px;
+}
+
+.cct-section:last-child {
+    margin-bottom: 0;
 }
 
 .cct-nhom-label {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--text-2);
-    text-transform: uppercase;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 10px;
-}
-
-.cct-nhom-label--spaced {
-    margin-top: 18px;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--cc-text-2);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    background: var(--cc-bg-secondary);
+    border-radius: 20px;
+    padding: 5px 12px 5px 10px;
+    margin-bottom: 12px;
 }
 
 .cct-danh-sach {
@@ -171,39 +316,90 @@
 }
 
 .cct-item {
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 12px;
-    background: var(--bg);
+    border: 1px solid var(--cc-border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    background: #fff;
+    transition: border-color .15s, box-shadow .15s;
+}
+
+.cct-item:hover {
+    border-color: #D3DBE3;
+    box-shadow: var(--cc-shadow-sm);
 }
 
 .cct-item-head {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    color: var(--cc-ink);
+    font-size: 13.5px;
 }
 
 .cct-item-head b {
     flex: 1;
+    font-weight: 600;
 }
 
 .cct-item-xoa {
-    color: #DC2626;
+    color: var(--cc-text-3);
     cursor: pointer;
-    font-size: 15px;
+    font-size: 16px;
+    transition: color .15s;
+}
+
+.cct-item-xoa:hover {
+    color: var(--cc-status-khong);
 }
 
 .cct-item-chitiet {
-    margin-top: 4px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--cc-border);
+    font-size: 12px;
+    color: var(--cc-text-2);
+    line-height: 1.6;
 }
 
 .cct-item-ghichu {
-    margin-top: 4px;
+    margin-top: 6px;
+    font-size: 12px;
     font-style: italic;
+    color: var(--cc-text-2);
+    background: var(--cc-bg-secondary);
+    border-left: 2px solid var(--cc-border);
+    padding: 6px 10px;
+    border-radius: 4px;
 }
 
 .cct-trong {
-    padding: 6px 0;
+    padding: 14px 4px;
+    font-size: 12.5px;
+    font-style: italic;
+    color: var(--cc-text-3);
+    text-align: center;
+    background: var(--cc-bg-secondary);
+    border-radius: 10px;
+}
+
+.textarea-thay-phu-trach {
+    height: 145px;
+}
+
+/* Badge Có mặt / Không / Số giờ — chỉ đổi màu trong phạm vi modal Chấm công, không đụng .badge dùng chung toàn app */
+#chamCongChiTietModal .badge.green {
+    background: var(--cc-status-co-bg);
+    color: var(--cc-status-co);
+}
+
+#chamCongChiTietModal .badge.red {
+    background: var(--cc-status-khong-bg);
+    color: var(--cc-status-khong);
+}
+
+#chamCongChiTietModal .badge.blue {
+    background: var(--cc-accent2-light);
+    color: var(--cc-accent2);
 }
 
 /* Modal chấm công - 2 tab */
@@ -215,15 +411,26 @@
 
 .cc-tab-item {
     flex: 1;
-    border: 1px solid var(--border);
+    border: 1px solid var(--cc-border);
     border-radius: 12px;
     padding: 10px 14px;
     cursor: pointer;
+    background: #fff;
+    transition: border-color .15s, box-shadow .15s;
+}
+
+.cc-tab-item:hover {
+    border-color: var(--cc-accent);
 }
 
 .cc-tab-item--active {
-    background: var(--text);
-    border-color: var(--text);
+    background: var(--cc-ink);
+    border-color: var(--cc-ink);
+    box-shadow: var(--cc-shadow-sm);
+}
+
+.cc-tab-item--active:hover {
+    border-color: var(--cc-ink);
 }
 
 .cc-tab-item--active .cc-tab-title,
@@ -234,11 +441,12 @@
 .cc-tab-title {
     font-weight: 700;
     font-size: 14px;
+    color: var(--cc-ink);
 }
 
 .cc-tab-sub {
     font-size: 12px;
-    color: var(--text-2);
+    color: var(--cc-text-2);
     margin-top: 2px;
 }
 
@@ -252,27 +460,33 @@
     flex: 1;
     padding: 10px;
     border-radius: 10px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--cc-border);
     background: #fff;
-    color: var(--text-2);
+    color: var(--cc-text-2);
     font-weight: 600;
     cursor: pointer;
+    transition: border-color .15s, background .15s;
+}
+
+.cc-trangthai-btn:hover {
+    border-color: var(--cc-text-2);
 }
 
 .cc-trangthai-btn--co.cc-trangthai-btn--active {
-    background: #E6F7EE;
-    border-color: #22C55E;
-    color: #16A34A;
+    background: var(--cc-status-co-bg);
+    border-color: var(--cc-status-co);
+    color: var(--cc-status-co);
 }
 
 .cc-trangthai-btn--khong.cc-trangthai-btn--active {
-    background: #FEECEC;
-    border-color: #EF4444;
-    color: #DC2626;
+    background: var(--cc-status-khong-bg);
+    border-color: var(--cc-status-khong);
+    color: var(--cc-status-khong);
 }
 
 .cc-hint {
     margin-top: 5px;
+    color: var(--cc-text-2);
 }
 
 .cc-btn-them {
@@ -280,14 +494,18 @@
     justify-content: center;
     margin-top: 8px;
     border-style: dashed;
-    color: var(--primary);
-    border-color: var(--primary);
+    color: var(--cc-accent);
+    border-color: var(--cc-accent);
+}
+
+.cc-btn-them:hover {
+    background: var(--cc-accent-light);
 }
 
 .cc-danhsachcho-label {
     font-size: 12px;
     font-weight: 700;
-    color: var(--text-2);
+    color: var(--cc-text-2);
     text-transform: uppercase;
     margin-top: 22px;
     margin-bottom: 10px;
@@ -303,20 +521,33 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid var(--border);
+    border: 1px solid var(--cc-border);
     border-radius: 10px;
     padding: 10px 12px;
-    background: var(--bg);
+    background: var(--cc-bg-secondary);
+    color: var(--cc-ink);
 }
 
 .cc-danhsachcho-xoa {
-    color: var(--text-2);
+    color: var(--cc-text-2);
     cursor: pointer;
     font-size: 16px;
 }
 
 .cc-danhsachcho-trong {
     font-style: italic;
+    color: var(--cc-text-2);
+}
+
+/* Nút "Lưu chấm công" trong modal thêm — chỉ đổi trong phạm vi modal này */
+#chamCongThemModal .btn-primary {
+    background: var(--cc-accent);
+    border-color: var(--cc-accent);
+}
+
+#chamCongThemModal .btn-primary:hover {
+    background: var(--cc-accent-hover);
+    border-color: var(--cc-accent-hover);
 }
 
 @media (max-width: 820px) {

@@ -29,7 +29,7 @@
 
             <div id="ccPanelThay">
                 <div class="form-grid full">
-                    <div class="field">
+                    <div class="field mt-2">
                         <label>Họ tên</label>
                         <select id="ccThayHoTen">
                             <option value="">-- Chọn Thầy phụ trách --</option>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
 
-                <div class="field">
+                <div class="field mt-2">
                     <label>Trạng thái</label>
                     <div class="cc-trangthai-switch">
                         <button type="button" class="cc-trangthai-btn cc-trangthai-btn--co cc-trangthai-btn--active"
@@ -51,10 +51,10 @@
                     </div>
                 </div>
 
-                <div class="form-grid full">
+                <div class="form-grid full mt-2">
                     <div class="field">
                         <label>Ghi chú</label>
-                        <textarea id="ccThayGhiChu" rows="2" placeholder="Ghi chú thêm (nếu có)..."></textarea>
+                        <textarea class="textarea-thay-phu-trach" id="ccThayGhiChu" rows="2" placeholder="Ghi chú thêm (nếu có)..."></textarea>
                     </div>
                 </div>
 
@@ -64,41 +64,40 @@
             </div>
 
             <div id="ccPanelCtv" style="display:none;">
-                <div class="form-grid">
+                <div class="form-grid mt-2">
                     <div class="field">
                         <label>Họ tên</label>
                         <select id="ccCtvHoTen" onchange="ccCapNhatDonGia()">
                             <option value="">-- Chọn Cộng tác viên --</option>
                         </select>
                     </div>
-                    <div class="field">
+                    <div class="field mt-2">
                         <label>Số giờ</label>
                         <input type="number" id="ccCtvSoGio" min="0" step="0.5" value="0"
                             oninput="ccTinhThanhTien()">
-                        <div class="text-2 cc-hint">Cho phép nhập 0 giờ</div>
                     </div>
                 </div>
 
-                <div class="form-grid">
+                <div class="form-grid mt-2">
                     <div class="field">
                         <label>Đơn giá/giờ</label>
                         <input type="text" id="ccCtvDonGia" readonly>
                         <div class="text-2 cc-hint">Tự động lấy từ Cài đặt Tiền lương</div>
                     </div>
-                    <div class="field">
+                    <div class="field mt-2">
                         <label>Hỗ trợ xăng xe</label>
                         <input type="number" id="ccCtvXangXe" min="0" value="0">
                     </div>
                 </div>
 
-                <div class="form-grid full">
+                <div class="form-grid full mt-2">
                     <div class="field">
                         <label>Thành tiền (tạm tính)</label>
                         <input type="text" id="ccCtvThanhTien" readonly>
                     </div>
                 </div>
 
-                <div class="form-grid full">
+                <div class="form-grid full mt-2">
                     <div class="field">
                         <label>Ghi chú</label>
                         <textarea id="ccCtvGhiChu" rows="2" placeholder="Ghi chú thêm (nếu có)..."></textarea>

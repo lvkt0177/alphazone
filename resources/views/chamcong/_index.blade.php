@@ -1,4 +1,4 @@
-<div class="breadcrumb">
+{{-- <div class="breadcrumb">
     <a>Trang chủ</a>
     <i class="ri-arrow-right-s-line"></i>
     <a class="active">Chấm công</a>
@@ -6,14 +6,14 @@
 
 <div class="page-head">
     <div class="page-title">Chấm công</div>
-</div>
+</div> --}}
 
-@if (session('success'))
+{{-- @if (session('success'))
     <div class="badge green chamcong-alert-success">{{ session('success') }}</div>
 @endif
 @if (session('error'))
     <div class="badge red chamcong-alert-error">{{ session('error') }}</div>
-@endif
+@endif --}}
 
 @php
     $tenThuVi = ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
