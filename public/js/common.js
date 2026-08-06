@@ -31,6 +31,11 @@ function toggleNavGroup(el) {
     el.closest('.nav-group').classList.toggle('open');
 }
 
+function toggleSidebarCollapse() {
+    const daThuGon = document.getElementById('sidebar').classList.toggle('sidebar--collapsed');
+    localStorage.setItem('sidebarCollapsed', daThuGon ? '1' : '0');
+}
+
 function confirmAction(title, msg, onOk) {
     document.getElementById('confirmTitle').textContent = title;
     document.getElementById('confirmMsg').textContent = msg;
