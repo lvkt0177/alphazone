@@ -240,7 +240,7 @@ function ccTaoDongChiTietThay(r, coQuyenXoa) {
 
     row.innerHTML = '<div class="cct-item-head"><b>' + r.ten + '</b>' + badge
         + (coQuyenXoa ? '<i class="ri-delete-bin-line cct-item-xoa" data-id="' + r.id + '"></i>' : '') + '</div>'
-        + (r.ghi_chu ? '<div class="text-2 cct-item-ghichu">' + r.ghi_chu + '</div>' : '');
+        + (r.ghi_chu ? '<div class="text-2 cct-item-ghichu">' + 'Ghi chú: ' + r.ghi_chu + '</div>' : '');
 
     if (coQuyenXoa) {
         row.querySelector('.cct-item-xoa').onclick = () => ccXoaMuc(r.id);
@@ -258,7 +258,7 @@ function ccTaoDongChiTietCtv(r, coQuyenXoa) {
         + '<div class="text-2 cct-item-chitiet">Đơn giá/giờ: ' + formatTien(r.don_gia_gio)
         + '&nbsp;&nbsp;Thành tiền: ' + formatTien(r.thanh_tien)
         + '&nbsp;&nbsp;Xăng xe: ' + formatTien(r.ho_tro_xang_xe) + '</div>'
-        + (r.ghi_chu ? '<div class="text-2 cct-item-ghichu">' + r.ghi_chu + '</div>' : '');
+        + (r.ghi_chu ? '<div class="text-2 cct-item-ghichu">' + 'Ghi chú: ' + r.ghi_chu + '</div>' : '');
 
     if (coQuyenXoa) {
         row.querySelector('.cct-item-xoa').onclick = () => ccXoaMuc(r.id);

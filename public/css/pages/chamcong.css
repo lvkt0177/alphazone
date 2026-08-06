@@ -8,7 +8,7 @@
     --cc-text-2: #5B6576;
     --cc-text-3: #94A0B2;
     --cc-border: #E2E8F0;
-    --cc-accent: #7973a7;
+    --cc-accent: #6357c0;
     --cc-accent-hover: #7a71bd;
     --cc-accent-light: #EDEAFB;
     --cc-accent2: #64748B;
@@ -90,7 +90,7 @@
     padding: 12px;
     display: flex;
     flex-direction: column;
-    min-height: 150px;
+    height: 190px;
     box-shadow: var(--cc-shadow-sm);
     transition: box-shadow .15s, border-color .15s, transform .15s;
 }
@@ -167,6 +167,13 @@
     flex-direction: column;
     gap: 4px;
     margin-bottom: 8px;
+    overflow: hidden;
+}
+
+.cc-day-them {
+    font-size: 12px;
+    font-weight: 600;
+    padding-left: 12px;
 }
 
 .cc-day-name-item {
@@ -366,9 +373,6 @@
     font-size: 12px;
     font-style: italic;
     color: var(--cc-text-2);
-    background: var(--cc-bg-secondary);
-    border-left: 2px solid var(--cc-border);
-    padding: 6px 10px;
     border-radius: 4px;
 }
 
@@ -524,7 +528,7 @@
     border: 1px solid var(--cc-border);
     border-radius: 10px;
     padding: 10px 12px;
-    background: var(--cc-bg-secondary);
+    background: #ebebeb44;
     color: var(--cc-ink);
 }
 

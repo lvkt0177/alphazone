@@ -54,6 +54,8 @@
                 $tenTat = $item['ban_ghi_thay']
                     ->map(fn($r) => ['ten' => $r->giaoVien->ho_ten, 'loai' => 'thay'])
                     ->concat($item['ban_ghi_ctv']->map(fn($r) => ['ten' => $r->giaoVien->ho_ten, 'loai' => 'ctv']));
+                $tenHienThi = $tenTat->take(5);
+                $soDu = $tenTat->count() - $tenHienThi->count();
             @endphp
             <div class="cc-day-card {{ $item['ngay']->isToday() ? 'cc-day-card--today' : '' }}">
                 <div class="cc-day-head">
@@ -67,13 +69,16 @@
                 </div>
 
                 <div class="cc-day-names">
-                    @forelse ($tenTat as $t)
+                    @forelse ($tenHienThi as $t)
                         <div class="cc-day-name-item cc-day-name-item--{{ $t['loai'] }}">
                             <span class="cc-dot"></span>{{ $t['ten'] }}
                         </div>
                     @empty
                         <div class="text-2 cc-day-trong">Chưa có ai chấm công</div>
                     @endforelse
+                    @if ($soDu > 0)
+                        <div class="text-2 cc-day-them">+{{ $soDu }}</div>
+                    @endif
                 </div>
 
                 <button type="button" class="cc-day-xemchitiet"

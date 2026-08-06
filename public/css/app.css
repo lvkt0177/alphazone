@@ -1329,6 +1329,12 @@ textarea.note-input:focus {
   backdrop-filter: blur(2px);
 }
 
+/* Modal xác nhận (confirmAction) luôn phải nổi trên cùng, kể cả khi được mở
+   từ trong 1 modal khác đang hiện — tránh bị modal đó đè lên do cùng z-index. */
+#confirmModal {
+  z-index: 300;
+}
+
 .overlay.active {
   display: flex;
 }
