@@ -37,12 +37,12 @@
     <table>
         <thead>
             <tr>
-                <th>Cộng tác viên</th>
-                <th>Số giờ</th>
-                <th>Số tiền</th>
-                <th>Hỗ trợ xăng xe</th>
-                <th>Ghi chú</th>
-                <th></th>
+                <th class="w-px-350">Cộng tác viên</th>
+                <th class="w-px-150">Số giờ</th>
+                <th class="w-px-150">Số tiền</th>
+                <th class="w-px-150">Hỗ trợ xăng xe</th>
+                <th class="w-px-250">Ghi chú</th>
+                <th class="w-px-150">Hành động</th>
             </tr>
         </thead>
         <tbody>

@@ -73,14 +73,14 @@
     <table>
         <thead>
             <tr>
-                <th>Họ tên</th>
-                <th>Số điện thoại</th>
-                <th>Năm sinh</th>
-                <th>Ngày trải nghiệm</th>
-                <th>Cơ sở</th>
-                <th>Trạng thái</th>
-                <th>Ghi chú</th>
-                <th></th>
+                <th class="w-px-250">Họ tên</th>
+                <th class="w-px-150">Số điện thoại</th>
+                <th class="w-px-100">Năm sinh</th>
+                <th class="w-px-150">Ngày trải nghiệm</th>
+                <th class="w-px-350">Cơ sở</th>
+                <th class="w-px-150">Trạng thái</th>
+                <th class="w-px-250">Ghi chú</th>
+                <th class="w-px-150">Hành động</th>
             </tr>
         </thead>
         <tbody>
