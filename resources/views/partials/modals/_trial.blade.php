@@ -1,5 +1,5 @@
 <div class="overlay" id="trialModal">
-    <div class="modal">
+    <div class="modal modal-hoc-vien-trai-nghiem">
         <div class="modal-head">
             <h3 id="trialModalTitle">Tạo Học viên Trải nghiệm</h3><i class="ri-close-line"
                 onclick="closeModal('trialModal')"></i>

@@ -72,7 +72,7 @@ class HocVien extends Model
 
         $soTien = $soBuoiDaHoc >= $config->tong_so_buoi
             ? $config->hoc_phi
-            : $soBuoiDaHoc * $config->gia_1_buoi;
+            : $config->hoc_phi - ($config->tong_so_buoi - $soBuoiDaHoc) * $config->gia_1_buoi;
 
         return [
             'so_tien' => $soTien,
@@ -98,7 +98,7 @@ class HocVien extends Model
 
         $soTien = $soBuoiDaHoc >= $config->tong_so_buoi
             ? $config->hoc_phi
-            : $soBuoiDaHoc * $config->gia_1_buoi;
+            : $config->hoc_phi - ($config->tong_so_buoi - $soBuoiDaHoc) * $config->gia_1_buoi;
 
         return [
             'thang' => $thangMucTieu,

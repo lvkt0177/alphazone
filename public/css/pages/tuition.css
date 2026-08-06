@@ -1,5 +1,7 @@
 .modal-hoc-phi {
-    max-width: 750px;
+    max-width: 950px;
+    overflow-y: visible;
+    margin-bottom: 60px;
 }
 
 .tuition-section-title {

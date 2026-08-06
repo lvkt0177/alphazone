@@ -126,3 +126,7 @@
     border-radius: 10px;
     background: var(--bg);
 }
+
+.modal-hoc-vien-trai-nghiem {
+    max-height: 94vh;
+}
