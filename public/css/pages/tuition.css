@@ -1,6 +1,5 @@
 .modal-hoc-phi {
     max-width: 950px;
-    overflow-y: visible;
     margin-bottom: 60px;
 }
 
@@ -239,4 +238,42 @@
 
 .tuition-info-count {
     font-size: 13px;
+}
+
+.tuition-dot-box {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 14px;
+}
+
+.tuition-dot-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.tuition-dot-title {
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.tuition-dot-del {
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.tuition-add-dot-wrap {
+    margin-top: 14px;
+}
+
+.tuition-modal-error-summary {
+    display: block;
+    margin-bottom: 14px;
+    padding: 10px 14px;
+}
+
+.tuition-modal-error-summary div {
+    line-height: 1.6;
 }

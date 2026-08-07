@@ -139,7 +139,18 @@
             </thead>
             <tbody>
                 @forelse ($hocViens as $hv)
-                    @php $rec = $hv->hocPhis->first(); @endphp
+                    @php
+                        $hocPhis = $hv->hocPhis;
+                        $rec = $hocPhis->first();
+                        $duKien = $hv->duKienHocPhi();
+                        $dotListData = $hocPhis->map(fn ($r) => [
+                            'id' => $r->id,
+                            'hoc_phi' => $r->hoc_phi,
+                            'dong_phuc' => $r->dong_phuc,
+                            'dong_phuc_size' => $r->dong_phuc_size,
+                            'ngay_dong' => $r->ngay_dong->format('Y-m-d'),
+                        ])->values();
+                    @endphp
                     <tr>
                         <td><a href="{{ route('hocvien.show', $hv) }}" class="code-link">{{ $hv->ma_so }}</a></td>
                         <td>
@@ -157,24 +168,25 @@
                             @endif
                         </td>
                         <td>
-                            @if ($rec)
-                                {{ number_format($rec->hoc_phi, 0, ',', '.') }} đ
-                            @else
+                            @forelse ($hocPhis as $hp)
+                                <div>{{ $hocPhis->count() > 1 ? '- ' : '' }}{{ number_format($hp->hoc_phi, 0, ',', '.') }} đ</div>
+                            @empty
                                 —
-                            @endif
+                            @endforelse
                         </td>
                         <td class="text-2">
-                            @if ($rec && isset($rec->dong_phuc))
-                                {{ \App\Enum\MucDongPhuc::tryFrom($rec->dong_phuc)?->getLabel() ?? '—' }}
-                                @if ($rec->dong_phuc_size)
-                                    (Size {{ $rec->dong_phuc_size }})
-                                @endif
-                            @else
+                            @forelse ($hocPhis as $hp)
+                                <div>
+                                    {{ $hocPhis->count() > 1 ? '- ' : '' }}{{ isset($hp->dong_phuc) ? (\App\Enum\MucDongPhuc::tryFrom($hp->dong_phuc)?->getLabel() ?? '—') : '—' }}
+                                    @if ($hp->dong_phuc_size)
+                                        (Size {{ $hp->dong_phuc_size }})
+                                    @endif
+                                </div>
+                            @empty
                                 —
-                            @endif
+                            @endforelse
                         </td>
                         <td class="text-2">
-                            @php $duKien = $hv->duKienHocPhi(); @endphp
                             @if ($duKien)
                                 {{ number_format($duKien['so_tien'], 0, ',', '.') }} đ
                                 ({{ $duKien['so_buoi_da_hoc'] }}/{{ $duKien['tong_so_buoi'] }})
@@ -194,17 +206,20 @@
                                 <span class="badge red">Chưa đóng</span>
                             @endif
                         </td>
-                        <td>{{ $rec ? $rec->ngay_dong->format('d/m/Y') : '—' }}</td>
+                        <td>
+                            @forelse ($hocPhis as $hp)
+                                <div>{{ $hocPhis->count() > 1 ? '- ' : '' }}{{ $hp->ngay_dong->format('d/m/Y') }}</div>
+                            @empty
+                                —
+                            @endforelse
+                        </td>
                         <td>
                             @if (hasQuyen('hocphi', 'them'))
                                 <button type="button"
                                     class="btn btn-sm {{ $rec ? 'btn-warning' : 'btn-primary' }} open-tuition-btn"
                                     data-hoc-vien-id="{{ $hv->id }}" data-ma-so="{{ $hv->ma_so }}"
                                     data-ho-ten="{{ $hv->ho_ten }}" data-thang="{{ $thang->format('Y-m-d') }}"
-                                    data-hoc-phi="{{ $rec->hoc_phi ?? '' }}"
-                                    data-dong-phuc="{{ $rec->dong_phuc ?? '' }}"
-                                    data-dong-phuc-size="{{ $rec->dong_phuc_size ?? '' }}"
-                                    data-ngay-dong="{{ $rec?->ngay_dong?->format('Y-m-d') }}"
+                                    data-dot-list="{{ Js::from($dotListData) }}"
                                     data-gioi-thieu-ban="{{ $rec->gioi_thieu_ban ?? 0 }}"
                                     data-nguoi-gioi-thieu-id="{{ $rec->nguoi_gioi_thieu_id ?? '' }}"
                                     data-du-kien-so-tien="{{ $duKien['so_tien'] ?? '' }}"
@@ -250,6 +265,13 @@
     @php
         $errHv = $hocViens->firstWhere('id', (int) old('hoc_vien_id'));
         $errDuKien = $errHv?->duKienHocPhi();
+        $oldDotList = collect(old('dot', []))->map(fn ($d) => [
+            'id' => $d['id'] ?? null,
+            'hoc_phi' => $d['hoc_phi'] ?? null,
+            'dong_phuc' => $d['dong_phuc'] ?? null,
+            'dong_phuc_size' => $d['dong_phuc_size'] ?? null,
+            'ngay_dong' => $d['ngay_dong'] ?? null,
+        ])->values();
     @endphp
     @if ($errHv)
         <script>
@@ -259,10 +281,7 @@
                     {{ Js::from($errHv->ma_so) }},
                     {{ Js::from($errHv->ho_ten) }},
                     {{ Js::from(old('thang')) }},
-                    {{ old('hoc_phi') !== null ? (int) old('hoc_phi') : 'null' }},
-                    {{ old('dong_phuc') !== null ? (int) old('dong_phuc') : 'null' }},
-                    {{ Js::from(old('dong_phuc_size')) }},
-                    {{ Js::from(old('ngay_dong')) }},
+                    {{ Js::from($oldDotList) }},
                     {{ old('gioi_thieu_ban') ? 1 : 0 }},
                     {{ old('nguoi_gioi_thieu_id') ? (int) old('nguoi_gioi_thieu_id') : 'null' }},
                     {{ $errDuKien ? $errDuKien['so_tien'] : 'null' }},
