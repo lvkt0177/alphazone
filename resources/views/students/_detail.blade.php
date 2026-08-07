@@ -163,53 +163,67 @@
                             <td>Tháng {{ $dk['thang']->format('n/Y') }}
                                 <span class="badge blue student-dukien-tag">Sắp tới</span>
                             </td>
-                            <td class="text-2">—</td>
+                            <td class="text-2">-</td>
                             <td>
                                 @if ($dk['so_tien'] !== null)
                                     {{ number_format($dk['so_tien'], 0, ',', '.') }} đ
                                     <span class="text-2">({{ $dk['so_buoi_da_hoc'] }}/{{ $dk['tong_so_buoi'] }}
                                         buổi)</span>
                                 @else
-                                    <span class="text-2">—</span>
+                                    <span class="text-2">-</span>
                                 @endif
                             </td>
-                            <td class="text-2">—</td>
-                            <td class="text-2">—</td>
+                            <td class="text-2">-</td>
+                            <td class="text-2">-</td>
                         </tr>
                     @endforeach
                 @endif
-                @forelse ($hocPhis as $hp)
+                @forelse ($hocPhis as $thangRow)
+                    @php
+                        $thangKey = $thangRow->thang->format('Y-m-d');
+                        $nhomHp = $hocPhiGroups->get($thangKey, collect());
+                        $hpDauTien = $nhomHp->first();
+                        $dk = $duKienTheoThang[$thangRow->thang->format('Y-m')] ?? null;
+                    @endphp
                     <tr>
-                        <td>Tháng {{ $hp->thang->format('n/Y') }}</td>
+                        <td>Tháng {{ $thangRow->thang->format('n/Y') }}</td>
                         <td>
-                            {{ number_format($hp->hoc_phi, 0, ',', '.') }} đ
-                            @if ($hp->gioi_thieu_ban)
+                            @foreach ($nhomHp as $hp)
+                                <div>{{ $nhomHp->count() > 1 ? ' ' : '' }}{{ number_format($hp->hoc_phi, 0, ',', '.') }} đ</div>
+                            @endforeach
+                            @if ($hpDauTien && $hpDauTien->gioi_thieu_ban)
                                 <span class="badge purple student-giothieu-tag">
-                                    Giới
-                                    thiệu{{ $hp->nguoiGioiThieu ? ' ' . $hp->nguoiGioiThieu->ma_so . ' - ' . $hp->nguoiGioiThieu->ho_ten : '' }}
+                                    Giới thiệu{{ $hpDauTien->nguoiGioiThieu ? ' ' . $hpDauTien->nguoiGioiThieu->ma_so . ' - ' . $hpDauTien->nguoiGioiThieu->ho_ten : '' }}
                                 </span>
                             @endif
                         </td>
                         <td class="text-2">
-                            @php $dk = $duKienTheoThang[$hp->thang->format('Y-m')] ?? null; @endphp
                             @if ($dk)
                                 {{ number_format($dk['so_tien'], 0, ',', '.') }} đ
                                 ({{ $dk['so_buoi_da_hoc'] }}/{{ $dk['tong_so_buoi'] }})
                             @else
-                                —
+                                -
                             @endif
                         </td>
                         <td>
-                            @if (isset($hp->dong_phuc))
-                                {{ \App\Enum\MucDongPhuc::tryFrom($hp->dong_phuc)?->getLabel() ?? '—' }}
-                                @if ($hp->dong_phuc_size)
-                                    (Size {{ $hp->dong_phuc_size }})
-                                @endif
-                            @else
-                                —
-                            @endif
+                            @forelse ($nhomHp as $hp)
+                                <div>
+                                    {{ $nhomHp->count() > 1 ? '' : '' }}{{ isset($hp->dong_phuc) ? (\App\Enum\MucDongPhuc::tryFrom($hp->dong_phuc)?->getLabel() ?? '') : '-' }}
+                                    @if ($hp->dong_phuc_size)
+                                        (Size {{ $hp->dong_phuc_size }})
+                                    @endif
+                                </div>
+                            @empty
+                                -
+                            @endforelse
                         </td>
-                        <td>{{ $hp->ngay_dong->format('d/m/Y') }}</td>
+                        <td>
+                            @forelse ($nhomHp as $hp)
+                                <div>{{ $nhomHp->count() > 1 ? '' : '' }}{{ $hp->ngay_dong->format('d/m/Y') }}</div>
+                            @empty
+                                -
+                            @endforelse
+                        </td>
                     </tr>
                 @empty
                     <tr>

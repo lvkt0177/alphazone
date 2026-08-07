@@ -82,7 +82,6 @@
                     <div class="field">
                         <label>Đơn giá/giờ</label>
                         <input type="text" id="ccCtvDonGia" readonly>
-                        <div class="text-2 cc-hint">Tự động lấy từ Cài đặt Tiền lương</div>
                     </div>
                     <div class="field mt-2">
                         <label>Hỗ trợ xăng xe</label>
