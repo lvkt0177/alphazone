@@ -141,7 +141,8 @@ function themDotThanhToan() {
   document.getElementById('tu_dot_list').appendChild(box);
   attachMoneyFormatter(`tu_dot_fee_${idx}`, `tu_dot_fee_raw_${idx}`);
 
-  // Nếu Giới thiệu bạn đang bật sẵn thì đợt mới thêm cũng phải khoá về 0đ luôn, không cho sửa
+  if (typeof window.dpRescan === 'function') window.dpRescan();
+
   if (document.getElementById('tu_gioi_thieu_ban').checked) {
     const feeInput = document.getElementById(`tu_dot_fee_${idx}`);
     const feeHidden = document.getElementById(`tu_dot_fee_raw_${idx}`);
@@ -151,8 +152,6 @@ function themDotThanhToan() {
   }
 }
 
-// Click vào icon xoá 1 đợt: nếu đợt đó CHƯA lưu (mới thêm trong phiên này) -> xoá thẳng trên giao diện, không cần confirm.
-// Nếu đợt đó ĐÃ lưu trong DB (có id) -> hỏi confirm rồi gọi API xoá thật, load lại trang.
 document.addEventListener('click', function (e) {
   const del = e.target.closest('.tuition-dot-del');
   if (!del) return;
@@ -196,7 +195,6 @@ function openTuitionModal(hocVienId, maSo, hoTen, thang, dotList, gioiThieuBan, 
   document.getElementById('tu_code').value = maSo;
   document.getElementById('tu_name').value = hoTen;
 
-  // Xoá hết các box "đợt" thêm động của lượt mở modal trước (nếu có), chỉ giữ lại box 0 gốc
   document.querySelectorAll('#tu_dot_list .tuition-dot-box').forEach(el => {
     if (el.dataset.dotIndex !== '0') el.remove();
   });
@@ -218,7 +216,6 @@ function openTuitionModal(hocVienId, maSo, hoTen, thang, dotList, gioiThieuBan, 
     hint.textContent = '';
   }
 
-  // Render các đợt còn lại đã có sẵn trong DB (đợt 2, 3...)
   if (dangSua && dotList.length > 1) {
     for (let i = 1; i < dotList.length; i++) {
       const box = taoDotBoxElement(i, dotList[i], true);
@@ -226,6 +223,8 @@ function openTuitionModal(hocVienId, maSo, hoTen, thang, dotList, gioiThieuBan, 
       attachMoneyFormatter(`tu_dot_fee_${i}`, `tu_dot_fee_raw_${i}`);
       tuDotCounter = i + 1;
     }
+    if (typeof window.dpRescan === 'function')
+      window.dpRescan();
   }
 
   clearReferrerSelection();

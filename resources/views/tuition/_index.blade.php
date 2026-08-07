@@ -219,7 +219,7 @@
                                     class="btn btn-sm {{ $rec ? 'btn-warning' : 'btn-primary' }} open-tuition-btn"
                                     data-hoc-vien-id="{{ $hv->id }}" data-ma-so="{{ $hv->ma_so }}"
                                     data-ho-ten="{{ $hv->ho_ten }}" data-thang="{{ $thang->format('Y-m-d') }}"
-                                    data-dot-list="{{ Js::from($dotListData) }}"
+                                    data-dot-list="{{ json_encode($dotListData) }}"
                                     data-gioi-thieu-ban="{{ $rec->gioi_thieu_ban ?? 0 }}"
                                     data-nguoi-gioi-thieu-id="{{ $rec->nguoi_gioi_thieu_id ?? '' }}"
                                     data-du-kien-so-tien="{{ $duKien['so_tien'] ?? '' }}"
