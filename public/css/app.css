@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --primary: #6C5DD3;
   --primary-dark: #5B4BC4;
   --primary-light: #EFEAFB;
@@ -1142,6 +1143,24 @@ tbody tr:hover {
   font-size: 14px;
   font-weight: 600;
   color: var(--text);
+  border: none;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.dp-label:hover {
+  background: var(--bg);
+}
+
+.dp-label-static {
+  cursor: default;
+}
+
+.dp-label-static:hover {
+  background: none;
 }
 
 .dp-nav {
@@ -1204,6 +1223,41 @@ tbody tr:hover {
   color: var(--text-2);
   opacity: .4;
   cursor: not-allowed;
+}
+
+.dp-grid-alt {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.dp-cell-alt {
+  padding: 12px 0;
+  font-size: 13px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text);
+  text-align: center;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+.dp-cell-alt:hover {
+  background: var(--blue-bg);
+}
+
+.dp-cell-alt-current {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.dp-cell-alt-selected,
+.dp-cell-alt-selected:hover {
+  background: var(--blue);
+  color: #fff;
+  font-weight: 600;
 }
 
 .dp-foot {
