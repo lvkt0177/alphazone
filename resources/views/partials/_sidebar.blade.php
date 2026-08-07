@@ -93,11 +93,35 @@
                 </a>
             @endif
 
+            @if (hasQuyen('hoadon'))
+                <div @class(['nav-group', request()->routeIs('hoadon.*') ? 'open' : ''])>
+                    <div @class(['nav-item', 'nav-group-toggle']) onclick="toggleNavGroup(this)">
+                        <i @class(['ri-bill-line'])></i> <span class="nav-text">Hóa đơn</span>
+                        <i @class(['ri-arrow-down-s-line', 'nav-group-arrow'])></i>
+                    </div>
+                    <div @class(['nav-submenu'])>
+                        <a href="{{ route('hoadon.dauvao.menu') }}" @class([
+                            'nav-item',
+                            'nav-subitem',
+                            request()->routeIs('hoadon.dauvao.*') ? 'active' : '',
+                        ])
+                            data-view="hoadon-dauvao">
+                            <i @class(['ri-file-list-3-line'])></i> <span class="nav-text">Hóa đơn đầu vào</span>
+                        </a>
+                        <a href="{{ route('hoadon.daura.index') }}" @class([
+                            'nav-item',
+                            'nav-subitem',
+                            request()->routeIs('hoadon.daura.*') ? 'active' : '',
+                        ])
+                            data-view="hoadon-daura">
+                            <i @class(['ri-file-chart-2-line'])></i> <span class="nav-text">Hóa đơn đầu ra</span>
+                        </a>
+                    </div>
+                </div>
+            @endif
+
             @if (hasQuyen('chamcong'))
-                <a href="{{ route('chamcong.index') }}" @class([
-                    'nav-item',
-                    request()->routeIs('chamcong.*') ? 'active' : '',
-                ]) data-view="chamcong">
+                <a href="{{ route('chamcong.index') }}" @class(['nav-item', request()->routeIs('chamcong.*') ? 'active' : '']) data-view="chamcong">
                     <i @class(['ri-calendar-check-line'])></i> <span class="nav-text">Chấm công</span>
                 </a>
             @endif
@@ -105,7 +129,10 @@
             @if (hasQuyen('phieuluongnhanvien') || hasQuyen('phieuluongctv'))
                 <div @class([
                     'nav-group',
-                    request()->routeIs('phieuluongnhanvien.*') || request()->routeIs('phieuluongctv.*') ? 'open' : '',
+                    request()->routeIs('phieuluongnhanvien.*') ||
+                    request()->routeIs('phieuluongctv.*')
+                        ? 'open'
+                        : '',
                 ])>
                     <div @class(['nav-item', 'nav-group-toggle']) onclick="toggleNavGroup(this)">
                         <i @class(['ri-file-paper-2-line'])></i> <span class="nav-text">Phiếu lương</span>
@@ -117,8 +144,10 @@
                                 'nav-item',
                                 'nav-subitem',
                                 request()->routeIs('phieuluongnhanvien.*') ? 'active' : '',
-                            ]) data-view="phieuluongnhanvien">
-                                <i @class(['ri-file-list-3-line'])></i> <span class="nav-text">PL Nhân viên chính thức</span>
+                            ])
+                                data-view="phieuluongnhanvien">
+                                <i @class(['ri-file-list-3-line'])></i> <span class="nav-text">PL Nhân viên chính
+                                    thức</span>
                             </a>
                         @endif
                         @if (hasQuyen('phieuluongctv'))
@@ -126,7 +155,8 @@
                                 'nav-item',
                                 'nav-subitem',
                                 request()->routeIs('phieuluongctv.*') ? 'active' : '',
-                            ]) data-view="phieuluongctv">
+                            ])
+                                data-view="phieuluongctv">
                                 <i @class(['ri-file-list-3-line'])></i> <span class="nav-text">PL Cộng tác viên</span>
                             </a>
                         @endif
@@ -139,7 +169,10 @@
             @if (hasQuyen('caidathocphi') || hasQuyen('caidattienluong'))
                 <div @class([
                     'nav-group',
-                    request()->routeIs('caidathocphi.*') || request()->routeIs('caidattienluong.*') ? 'open' : '',
+                    request()->routeIs('caidathocphi.*') ||
+                    request()->routeIs('caidattienluong.*')
+                        ? 'open'
+                        : '',
                 ])>
                     <div @class(['nav-item', 'nav-group-toggle']) onclick="toggleNavGroup(this)">
                         <i @class(['ri-settings-3-line'])></i> <span class="nav-text">Cài đặt</span>
@@ -151,7 +184,8 @@
                                 'nav-item',
                                 'nav-subitem',
                                 request()->routeIs('caidathocphi.*') ? 'active' : '',
-                            ]) data-view="caidathocphi">
+                            ])
+                                data-view="caidathocphi">
                                 <i @class(['ri-money-dollar-circle-line'])></i> <span class="nav-text">Tiền học phí</span>
                             </a>
                         @endif
@@ -160,7 +194,8 @@
                                 'nav-item',
                                 'nav-subitem',
                                 request()->routeIs('caidattienluong.*') ? 'active' : '',
-                            ]) data-view="caidattienluong">
+                            ])
+                                data-view="caidattienluong">
                                 <i @class(['ri-wallet-3-line'])></i> <span class="nav-text">Tiền lương</span>
                             </a>
                         @endif
