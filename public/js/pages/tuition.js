@@ -235,7 +235,20 @@ function openTuitionModal(hocVienId, maSo, hoTen, thang, dotList, gioiThieuBan, 
 
   const toggle = document.getElementById('tu_gioi_thieu_ban');
   toggle.checked = !!Number(gioiThieuBan);
-  capNhatTrangThaiHocPhi(toggle.checked);
+
+  // Xoá sạch giá trị "trước khi bật toggle" còn sót lại từ lần sửa học viên khác trước đó (hoặc từ lần toggle
+  // trước trong cùng phiên) — tránh rò rỉ dữ liệu cũ sang học viên đang mở hiện tại.
+  document.querySelectorAll('.dot-fee-input').forEach(inp => { delete inp.dataset.beforeToggle; });
+
+  if (toggle.checked) {
+    // Giới thiệu bạn đang bật -> đồng bộ toàn bộ ô Học phí về 0đ và khoá lại, đúng với dữ liệu đã lưu.
+    capNhatTrangThaiHocPhi(true);
+  } else {
+    // Giới thiệu bạn KHÔNG bật -> giữ nguyên các ô Học phí đã được gán đúng từ dữ liệu DB ở trên,
+    // chỉ cần ẩn khối chọn người giới thiệu đi.
+    document.getElementById('tu_referrer_wrap').style.display = 'none';
+    clearReferrerSelection();
+  }
 
   document.getElementById('tu_delete_wrap').style.display = dangSua ? 'block' : 'none';
   document.getElementById('td_hoc_vien_id').value = hocVienId;

@@ -128,9 +128,9 @@
                 <tr>
                     <th class="w-px-100">Mã số</th>
                     <th class="w-px-250">Họ tên</th>
-                    <th class="w-px-350">Cơ sở</th>
-                    <th class="w-px-100">Học phí</th>
-                    <th class="w-px-150">Đồng phục</th>
+                    <th class="w-px-300">Cơ sở</th>
+                    <th class="w-px-150">Học phí</th>
+                    <th class="w-px-200">Đồng phục</th>
                     <th class="w-px-150">Học phí dự kiến</th>
                     <th class="trang-thai-hoc-phi w-px-150">Trạng thái</th>
                     <th class="w-px-150">Ngày đóng</th>
@@ -169,21 +169,21 @@
                         </td>
                         <td>
                             @forelse ($hocPhis as $hp)
-                                <div>{{ $hocPhis->count() > 1 ? '- ' : '' }}{{ number_format($hp->hoc_phi, 0, ',', '.') }} đ</div>
+                                <div>{{ $hocPhis->count() > 1 ? '' : '' }}{{ number_format($hp->hoc_phi, 0, ',', '.') }} đ</div>
                             @empty
-                                —
+                                -
                             @endforelse
                         </td>
                         <td class="text-2">
                             @forelse ($hocPhis as $hp)
                                 <div>
-                                    {{ $hocPhis->count() > 1 ? '- ' : '' }}{{ isset($hp->dong_phuc) ? (\App\Enum\MucDongPhuc::tryFrom($hp->dong_phuc)?->getLabel() ?? '—') : '—' }}
+                                    {{ $hocPhis->count() > 1 ? '' : '' }}{{ isset($hp->dong_phuc) ? (\App\Enum\MucDongPhuc::tryFrom($hp->dong_phuc)?->getLabel() ?? '—') : '-' }}
                                     @if ($hp->dong_phuc_size)
                                         (Size {{ $hp->dong_phuc_size }})
                                     @endif
                                 </div>
                             @empty
-                                —
+                                
                             @endforelse
                         </td>
                         <td class="text-2">
@@ -191,7 +191,7 @@
                                 {{ number_format($duKien['so_tien'], 0, ',', '.') }} đ
                                 ({{ $duKien['so_buoi_da_hoc'] }}/{{ $duKien['tong_so_buoi'] }})
                             @else
-                                —
+                                -
                             @endif
                         <td>
                             @if ($rec)
@@ -208,9 +208,9 @@
                         </td>
                         <td>
                             @forelse ($hocPhis as $hp)
-                                <div>{{ $hocPhis->count() > 1 ? '- ' : '' }}{{ $hp->ngay_dong->format('d/m/Y') }}</div>
+                                <div>{{ $hocPhis->count() > 1 ? '' : '' }}{{ $hp->ngay_dong->format('d/m/Y') }}</div>
                             @empty
-                                —
+                                -
                             @endforelse
                         </td>
                         <td>
@@ -225,7 +225,7 @@
                                     data-du-kien-so-tien="{{ $duKien['so_tien'] ?? '' }}"
                                     data-du-kien-so-buoi="{{ $duKien['so_buoi_da_hoc'] ?? '' }}"
                                     data-du-kien-tong-buoi="{{ $duKien['tong_so_buoi'] ?? '' }}">
-                                    <i class="ri-edit-line"></i> {{ $rec ? 'Sửa' : 'Tạo' }} học phí
+                                    {{ $rec ? 'Sửa' : 'Tạo' }} học phí
                                 </button>
                             @endif
                         </td>
