@@ -1,5 +1,5 @@
 <div class="overlay" id="hoaDonModal">
-    <div class="modal">
+    <div class="modal modal-hoa-don">
         <div class="modal-head">
             <h3>Sửa hóa đơn</h3><i class="ri-close-line" onclick="closeModal('hoaDonModal')"></i>
         </div>
@@ -19,16 +19,16 @@
                         @enderror
                     </div>
                     <div class="field">
-                        <label>Thay file khác (bỏ trống nếu giữ nguyên file cũ)</label>
-                        <input type="file" name="file" accept=".pdf,.doc,.docx,.xls,.xlsx">
-                        @error('file')
+                        <label>Ngày tạo</label>
+                        <input type="date" name="ngay_tao" id="hd_ngay_tao">
+                        @error('ngay_tao')
                             <div class="badge red hoadon-field-error">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="field">
-                        <label>Ngày tạo</label>
-                        <input type="date" name="ngay_tao" id="hd_ngay_tao">
-                        @error('ngay_tao')
+                        <label>Thay file khác (bỏ trống nếu giữ nguyên file cũ)</label>
+                        <input type="file" name="file" accept=".pdf,.doc,.docx,.xls,.xlsx">
+                        @error('file')
                             <div class="badge red hoadon-field-error">{{ $message }}</div>
                         @enderror
                     </div>

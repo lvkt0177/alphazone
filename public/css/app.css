@@ -961,6 +961,11 @@ tbody tr:hover {
   color: #6B7085;
 }
 
+.badge.purple {
+  background: #F3E8FF;
+  color: #33008a;
+}
+
 .badge.teal {
   background: var(--teal-bg);
   color: var(--teal);
@@ -1121,7 +1126,7 @@ tbody tr:hover {
 }
 
 .dp-trigger:hover {
-  border-color: var(--blue);
+  border-color: var(--primary);
 }
 
 .dp-trigger-empty {
@@ -1161,7 +1166,7 @@ tbody tr:hover {
 }
 
 .dp-label:hover {
-  background: var(--bg);
+  background: var(--primary-light);
 }
 
 .dp-label-static {
@@ -1178,7 +1183,7 @@ tbody tr:hover {
   border: none;
   border-radius: 8px;
   background: var(--bg);
-  color: var(--blue);
+  color: var(--primary);
   font-size: 16px;
   display: flex;
   align-items: center;
@@ -1187,7 +1192,7 @@ tbody tr:hover {
 }
 
 .dp-nav:hover {
-  background: var(--blue-bg);
+  background: var(--primary-light);
 }
 
 .dp-grid {
@@ -1213,17 +1218,17 @@ tbody tr:hover {
 }
 
 .dp-cell:hover {
-  background: var(--blue-bg);
+  background: var(--primary-light);
 }
 
 .dp-cell-today {
-  color: var(--blue);
+  color: var(--primary);
   font-weight: 600;
 }
 
 .dp-cell-selected,
 .dp-cell-selected:hover {
-  background: var(--blue);
+  background: var(--primary);
   color: #fff;
   font-weight: 600;
 }
@@ -1254,17 +1259,17 @@ tbody tr:hover {
 }
 
 .dp-cell-alt:hover {
-  background: var(--blue-bg);
+  background: var(--primary-light);
 }
 
 .dp-cell-alt-current {
-  color: var(--blue);
+  color: var(--primary);
   font-weight: 600;
 }
 
 .dp-cell-alt-selected,
 .dp-cell-alt-selected:hover {
-  background: var(--blue);
+  background: var(--primary);
   color: #fff;
   font-weight: 600;
 }
@@ -1289,7 +1294,7 @@ tbody tr:hover {
 }
 
 .dp-foot-today {
-  color: var(--blue);
+  color: var(--primary);
   font-weight: 600;
 }
 
