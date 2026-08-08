@@ -16,9 +16,9 @@
 }
 
 .branch-chip:has(input:checked) {
-    background: #EEEDFE;
-    border-color: #7F77DD;
-    color: #3C3489;
+    background: var(--primary-light);
+    border-color: var(--primary);
+    color: var(--primary-dark);
     font-weight: 500;
 }
 

@@ -6,7 +6,7 @@ function statusBadge(status) {
 }
 
 function trialBadge(status) {
-    const map = { 'Đã đăng ký': 'green', 'Truy cứu': 'purple', 'Không đăng ký': 'red', 'Chưa trải nghiệm': 'gray' };
+    const map = { 'Đã đăng ký': 'green', 'Truy cứu': 'teal', 'Không đăng ký': 'red', 'Chưa trải nghiệm': 'gray' };
     return `<span class="badge ${map[status] || 'gray'}">${status}</span>`;
 }
 

@@ -222,7 +222,7 @@
         </div>
 
         <div @class(['sidebar-user'])>
-            <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->ho_ten ?? 'Admin') }}&background=6C5DD3&color=fff&bold=true"
+            <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->ho_ten ?? 'Admin') }}&background=FFA45C&color=fff&bold=true"
                 alt="">
             <div>
                 <div @class(['name'])>{{ auth()->user()->ho_ten ?? 'Quản trị viên' }}</div>

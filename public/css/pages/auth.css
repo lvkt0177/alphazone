@@ -105,7 +105,7 @@ body {
 .auth-logo span {
     font-size: 24px;
     font-weight: 800;
-    color: #6C5DD3;
+    color: #C2452E;
     letter-spacing: -.5px;
 }
 
@@ -170,7 +170,7 @@ body {
 }
 
 .auth-form-group .form-control:focus {
-    border-color: #4460f1;
+    border-color: #C2452E;
 }
 
 .auth-field-icon {
@@ -205,14 +205,14 @@ body {
     border: 0;
     color: #fff;
     border-radius: 10px;
-    background-color: #4460f1;
+    background-color: #C2452E;
     padding: 16px 36px;
     width: 100%;
     transition: all .3s ease-in-out;
 }
 
 .auth-btn-fill:hover {
-    background-color: #1a34b8;
+    background-color: #A83A26;
 }
 
 @media only screen and (max-width: 991px) {

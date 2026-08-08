@@ -6,9 +6,9 @@
     --cc-text-3: #94A0B2;
     --cc-text-4: #000000;
     --cc-border: #E2E8F0;
-    --cc-accent: #6357c0;
-    --cc-accent-hover: #7a71bd;
-    --cc-accent-light: #EDEAFB;
+    --cc-accent: var(--primary);
+    --cc-accent-hover: var(--primary-dark);
+    --cc-accent-light: var(--primary-light);
     --cc-accent2: #64748B;
     --cc-accent2-light: #E7EAEE;
     --cc-neutral-dark: #2A2438;
@@ -421,7 +421,7 @@
 }
 
 .cc-tab-item:hover {
-    border-color: var(--cc-accent);
+    border-color: var(--cc-ink);
 }
 
 .cc-tab-item--active {

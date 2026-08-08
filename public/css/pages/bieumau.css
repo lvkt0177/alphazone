@@ -58,7 +58,7 @@
     align-items: center;
     justify-content: center;
     font-size: 26px;
-    background: var(--primary-bg, #eef1ff);
+    background: var(--primary-light);
     color: var(--primary);
 }
 
