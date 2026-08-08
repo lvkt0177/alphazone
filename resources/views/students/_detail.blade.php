@@ -192,7 +192,7 @@
                                 <div>{{ $nhomHp->count() > 1 ? ' ' : '' }}{{ number_format($hp->hoc_phi, 0, ',', '.') }} đ</div>
                             @endforeach
                             @if ($hpDauTien && $hpDauTien->gioi_thieu_ban)
-                                <span class="badge purple student-giothieu-tag">
+                                <span class="badge teal student-giothieu-tag">
                                     Giới thiệu{{ $hpDauTien->nguoiGioiThieu ? ' ' . $hpDauTien->nguoiGioiThieu->ma_so . ' - ' . $hpDauTien->nguoiGioiThieu->ho_ten : '' }}
                                 </span>
                             @endif

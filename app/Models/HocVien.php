@@ -47,7 +47,7 @@ class HocVien extends Model
     {
         return $this->avatar
             ? Storage::url($this->avatar)
-            : 'https://ui-avatars.com/api/?name='.urlencode($this->ho_ten).'&background=6C5DD3&color=fff&bold=true';
+            : 'https://ui-avatars.com/api/?name='.urlencode($this->ho_ten).'&background=FFA45C&color=fff&bold=true';
     }
 
     public function diemDanhs(): HasMany

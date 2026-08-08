@@ -15,11 +15,13 @@ class HoaDon extends Model
     protected $fillable = [
         'loai',
         'ten',
+        'ngay_tao',
         'file_path',
         'file_name_goc',
     ];
 
     protected $casts = [
         'loai' => LoaiHoaDon::class,
+        'ngay_tao' => 'date',
     ];
 }

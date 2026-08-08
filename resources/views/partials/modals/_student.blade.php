@@ -79,7 +79,7 @@
                         <div class="student-branch-head">
                             <label class="student-label-flush">Cơ sở (chọn ít nhất 1)</label>
                             @if (!empty($coSos))
-                                <span id="stuBranchCount" class="badge purple student-branch-count">0 đã chọn</span>
+                                <span id="stuBranchCount" class="badge teal student-branch-count">0 đã chọn</span>
                             @endif
                         </div>
                         @if (empty($coSos))

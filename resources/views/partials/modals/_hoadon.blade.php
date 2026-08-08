@@ -1,5 +1,5 @@
 <div class="overlay" id="hoaDonModal">
-    <div class="modal">
+    <div class="modal modal-hoa-don">
         <div class="modal-head">
             <h3>Sửa hóa đơn</h3><i class="ri-close-line" onclick="closeModal('hoaDonModal')"></i>
         </div>
@@ -15,6 +15,13 @@
                         <label>Tên hóa đơn</label>
                         <input type="text" name="ten" id="hd_ten" placeholder="Tên hóa đơn">
                         @error('ten')
+                            <div class="badge red hoadon-field-error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="field">
+                        <label>Ngày tạo</label>
+                        <input type="date" name="ngay_tao" id="hd_ngay_tao">
+                        @error('ngay_tao')
                             <div class="badge red hoadon-field-error">{{ $message }}</div>
                         @enderror
                     </div>

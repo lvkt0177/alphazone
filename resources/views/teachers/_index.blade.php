@@ -36,7 +36,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>
                         <div class="cell-user">
-                            <img src="https://ui-avatars.com/api/?name={{ urlencode($gv->ho_ten) }}&background=2563EB&color=fff&bold=true"
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode($gv->ho_ten) }}&background=FFA45C&color=fff&bold=true"
                                 alt="">
                             <div class="name">{{ $gv->ho_ten }}</div>
                         </div>

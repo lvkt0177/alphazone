@@ -138,7 +138,7 @@
         <div class="card">
             <div class="card-head">
                 <h3><i class="ri-building-4-line"></i> Số lượng Học viên theo Cơ sở</h3>
-                <span class="badge purple">{{ $coSos->sum('hoc_viens_count') }} HV</span>
+                <span class="badge teal">{{ $coSos->sum('hoc_viens_count') }} HV</span>
             </div>
             <div class="row-list">
                 @forelse ($coSos as $cs)

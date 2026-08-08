@@ -53,7 +53,7 @@
                         <div class="field span-2">
                             <div class="trial-branch-head">
                                 <label class="trial-label-flush">Cơ sở (chọn ít nhất 1 cơ sở)</label>
-                                <span id="branchCount" class="badge purple trial-branch-count">0 đã chọn</span>
+                                <span id="branchCount" class="badge teal trial-branch-count">0 đã chọn</span>
                             </div>
 
                             <div class="trial-branch-toolbar">

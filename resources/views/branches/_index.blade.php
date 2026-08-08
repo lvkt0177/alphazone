@@ -34,7 +34,7 @@
                     <td class="branches-name-cell">{{ $b->ten }}</td>
                     <td>
                         @if ($b->diaDiem)
-                            <span class="badge purple">{{ $b->diaDiem->ten }}</span>
+                            <span class="badge blue">{{ $b->diaDiem->ten }}</span>
                         @else
                             <span class="text-2">—</span>
                         @endif

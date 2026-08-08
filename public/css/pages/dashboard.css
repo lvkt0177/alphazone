@@ -12,9 +12,9 @@
     color: var(--blue);
 }
 
-.dashboard-icon--purple {
-    background: var(--purple-bg);
-    color: var(--purple);
+.dashboard-icon--teal {
+    background: var(--teal-bg);
+    color: var(--teal);
 }
 
 .dashboard-icon--red {
@@ -33,7 +33,7 @@
 }
 
 .dashboard-legend-dot--fee {
-    background: #6C5DD3;
+    background: #C2452E;
 }
 
 .dashboard-legend-dot--uniform {

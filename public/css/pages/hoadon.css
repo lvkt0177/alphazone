@@ -128,3 +128,7 @@
 .hoadon-daura-tongthu-badge {
     font-size: 13.5px;
 }
+
+.modal-hoa-don {
+    overflow-y: visible;
+}

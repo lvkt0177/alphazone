@@ -28,6 +28,7 @@
     let dangKeoDiem = null;
     let dangKeoCaMuiTen = null;
     let dangKeoVatDung = null;
+    let vatDungDangChon = null;
 
     function taoId() {
         return 'o' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
@@ -491,6 +492,10 @@
                 color: item.dataset.color || '',
             }));
         });
+
+        item.addEventListener('click', function () {
+            chonVatDungNhanh(item.dataset.type, item.dataset.color || '', item);
+        });
     });
 
     canvas.addEventListener('dragover', function (e) {
@@ -517,12 +522,40 @@
         themVatDung(data.type, data.color, p.x, p.y);
     });
 
+    function capNhatConTroCanvas() {
+        const dangVeMuiTen = congCuHienTai !== 'select';
+        const dangDatVatDungNhanh = !!vatDungDangChon;
+        canvas.classList.toggle('sodo-canvas--drawing', dangVeMuiTen || dangDatVatDungNhanh);
+    }
+
+    function capNhatToolbarActive() {
+        toolButtons.forEach(function (b) {
+            b.classList.toggle('active', !vatDungDangChon && b.dataset.tool === congCuHienTai);
+        });
+    }
+
+    function boChonVatDungNhanh() {
+        vatDungDangChon = null;
+        document.querySelectorAll('.sodo-palette-item').forEach(function (el) {
+            el.classList.remove('sodo-palette-item--active');
+        });
+    }
+
+    function chonVatDungNhanh(type, color, itemEl) {
+        congCuHienTai = 'select';
+        vatDungDangChon = { type: type, color: color };
+        document.querySelectorAll('.sodo-palette-item').forEach(function (el) {
+            el.classList.toggle('sodo-palette-item--active', el === itemEl);
+        });
+        capNhatToolbarActive();
+        capNhatConTroCanvas();
+    }
+
     function chonCongCu(ten) {
         congCuHienTai = ten;
-        toolButtons.forEach(function (b) {
-            b.classList.toggle('active', b.dataset.tool === ten);
-        });
-        canvas.classList.toggle('sodo-canvas--drawing', ten !== 'select');
+        boChonVatDungNhanh();
+        capNhatToolbarActive();
+        capNhatConTroCanvas();
     }
 
     toolButtons.forEach(function (btn) {
@@ -695,8 +728,17 @@
     });
 
     canvas.addEventListener('click', function (e) {
+        const chamVaoVatDung = e.target.closest('.ga-object');
+        const chamVaoMuiTen = e.target.closest('.ga-arrow');
+
+        if (vatDungDangChon && !chamVaoVatDung && !chamVaoMuiTen) {
+            const p = toaDoTrongSvg(e.clientX, e.clientY);
+            themVatDung(vatDungDangChon.type, vatDungDangChon.color, p.x, p.y);
+            return;
+        }
+
         if (congCuHienTai !== 'select') return;
-        if (e.target.closest('.ga-arrow') || e.target.closest('.ga-object')) return;
+        if (chamVaoVatDung || chamVaoMuiTen) return;
         chonMuiTenDanBong(null);
     });
 
