@@ -59,14 +59,26 @@ class HocVienController extends Controller
             ->paginate(10, ['*'], 'trang_diem_danh');
 
         $hocPhis = $hocvien->hocPhis()
-            ->with('nguoiGioiThieu')
+            ->select('thang')
+            ->distinct()
             ->orderByDesc('thang')
             ->paginate(10, ['*'], 'trang_hoc_phi');
 
-        $duKienTheoThang = $hocPhis->getCollection()->mapWithKeys(
-            fn ($hp) => [$hp->thang->format('Y-m') => $hocvien->duKienHocPhiChoThang($hp->thang)]
+        $cacThangTrangHienTai = $hocPhis->getCollection()->pluck('thang');
+        $cacThangTrangHienTaiStr = $cacThangTrangHienTai->map(fn ($t) => $t->toDateString());
+
+        $hocPhiGroups = $hocvien->hocPhis()
+            ->with('nguoiGioiThieu')
+            ->whereIn('thang', $cacThangTrangHienTaiStr)
+            ->orderByDesc('thang')
+            ->orderBy('ngay_dong')
+            ->get()
+            ->groupBy(fn ($hp) => $hp->thang->format('Y-m-d'));
+
+        $duKienTheoThang = $cacThangTrangHienTai->mapWithKeys(
+            fn ($thang) => [$thang->format('Y-m') => $hocvien->duKienHocPhiChoThang($thang)]
         );
-       
+
         $thangHienTai = now()->startOfMonth();
         $duKienThangChuaToi = collect(range(2, 1))->map(function ($i) use ($hocvien, $thangHienTai) {
             $thangMucTieu = $thangHienTai->copy()->addMonths($i);
@@ -78,7 +90,7 @@ class HocVienController extends Controller
         });
 
         return view('students.detail', compact(
-            'hocvien', 'diemDanhs', 'hocPhis', 'duKienTheoThang', 'duKienThangChuaToi'
+            'hocvien', 'diemDanhs', 'hocPhis', 'hocPhiGroups', 'duKienTheoThang', 'duKienThangChuaToi'
         ));
     }
 

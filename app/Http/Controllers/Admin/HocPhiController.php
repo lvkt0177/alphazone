@@ -26,7 +26,7 @@ class HocPhiController extends Controller
 
         $query = HocVien::with([
             'coSos',
-            'hocPhis' => fn ($q) => $q->where('thang', $thang->toDateString())->with('nguoiGioiThieu'),
+            'hocPhis' => fn ($q) => $q->where('thang', $thang->toDateString())->orderBy('ngay_dong')->orderBy('id')->with('nguoiGioiThieu'),
             'diemDanhs' => fn ($q) => $q->whereBetween('ngay', [
                 $thangTruoc->toDateString(),
                 $thangTruoc->copy()->endOfMonth()->toDateString(),
@@ -94,17 +94,26 @@ class HocPhiController extends Controller
         $thang = Carbon::parse($data['thang'])->startOfMonth()->toDateString();
         $gioiThieuBan = $request->boolean('gioi_thieu_ban');
 
-        HocPhi::updateOrCreate(
-            ['hoc_vien_id' => $data['hoc_vien_id'], 'thang' => $thang],
-            [
+        foreach ($data['dot'] as $dot) {
+            $payload = [
+                'hoc_vien_id' => $data['hoc_vien_id'],
+                'thang' => $thang,
                 'gioi_thieu_ban' => $gioiThieuBan,
                 'nguoi_gioi_thieu_id' => $gioiThieuBan ? $data['nguoi_gioi_thieu_id'] : null,
-                'hoc_phi' => $gioiThieuBan ? 0 : ($data['hoc_phi'] ?? 0),
-                'dong_phuc' => $data['dong_phuc'] ?? null,
-                'dong_phuc_size' => $data['dong_phuc_size'] ?? null,
-                'ngay_dong' => $data['ngay_dong'],
-            ]
-        );
+                'hoc_phi' => $gioiThieuBan ? 0 : ($dot['hoc_phi'] ?? 0),
+                'dong_phuc' => $dot['dong_phuc'] ?? null,
+                'dong_phuc_size' => $dot['dong_phuc_size'] ?? null,
+                'ngay_dong' => $dot['ngay_dong'],
+            ];
+
+            if (! empty($dot['id'])) {
+                HocPhi::where('id', $dot['id'])
+                    ->where('hoc_vien_id', $data['hoc_vien_id'])
+                    ->update($payload);
+            } else {
+                HocPhi::create($payload);
+            }
+        }
 
         $hocVien = HocVien::where('id', $data['hoc_vien_id'])->first();
 
@@ -129,6 +138,18 @@ class HocPhiController extends Controller
         return redirect()
             ->route('hocphi.index', ['thang' => Carbon::parse($thang)->format('Y-m')])
             ->with('success', 'Đã xoá bản ghi học phí, học viên trở về trạng thái Chưa đóng');
+    }
+
+    public function xoaDot(HocPhi $hocPhi)
+    {
+        $thang = $hocPhi->thang->format('Y-m');
+        $hoTen = $hocPhi->hocVien->ho_ten ?? '';
+
+        $hocPhi->delete();
+
+        return redirect()
+            ->route('hocphi.index', ['thang' => $thang])
+            ->with('success', "Đã xoá 1 đợt thanh toán học phí của \"{$hoTen}\"");
     }
 
     private function indexTheoKhoangNgay(Request $request)

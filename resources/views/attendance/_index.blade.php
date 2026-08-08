@@ -158,6 +158,13 @@
         </table>
 
         <div class="attendance-save-wrap" id="attendanceSaveWrap">
+            @if ($daDiemDanh && hasQuyen('diemdanh', 'xoa'))
+                <button type="button" class="btn btn-outline btn-danger btn-xoa-toan-bo"
+                    onclick="xoaToanBoDiemDanh('{{ $selectedCoSoId }}', '{{ $selectedDate }}')">
+                    <i class="ri-delete-bin-line"></i> Xoá toàn bộ
+                </button>
+            @endif
+
             @if (hasQuyen('diemdanh', 'them') && (! $daDiemDanh || hasQuyen('diemdanh', 'sua')))
                 <button type="submit" class="btn btn-primary"><i class="ri-save-line"></i> Lưu điểm danh</button>
             @elseif ($daDiemDanh)
@@ -165,12 +172,20 @@
                     <i class="ri-lock-line"></i> Bạn đã điểm danh ngày hôm nay rồi. Nếu có sai sót, vui liên hệ với Người quản trị.
                 </span>
             @endif
+
         </div>
     </form>
 
     <form id="deleteHocBuForm" method="POST" class="attendance-hidden-form">
         @csrf
         @method('DELETE')
+    </form>
+
+    <form id="deleteAllDiemDanhForm" method="POST" action="{{ route('diemdanh.destroyAll') }}" class="attendance-hidden-form">
+        @csrf
+        @method('DELETE')
+        <input type="hidden" name="co_so_id" id="deleteAll_co_so_id">
+        <input type="hidden" name="ngay" id="deleteAll_ngay">
     </form>
 </div>
 

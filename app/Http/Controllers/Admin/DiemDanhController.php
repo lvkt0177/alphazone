@@ -11,6 +11,7 @@ use App\Http\Requests\Admin\DiemDanh\DiemDanhRequest;
 use App\Models\CoSo;
 use App\Models\DiemDanh;
 use App\Models\HocVien;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DiemDanhController extends Controller
@@ -144,5 +145,31 @@ class DiemDanhController extends Controller
         return redirect()
             ->route('diemdanh.index', ['co_so_id' => $coSoId, 'ngay' => $ngay])
             ->with('success', 'Đã xoá học viên học bù khỏi danh sách điểm danh');
+    }
+
+    public function xoaTatCa(Request $request)
+    {
+        $request->validate([
+            'co_so_id' => 'required|exists:co_sos,id',
+            'ngay' => 'required|date',
+        ]);
+
+        $soLuong = DiemDanh::where('co_so_id', $request->co_so_id)
+            ->where('ngay', $request->ngay)
+            ->count();
+
+        if ($soLuong === 0) {
+            return redirect()
+                ->route('diemdanh.index', ['co_so_id' => $request->co_so_id, 'ngay' => $request->ngay])
+                ->with('error', 'Ngày này chưa có bản ghi điểm danh nào để xoá.');
+        }
+
+        DiemDanh::where('co_so_id', $request->co_so_id)
+            ->where('ngay', $request->ngay)
+            ->delete();
+
+        return redirect()
+            ->route('diemdanh.index', ['co_so_id' => $request->co_so_id, 'ngay' => $request->ngay])
+            ->with('success', 'Đã xoá toàn bộ bảng điểm danh ngày '.Carbon::parse($request->ngay)->format('d/m/Y'));
     }
 }
