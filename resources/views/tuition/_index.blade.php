@@ -197,7 +197,7 @@
                             @if ($rec)
                                 <span class="badge green">Đã đóng</span>
                                 @if ($rec->gioi_thieu_ban)
-                                    <span class="badge purple tuition-giothieu-tag">
+                                    <span class="badge teal tuition-giothieu-tag">
                                         Giới
                                         thiệu{{ $rec->nguoiGioiThieu ? ' ' . $rec->nguoiGioiThieu->ma_so . ' - ' . $rec->nguoiGioiThieu->ho_ten : '' }}
                                     </span>

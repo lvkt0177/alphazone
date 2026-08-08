@@ -42,7 +42,7 @@
                 <span class="badge green">Đi học: {{ $soDiHoc }}</span>
                 <span class="badge red">Vắng: {{ $soVang }}</span>
                 @if ($nguoiCapNhatCuoi)
-                    <span class="badge purple">Người điểm danh gần nhất: {{ $nguoiCapNhatCuoi->ho_ten }}</span>
+                    <span class="badge teal">Người điểm danh gần nhất: {{ $nguoiCapNhatCuoi->ho_ten }}</span>
                 @endif
             </div>
 

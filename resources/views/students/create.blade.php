@@ -34,7 +34,7 @@
             </div>
 
             <div id="tuTraiNghiemBanner" class="student-tn-banner">
-                <div class="badge purple student-tn-banner-inner">
+                <div class="badge teal student-tn-banner-inner">
                     <span>Đang tạo từ Học viên trải nghiệm: <b id="tuTraiNghiemName"></b></span>
                     <span class="student-tn-close" onclick="boChonTraiNghiem()"><i class="ri-close-line"></i></span>
                 </div>
@@ -106,7 +106,7 @@
                 <div class="field span-2">
                     <div class="student-branch-head">
                         <label class="student-label-flush">Cơ sở (chọn ít nhất 1 cơ sở)</label>
-                        <span id="branchCount" class="badge purple student-branch-count">0 đã chọn</span>
+                        <span id="branchCount" class="badge teal student-branch-count">0 đã chọn</span>
                     </div>
 
                     <div class="student-branch-toolbar">
