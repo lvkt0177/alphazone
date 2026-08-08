@@ -25,6 +25,13 @@
                             <div class="badge red hoadon-field-error">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="field">
+                        <label>Ngày tạo</label>
+                        <input type="date" name="ngay_tao" id="hd_ngay_tao">
+                        @error('ngay_tao')
+                            <div class="badge red hoadon-field-error">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
             </div>
             <div class="modal-foot">

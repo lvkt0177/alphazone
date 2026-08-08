@@ -45,6 +45,7 @@ class HoaDonController extends Controller
         HoaDon::create([
             'loai' => $loaiHoaDon->value,
             'ten' => $data['ten'],
+            'ngay_tao' => $data['ngay_tao'],
             'file_path' => $file->store('hoa-don', 'public'),
             'file_name_goc' => $file->getClientOriginalName(),
         ]);
@@ -56,7 +57,7 @@ class HoaDonController extends Controller
     public function updateDauVao(HoaDonRequest $request, HoaDon $hoadon)
     {
         $data = $request->validated();
-        $capNhat = ['ten' => $data['ten']];
+        $capNhat = ['ten' => $data['ten'], 'ngay_tao' => $data['ngay_tao']];
 
         if ($request->hasFile('file')) {
             Storage::disk('public')->delete($hoadon->file_path);

@@ -17,6 +17,7 @@ class HoaDonRequest extends FormRequest
 
         return [
             'ten' => ['required', 'string', 'max:255'],
+            'ngay_tao' => ['required', 'date'],
             'file' => [$dangSua ? 'nullable' : 'required', 'file', 'mimes:pdf,doc,docx,xls,xlsx', 'max:30720'],
         ];
     }
@@ -30,6 +31,8 @@ class HoaDonRequest extends FormRequest
             'file.file' => 'File tải lên không hợp lệ.',
             'file.mimes' => 'Chỉ chấp nhận file định dạng PDF, DOC, DOCX, XLS, XLSX.',
             'file.max' => 'Dung lượng file không được vượt quá 30MB.',
+            'ngay_tao.required' => 'Vui lòng chọn ngày tạo hóa đơn.',
+            'ngay_tao.date' => 'Ngày tạo không đúng định dạng ngày tháng.',
         ];
     }
 }

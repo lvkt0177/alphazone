@@ -14,6 +14,7 @@
   --green-bg: #DCFCE7;
   --orange: #D97706;
   --orange-bg: #FEF3C7;
+  --dark-orange: #C2452E;
   --red: #DC2626;
   --red-bg: #FEE2E2;
   --blue: #2563EB;
@@ -938,6 +939,11 @@ tbody tr:hover {
 .badge.orange {
   background: var(--orange-bg);
   color: var(--orange);
+}
+
+.badge.dark-orange {
+  background: var(--dark-orange);
+  color: #fff;
 }
 
 .badge.red {

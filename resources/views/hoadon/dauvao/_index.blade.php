@@ -32,6 +32,13 @@
                     @enderror
                 </div>
                 <div class="field">
+                    <label>Ngày tạo</label>
+                    <input type="date" name="ngay_tao" value="{{ old('ngay_tao', now()->format('Y-m-d')) }}">
+                    @error('ngay_tao')
+                        <div class="badge red hoadon-field-error">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="field">
                     <label>File (pdf, doc, docx, xls, xlsx — tối đa 30MB)</label>
                     <input type="file" name="file" accept=".pdf,.doc,.docx,.xls,.xlsx">
                     @error('file')
@@ -52,6 +59,7 @@
             <tr>
                 <th>STT</th>
                 <th>Tên hóa đơn</th>
+                <th>Ngày tạo</th>
                 <th>File</th>
                 <th></th>
             </tr>
@@ -61,6 +69,7 @@
                 <tr>
                     <td>{{ $loop->iteration + ($hoaDons->currentPage() - 1) * $hoaDons->perPage() }}</td>
                     <td>{{ $hd->ten }}</td>
+                    <td>{{ $hd->ngay_tao?->format('d/m/Y') ?? '—' }}</td>
                     <td>
                         <div class="hoadon-file-cell">
                             <i class="ri-file-text-line"></i> {{ $hd->file_name_goc }}
@@ -72,7 +81,7 @@
                                     class="ri-download-2-line"></i></a>
                             @if (hasQuyen('hoadon', 'sua'))
                                 <i class="ri-edit-line"
-                                    onclick="openHoaDonEditModal({{ $hd->id }}, {{ Js::from($hd->ten) }}, {{ Js::from(route('hoadon.dauvao.update', $hd)) }})"></i>
+                                    onclick="openHoaDonEditModal({{ $hd->id }}, {{ Js::from($hd->ten) }}, {{ Js::from($hd->ngay_tao?->format('Y-m-d')) }}, {{ Js::from(route('hoadon.dauvao.update', $hd)) }})"></i>
                             @endif
                             @if (hasQuyen('hoadon', 'xoa'))
                                 <form action="{{ route('hoadon.dauvao.destroy', $hd) }}" method="POST"
@@ -88,7 +97,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4" class="text-2 hoadon-empty-row">Chưa có hóa đơn nào được tải lên</td>
+                    <td colspan="5" class="text-2 hoadon-empty-row">Chưa có hóa đơn nào được tải lên</td>
                 </tr>
             @endforelse
         </tbody>
@@ -118,6 +127,7 @@
             openHoaDonEditModal(
                 {{ (int) old('_editing_id') }},
                 {{ Js::from(old('ten')) }},
+                {{ Js::from(old('ngay_tao')) }},
                 {{ Js::from(route('hoadon.dauvao.update', old('_editing_id'))) }}
             );
         });
