@@ -75,8 +75,8 @@
         }
 
         .ga-btn-primary {
-            background: #6C5DD3;
-            border-color: #6C5DD3;
+            background: #C2452E;
+            border-color: #C2452E;
             color: #fff;
         }
 
@@ -88,7 +88,7 @@
             font-size: 15px;
             font-weight: 700;
             margin-bottom: 8px;
-            color: #6C5DD3;
+            color: #C2452E;
         }
 
         .ga-section-body {
