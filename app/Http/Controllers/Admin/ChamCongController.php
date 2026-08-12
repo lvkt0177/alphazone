@@ -17,7 +17,7 @@ class ChamCongController extends Controller
         $thangInput = $request->input('thang') ?: now()->format('Y-m');
         $thang = Carbon::createFromFormat('Y-m', $thangInput)->startOfMonth();
 
-        $thayPhuTrachs = GiaoVien::where('chuc_danh', ChucDanhGiaoVien::THAY_PHU_TRACH->value)
+        $thayPhuTrachs = GiaoVien::whereIn('chuc_danh', ChucDanhGiaoVien::nhomNhanVienValues())
             ->orderBy('ho_ten')
             ->get();
 
@@ -40,7 +40,7 @@ class ChamCongController extends Controller
             $ngayTrongThang[] = [
                 'ngay' => $d->copy(),
                 'la_tuong_lai' => $ngayIso > $homNay,
-                'ban_ghi_thay' => $banGhi->filter(fn ($r) => $r->giaoVien?->chuc_danh === ChucDanhGiaoVien::THAY_PHU_TRACH)->values(),
+                'ban_ghi_thay' => $banGhi->filter(fn ($r) => $r->giaoVien?->chuc_danh?->laNhomNhanVien())->values(),
                 'ban_ghi_ctv' => $banGhi->filter(fn ($r) => $r->giaoVien?->chuc_danh === ChucDanhGiaoVien::TRO_GIANG)->values(),
             ];
         }

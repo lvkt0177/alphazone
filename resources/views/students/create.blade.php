@@ -170,7 +170,7 @@
                             alt="">
                         <div class="info">
                             <div class="t">{{ $t->ho_ten }}</div>
-                            <div class="s">{{ $t->nam_sinh ?? '—' }} •
+                            <div class="s">{{ $t->nam_sinh ?? '-' }} •
                                 {{ $t->coSos->pluck('ten')->join(', ') ?: 'Chưa xếp cơ sở' }}</div>
                         </div>
                         <span class="badge {{ $t->trang_thai->getBadge() }}">{{ $t->trang_thai->getLabel() }}</span>

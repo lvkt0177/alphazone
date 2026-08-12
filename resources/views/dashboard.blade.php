@@ -85,7 +85,7 @@
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);">
                         <div style="display:flex;align-items:baseline;gap:8px;min-width:0;overflow:hidden;">
                             <span style="font-weight:700;font-size:13.5px;white-space:nowrap;">{{ $tn->ho_ten }}</span>
-                            <span style="color:var(--text-2);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ $tn->sdt ?? 'Chưa có Số điện thoại' }} · {{ $tn->coSos->pluck('ten')->join(', ') ?: '—' }}</span>
+                            <span style="color:var(--text-2);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ $tn->sdt ?? 'Chưa có Số điện thoại' }} · {{ $tn->coSos->pluck('ten')->join(', ') ?: '-' }}</span>
                         </div>
                         <span class="badge {{ $tn->trang_thai->getBadge() }}" style="font-size:11px;padding:3px 9px;flex-shrink:0;">{{ $tn->trang_thai->getLabel() }}</span>
                     </div>
@@ -124,7 +124,7 @@
                         <img src="{{ $hv->avatar_url }}" alt="">
                         <div class="info">
                             <div class="t">{{ $hv->ho_ten }}</div>
-                            <div class="s">{{ $hv->ma_so }} • {{ $hv->coSos->pluck('ten')->join(', ') ?: '—' }}
+                            <div class="s">{{ $hv->ma_so }} • {{ $hv->coSos->pluck('ten')->join(', ') ?: '-' }}
                             </div>
                         </div>
                         <span class="badge red">Chưa đóng</span>

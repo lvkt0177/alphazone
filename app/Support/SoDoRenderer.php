@@ -289,7 +289,7 @@ class SoDoRenderer
         $diemRan = self::duongRanLuonSong($diem);
 
         // Hướng + vị trí mũi tên: lấy CỐ ĐỊNH theo điểm điều khiển cuối (đường sóng đã tự hội tụ về đúng
-        // điểm này nhờ biên độ giảm dần ở cuối) — không phụ thuộc pha sóng nên không còn bị lắc khi kéo đốt khác.
+        // điểm này nhờ biên độ giảm dần ở cuối) - không phụ thuộc pha sóng nên không còn bị lắc khi kéo đốt khác.
         $n = count($diem);
         $pTruocCuoiDk = $diem[$n - 2];
         $pCuoiDk = $diem[$n - 1];

@@ -3,7 +3,7 @@ function openTienLuongModal(id, hoTen, field, label, giaTriHienTai, updateUrl) {
     const valueHidden = document.getElementById('tl_value');
     const valueDisplay = document.getElementById('tl_value_display');
 
-    document.getElementById('tlModalTitle').textContent = 'Sửa ' + label + ' — ' + hoTen;
+    document.getElementById('tlModalTitle').textContent = 'Sửa ' + label + ' - ' + hoTen;
     document.getElementById('tl_editing_id').value = id || '';
     document.getElementById('tl_ho_ten').value = hoTen || '';
     document.getElementById('tl_field').value = field || '';

@@ -35,7 +35,7 @@
         @if ($selectedCoSoId)
             <div class="text-2 attendance-status-line">
                 Đang điểm danh cho <b>{{ optional($coSos->firstWhere('id', $selectedCoSoId))->ten }}</b>
-                — ngày <b>{{ \Carbon\Carbon::parse($selectedDate)->format('d/m/Y') }}</b>
+                - ngày <b>{{ \Carbon\Carbon::parse($selectedDate)->format('d/m/Y') }}</b>
             </div>
 
             <div class="text-2 attendance-status-line">
@@ -216,7 +216,7 @@
                         </div>
                     </div>
                     <div class="small-note attendance-hocbu-note">
-                        Sau khi thêm, học viên sẽ xuất hiện trong bảng điểm danh bên dưới (đánh dấu "Học bù") — tick Đi
+                        Sau khi thêm, học viên sẽ xuất hiện trong bảng điểm danh bên dưới (đánh dấu "Học bù") - tick Đi
                         học/Vắng rồi bấm "Lưu điểm danh" như bình thường.
                     </div>
                 </div>

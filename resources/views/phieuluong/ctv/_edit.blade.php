@@ -1,10 +1,10 @@
 <div class="breadcrumb">
     <a href="{{ route('phieuluongctv.index', ['thang' => $thang->format('Y-m')]) }}">Phiếu lương Cộng tác viên</a>
     <i class="ri-arrow-right-s-line"></i>
-    <a class="active">Sửa phiếu — {{ $phieu->ho_ten_snapshot }}</a>
+    <a class="active">Sửa phiếu - {{ $phieu->ho_ten_snapshot }}</a>
 </div>
 <div class="page-head">
-    <div class="page-title">Sửa phiếu lương — {{ $phieu->ho_ten_snapshot }} — Tháng {{ $thang->format('m/Y') }}</div>
+    <div class="page-title">Sửa phiếu lương - {{ $phieu->ho_ten_snapshot }} - Tháng {{ $thang->format('m/Y') }}</div>
 </div>
 
 <div class="table-card phieuluong-box-form phieuluong-box-form--single">

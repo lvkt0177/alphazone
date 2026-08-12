@@ -3,7 +3,7 @@ function layGiaTri(hiddenId) {
     return el ? (parseInt(el.value, 10) || 0) : 0;
 }
 
-// An toàn hơn document.getElementById(id).textContent = ... — không crash nếu HTML thiếu phần tử này
+// An toàn hơn document.getElementById(id).textContent = ... - không crash nếu HTML thiếu phần tử này
 // (ví dụ do cache trình duyệt cũ, hoặc lệch giữa bản JS/blade khi copy)
 function ganText(id, text) {
     const el = document.getElementById(id);
@@ -23,14 +23,14 @@ function chonGiaoVien(id) {
     document.getElementById('pl_ma_nv').value = data.ma_nhan_vien || '';
     document.getElementById('pl_luong_co_ban').value = formatMoney(data.luong_co_ban || 0) + ' đ';
     document.getElementById('pl_ngay_cong').value =
-        'Có: ' + data.so_ngay_co_luong + ' ngày — Không: ' + data.so_ngay_khong_luong + ' ngày';
+        'Có: ' + data.so_ngay_co_luong + ' ngày - Không: ' + data.so_ngay_khong_luong + ' ngày';
 
     const ngayCongChuanInput = document.getElementById('pl_ngay_cong_chuan');
     if (!ngayCongChuanInput.value) {
         ngayCongChuanInput.value = window.__plNgayCongToiThieu || '';
     }
 
-    // Trợ cấp nhập tay hoàn toàn — không lấy từ Chấm công nữa, xoá trắng khi đổi giáo viên
+    // Trợ cấp nhập tay hoàn toàn - không lấy từ Chấm công nữa, xoá trắng khi đổi giáo viên
     document.getElementById('pl_tro_cap').value = '';
     document.getElementById('pl_tro_cap_display').value = '';
 

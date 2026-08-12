@@ -140,7 +140,7 @@ function ccRenderDanhSachCho() {
     box.innerHTML = '';
 
     if (ccDanhSachCho.length === 0) {
-        box.innerHTML = '<div class="text-2 cc-danhsachcho-trong">Chưa có mục nào — thêm ở form phía trên.</div>';
+        box.innerHTML = '<div class="text-2 cc-danhsachcho-trong">Chưa có mục nào - thêm ở form phía trên.</div>';
         return;
     }
 

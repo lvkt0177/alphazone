@@ -39,7 +39,7 @@
                     @enderror
                 </div>
                 <div class="field">
-                    <label>File (pdf, doc, docx, xls, xlsx — tối đa 30MB)</label>
+                    <label>File (pdf, doc, docx, xls, xlsx - tối đa 30MB)</label>
                     <input type="file" name="file" accept=".pdf,.doc,.docx,.xls,.xlsx">
                     @error('file')
                         <div class="badge red hoadon-field-error">{{ $message }}</div>
@@ -69,7 +69,7 @@
                 <tr>
                     <td>{{ $loop->iteration + ($hoaDons->currentPage() - 1) * $hoaDons->perPage() }}</td>
                     <td>{{ $hd->ten }}</td>
-                    <td>{{ $hd->ngay_tao?->format('d/m/Y') ?? '—' }}</td>
+                    <td>{{ $hd->ngay_tao?->format('d/m/Y') ?? '-' }}</td>
                     <td>
                         <div class="hoadon-file-cell">
                             <i class="ri-file-text-line"></i> {{ $hd->file_name_goc }}

@@ -39,7 +39,7 @@
                             <span>{{ $gv->ho_ten }}</span>
                         </div>
                     </td>
-                    <td>{{ $gv->don_gia_gio !== null ? number_format($gv->don_gia_gio, 0, ',', '.') . ' đ' : '—' }}</td>
+                    <td>{{ $gv->don_gia_gio !== null ? number_format($gv->don_gia_gio, 0, ',', '.') . ' đ' : '-' }}</td>
                     <td class="tienluong-action-cell">
                         @if (hasQuyen('caidattienluong', 'sua'))
                             <a href="javascript:void(0)" class="tienluong-sua-link"
@@ -111,7 +111,7 @@
                             <span>{{ $gv->ho_ten }}</span>
                         </div>
                     </td>
-                    <td>{{ $gv->luong_co_ban !== null ? number_format($gv->luong_co_ban, 0, ',', '.') . ' đ' : '—' }}</td>
+                    <td>{{ $gv->luong_co_ban !== null ? number_format($gv->luong_co_ban, 0, ',', '.') . ' đ' : '-' }}</td>
                     <td class="tienluong-action-cell">
                         @if (hasQuyen('caidattienluong', 'sua'))
                             <a href="javascript:void(0)" class="tienluong-sua-link"

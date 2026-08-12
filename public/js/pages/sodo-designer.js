@@ -300,7 +300,7 @@
         g.innerHTML = vungBam + duongMarkup + dauMuiTen + nhanSo + taySamMarkup;
     }
 
-    // Sinh dãy điểm lượn sóng (rắn) theo khoảng cách thực tế (px) — không theo số điểm mẫu/đoạn,
+    // Sinh dãy điểm lượn sóng (rắn) theo khoảng cách thực tế (px) - không theo số điểm mẫu/đoạn,
     // để hình dạng lượn sóng (biên độ + bước sóng) LUÔN cố định dù đường bị kéo dài/ngắn/uốn cong.
     function duongRanLuonSong(diem) {
         const buocLayMau = 4;
@@ -353,7 +353,7 @@
         const diemRan = duongRanLuonSong(diem);
 
         // Hướng + vị trí mũi tên: lấy CỐ ĐỊNH theo điểm điều khiển cuối (đường sóng đã tự hội tụ về đúng
-        // điểm này nhờ biên độ giảm dần ở cuối) — không phụ thuộc pha sóng nên không còn bị lắc khi kéo đốt khác.
+        // điểm này nhờ biên độ giảm dần ở cuối) - không phụ thuộc pha sóng nên không còn bị lắc khi kéo đốt khác.
         const pTruocCuoiDk = diem[diem.length - 2];
         const pCuoiDk = diem[diem.length - 1];
         const dx = pCuoiDk[0] - pTruocCuoiDk[0];
@@ -785,7 +785,7 @@
         }
     }
 
-    // Giai đoạn 6: Cài đặt 4 màu vật dụng — lưu qua AJAX, KHÔNG load lại trang
+    // Giai đoạn 6: Cài đặt 4 màu vật dụng - lưu qua AJAX, KHÔNG load lại trang
     // (tránh mất sơ đồ đang vẽ dở nếu đang ở trang Tạo mới chưa lưu).
     const gaMauSacSaveBtn = document.getElementById('gaMauSacSaveBtn');
     const gaMauBlue = document.getElementById('gaMauBlue');
@@ -821,9 +821,9 @@
         });
     }
 
-    // (Nút lưu màu cũ đã được gộp chung với nút lưu kích thước — xem khối "Giai đoạn 7" bên dưới)
+    // (Nút lưu màu cũ đã được gộp chung với nút lưu kích thước - xem khối "Giai đoạn 7" bên dưới)
 
-    // Giai đoạn 7: Gộp lưu Màu + Kích thước vào 1 nút — bấm 1 lần gọi song song 2 API,
+    // Giai đoạn 7: Gộp lưu Màu + Kích thước vào 1 nút - bấm 1 lần gọi song song 2 API,
     // chỉ cập nhật UI/đóng modal khi CẢ HAI đều lưu thành công. Vẫn giữ AJAX, không load lại trang.
     const gaSizeSliders = document.querySelectorAll('#gaMauSacModal input[type="range"][data-group]');
 

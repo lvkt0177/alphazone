@@ -48,7 +48,7 @@ class FixVietnameseUsernames extends Command
         $this->table(['ID', 'Username cũ (lỗi)', 'Username mới (đề xuất)'], $rows);
 
         if (! $apply) {
-            $this->warn('Đây là chế độ xem trước — CHƯA cập nhật gì cả.');
+            $this->warn('Đây là chế độ xem trước - CHƯA cập nhật gì cả.');
             $this->line('Chạy lại kèm --apply để thực sự cập nhật: php artisan users:fix-vietnamese-usernames --apply');
 
             return self::SUCCESS;

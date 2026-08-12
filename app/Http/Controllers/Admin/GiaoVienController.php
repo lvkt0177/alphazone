@@ -116,7 +116,7 @@ class GiaoVienController extends Controller
         }
 
         return redirect()->route('giaovien.index')->with('success',
-            "Cấp tài khoản thành công. Tài khoản đăng nhập: {$username} — Mật khẩu: {$giaovien->sdt}"
+            "Cấp tài khoản thành công. Tài khoản đăng nhập: {$username} - Mật khẩu: {$giaovien->sdt}"
         );
     }
 

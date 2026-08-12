@@ -27,7 +27,7 @@
     <div class="info-grid">
         <div class="info-item">
             <div class="k">Ngày sinh</div>
-            <div class="v" id="dtDob">{{ optional($hocvien->ngay_sinh)->format('d/m/Y') ?? '—' }}</div>
+            <div class="v" id="dtDob">{{ optional($hocvien->ngay_sinh)->format('d/m/Y') ?? '-' }}</div>
         </div>
         <div class="info-item">
             <div class="k">Giới tính</div>
@@ -53,29 +53,29 @@
         </div>
         <div class="info-item">
             <div class="k">Số điện thoại</div>
-            <div class="v" id="dtPhone">{{ $hocvien->sdt ?? '—' }}</div>
+            <div class="v" id="dtPhone">{{ $hocvien->sdt ?? '-' }}</div>
         </div>
         <div class="info-item">
             <div class="k">Trường</div>
-            <div class="v" id="dtSchool">{{ $hocvien->truong ?? '—' }}</div>
+            <div class="v" id="dtSchool">{{ $hocvien->truong ?? '-' }}</div>
         </div>
         <div class="info-item">
             <div class="k">Địa chỉ</div>
-            <div class="v" id="dtAddress">{{ $hocvien->dia_chi ?? '—' }}</div>
+            <div class="v" id="dtAddress">{{ $hocvien->dia_chi ?? '-' }}</div>
         </div>
 
         @php $coSoList = $hocvien->coSos; @endphp
         <div class="info-item">
             <div class="k">Cơ sở 1</div>
-            <div class="v" id="dtBranch1">{{ optional($coSoList->get(0))->ten ?? '—' }}</div>
+            <div class="v" id="dtBranch1">{{ optional($coSoList->get(0))->ten ?? '-' }}</div>
         </div>
         <div class="info-item">
             <div class="k">Cơ sở 2</div>
-            <div class="v" id="dtBranch2">{{ optional($coSoList->get(1))->ten ?? '—' }}</div>
+            <div class="v" id="dtBranch2">{{ optional($coSoList->get(1))->ten ?? '-' }}</div>
         </div>
         <div class="info-item">
             <div class="k">Cơ sở 3</div>
-            <div class="v" id="dtBranch3">{{ optional($coSoList->get(2))->ten ?? '—' }}</div>
+            <div class="v" id="dtBranch3">{{ optional($coSoList->get(2))->ten ?? '-' }}</div>
         </div>
     </div>
 </div>
@@ -115,7 +115,7 @@
                                     {{ $dd->coSo->ten }}</span>
                             @endif
                         </td>
-                        <td>{{ $dd->ghi_chu ?? '—' }}</td>
+                        <td>{{ $dd->ghi_chu ?? '-' }}</td>
                         <td>{{ $dd->coSo->ten }} - {{ $dd->giaoVien->ho_ten ?? 'N/A' }}</td>
                     </tr>
                 @empty

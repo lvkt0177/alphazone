@@ -4,7 +4,7 @@
     <a class="active">Tạo phiếu</a>
 </div>
 <div class="page-head">
-    <div class="page-title">Tạo phiếu lương — Tháng {{ $thang->format('m/Y') }}</div>
+    <div class="page-title">Tạo phiếu lương - Tháng {{ $thang->format('m/Y') }}</div>
 </div>
 
 @if ($errors->any())

@@ -5,7 +5,7 @@
         <a class="active">Giáo án</a>
     </div>
     <div class="page-head">
-        <div class="page-title">Giáo án — Chọn Cấp học</div>
+        <div class="page-title">Giáo án - Chọn Cấp học</div>
     </div>
 
     <div class="giaoan-box-grid">
@@ -25,7 +25,7 @@
         <a class="active">{{ $capHoc->getLabel() }}</a>
     </div>
     <div class="page-head">
-        <div class="page-title">{{ $capHoc->getLabel() }} — Chọn Loại game</div>
+        <div class="page-title">{{ $capHoc->getLabel() }} - Chọn Loại game</div>
         <a href="{{ route('giaoan.menu') }}" class="btn btn-outline"><i class="ri-arrow-left-line"></i> Quay lại</a>
     </div>
 
@@ -49,7 +49,7 @@
         <a class="active">{{ $loaiGame->getLabel() }}</a>
     </div>
     <div class="page-head">
-        <div class="page-title">{{ $capHoc->getLabel() }} — {{ $loaiGame->getLabel() }} — Chọn Chủ đề</div>
+        <div class="page-title">{{ $capHoc->getLabel() }} - {{ $loaiGame->getLabel() }} - Chọn Chủ đề</div>
         <a href="{{ route('giaoan.menu', ['cap_hoc' => $capHoc->value]) }}" class="btn btn-outline"><i
                 class="ri-arrow-left-line"></i> Quay lại</a>
     </div>

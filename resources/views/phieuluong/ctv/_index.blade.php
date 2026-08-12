@@ -47,11 +47,11 @@
             @forelse ($phieus as $p)
                 <tr>
                     <td>{{ $p->ho_ten_snapshot }}</td>
-                    <td>{{ $p->ma_nhan_vien_snapshot ?? '—' }}</td>
+                    <td>{{ $p->ma_nhan_vien_snapshot ?? '-' }}</td>
                     <td>{{ rtrim(rtrim(number_format($p->tong_so_gio, 1), '0'), '.') }}</td>
                     <td>{{ number_format($p->don_gia, 0, ',', '.') }} đ</td>
                     <td>{{ number_format($p->thanh_tien, 0, ',', '.') }} đ</td>
-                    <td>{{ $p->khau_tru !== null ? number_format($p->khau_tru, 0, ',', '.') . ' đ' : '—' }}</td>
+                    <td>{{ $p->khau_tru !== null ? number_format($p->khau_tru, 0, ',', '.') . ' đ' : '-' }}</td>
                     <td>{{ number_format($p->thuc_nhan, 0, ',', '.') }} đ</td>
                     <td class="actions-cell">
                         @if (hasQuyen('phieuluongctv', 'sua'))

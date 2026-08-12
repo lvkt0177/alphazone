@@ -110,7 +110,7 @@
 
             <div class="cc-danhsachcho-label">Danh sách vừa thêm (chưa lưu)</div>
             <div id="ccDanhSachCho" class="cc-danhsachcho">
-                <div class="text-2 cc-danhsachcho-trong">Chưa có mục nào — thêm ở form phía trên.</div>
+                <div class="text-2 cc-danhsachcho-trong">Chưa có mục nào - thêm ở form phía trên.</div>
             </div>
         </div>
 

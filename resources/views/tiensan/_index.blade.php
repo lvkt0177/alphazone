@@ -77,10 +77,10 @@
                             <img src="{{ $ts->bill_url }}" alt="Bill"
                                 class="tiensan-bill-thumb" onclick="openBillPreview('{{ $ts->bill_url }}')">
                         @else
-                            <span class="text-2">—</span>
+                            <span class="text-2">-</span>
                         @endif
                     </td>
-                    <td class="text-2">{{ $ts->ghi_chu ?? '—' }}</td>
+                    <td class="text-2">{{ $ts->ghi_chu ?? '-' }}</td>
                     <td>
                         <div class="actions-cell">
                             @if (hasQuyen('tiensan', 'sua'))

@@ -46,7 +46,7 @@ function confirmAction(title, msg, onOk) {
 }
 
 function fillSelect(sel, list, includeEmpty, labelFn) {
-    sel.innerHTML = (includeEmpty ? '<option value="">— Không —</option>' : '')
+    sel.innerHTML = (includeEmpty ? '<option value="">- Không -</option>' : '')
         + list.map(o => `<option value="${o.id}">${labelFn(o)}</option>`).join('');
 }
 

@@ -49,24 +49,24 @@
                         @if ($hp->hocVien)
                             <a href="{{ route('hocvien.show', $hp->hocVien) }}" class="code-link">{{ $hp->hocVien->ma_so }}</a>
                         @else
-                            —
+                            -
                         @endif
                     </td>
                     <td>
                         <div class="cell-user">
                             <img src="{{ $hp->hocVien->avatar_url ?? '' }}" alt="">
-                            <div class="name">{{ $hp->hocVien->ho_ten ?? '—' }}</div>
+                            <div class="name">{{ $hp->hocVien->ho_ten ?? '-' }}</div>
                         </div>
                     </td>
                     <td>{{ number_format($hp->hoc_phi, 0, ',', '.') }} đ</td>
                     <td class="text-2">
                         @if (isset($hp->dong_phuc))
-                            {{ \App\Enum\MucDongPhuc::tryFrom($hp->dong_phuc)?->getLabel() ?? '—' }}
+                            {{ \App\Enum\MucDongPhuc::tryFrom($hp->dong_phuc)?->getLabel() ?? '-' }}
                             @if ($hp->dong_phuc_size)
                                 (Size {{ $hp->dong_phuc_size }})
                             @endif
                         @else
-                            —
+                            -
                         @endif
                     </td>
                     <td>{{ $hp->ngay_dong->format('d/m/Y') }}</td>

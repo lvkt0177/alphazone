@@ -41,9 +41,9 @@
                             <div class="name">{{ $gv->ho_ten }}</div>
                         </div>
                     </td>
-                    <td>{{ $gv->ma_nhan_vien ?? '—' }}</td>
-                    <td>{{ $gv->ngay_sinh?->format('d/m/Y') ?? '—' }}</td>
-                    <td>{{ $gv->sdt ?? '—' }}</td>
+                    <td>{{ $gv->ma_nhan_vien ?? '-' }}</td>
+                    <td>{{ $gv->ngay_sinh?->format('d/m/Y') ?? '-' }}</td>
+                    <td>{{ $gv->sdt ?? '-' }}</td>
                     <td>
                         <span class="badge {{ $gv->chuc_danh->getBadge() }}">{{ $gv->chuc_danh->getLabel() }}</span>
                     </td>
@@ -95,7 +95,7 @@
                                     <form action="{{ route('giaovien.captaikhoan', $gv) }}" method="POST"
                                         class="teacher-inline-form confirm-delete-form"
                                         data-confirm-title="Cấp tài khoản đăng nhập"
-                                        data-confirm-message="Tài khoản đăng nhập: {{ generate_username_from_name($gv->ho_ten) }} — Mật khẩu là Số điện thoại: {{ $gv->sdt ?? 'Chưa có SĐT' }}. Xác nhận cấp tài khoản?">
+                                        data-confirm-message="Tài khoản đăng nhập: {{ generate_username_from_name($gv->ho_ten) }} - Mật khẩu là Số điện thoại: {{ $gv->sdt ?? 'Chưa có SĐT' }}. Xác nhận cấp tài khoản?">
                                         @csrf
                                         <button type="submit" class="teacher-icon-btn" title="Cấp tài khoản">
                                             <i class="ri-user-add-line"></i>

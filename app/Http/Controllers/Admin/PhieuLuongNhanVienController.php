@@ -42,7 +42,7 @@ class PhieuLuongNhanVienController extends Controller
 
         $daCoPhieu = PhieuLuongNhanVien::where('thang', $thang->toDateString())->pluck('giao_vien_id');
 
-        $giaoViens = GiaoVien::where('chuc_danh', ChucDanhGiaoVien::THAY_PHU_TRACH->value)
+        $giaoViens = GiaoVien::whereIn('chuc_danh', ChucDanhGiaoVien::nhomNhanVienValues())
             ->whereNotIn('id', $daCoPhieu)
             ->orderBy('ho_ten')
             ->get();
@@ -78,7 +78,7 @@ class PhieuLuongNhanVienController extends Controller
         $thuongKhac = (int) ($d['thuong_khac'] ?? 0);
         $congTacPhi = (int) ($d['cong_tac_phi'] ?? 0);
         $tamUng = (int) ($d['tam_ung'] ?? 0);
-        // Thuế TNCN nhập tay hoàn toàn — không còn gợi ý tự động, admin tự quyết định
+        // Thuế TNCN nhập tay hoàn toàn - không còn gợi ý tự động, admin tự quyết định
         $thueTncn = (int) ($d['thue_tncn'] ?? 0);
 
         $tongThuNhap = $luongCoBan + $troCap + $nangSuat + $thuongKhac - $truNgayThieu;
