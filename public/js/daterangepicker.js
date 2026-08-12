@@ -136,7 +136,7 @@
             return col;
         }
 
-        // Vẽ lại toàn bộ khung lịch — CHỈ gọi khi mở panel hoặc đổi tháng, không gọi
+        // Vẽ lại toàn bộ khung lịch - CHỈ gọi khi mở panel hoặc đổi tháng, không gọi
         // lúc rê chuột/chọn ngày (tránh rebuild DOM ngay dưới con trỏ gây mất event click).
         function renderPanel() {
             panel.innerHTML = '';

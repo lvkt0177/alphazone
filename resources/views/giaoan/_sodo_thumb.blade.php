@@ -24,5 +24,5 @@
         </svg>
     </div>
 @else
-    <span class="text-2">—</span>
+    <span class="text-2">-</span>
 @endif

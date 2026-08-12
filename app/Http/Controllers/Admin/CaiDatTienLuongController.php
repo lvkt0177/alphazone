@@ -13,7 +13,7 @@ class CaiDatTienLuongController extends Controller
 {
     public function index()
     {
-        $thayPhuTrachs = GiaoVien::where('chuc_danh', ChucDanhGiaoVien::THAY_PHU_TRACH->value)
+        $thayPhuTrachs = GiaoVien::whereIn('chuc_danh', ChucDanhGiaoVien::nhomNhanVienValues())
             ->orderBy('ho_ten')
             ->get();
 
@@ -28,7 +28,7 @@ class CaiDatTienLuongController extends Controller
 
     public function update(CaiDatTienLuongRequest $request, GiaoVien $giaovien)
     {
-        $ten = $giaovien->chuc_danh === ChucDanhGiaoVien::THAY_PHU_TRACH ? 'luong_co_ban' : 'don_gia_gio';
+        $ten = $giaovien->chuc_danh->laNhomNhanVien() ? 'luong_co_ban' : 'don_gia_gio';
 
         $giaovien->update([$ten => $request->validated()[$ten]]);
 

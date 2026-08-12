@@ -63,7 +63,7 @@
                                     <div class="tuition-uniform-col tuition-uniform-col--muc">
                                         <label>Đồng phục</label>
                                         <select id="tu_uniform" name="dot[0][dong_phuc]">
-                                            <option value="">— Không chọn —</option>
+                                            <option value="">- Không chọn -</option>
                                             @foreach (\App\Enum\MucDongPhuc::cases() as $muc)
                                                 <option value="{{ $muc->value }}">{{ $muc->getLabel() }}</option>
                                             @endforeach

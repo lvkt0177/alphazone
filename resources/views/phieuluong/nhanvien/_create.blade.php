@@ -4,7 +4,7 @@
     <a class="active">Tạo phiếu</a>
 </div>
 <div class="page-head">
-    <div class="page-title">Tạo phiếu lương — Tháng {{ $thang->format('m/Y') }}</div>
+    <div class="page-title">Tạo phiếu lương - Tháng {{ $thang->format('m/Y') }}</div>
 </div>
 
 @if ($errors->any())
@@ -55,7 +55,7 @@
 
                 <div class="form-row-3 mt-3">
                     <div class="field">
-                        <label>Ngày công (Có / Không — từ Chấm công)</label>
+                        <label>Ngày công (Có / Không - từ Chấm công)</label>
                         <input type="text" id="pl_ngay_cong" readonly>
                     </div>
                     <div class="field">

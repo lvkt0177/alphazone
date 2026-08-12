@@ -228,7 +228,7 @@
     text-decoration: underline;
 }
 
-/* Modal xem chi tiết — bố cục lại cho gọn, chỉ đổi trong phạm vi #chamCongChiTietModal */
+/* Modal xem chi tiết - bố cục lại cho gọn, chỉ đổi trong phạm vi #chamCongChiTietModal */
 #chamCongChiTietModal .modal {
     max-width: 560px;
 }
@@ -387,7 +387,7 @@
     height: 145px;
 }
 
-/* Badge Có mặt / Không / Số giờ — chỉ đổi màu trong phạm vi modal Chấm công, không đụng .badge dùng chung toàn app */
+/* Badge Có mặt / Không / Số giờ - chỉ đổi màu trong phạm vi modal Chấm công, không đụng .badge dùng chung toàn app */
 #chamCongChiTietModal .badge.green {
     background: var(--cc-status-co-bg);
     color: var(--cc-status-co);
@@ -540,7 +540,7 @@
     color: var(--cc-text-2);
 }
 
-/* Nút "Lưu chấm công" trong modal thêm — chỉ đổi trong phạm vi modal này */
+/* Nút "Lưu chấm công" trong modal thêm - chỉ đổi trong phạm vi modal này */
 #chamCongThemModal .btn-primary {
     background: var(--cc-accent);
     border-color: var(--cc-accent);

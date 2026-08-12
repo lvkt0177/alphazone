@@ -53,7 +53,7 @@
         nativeInput.style.display = 'none';
 
         // renderPanel() xoá/tạo lại DOM bên trong panel ngay khi xử lý click (VD nút
-        // tiến/lùi tháng) — nếu để sự kiện click nổi lên document, phần tử vừa bấm đã
+        // tiến/lùi tháng) - nếu để sự kiện click nổi lên document, phần tử vừa bấm đã
         // bị gỡ khỏi DOM nên wrap.contains(e.target) trả về false, khiến panel bị tưởng
         // nhầm là "bấm ra ngoài" và tự đóng ngay sau khi vừa chuyển tháng. Chặn hẳn ở đây.
         panel.addEventListener('click', (e) => e.stopPropagation());

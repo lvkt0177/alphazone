@@ -2,10 +2,10 @@
     <a href="{{ route('phieuluongnhanvien.index', ['thang' => $thang->format('Y-m')]) }}">Phiếu lương Nhân viên chính
         thức</a>
     <i class="ri-arrow-right-s-line"></i>
-    <a class="active">Sửa phiếu — {{ $phieu->ho_ten_snapshot }}</a>
+    <a class="active">Sửa phiếu - {{ $phieu->ho_ten_snapshot }}</a>
 </div>
 <div class="page-head">
-    <div class="page-title">Sửa phiếu lương — {{ $phieu->ho_ten_snapshot }} — Tháng {{ $thang->format('m/Y') }}</div>
+    <div class="page-title">Sửa phiếu lương - {{ $phieu->ho_ten_snapshot }} - Tháng {{ $thang->format('m/Y') }}</div>
 </div>
 
 <div class="table-card phieuluong-box-form phieuluong-box-form--single">
@@ -34,7 +34,7 @@
             <div class="field">
                 <label>Ngày công (đã chốt lúc tạo phiếu)</label>
                 <input type="text"
-                    value="Có: {{ $phieu->so_ngay_co_luong }} ngày — Không: {{ $phieu->so_ngay_khong_luong }} ngày"
+                    value="Có: {{ $phieu->so_ngay_co_luong }} ngày - Không: {{ $phieu->so_ngay_khong_luong }} ngày"
                     readonly>
             </div>
             <div class="field">

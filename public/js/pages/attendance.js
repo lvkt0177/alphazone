@@ -115,7 +115,7 @@ function xoaToanBoDiemDanh(coSoId, ngay) {
 }
 
 // ============================================================
-// Thêm học viên học bù CHỈ TRÊN GIAO DIỆN — chưa ghi vào DB.
+// Thêm học viên học bù CHỈ TRÊN GIAO DIỆN - chưa ghi vào DB.
 // Học viên chỉ thật sự được ghi vào bảng diem_danhs khi bấm "Lưu điểm danh".
 // Nếu F5 hoặc rời trang mà chưa Lưu, dòng vừa thêm sẽ mất (đúng như dự kiến).
 // ============================================================

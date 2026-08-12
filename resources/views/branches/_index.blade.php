@@ -36,7 +36,7 @@
                         @if ($b->diaDiem)
                             <span class="badge blue">{{ $b->diaDiem->ten }}</span>
                         @else
-                            <span class="text-2">—</span>
+                            <span class="text-2">-</span>
                         @endif
                     </td>
                     <td>{{ $b->giaoVien ? $b->giaoVien->ho_ten : 'N/A' }}</td>

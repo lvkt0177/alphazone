@@ -18,7 +18,7 @@
 
 <div class="page-head">
     <div class="page-title">
-        Danh sách Giáo án — {{ $capHoc->getLabel() }} / {{ $loaiGame->getLabel() }}
+        Danh sách Giáo án - {{ $capHoc->getLabel() }} / {{ $loaiGame->getLabel() }}
         @if ($chuDe)
             / {{ $chuDe->getLabelCoSo() }}
         @endif
@@ -57,7 +57,7 @@
                             class="giaoan-name-link">{{ $ga->ten_tro_choi }}</a>
                     </td>
                     <td class="text-2 giaoan-desc-cell">
-                        {{ $ga->cach_choi ? \Illuminate\Support\Str::limit($ga->cach_choi, 80) : '—' }}</td>
+                        {{ $ga->cach_choi ? \Illuminate\Support\Str::limit($ga->cach_choi, 80) : '-' }}</td>
                     <td>
                         @include('giaoan._sodo_thumb', ['ga' => $ga])
                     </td>
@@ -67,7 +67,7 @@
                                 <i class="ri-play-circle-line"></i> Xem video
                             </a>
                         @else
-                            <span class="text-2">—</span>
+                            <span class="text-2">-</span>
                         @endif
                     </td>
                     <td>

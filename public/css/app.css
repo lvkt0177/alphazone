@@ -89,7 +89,7 @@ ul {
 }
 
 /* Thu gọn: khung ngoài (chiếm chỗ trong layout flex) LUÔN cố định 76px,
-   kể cả lúc hover — nhờ vậy .main không bao giờ bị đẩy/co giãn theo. */
+   kể cả lúc hover - nhờ vậy .main không bao giờ bị đẩy/co giãn theo. */
 .sidebar--collapsed {
   width: 76px;
   overflow: visible;
@@ -103,7 +103,7 @@ ul {
   background: var(--card);
 }
 
-/* Chỉ .sidebar-inner (nằm bên trong, absolute) mới thật sự phình ra khi hover —
+/* Chỉ .sidebar-inner (nằm bên trong, absolute) mới thật sự phình ra khi hover -
    nó nổi đè lên nội dung trang (position:absolute, không chiếm chỗ trong flex),
    khung .sidebar ngoài giữ nguyên 76px nên .main không bị ảnh hưởng gì cả. */
 .sidebar--collapsed .sidebar-inner {
@@ -122,7 +122,7 @@ ul {
   box-shadow: 8px 0 24px rgba(20, 20, 43, .18);
 }
 
-/* Nút toggle nằm NGAY TRONG dòng logo (flow bình thường, không absolute/fixed) —
+/* Nút toggle nằm NGAY TRONG dòng logo (flow bình thường, không absolute/fixed) -
    nhờ vậy nó luôn tự bám đúng theo độ rộng thật của .sidebar-inner tại mọi thời
    điểm, không cần tính toạ độ tay, không thể bị lệch vị trí. */
 .sidebar-toggle-btn {
@@ -155,7 +155,7 @@ ul {
 }
 
 /* Ẩn text khi thu gọn (không hover): thu max-width/max-height về 0 thật sự
-   (không chỉ ẩn bằng opacity) để phần tử KHÔNG còn chiếm chỗ trong layout —
+   (không chỉ ẩn bằng opacity) để phần tử KHÔNG còn chiếm chỗ trong layout -
    đây là nguyên nhân icon bị lệch ở bản trước, giờ sửa dứt điểm. */
 .nav-text,
 .logo-text,
@@ -1537,7 +1537,7 @@ textarea.note-input:focus {
 }
 
 /* Modal xác nhận (confirmAction) luôn phải nổi trên cùng, kể cả khi được mở
-   từ trong 1 modal khác đang hiện — tránh bị modal đó đè lên do cùng z-index. */
+   từ trong 1 modal khác đang hiện - tránh bị modal đó đè lên do cùng z-index. */
 #confirmModal {
   z-index: 300;
 }

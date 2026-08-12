@@ -15,7 +15,7 @@ class CaiDatTienLuongRequest extends FormRequest
     public function rules(): array
     {
         $giaoVien = $this->route('giaovien');
-        $ten = $giaoVien?->chuc_danh === ChucDanhGiaoVien::THAY_PHU_TRACH ? 'luong_co_ban' : 'don_gia_gio';
+        $ten = $giaoVien?->chuc_danh?->laNhomNhanVien() ? 'luong_co_ban' : 'don_gia_gio';
 
         return [
             $ten => ['required', 'integer', 'min:0', 'max:999999999'],

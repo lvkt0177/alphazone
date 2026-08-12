@@ -18,7 +18,7 @@
         <a class="active">Sửa Giáo án</a>
     </div>
     <div class="page-head">
-        <div class="page-title">Sửa Giáo án — {{ $giaoAn->ten_tro_choi }}</div>
+        <div class="page-title">Sửa Giáo án - {{ $giaoAn->ten_tro_choi }}</div>
     </div>
 
     <form class="form-card" method="POST" action="{{ route('giaoan.update', $giaoAn) }}" enctype="multipart/form-data">

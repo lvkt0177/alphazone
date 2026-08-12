@@ -42,7 +42,7 @@
                     @enderror
                 </div>
                 <div class="field">
-                    <label>File (pdf, doc, docx, xls, xlsx — tối đa 30MB)</label>
+                    <label>File (pdf, doc, docx, xls, xlsx - tối đa 30MB)</label>
                     <input type="file" name="file" accept=".pdf,.doc,.docx,.xls,.xlsx">
                     @error('file')
                         <div class="badge red bieumau-field-error">{{ $message }}</div>

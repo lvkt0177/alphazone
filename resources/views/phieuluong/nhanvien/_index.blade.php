@@ -44,7 +44,7 @@
             @forelse ($phieus as $p)
                 <tr>
                     <td>{{ $p->ho_ten_snapshot }}</td>
-                    <td>{{ $p->ma_nhan_vien_snapshot ?? '—' }}</td>
+                    <td>{{ $p->ma_nhan_vien_snapshot ?? '-' }}</td>
                     <td>{{ $p->ngay_chot ? $p->ngay_chot->format('d/m/Y') : $thang->format('m/Y') }}</td>
                     <td>{{ number_format($p->luong_thuc_nhan, 0, ',', '.') }} đ</td>
                     <td class="actions-cell">

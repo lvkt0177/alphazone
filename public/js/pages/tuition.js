@@ -111,7 +111,7 @@ function taoDotBoxElement(idx, data, isSaved) {
           <div class="tuition-uniform-col tuition-uniform-col--muc">
             <label>Đồng phục</label>
             <select id="tu_dot_dongphuc_${idx}" name="dot[${idx}][dong_phuc]">
-              <option value="">— Không chọn —</option>
+              <option value="">- Không chọn -</option>
               ${mucOptions}
             </select>
           </div>
@@ -237,7 +237,7 @@ function openTuitionModal(hocVienId, maSo, hoTen, thang, dotList, gioiThieuBan, 
   toggle.checked = !!Number(gioiThieuBan);
 
   // Xoá sạch giá trị "trước khi bật toggle" còn sót lại từ lần sửa học viên khác trước đó (hoặc từ lần toggle
-  // trước trong cùng phiên) — tránh rò rỉ dữ liệu cũ sang học viên đang mở hiện tại.
+  // trước trong cùng phiên) - tránh rò rỉ dữ liệu cũ sang học viên đang mở hiện tại.
   document.querySelectorAll('.dot-fee-input').forEach(inp => { delete inp.dataset.beforeToggle; });
 
   if (toggle.checked) {

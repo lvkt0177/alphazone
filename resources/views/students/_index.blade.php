@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>{{ $hv->sdt ?? '—' }}</td>
+                        <td>{{ $hv->sdt ?? '-' }}</td>
                         @php
                             $coSos = $hv->coSos->values();
                         @endphp

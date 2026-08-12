@@ -177,7 +177,7 @@
                         <td class="text-2">
                             @forelse ($hocPhis as $hp)
                                 <div>
-                                    {{ $hocPhis->count() > 1 ? '' : '' }}{{ isset($hp->dong_phuc) ? (\App\Enum\MucDongPhuc::tryFrom($hp->dong_phuc)?->getLabel() ?? '—') : '-' }}
+                                    {{ $hocPhis->count() > 1 ? '' : '' }}{{ isset($hp->dong_phuc) ? (\App\Enum\MucDongPhuc::tryFrom($hp->dong_phuc)?->getLabel() ?? '-') : '-' }}
                                     @if ($hp->dong_phuc_size)
                                         (Size {{ $hp->dong_phuc_size }})
                                     @endif

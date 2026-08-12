@@ -4,7 +4,7 @@ const fakeTeachers = fakeTeacherNames.map((t,i)=>({id:i+1, hoTen:t}));
 const tenCoSo = ['Liên Nghĩa T3','Hiệp Thạnh T3','Đinh Văn Tả','Tân Hà','Nam Ban'];
 const branches = tenCoSo.map((t,i)=>({id:i+1, ten:t, giaoVienId: fakeTeachers[i%fakeTeachers.length].id}));
 function branchLabel(b){ const gv = fakeTeachers.find(t=>t.id===b.giaoVienId); return `${b.ten} - Thầy/Cô ${gv.hoTen}`; }
-function branchNameById(id){ const b = branches.find(x=>x.id==id); return b ? branchLabel(b) : '—'; }
+function branchNameById(id){ const b = branches.find(x=>x.id==id); return b ? branchLabel(b) : '-'; }
 
 const hoTenHV = ['Nguyễn Minh An','Trần Thị Bích Ngọc','Lê Hoàng Bảo','Phạm Gia Hân','Hoàng Đức Huy','Vũ Thị Kim Ngân',
 'Đặng Quốc Khánh','Bùi Thị Lan Anh','Đỗ Minh Khôi','Ngô Thị Mai Anh','Dương Anh Tuấn','Lý Thị Ngọc Trâm',

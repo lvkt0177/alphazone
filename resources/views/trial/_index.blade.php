@@ -93,9 +93,9 @@
                             <div class="name">{{ $t->ho_ten }}</div>
                         </div>
                     </td>
-                    <td>{{ $t->sdt ?? '—' }}</td>
-                    <td>{{ $t->nam_sinh ?? '—' }}</td>
-                    <td>{{ $t->ngay_trai_nghiem ? $t->ngay_trai_nghiem->format('d/m/Y') : '—' }}</td>
+                    <td>{{ $t->sdt ?? '-' }}</td>
+                    <td>{{ $t->nam_sinh ?? '-' }}</td>
+                    <td>{{ $t->ngay_trai_nghiem ? $t->ngay_trai_nghiem->format('d/m/Y') : '-' }}</td>
                     <td>
                         @if ($t->coSos->isNotEmpty())
                             @foreach ($t->coSos as $coSo)
@@ -107,7 +107,7 @@
                     </td>
                     <td><span class="badge {{ $t->trang_thai->getBadge() }}">{{ $t->trang_thai->getLabel() }}</span>
                     </td>
-                    <td class="text-2">{{ $t->ghi_chu ?? '—' }}</td>
+                    <td class="text-2">{{ $t->ghi_chu ?? '-' }}</td>
                     <td>
                         <div class="actions-cell">
                             @if (hasQuyen('trainghiem', 'sua'))

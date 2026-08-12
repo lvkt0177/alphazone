@@ -18,7 +18,7 @@ class TienSanController extends Controller
         $thangInput = $request->input('thang') ?: $thangHienTai->format('Y-m');
         $thang = Carbon::createFromFormat('Y-m', $thangInput)->startOfMonth();
 
-        // Không cho xem tháng trong tương lai — kẹp về tháng hiện tại nếu bị truyền quá tay (sửa URL, F5 qua tháng mới...)
+        // Không cho xem tháng trong tương lai - kẹp về tháng hiện tại nếu bị truyền quá tay (sửa URL, F5 qua tháng mới...)
         if ($thang->gt($thangHienTai)) {
             $thang = $thangHienTai->copy();
         }
