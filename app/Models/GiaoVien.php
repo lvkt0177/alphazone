@@ -23,6 +23,7 @@ class GiaoVien extends Model
         'chuc_danh',
         'luong_co_ban',
         'don_gia_gio',
+        'tien_tru_1_ngay',
     ];
 
     protected $casts = [
@@ -30,6 +31,15 @@ class GiaoVien extends Model
         'trang_thai' => TrangThaiGiaoVien::class,
         'chuc_danh' => ChucDanhGiaoVien::class,
     ];
+
+    /**
+     * Tiền bị trừ 1 ngày (vắng) áp dụng cho giáo viên này.
+     * Nếu chưa cấu hình riêng thì lấy theo cấu hình chung.
+     */
+    public function tienTru1NgayHieuLuc(): int
+    {
+        return $this->tien_tru_1_ngay ?? (int) CaiDatLuongThay::hienTai()->tien_tru_1_ngay;
+    }
 
     public function getKyTuDauAttribute(): string
     {

@@ -65,6 +65,7 @@ class PhieuLuongNhanVienController extends Controller
                 'luong_co_ban' => $gv->luong_co_ban,
                 'so_ngay_co_luong' => $soCo,
                 'so_ngay_khong_luong' => $soKhong,
+                'tien_tru_1_ngay' => $gv->tienTru1NgayHieuLuc(),
             ]];
         });
 
@@ -116,7 +117,7 @@ class PhieuLuongNhanVienController extends Controller
             ->whereBetween('ngay', [$dauThang, $cuoiThang])->where('co_di_lam', false)->count();
 
         $ngayCongChuan = (int) ($data['ngay_cong_chuan'] ?? 0);
-        $tienTru1Ngay = (int) CaiDatLuongThay::hienTai()->tien_tru_1_ngay;
+        $tienTru1Ngay = $giaoVien->tienTru1NgayHieuLuc();
         $soNgayThieu = max(0, $ngayCongChuan - $soNgayCoLuong);
         $truNgayThieu = $soNgayThieu * $tienTru1Ngay;
 
@@ -168,7 +169,7 @@ class PhieuLuongNhanVienController extends Controller
         $tongKhauTru = $bhxh + $bhyt + $bhtn;
 
         $ngayCongChuan = (int) ($data['ngay_cong_chuan'] ?? 0);
-        $tienTru1Ngay = (int) CaiDatLuongThay::hienTai()->tien_tru_1_ngay;
+        $tienTru1Ngay = $phieu->giaoVien?->tienTru1NgayHieuLuc() ?? (int) CaiDatLuongThay::hienTai()->tien_tru_1_ngay;
         $soNgayThieu = max(0, $ngayCongChuan - $phieu->so_ngay_co_luong);
         $truNgayThieu = $soNgayThieu * $tienTru1Ngay;
 

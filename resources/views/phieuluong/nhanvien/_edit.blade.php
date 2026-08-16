@@ -180,7 +180,7 @@
 
 <script>
     window.__plSoNgayCoLuongHienTai = {{ $phieu->so_ngay_co_luong }};
-    window.__plTienTru1Ngay = {{ $caiDat->tien_tru_1_ngay }};
+    window.__plTienTru1NgayHienTai = {{ $phieu->giaoVien?->tienTru1NgayHieuLuc() ?? $caiDat->tien_tru_1_ngay }};
     document.addEventListener('DOMContentLoaded', function() {
         tinhLai();
     });

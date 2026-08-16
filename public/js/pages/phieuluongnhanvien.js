@@ -37,6 +37,8 @@ function chonGiaoVien(id) {
     // Lưu lại số ngày có lương thực tế của giáo viên đang chọn để tính trừ ngày công thiếu
     window.__plSoNgayCoLuongHienTai = data.so_ngay_co_luong || 0;
 
+    window.__plTienTru1NgayHienTai = data.tien_tru_1_ngay || 0;
+
     document.getElementById('chuaChonHint').style.display = 'none';
     document.getElementById('formBody').style.display = '';
 
@@ -46,6 +48,7 @@ function chonGiaoVien(id) {
 function tinhLai() {
     const luongCoBanText = document.getElementById('pl_luong_co_ban').value || '0';
     const luongCoBan = parseInt(unformatMoney(luongCoBanText), 10) || 0;
+    const tienTru1Ngay = window.__plTienTru1NgayHienTai || 0;
 
     const bhxh = Math.round(luongCoBan * 0.08);
     const bhyt = Math.round(luongCoBan * 0.015);

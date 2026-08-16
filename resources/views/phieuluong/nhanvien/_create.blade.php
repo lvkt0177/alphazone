@@ -204,5 +204,4 @@
 <script>
     window.__plDuLieuGiaoVien = @json($duLieuGiaoVien);
     window.__plNgayCongToiThieu = {{ $caiDat->ngay_cong_toi_thieu }};
-    window.__plTienTru1Ngay = {{ $caiDat->tien_tru_1_ngay }};
 </script>

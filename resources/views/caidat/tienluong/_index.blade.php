@@ -57,13 +57,13 @@
     </table>
 </div>
 
-<div class="tienluong-card">
-    <div class="tienluong-card-head">
-        <div class="tienluong-card-icon"><i class="ri-graduation-cap-line"></i></div>
-        <div class="tienluong-card-title">Lương Thầy phụ trách</div>
-    </div>
+@if (hasQuyen('caidattienluong', 'sua'))
+    <div class="tienluong-card">
+        <div class="tienluong-card-head">
+            <div class="tienluong-card-icon"><i class="ri-settings-3-line"></i></div>
+            <div class="tienluong-card-title">Cấu hình ngày công chung</div>
+        </div>
 
-    @if (hasQuyen('caidattienluong', 'sua'))
         <form method="POST" action="{{ route('caidattienluong.ngaycong.update') }}" class="tienluong-ngaycong-form">
             @csrf
             @method('PUT')
@@ -77,7 +77,7 @@
                     @enderror
                 </div>
                 <div class="field">
-                    <label>Tiền bị trừ 1 ngày (nếu vắng dưới mức tối thiểu)</label>
+                    <label>Tiền bị trừ 1 ngày mặc định (áp dụng cho GV chưa cấu hình riêng)</label>
                     <input type="text" id="tl_tru_ngay_display" inputmode="numeric" autocomplete="off"
                         value="{{ number_format(old('tien_tru_1_ngay', $caiDatLuongThay->tien_tru_1_ngay), 0, ',', '.') }}">
                     <input type="hidden" name="tien_tru_1_ngay" id="tl_tru_ngay"
@@ -92,42 +92,64 @@
                     công</button>
             </div>
         </form>
-    @endif
+    </div>
+@endif
 
-    <table class="tienluong-table">
-        <thead>
-            <tr>
-                <th>Thầy phụ trách</th>
-                <th>Lương cơ bản / tháng</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($thayPhuTrachs as $gv)
+{{-- Phân theo từng Chức danh riêng biệt (Thầy phụ trách / Lãnh đạo / Văn phòng...) --}}
+@foreach ($chucDanhNhanViens as $nhom)
+    <div class="tienluong-card">
+        <div class="tienluong-card-head">
+            <div class="tienluong-card-icon"><i class="{{ $nhom['chuc_danh']->getIcon() }}"></i></div>
+            <div class="tienluong-card-title">Lương {{ $nhom['chuc_danh']->getLabel() }}</div>
+        </div>
+
+        <table class="tienluong-table">
+            <thead>
                 <tr>
-                    <td>
-                        <div class="tienluong-person">
-                            <div class="tienluong-avatar">{{ $gv->ky_tu_dau }}</div>
-                            <span>{{ $gv->ho_ten }}</span>
-                        </div>
-                    </td>
-                    <td>{{ $gv->luong_co_ban !== null ? number_format($gv->luong_co_ban, 0, ',', '.') . ' đ' : '-' }}</td>
-                    <td class="tienluong-action-cell">
-                        @if (hasQuyen('caidattienluong', 'sua'))
-                            <a href="javascript:void(0)" class="tienluong-sua-link"
-                                onclick="openTienLuongModal({{ $gv->id }}, {{ Js::from($gv->ho_ten) }}, {{ Js::from('luong_co_ban') }}, {{ Js::from('Lương cơ bản/tháng') }}, {{ $gv->luong_co_ban ?? 'null' }}, {{ Js::from(route('caidattienluong.update', $gv)) }})">Sửa</a>
-                        @endif
-                    </td>
+                    <th>{{ $nhom['chuc_danh']->getLabel() }}</th>
+                    <th>Lương cơ bản / tháng</th>
+                    <th>Tiền trừ 1 ngày (vắng)</th>
+                    <th></th>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="3" class="text-2 tienluong-empty-row">Chưa có giáo viên nào giữ chức danh Thầy phụ
-                        trách</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @forelse ($nhom['giao_viens'] as $gv)
+                    <tr>
+                        <td>
+                            <div class="tienluong-person">
+                                <div class="tienluong-avatar">{{ $gv->ky_tu_dau }}</div>
+                                <span>{{ $gv->ho_ten }}</span>
+                            </div>
+                        </td>
+                        <td>{{ $gv->luong_co_ban !== null ? number_format($gv->luong_co_ban, 0, ',', '.') . ' đ' : '-' }}</td>
+                        <td>
+                            @if ($gv->tien_tru_1_ngay !== null)
+                                {{ number_format($gv->tien_tru_1_ngay, 0, ',', '.') }} đ
+                            @else
+                                <span class="text-2">Mặc định ({{ number_format($caiDatLuongThay->tien_tru_1_ngay, 0, ',', '.') }} đ)</span>
+                            @endif
+                        </td>
+                        <td class="tienluong-action-cell">
+                            @if (hasQuyen('caidattienluong', 'sua'))
+                                <a href="javascript:void(0)" class="tienluong-sua-link"
+                                    onclick="openTienLuongModal({{ $gv->id }}, {{ Js::from($gv->ho_ten) }}, {{ Js::from('luong_co_ban') }}, {{ Js::from('Lương cơ bản/tháng') }}, {{ $gv->luong_co_ban ?? 'null' }}, {{ Js::from(route('caidattienluong.update', $gv)) }})">Sửa
+                                    lương</a>
+                                <a href="javascript:void(0)" class="tienluong-sua-link"
+                                    onclick="openTienLuongModal({{ $gv->id }}, {{ Js::from($gv->ho_ten) }}, {{ Js::from('tien_tru_1_ngay') }}, {{ Js::from('Tiền trừ 1 ngày (vắng)') }}, {{ $gv->tien_tru_1_ngay ?? 'null' }}, {{ Js::from(route('caidattienluong.update', $gv)) }})">Sửa
+                                    tiền trừ</a>
+                            @endif
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="4" class="text-2 tienluong-empty-row">Chưa có giáo viên nào giữ chức danh
+                            {{ $nhom['chuc_danh']->getLabel() }}</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+@endforeach
 
 @if ($errors->any() && old('_editing_id'))
     <script>
@@ -137,7 +159,7 @@
                 {{ Js::from(old('_ho_ten')) }},
                 {{ Js::from(old('_field')) }},
                 {{ Js::from(old('_label')) }},
-                {{ old('luong_co_ban') ?? old('don_gia_gio') ?? 'null' }},
+                {{ old('luong_co_ban') ?? old('don_gia_gio') ?? old('tien_tru_1_ngay') ?? 'null' }},
                 {{ Js::from(old('_update_url')) }}
             );
         });
