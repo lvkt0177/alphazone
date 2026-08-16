@@ -100,6 +100,7 @@
                             'co_di_lam' => $r->co_di_lam,
                             'ghi_chu' => $r->ghi_chu,
                             'id' => $r->id,
+                            'chuc_danh_label' => $r->giaoVien->chuc_danh->getLabel(),
                         ],
                     )->values()->toJson() !!},
                 ctv: {!! $item['ban_ghi_ctv']->map(

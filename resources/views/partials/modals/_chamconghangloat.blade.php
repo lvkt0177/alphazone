@@ -11,7 +11,7 @@
         <div class="modal-body">
             <div class="cc-tab-switch">
                 <div class="cc-tab-item cc-tab-item--active" id="ccTabThayBtn" onclick="ccChonTab('thay')">
-                    <div class="cc-tab-title">I. Thầy phụ trách</div>
+                    <div class="cc-tab-title">I. Nhân viên</div>
                     <div class="cc-tab-sub">Có / Không</div>
                 </div>
                 <div class="cc-tab-item" id="ccTabCtvBtn" onclick="ccChonTab('ctv')">
@@ -32,7 +32,7 @@
                     <div class="field mt-2">
                         <label>Họ tên</label>
                         <select id="ccThayHoTen">
-                            <option value="">-- Chọn Thầy phụ trách --</option>
+                            <option value="">-- Chọn Nhân viên --</option>
                         </select>
                     </div>
                 </div>

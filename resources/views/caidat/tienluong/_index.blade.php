@@ -95,7 +95,6 @@
     </div>
 @endif
 
-{{-- Phân theo từng Chức danh riêng biệt (Thầy phụ trách / Lãnh đạo / Văn phòng...) --}}
 @foreach ($chucDanhNhanViens as $nhom)
     <div class="tienluong-card">
         <div class="tienluong-card-head">
