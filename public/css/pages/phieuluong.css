@@ -151,6 +151,24 @@
     border-top: 1px dashed var(--border);
 }
 
+.phieuluong-bh-row {
+    align-items: center;
+}
+
+.phieuluong-bh-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+.phieuluong-bh-check input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
 .phieuluong-ketqua-final {
     margin-top: 6px;
     padding-top: 12px;

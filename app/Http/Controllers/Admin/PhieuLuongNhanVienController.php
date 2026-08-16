@@ -104,9 +104,12 @@ class PhieuLuongNhanVienController extends Controller
         $thang = Carbon::createFromFormat('Y-m', $data['thang'])->startOfMonth();
 
         $luongCoBan = $giaoVien->luong_co_ban ?? 0;
-        $bhxh = (int) round($luongCoBan * 0.08);
-        $bhyt = (int) round($luongCoBan * 0.015);
-        $bhtn = (int) round($luongCoBan * 0.01);
+        $apDungBhxh = $request->boolean('ap_dung_bhxh', true);
+        $apDungBhyt = $request->boolean('ap_dung_bhyt', true);
+        $apDungBhtn = $request->boolean('ap_dung_bhtn', true);
+        $bhxh = $apDungBhxh ? (int) round($luongCoBan * 0.08) : 0;
+        $bhyt = $apDungBhyt ? (int) round($luongCoBan * 0.015) : 0;
+        $bhtn = $apDungBhtn ? (int) round($luongCoBan * 0.01) : 0;
         $tongKhauTru = $bhxh + $bhyt + $bhtn;
 
         $dauThang = $thang->copy()->startOfMonth()->toDateString();
@@ -142,6 +145,9 @@ class PhieuLuongNhanVienController extends Controller
             'bhxh' => $bhxh,
             'bhyt' => $bhyt,
             'bhtn' => $bhtn,
+            'ap_dung_bhxh' => $apDungBhxh,
+            'ap_dung_bhyt' => $apDungBhyt,
+            'ap_dung_bhtn' => $apDungBhtn,
             ...$tinh,
             'updated_by_user_id' => auth()->id(),
         ]);
@@ -163,9 +169,12 @@ class PhieuLuongNhanVienController extends Controller
         $data = $request->validated();
 
         $luongCoBan = $phieu->luong_co_ban;
-        $bhxh = (int) round($luongCoBan * 0.08);
-        $bhyt = (int) round($luongCoBan * 0.015);
-        $bhtn = (int) round($luongCoBan * 0.01);
+        $apDungBhxh = $request->boolean('ap_dung_bhxh', true);
+        $apDungBhyt = $request->boolean('ap_dung_bhyt', true);
+        $apDungBhtn = $request->boolean('ap_dung_bhtn', true);
+        $bhxh = $apDungBhxh ? (int) round($luongCoBan * 0.08) : 0;
+        $bhyt = $apDungBhyt ? (int) round($luongCoBan * 0.015) : 0;
+        $bhtn = $apDungBhtn ? (int) round($luongCoBan * 0.01) : 0;
         $tongKhauTru = $bhxh + $bhyt + $bhtn;
 
         $ngayCongChuan = (int) ($data['ngay_cong_chuan'] ?? 0);
@@ -187,6 +196,9 @@ class PhieuLuongNhanVienController extends Controller
             'bhxh' => $bhxh,
             'bhyt' => $bhyt,
             'bhtn' => $bhtn,
+            'ap_dung_bhxh' => $apDungBhxh,
+            'ap_dung_bhyt' => $apDungBhyt,
+            'ap_dung_bhtn' => $apDungBhtn,
             ...$tinh,
             'updated_by_user_id' => auth()->id(),
         ]);
