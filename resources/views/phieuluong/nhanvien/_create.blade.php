@@ -13,7 +13,7 @@
 
 <div class="phieuluong-2box">
     <div class="table-card phieuluong-box-chon">
-        <div class="phieuluong-box-title">Chọn giáo viên (Thầy phụ trách)</div>
+        <div class="phieuluong-box-title">Chọn nhân viên</div>
         <div class="phieuluong-danhsach-chon" id="dsChonGiaoVien">
             @forelse ($giaoViens as $gv)
                 <div class="phieuluong-chon-item" data-id="{{ $gv->id }}"
@@ -21,7 +21,7 @@
                     {{ $gv->ho_ten }}
                 </div>
             @empty
-                <div class="text-2 phieuluong-empty-row">Tất cả Thầy phụ trách đã có phiếu lương tháng này</div>
+                <div class="text-2 phieuluong-empty-row">Tất cả Nhân viên chính thức đã có phiếu lương tháng này</div>
             @endforelse
         </div>
     </div>

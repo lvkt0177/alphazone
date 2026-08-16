@@ -104,9 +104,9 @@ class PhieuLuongNhanVienController extends Controller
         $thang = Carbon::createFromFormat('Y-m', $data['thang'])->startOfMonth();
 
         $luongCoBan = $giaoVien->luong_co_ban ?? 0;
-        $apDungBhxh = $request->boolean('ap_dung_bhxh', true);
-        $apDungBhyt = $request->boolean('ap_dung_bhyt', true);
-        $apDungBhtn = $request->boolean('ap_dung_bhtn', true);
+        $apDungBhxh = $request->boolean('ap_dung_bhxh');
+        $apDungBhyt = $request->boolean('ap_dung_bhyt');
+        $apDungBhtn = $request->boolean('ap_dung_bhtn');
         $bhxh = $apDungBhxh ? (int) round($luongCoBan * 0.08) : 0;
         $bhyt = $apDungBhyt ? (int) round($luongCoBan * 0.015) : 0;
         $bhtn = $apDungBhtn ? (int) round($luongCoBan * 0.01) : 0;
@@ -169,9 +169,9 @@ class PhieuLuongNhanVienController extends Controller
         $data = $request->validated();
 
         $luongCoBan = $phieu->luong_co_ban;
-        $apDungBhxh = $request->boolean('ap_dung_bhxh', true);
-        $apDungBhyt = $request->boolean('ap_dung_bhyt', true);
-        $apDungBhtn = $request->boolean('ap_dung_bhtn', true);
+        $apDungBhxh = $request->boolean('ap_dung_bhxh');
+        $apDungBhyt = $request->boolean('ap_dung_bhyt');
+        $apDungBhtn = $request->boolean('ap_dung_bhtn');
         $bhxh = $apDungBhxh ? (int) round($luongCoBan * 0.08) : 0;
         $bhyt = $apDungBhyt ? (int) round($luongCoBan * 0.015) : 0;
         $bhtn = $apDungBhtn ? (int) round($luongCoBan * 0.01) : 0;

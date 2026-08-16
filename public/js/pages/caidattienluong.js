@@ -9,6 +9,7 @@ function openTienLuongModal(id, hoTen, field, label, giaTriHienTai, updateUrl) {
     document.getElementById('tl_field').value = field || '';
     document.getElementById('tl_label').value = label || '';
     document.getElementById('tl_field_label').textContent = label || 'Giá trị';
+    document.getElementById('tl_update_url').value = updateUrl || '';
 
     valueHidden.name = field;
     const raw = giaTriHienTai === null || giaTriHienTai === undefined ? '' : String(giaTriHienTai);
