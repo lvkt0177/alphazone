@@ -25,6 +25,9 @@
                         @error('don_gia_gio')
                             <div class="badge red tienluong-field-error">{{ $message }}</div>
                         @enderror
+                        @error('tien_tru_1_ngay')
+                            <div class="badge red tienluong-field-error">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
             </div>

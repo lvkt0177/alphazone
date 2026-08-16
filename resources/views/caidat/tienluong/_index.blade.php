@@ -131,10 +131,10 @@
                         </td>
                         <td class="tienluong-action-cell">
                             @if (hasQuyen('caidattienluong', 'sua'))
-                                <a href="javascript:void(0)" class="tienluong-sua-link"
+                                <a href="javascript:void(0)" class="tienluong-sua-link btn btn-primary btn-sm mt-3"
                                     onclick="openTienLuongModal({{ $gv->id }}, {{ Js::from($gv->ho_ten) }}, {{ Js::from('luong_co_ban') }}, {{ Js::from('Lương cơ bản/tháng') }}, {{ $gv->luong_co_ban ?? 'null' }}, {{ Js::from(route('caidattienluong.update', $gv)) }})">Sửa
                                     lương</a>
-                                <a href="javascript:void(0)" class="tienluong-sua-link"
+                                <a href="javascript:void(0)" class="tienluong-sua-link btn btn-warning btn-sm mt-3"
                                     onclick="openTienLuongModal({{ $gv->id }}, {{ Js::from($gv->ho_ten) }}, {{ Js::from('tien_tru_1_ngay') }}, {{ Js::from('Tiền trừ 1 ngày (vắng)') }}, {{ $gv->tien_tru_1_ngay ?? 'null' }}, {{ Js::from(route('caidattienluong.update', $gv)) }})">Sửa
                                     tiền trừ</a>
                             @endif

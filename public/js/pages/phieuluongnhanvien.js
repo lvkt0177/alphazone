@@ -65,7 +65,6 @@ function tinhLai() {
     const ngayCongChuanEl = document.getElementById('pl_ngay_cong_chuan');
     const ngayCongChuan = ngayCongChuanEl ? (parseInt(ngayCongChuanEl.value, 10) || 0) : 0;
     const soNgayCoLuong = window.__plSoNgayCoLuongHienTai || 0;
-    const tienTru1Ngay = window.__plTienTru1Ngay || 0;
     const soNgayThieu = Math.max(0, ngayCongChuan - soNgayCoLuong);
     const truNgayThieu = soNgayThieu * tienTru1Ngay;
 
