@@ -101,12 +101,14 @@ class HoaDonController extends Controller
         $tuNgay = $thang->copy()->startOfMonth()->toDateString();
         $denNgay = $thang->copy()->endOfMonth()->toDateString();
 
+        $sortDir = $request->query('sort') === 'desc' ? 'desc' : 'asc';
+
         $danhSachHocPhi = HocPhi::with('hocVien')
             ->whereHas('hocVien')
             ->whereBetween('ngay_dong', [$tuNgay, $denNgay])
             ->join('hoc_viens', 'hoc_viens.id', '=', 'hoc_phis.hoc_vien_id')
+            ->orderBy('hoc_phis.ngay_dong', $sortDir)
             ->orderBy('hoc_viens.ho_ten')
-            ->orderBy('hoc_phis.ngay_dong')
             ->select('hoc_phis.*')
             ->get();
 
@@ -121,6 +123,6 @@ class HoaDonController extends Controller
             ];
         });
 
-        return view('hoadon.daura.index', compact('thang', 'danhSachHocPhi', 'tongTien', 'danhSachThang'));
+        return view('hoadon.daura.index', compact('thang', 'danhSachHocPhi', 'tongTien', 'danhSachThang', 'sortDir'));
     }
 }
