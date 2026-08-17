@@ -13,7 +13,7 @@
 
 <div class="phieuluong-2box">
     <div class="table-card phieuluong-box-chon">
-        <div class="phieuluong-box-title">Chọn giáo viên (Thầy phụ trách)</div>
+        <div class="phieuluong-box-title">Chọn nhân viên</div>
         <div class="phieuluong-danhsach-chon" id="dsChonGiaoVien">
             @forelse ($giaoViens as $gv)
                 <div class="phieuluong-chon-item" data-id="{{ $gv->id }}"
@@ -21,7 +21,7 @@
                     {{ $gv->ho_ten }}
                 </div>
             @empty
-                <div class="text-2 phieuluong-empty-row">Tất cả Thầy phụ trách đã có phiếu lương tháng này</div>
+                <div class="text-2 phieuluong-empty-row">Tất cả Nhân viên chính thức đã có phiếu lương tháng này</div>
             @endforelse
         </div>
     </div>
@@ -151,10 +151,31 @@
                 </div>
 
                 <div class="phieuluong-ketqua-box phieuluong-ketqua-box--thamkhao">
-                    <div class="phieuluong-ketqua-label">Các khoản khấu trừ Bảo hiểm</div>
-                    <div class="phieuluong-ketqua-row"><span>BHXH (8%)</span><b id="ktBhxh">0 đ</b></div>
-                    <div class="phieuluong-ketqua-row"><span>BHYT (1.5%)</span><b id="ktBhyt">0 đ</b></div>
-                    <div class="phieuluong-ketqua-row"><span>BHTN (1%)</span><b id="ktBhtn">0 đ</b></div>
+                    <div class="phieuluong-ketqua-label">Các khoản khấu trừ Bảo hiểm - Tích chọn để áp dụng</div>
+                    <div class="phieuluong-ketqua-row phieuluong-bh-row">
+                        <label class="phieuluong-bh-check">
+                            <input type="checkbox" name="ap_dung_bhxh" id="pl_ap_dung_bhxh" value="1"
+                                {{ ($errors->any() ? old('ap_dung_bhxh') : true) ? 'checked' : '' }}>
+                            BHXH (8%)
+                        </label>
+                        <b id="ktBhxh">0 đ</b>
+                    </div>
+                    <div class="phieuluong-ketqua-row phieuluong-bh-row">
+                        <label class="phieuluong-bh-check">
+                            <input type="checkbox" name="ap_dung_bhyt" id="pl_ap_dung_bhyt" value="1"
+                                {{ ($errors->any() ? old('ap_dung_bhyt') : true) ? 'checked' : '' }}>
+                            BHYT (1.5%)
+                        </label>
+                        <b id="ktBhyt">0 đ</b>
+                    </div>
+                    <div class="phieuluong-ketqua-row phieuluong-bh-row">
+                        <label class="phieuluong-bh-check">
+                            <input type="checkbox" name="ap_dung_bhtn" id="pl_ap_dung_bhtn" value="1"
+                                {{ ($errors->any() ? old('ap_dung_bhtn') : true) ? 'checked' : '' }}>
+                            BHTN (1%)
+                        </label>
+                        <b id="ktBhtn">0 đ</b>
+                    </div>
                     <div class="phieuluong-ketqua-row phieuluong-ketqua-final">
                         <span>= Tổng khấu trừ</span><b id="ktTongKhauTru">0 đ</b>
                     </div>
@@ -204,5 +225,4 @@
 <script>
     window.__plDuLieuGiaoVien = @json($duLieuGiaoVien);
     window.__plNgayCongToiThieu = {{ $caiDat->ngay_cong_toi_thieu }};
-    window.__plTienTru1Ngay = {{ $caiDat->tien_tru_1_ngay }};
 </script>

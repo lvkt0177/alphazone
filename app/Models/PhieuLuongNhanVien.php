@@ -33,6 +33,9 @@ class PhieuLuongNhanVien extends Model
         'bhxh',
         'bhyt',
         'bhtn',
+        'ap_dung_bhxh',
+        'ap_dung_bhyt',
+        'ap_dung_bhtn',
         'thu_nhap_chiu_thue',
         'tntt',
         'thue_tncn',
@@ -43,6 +46,9 @@ class PhieuLuongNhanVien extends Model
     protected $casts = [
         'thang' => 'date',
         'ngay_chot' => 'date',
+        'ap_dung_bhxh' => 'boolean',
+        'ap_dung_bhyt' => 'boolean',
+        'ap_dung_bhtn' => 'boolean',
     ];
 
     public function giaoVien(): BelongsTo

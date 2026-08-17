@@ -20,17 +20,20 @@ class HoaDonController extends Controller
         return view('hoadon.dauvao.menu', compact('danhSachLoai'));
     }
 
-    public function indexDauVao(int $loai)
+    public function indexDauVao(Request $request, int $loai)
     {
         $loaiHoaDon = LoaiHoaDon::tryFrom($loai);
 
         abort_if(! $loaiHoaDon, 404);
 
-        $hoaDons = HoaDon::where('loai', $loaiHoaDon->value)
-            ->orderByDesc('id')
-            ->paginate(15);
+        $sortDir = $request->query('sort') === 'asc' ? 'asc' : 'desc';
 
-        return view('hoadon.dauvao.index', compact('loaiHoaDon', 'hoaDons'));
+        $hoaDons = HoaDon::where('loai', $loaiHoaDon->value)
+            ->orderBy('ngay_tao', $sortDir)
+            ->paginate(15)
+            ->appends(['sort' => $sortDir]);
+
+        return view('hoadon.dauvao.index', compact('loaiHoaDon', 'hoaDons', 'sortDir'));
     }
 
     public function storeDauVao(HoaDonRequest $request, int $loai)

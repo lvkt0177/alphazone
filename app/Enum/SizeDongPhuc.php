@@ -9,6 +9,7 @@ enum SizeDongPhuc: string
 {
     use EnumValues, EnumOptions;
 
+    case SIZE_3 = '3';
     case SIZE_5 = '5';
     case SIZE_7 = '7';
     case SIZE_9 = '9';

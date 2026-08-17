@@ -50,17 +50,17 @@
 
 .tienluong-table th:first-child,
 .tienluong-table td:first-child {
-    width: 40%;
+    width: 30%;
 }
 
 .tienluong-table th:nth-child(2),
 .tienluong-table td:nth-child(2) {
-    width: 50%;
+    width: 30%;
 }
 
 .tienluong-table th:last-child,
 .tienluong-table td:last-child {
-    width: 70px;
+    width: 15%;
 }
 
 .tienluong-table th {
@@ -108,7 +108,6 @@
 }
 
 .tienluong-sua-link {
-    color: var(--primary);
     font-weight: 600;
     font-size: 13.5px;
     text-decoration: none;

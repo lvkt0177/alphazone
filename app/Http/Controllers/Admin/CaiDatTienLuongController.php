@@ -13,9 +13,19 @@ class CaiDatTienLuongController extends Controller
 {
     public function index()
     {
-        $thayPhuTrachs = GiaoVien::whereIn('chuc_danh', ChucDanhGiaoVien::nhomNhanVienValues())
+        // Phân theo từng Chức danh riêng biệt (Thầy phụ trách / Lãnh đạo / Văn phòng...)
+        // thay vì gộp chung tất cả nhóm Nhân viên vào 1 danh sách.
+        $nhanViensTheoChucDanh = GiaoVien::whereIn('chuc_danh', ChucDanhGiaoVien::nhomNhanVienValues())
             ->orderBy('ho_ten')
-            ->get();
+            ->get()
+            ->groupBy(fn (GiaoVien $gv) => $gv->chuc_danh->value);
+
+        $chucDanhNhanViens = collect(ChucDanhGiaoVien::cases())
+            ->filter(fn (ChucDanhGiaoVien $cd) => $cd->laNhomNhanVien())
+            ->map(fn (ChucDanhGiaoVien $cd) => [
+                'chuc_danh' => $cd,
+                'giao_viens' => $nhanViensTheoChucDanh->get($cd->value, collect()),
+            ]);
 
         $ctvHoTros = GiaoVien::where('chuc_danh', ChucDanhGiaoVien::TRO_GIANG->value)
             ->orderBy('ho_ten')
@@ -23,12 +33,17 @@ class CaiDatTienLuongController extends Controller
 
         $caiDatLuongThay = CaiDatLuongThay::hienTai();
 
-        return view('caidat.tienluong.index', compact('thayPhuTrachs', 'ctvHoTros', 'caiDatLuongThay'));
+        return view('caidat.tienluong.index', compact('chucDanhNhanViens', 'ctvHoTros', 'caiDatLuongThay'));
     }
 
     public function update(CaiDatTienLuongRequest $request, GiaoVien $giaovien)
     {
-        $ten = $giaovien->chuc_danh->laNhomNhanVien() ? 'luong_co_ban' : 'don_gia_gio';
+        $truongChoPhep = ['luong_co_ban', 'don_gia_gio', 'tien_tru_1_ngay'];
+        $ten = $request->input('_field');
+
+        if (! in_array($ten, $truongChoPhep, true)) {
+            $ten = $giaovien->chuc_danh->laNhomNhanVien() ? 'luong_co_ban' : 'don_gia_gio';
+        }
 
         $giaovien->update([$ten => $request->validated()[$ten]]);
 

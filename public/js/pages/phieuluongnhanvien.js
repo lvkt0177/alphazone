@@ -3,6 +3,12 @@ function layGiaTri(hiddenId) {
     return el ? (parseInt(el.value, 10) || 0) : 0;
 }
 
+// Đọc trạng thái tích chọn của checkbox khấu trừ Bảo hiểm - mặc định true nếu không tìm thấy phần tử
+function layTrangThaiTick(id) {
+    const el = document.getElementById(id);
+    return el ? el.checked : true;
+}
+
 // An toàn hơn document.getElementById(id).textContent = ... - không crash nếu HTML thiếu phần tử này
 // (ví dụ do cache trình duyệt cũ, hoặc lệch giữa bản JS/blade khi copy)
 function ganText(id, text) {
@@ -37,6 +43,8 @@ function chonGiaoVien(id) {
     // Lưu lại số ngày có lương thực tế của giáo viên đang chọn để tính trừ ngày công thiếu
     window.__plSoNgayCoLuongHienTai = data.so_ngay_co_luong || 0;
 
+    window.__plTienTru1NgayHienTai = data.tien_tru_1_ngay || 0;
+
     document.getElementById('chuaChonHint').style.display = 'none';
     document.getElementById('formBody').style.display = '';
 
@@ -46,10 +54,11 @@ function chonGiaoVien(id) {
 function tinhLai() {
     const luongCoBanText = document.getElementById('pl_luong_co_ban').value || '0';
     const luongCoBan = parseInt(unformatMoney(luongCoBanText), 10) || 0;
+    const tienTru1Ngay = window.__plTienTru1NgayHienTai || 0;
 
-    const bhxh = Math.round(luongCoBan * 0.08);
-    const bhyt = Math.round(luongCoBan * 0.015);
-    const bhtn = Math.round(luongCoBan * 0.01);
+    const bhxh = layTrangThaiTick('pl_ap_dung_bhxh') ? Math.round(luongCoBan * 0.08) : 0;
+    const bhyt = layTrangThaiTick('pl_ap_dung_bhyt') ? Math.round(luongCoBan * 0.015) : 0;
+    const bhtn = layTrangThaiTick('pl_ap_dung_bhtn') ? Math.round(luongCoBan * 0.01) : 0;
     const tongKhauTru = bhxh + bhyt + bhtn;
 
     const troCap = layGiaTri('pl_tro_cap');
@@ -62,7 +71,6 @@ function tinhLai() {
     const ngayCongChuanEl = document.getElementById('pl_ngay_cong_chuan');
     const ngayCongChuan = ngayCongChuanEl ? (parseInt(ngayCongChuanEl.value, 10) || 0) : 0;
     const soNgayCoLuong = window.__plSoNgayCoLuongHienTai || 0;
-    const tienTru1Ngay = window.__plTienTru1Ngay || 0;
     const soNgayThieu = Math.max(0, ngayCongChuan - soNgayCoLuong);
     const truNgayThieu = soNgayThieu * tienTru1Ngay;
 
@@ -110,6 +118,11 @@ document.addEventListener('DOMContentLoaded', function () {
         'pl_cong_tac_phi_display', 'pl_tam_ung_display', 'pl_giam_tru_display', 'pl_thue_tncn_display'].forEach(function (id) {
         const el = document.getElementById(id);
         if (el) el.addEventListener('input', tinhLai);
+    });
+
+    ['pl_ap_dung_bhxh', 'pl_ap_dung_bhyt', 'pl_ap_dung_bhtn'].forEach(function (id) {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('change', tinhLai);
     });
 
     const ngayCongChuanEl = document.getElementById('pl_ngay_cong_chuan');

@@ -5,19 +5,14 @@
                 <span class="cct-head-icon"><i class="ri-calendar-check-line"></i></span>
                 <div>
                     <h3 id="cctTieuDe">Chấm công</h3>
-                    <div class="text-2 cct-phu-de">Chi tiết chấm công của Thầy phụ trách và Cộng tác viên</div>
+                    <div class="text-2 cct-phu-de">Chi tiết chấm công phân theo Chức danh và Cộng tác viên</div>
                 </div>
             </div>
             <i class="ri-close-line cct-close" onclick="closeModal('chamCongChiTietModal')"></i>
         </div>
 
         <div class="modal-body">
-            <div class="cct-section">
-                <div class="cct-nhom-label">
-                    <span class="cc-dot cc-dot--thay"></span>Thầy phụ trách
-                </div>
-                <div id="cctDanhSachThay" class="cct-danh-sach"></div>
-            </div>
+            <div id="cctNhomTheoChucDanh"></div>
 
             <div class="cct-section">
                 <div class="cct-nhom-label">

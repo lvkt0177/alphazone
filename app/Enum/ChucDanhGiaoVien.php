@@ -37,10 +37,10 @@ enum ChucDanhGiaoVien: int
     public function getIcon(): string
     {
         return match ($this) {
-            self::THAY_PHU_TRACH => 'fas fa-chalkboard-teacher me-1',
-            self::TRO_GIANG => 'fas fa-user-friends me-1',
-            self::LANH_DAO => 'fas fa-user-tie me-1',
-            self::VAN_PHONG => 'fas fa-briefcase me-1',
+            self::THAY_PHU_TRACH => 'ri-graduation-cap-line',
+            self::TRO_GIANG => 'ri-user-follow-line',
+            self::LANH_DAO => 'ri-user-star-line',
+            self::VAN_PHONG => 'ri-briefcase-4-line',
         };
     }
 

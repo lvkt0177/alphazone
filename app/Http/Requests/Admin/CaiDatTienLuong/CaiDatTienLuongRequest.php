@@ -14,8 +14,13 @@ class CaiDatTienLuongRequest extends FormRequest
 
     public function rules(): array
     {
-        $giaoVien = $this->route('giaovien');
-        $ten = $giaoVien?->chuc_danh?->laNhomNhanVien() ? 'luong_co_ban' : 'don_gia_gio';
+        $truongChoPhep = ['luong_co_ban', 'don_gia_gio', 'tien_tru_1_ngay'];
+        $ten = $this->input('_field');
+
+        if (! in_array($ten, $truongChoPhep, true)) {
+            $giaoVien = $this->route('giaovien');
+            $ten = $giaoVien?->chuc_danh?->laNhomNhanVien() ? 'luong_co_ban' : 'don_gia_gio';
+        }
 
         return [
             $ten => ['required', 'integer', 'min:0', 'max:999999999'],
@@ -31,6 +36,9 @@ class CaiDatTienLuongRequest extends FormRequest
             'don_gia_gio.required' => 'Vui lòng nhập đơn giá/giờ.',
             'don_gia_gio.integer' => 'Đơn giá/giờ phải là số nguyên.',
             'don_gia_gio.min' => 'Đơn giá/giờ không được âm.',
+            'tien_tru_1_ngay.required' => 'Vui lòng nhập số tiền bị trừ 1 ngày.',
+            'tien_tru_1_ngay.integer' => 'Số tiền bị trừ phải là số nguyên.',
+            'tien_tru_1_ngay.min' => 'Số tiền bị trừ không được âm.',
         ];
     }
 }

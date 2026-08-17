@@ -16,7 +16,7 @@ function openChamCongThemModal(ngayIso, ngayHienThi) {
     document.getElementById('ccNgayHienThi').value = ngayHienThi;
 
     const selThay = document.getElementById('ccThayHoTen');
-    selThay.innerHTML = '<option value="">-- Chọn Thầy phụ trách --</option>';
+    selThay.innerHTML = '<option value="">-- Chọn Nhân viên --</option>';
     (window.__ccThayOptions || []).forEach((gv) => {
         const opt = document.createElement('option');
         opt.value = gv.id;
@@ -209,14 +209,43 @@ function openChamCongChiTietModal(ngayIso, tieuDeText) {
     const du_lieu = (window.__ccDuLieuThang || {})[ngayIso] || { thay: [], ctv: [] };
     const coQuyenXoa = window.__ccCoQuyenXoa;
 
-    const boxThay = document.getElementById('cctDanhSachThay');
-    boxThay.innerHTML = '';
-    if (du_lieu.thay.length === 0) {
-        boxThay.innerHTML = '<div class="text-2 cct-trong">Chưa có ai chấm công</div>';
-    }
+    // Phân theo từng Chức danh (Thầy phụ trách / Lãnh đạo / Văn phòng...) - không gom chung theo Thầy phụ trách
+    const boxNhom = document.getElementById('cctNhomTheoChucDanh');
+    boxNhom.innerHTML = '';
+
+    const nhomTheoChucDanh = {};
     du_lieu.thay.forEach((r) => {
-        boxThay.appendChild(ccTaoDongChiTietThay(r, coQuyenXoa));
+        const ten = r.chuc_danh_label || 'Khác';
+        if (!nhomTheoChucDanh[ten]) nhomTheoChucDanh[ten] = [];
+        nhomTheoChucDanh[ten].push(r);
     });
+
+    const cacChucDanh = Object.keys(nhomTheoChucDanh);
+    if (cacChucDanh.length === 0) {
+        boxNhom.innerHTML = '<div class="cct-section">'
+            + '<div class="cct-nhom-label"><span class="cc-dot cc-dot--thay"></span>Thầy phụ trách</div>'
+            + '<div class="text-2 cct-trong">Chưa có ai chấm công</div>'
+            + '</div>';
+    } else {
+        cacChucDanh.forEach((tenChucDanh) => {
+            const section = document.createElement('div');
+            section.className = 'cct-section';
+
+            const label = document.createElement('div');
+            label.className = 'cct-nhom-label';
+            label.innerHTML = '<span class="cc-dot cc-dot--thay"></span>' + tenChucDanh;
+            section.appendChild(label);
+
+            const dsDiv = document.createElement('div');
+            dsDiv.className = 'cct-danh-sach';
+            nhomTheoChucDanh[tenChucDanh].forEach((r) => {
+                dsDiv.appendChild(ccTaoDongChiTietThay(r, coQuyenXoa));
+            });
+            section.appendChild(dsDiv);
+
+            boxNhom.appendChild(section);
+        });
+    }
 
     const boxCtv = document.getElementById('cctDanhSachCtv');
     boxCtv.innerHTML = '';

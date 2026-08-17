@@ -11,6 +11,7 @@
             <input type="hidden" name="_ho_ten" id="tl_ho_ten">
             <input type="hidden" name="_field" id="tl_field">
             <input type="hidden" name="_label" id="tl_label">
+            <input type="hidden" name="_update_url" id="tl_update_url">
 
             <div class="modal-body">
                 <div class="form-grid full">
@@ -23,6 +24,9 @@
                             <div class="badge red tienluong-field-error">{{ $message }}</div>
                         @enderror
                         @error('don_gia_gio')
+                            <div class="badge red tienluong-field-error">{{ $message }}</div>
+                        @enderror
+                        @error('tien_tru_1_ngay')
                             <div class="badge red tienluong-field-error">{{ $message }}</div>
                         @enderror
                     </div>

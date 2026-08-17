@@ -65,6 +65,7 @@ class PhieuLuongNhanVienController extends Controller
                 'luong_co_ban' => $gv->luong_co_ban,
                 'so_ngay_co_luong' => $soCo,
                 'so_ngay_khong_luong' => $soKhong,
+                'tien_tru_1_ngay' => $gv->tienTru1NgayHieuLuc(),
             ]];
         });
 
@@ -103,9 +104,12 @@ class PhieuLuongNhanVienController extends Controller
         $thang = Carbon::createFromFormat('Y-m', $data['thang'])->startOfMonth();
 
         $luongCoBan = $giaoVien->luong_co_ban ?? 0;
-        $bhxh = (int) round($luongCoBan * 0.08);
-        $bhyt = (int) round($luongCoBan * 0.015);
-        $bhtn = (int) round($luongCoBan * 0.01);
+        $apDungBhxh = $request->boolean('ap_dung_bhxh');
+        $apDungBhyt = $request->boolean('ap_dung_bhyt');
+        $apDungBhtn = $request->boolean('ap_dung_bhtn');
+        $bhxh = $apDungBhxh ? (int) round($luongCoBan * 0.08) : 0;
+        $bhyt = $apDungBhyt ? (int) round($luongCoBan * 0.015) : 0;
+        $bhtn = $apDungBhtn ? (int) round($luongCoBan * 0.01) : 0;
         $tongKhauTru = $bhxh + $bhyt + $bhtn;
 
         $dauThang = $thang->copy()->startOfMonth()->toDateString();
@@ -116,7 +120,7 @@ class PhieuLuongNhanVienController extends Controller
             ->whereBetween('ngay', [$dauThang, $cuoiThang])->where('co_di_lam', false)->count();
 
         $ngayCongChuan = (int) ($data['ngay_cong_chuan'] ?? 0);
-        $tienTru1Ngay = (int) CaiDatLuongThay::hienTai()->tien_tru_1_ngay;
+        $tienTru1Ngay = $giaoVien->tienTru1NgayHieuLuc();
         $soNgayThieu = max(0, $ngayCongChuan - $soNgayCoLuong);
         $truNgayThieu = $soNgayThieu * $tienTru1Ngay;
 
@@ -141,6 +145,9 @@ class PhieuLuongNhanVienController extends Controller
             'bhxh' => $bhxh,
             'bhyt' => $bhyt,
             'bhtn' => $bhtn,
+            'ap_dung_bhxh' => $apDungBhxh,
+            'ap_dung_bhyt' => $apDungBhyt,
+            'ap_dung_bhtn' => $apDungBhtn,
             ...$tinh,
             'updated_by_user_id' => auth()->id(),
         ]);
@@ -162,13 +169,16 @@ class PhieuLuongNhanVienController extends Controller
         $data = $request->validated();
 
         $luongCoBan = $phieu->luong_co_ban;
-        $bhxh = (int) round($luongCoBan * 0.08);
-        $bhyt = (int) round($luongCoBan * 0.015);
-        $bhtn = (int) round($luongCoBan * 0.01);
+        $apDungBhxh = $request->boolean('ap_dung_bhxh');
+        $apDungBhyt = $request->boolean('ap_dung_bhyt');
+        $apDungBhtn = $request->boolean('ap_dung_bhtn');
+        $bhxh = $apDungBhxh ? (int) round($luongCoBan * 0.08) : 0;
+        $bhyt = $apDungBhyt ? (int) round($luongCoBan * 0.015) : 0;
+        $bhtn = $apDungBhtn ? (int) round($luongCoBan * 0.01) : 0;
         $tongKhauTru = $bhxh + $bhyt + $bhtn;
 
         $ngayCongChuan = (int) ($data['ngay_cong_chuan'] ?? 0);
-        $tienTru1Ngay = (int) CaiDatLuongThay::hienTai()->tien_tru_1_ngay;
+        $tienTru1Ngay = $phieu->giaoVien?->tienTru1NgayHieuLuc() ?? (int) CaiDatLuongThay::hienTai()->tien_tru_1_ngay;
         $soNgayThieu = max(0, $ngayCongChuan - $phieu->so_ngay_co_luong);
         $truNgayThieu = $soNgayThieu * $tienTru1Ngay;
 
@@ -186,6 +196,9 @@ class PhieuLuongNhanVienController extends Controller
             'bhxh' => $bhxh,
             'bhyt' => $bhyt,
             'bhtn' => $bhtn,
+            'ap_dung_bhxh' => $apDungBhxh,
+            'ap_dung_bhyt' => $apDungBhyt,
+            'ap_dung_bhtn' => $apDungBhtn,
             ...$tinh,
             'updated_by_user_id' => auth()->id(),
         ]);
