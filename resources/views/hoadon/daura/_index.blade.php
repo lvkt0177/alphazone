@@ -39,7 +39,13 @@
                 <th class="w-px-250">Họ tên</th>
                 <th class="w-px-150">Học phí</th>
                 <th class="w-px-200">Đồng phục</th>
-                <th class="w-px-150">Ngày đóng</th>
+                <th class="w-px-150">
+                    <a href="{{ route('hoadon.daura.index', ['thang' => $thang->format('Y-m'), 'sort' => $sortDir === 'asc' ? 'desc' : 'asc']) }}"
+                        class="hoadon-sort-link">
+                        Ngày đóng
+                        <i class="{{ $sortDir === 'asc' ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line' }}"></i>
+                    </a>
+                </th>
             </tr>
         </thead>
         <tbody>
