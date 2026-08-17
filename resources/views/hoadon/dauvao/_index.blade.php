@@ -59,7 +59,13 @@
             <tr>
                 <th>STT</th>
                 <th>Tên hóa đơn</th>
-                <th>Ngày tạo</th>
+                <th>
+                    <a href="{{ route('hoadon.dauvao.index', ['loai' => $loaiHoaDon->value, 'sort' => $sortDir === 'asc' ? 'desc' : 'asc']) }}"
+                        class="hoadon-sort-link">
+                        Ngày tạo
+                        <i class="{{ $sortDir === 'asc' ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line' }}"></i>
+                    </a>
+                </th>
                 <th>File</th>
                 <th></th>
             </tr>
