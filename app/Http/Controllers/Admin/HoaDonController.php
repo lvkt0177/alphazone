@@ -112,7 +112,7 @@ class HoaDonController extends Controller
             ->select('hoc_phis.*')
             ->get();
 
-        $tongTien = $danhSachHocPhi->sum('hoc_phi');
+        $tongTien = $danhSachHocPhi->sum('hoc_phi') + $danhSachHocPhi->sum('dong_phuc');
 
         $danhSachThang = collect(range(-6, 11))->map(function ($i) {
             $d = now()->subMonths($i)->startOfMonth();
