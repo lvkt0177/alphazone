@@ -24,7 +24,7 @@
         </div>
 
         <div class="hoadon-daura-tongthu">
-            Tổng tiền học phí đã thu (Tháng {{ $thang->format('n/Y') }}):
+            Tổng tiền đã thu - Học phí + Đồng phục (Tháng {{ $thang->format('n/Y') }}):
             <span class="badge blue hoadon-daura-tongthu-badge">
                 {{ number_format($tongTien, 0, ',', '.') }} đ</span>
         </div>
