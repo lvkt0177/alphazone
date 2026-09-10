@@ -5,6 +5,7 @@
             <tr>
                 <th class="w-px-50">Mã số</th>
                 <th class="w-px-200">Học viên</th>
+                <th class="w-px-150">Trạng thái Học viên</th>
                 <th class="w-px-100">Tháng</th>
                 <th class="w-px-150">Học phí</th>
                 <th class="w-px-150">Ngày đóng</th>
@@ -21,13 +22,16 @@
                             <div class="name">{{ $rec->hocVien->ho_ten }}</div>
                         </div>
                     </td>
+                    <td>
+                        <span class="badge {{ $rec->hocVien->trang_thai->getBadge() }}">{{ $rec->hocVien->trang_thai->getLabel() }}</span>
+                    </td>
                     <td>{{ $rec->thang->format('n/Y') }}</td>
                     <td>{{ number_format($rec->hoc_phi, 0, ',', '.') }} đ</td>
                     <td>{{ $rec->ngay_dong->format('d/m/Y') }}</td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5" class="text-2 tuition-empty-row">Không có lượt đóng nào trong khoảng ngày này
+                    <td colspan="6" class="text-2 tuition-empty-row">Không có lượt đóng nào trong khoảng ngày này
                     </td>
                 </tr>
             @endforelse
@@ -59,6 +63,7 @@
             <tr>
                 <th class="w-px-50">Mã số</th>
                 <th class="w-px-200">Học viên</th>
+                <th class="w-px-150">Trạng thái Học viên</th>
                 <th class="w-px-250">Cơ sở</th>
             </tr>
         </thead>
@@ -72,6 +77,9 @@
                         </div>
                     </td>
                     <td>
+                        <span class="badge {{ $hv->trang_thai->getBadge() }}">{{ $hv->trang_thai->getLabel() }}</span>
+                    </td>
+                    <td>
                         @if ($hv->coSos->isNotEmpty())
                             @foreach ($hv->coSos as $coSo)
                                 <div>{{ $coSo->ten }}</div>
@@ -83,7 +91,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3" class="text-2 tuition-empty-row">Không có học viên nào chưa đóng trong khoảng
+                    <td colspan="4" class="text-2 tuition-empty-row">Không có học viên nào chưa đóng trong khoảng
                         ngày
                         này</td>
                 </tr>

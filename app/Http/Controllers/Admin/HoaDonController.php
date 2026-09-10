@@ -106,12 +106,14 @@ class HoaDonController extends Controller
         $danhSachHocPhi = HocPhi::with('hocVien')
             ->whereHas('hocVien')
             ->whereBetween('ngay_dong', [$tuNgay, $denNgay])
+            ->where(fn ($q) => $q->where('hoc_phis.hoc_phi', '>', 0)->orWhere('hoc_phis.dong_phuc', '>', 0))
             ->join('hoc_viens', 'hoc_viens.id', '=', 'hoc_phis.hoc_vien_id')
             ->orderBy('hoc_phis.ngay_dong', $sortDir)
             ->orderBy('hoc_viens.ho_ten')
             ->select('hoc_phis.*')
             ->get();
 
+        $soLuongHoaDon = $danhSachHocPhi->count();
         $tongTien = $danhSachHocPhi->sum('hoc_phi') + $danhSachHocPhi->sum('dong_phuc');
 
         $danhSachThang = collect(range(-6, 11))->map(function ($i) {
@@ -123,6 +125,6 @@ class HoaDonController extends Controller
             ];
         });
 
-        return view('hoadon.daura.index', compact('thang', 'danhSachHocPhi', 'tongTien', 'danhSachThang', 'sortDir'));
+        return view('hoadon.daura.index', compact('thang', 'danhSachHocPhi', 'soLuongHoaDon', 'tongTien', 'danhSachThang', 'sortDir'));
     }
 }

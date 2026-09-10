@@ -1,0 +1,1637 @@
+{
+  "app/Console/Commands/FixVietnameseUsernames.php": {
+    "mtime": 1786510844.5195098,
+    "ast_hash": "e5d4f8344358cd586a4b5f8c028b9934",
+    "semantic_hash": "e5d4f8344358cd586a4b5f8c028b9934"
+  },
+  "app/Enum/CapHocGiaoAn.php": {
+    "mtime": 1785320411.9269986,
+    "ast_hash": "bbb8bceeaffb1c90ca043480bff83613",
+    "semantic_hash": "bbb8bceeaffb1c90ca043480bff83613"
+  },
+  "app/Enum/ChuDeGiaoAn.php": {
+    "mtime": 1785320937.5498915,
+    "ast_hash": "4406e794f4690ccfaec267e8ecbaf3a8",
+    "semantic_hash": "4406e794f4690ccfaec267e8ecbaf3a8"
+  },
+  "app/Enum/ChucDanhGiaoVien.php": {
+    "mtime": 1786895664.4975977,
+    "ast_hash": "8052fa5970cd2e969df00702663d312b",
+    "semantic_hash": "8052fa5970cd2e969df00702663d312b"
+  },
+  "app/Enum/GioiTinh.php": {
+    "mtime": 1783575216.7999191,
+    "ast_hash": "7a24651a2dbed8b3f5b593ef217ebb05",
+    "semantic_hash": "7a24651a2dbed8b3f5b593ef217ebb05"
+  },
+  "app/Enum/LoaiBieuMau.php": {
+    "mtime": 1785615258.9739797,
+    "ast_hash": "f46cf6eb4a5f8c02bd2f41838b90aaf5",
+    "semantic_hash": "f46cf6eb4a5f8c02bd2f41838b90aaf5"
+  },
+  "app/Enum/LoaiGameGiaoAn.php": {
+    "mtime": 1785321530.161797,
+    "ast_hash": "960f4e4fa9ee592b4889e809c25fd31b",
+    "semantic_hash": "960f4e4fa9ee592b4889e809c25fd31b"
+  },
+  "app/Enum/LoaiHoaDon.php": {
+    "mtime": 1786098563.2158203,
+    "ast_hash": "8feafd3494dc66173898af643c4d58ed",
+    "semantic_hash": "8feafd3494dc66173898af643c4d58ed"
+  },
+  "app/Enum/MucDongPhuc.php": {
+    "mtime": 1785585015.1695006,
+    "ast_hash": "5892872d3d571990bdacd35d0a8f5450",
+    "semantic_hash": "5892872d3d571990bdacd35d0a8f5450"
+  },
+  "app/Enum/RoleUser.php": {
+    "mtime": 1785219322.6793144,
+    "ast_hash": "df439768695cca675c2482bc88a47a0a",
+    "semantic_hash": "df439768695cca675c2482bc88a47a0a"
+  },
+  "app/Enum/SizeDongPhuc.php": {
+    "mtime": 1786770510.7303662,
+    "ast_hash": "a453af4db142f36a89e648603c7b9855",
+    "semantic_hash": "a453af4db142f36a89e648603c7b9855"
+  },
+  "app/Enum/TrangThaiCoSo.php": {
+    "mtime": 1783519894.8023467,
+    "ast_hash": "59616da72905448899e049ee66804740",
+    "semantic_hash": "59616da72905448899e049ee66804740"
+  },
+  "app/Enum/TrangThaiDiemDanh.php": {
+    "mtime": 1783755334.5825298,
+    "ast_hash": "9c38fdc6590550d86d9001f975aaf48b",
+    "semantic_hash": "9c38fdc6590550d86d9001f975aaf48b"
+  },
+  "app/Enum/TrangThaiGiaoVien.php": {
+    "mtime": 1783568507.2589188,
+    "ast_hash": "5be09cf1e726f01a2bbb426b808c138b",
+    "semantic_hash": "5be09cf1e726f01a2bbb426b808c138b"
+  },
+  "app/Enum/TrangThaiHocPhi.php": {
+    "mtime": 1783519478.985484,
+    "ast_hash": "4616bd2c2ccc4d88bc7f8996d5119f35",
+    "semantic_hash": "4616bd2c2ccc4d88bc7f8996d5119f35"
+  },
+  "app/Enum/TrangThaiHocVien.php": {
+    "mtime": 1783575227.036244,
+    "ast_hash": "e020ab91807dfa537074f1e00a093ae2",
+    "semantic_hash": "e020ab91807dfa537074f1e00a093ae2"
+  },
+  "app/Enum/TrangThaiLoaiDangKyTraiNghiem.php": {
+    "mtime": 1783570541.066627,
+    "ast_hash": "7c08ea66333ba88cc4a126dbc88d7410",
+    "semantic_hash": "7c08ea66333ba88cc4a126dbc88d7410"
+  },
+  "app/Enum/TrangThaiYeuCau.php": {
+    "mtime": 1783322640.7827597,
+    "ast_hash": "532418fcd7905b35796591fc86eed73f",
+    "semantic_hash": "532418fcd7905b35796591fc86eed73f"
+  },
+  "app/Exports/HocVienExport.php": {
+    "mtime": 1783583074.1313586,
+    "ast_hash": "d38661ab38532758316dc15f75cfe20a",
+    "semantic_hash": "d38661ab38532758316dc15f75cfe20a"
+  },
+  "app/Helpers/helpers.php": {
+    "mtime": 1785927371.0229933,
+    "ast_hash": "7fe04cbdc4305b98aa5661cb363028a0",
+    "semantic_hash": "7fe04cbdc4305b98aa5661cb363028a0"
+  },
+  "app/Http/Controllers/Admin/BieuMauController.php": {
+    "mtime": 1785899773.9025266,
+    "ast_hash": "2429a3087e8617b9f8b26749ee1b07fb",
+    "semantic_hash": "2429a3087e8617b9f8b26749ee1b07fb"
+  },
+  "app/Http/Controllers/Admin/CaiDatHocPhiController.php": {
+    "mtime": 1785133104.444592,
+    "ast_hash": "833074d0700a196efde5df34dbd081cc",
+    "semantic_hash": "833074d0700a196efde5df34dbd081cc"
+  },
+  "app/Http/Controllers/Admin/CaiDatTienLuongController.php": {
+    "mtime": 1786895065.1028159,
+    "ast_hash": "4be003198cf20a406cf3ff0221db23a1",
+    "semantic_hash": "4be003198cf20a406cf3ff0221db23a1"
+  },
+  "app/Http/Controllers/Admin/ChamCongController.php": {
+    "mtime": 1786510635.457267,
+    "ast_hash": "8af701f4adb47986001fb1a6e545e6c6",
+    "semantic_hash": "8af701f4adb47986001fb1a6e545e6c6"
+  },
+  "app/Http/Controllers/Admin/CoSoController.php": {
+    "mtime": 1784690181.5614507,
+    "ast_hash": "95372864a05b078a0de3ddc1b8a51e80",
+    "semantic_hash": "95372864a05b078a0de3ddc1b8a51e80"
+  },
+  "app/Http/Controllers/Admin/DashboardController.php": {
+    "mtime": 1784691488.0294664,
+    "ast_hash": "229a26f57ab4e204c4b611d88cc283ab",
+    "semantic_hash": "229a26f57ab4e204c4b611d88cc283ab"
+  },
+  "app/Http/Controllers/Admin/DiemDanhController.php": {
+    "mtime": 1786042504.2287364,
+    "ast_hash": "14bac187f8f83003211a02926e999d6b",
+    "semantic_hash": "14bac187f8f83003211a02926e999d6b"
+  },
+  "app/Http/Controllers/Admin/GiaoAnController.php": {
+    "mtime": 1785606003.7490168,
+    "ast_hash": "7474032278373eb536e0640be026ab17",
+    "semantic_hash": "7474032278373eb536e0640be026ab17"
+  },
+  "app/Http/Controllers/Admin/GiaoAnMenuController.php": {
+    "mtime": 1785267513.2950022,
+    "ast_hash": "fdbcc2df1492732e09bfe163e0e5fd80",
+    "semantic_hash": "fdbcc2df1492732e09bfe163e0e5fd80"
+  },
+  "app/Http/Controllers/Admin/GiaoVienController.php": {
+    "mtime": 1786510844.5173311,
+    "ast_hash": "940b3f39975ef961c6f0bd219c7b8b6c",
+    "semantic_hash": "940b3f39975ef961c6f0bd219c7b8b6c"
+  },
+  "app/Http/Controllers/Admin/HoaDonController.php": {
+    "mtime": 1787372636.5015156,
+    "ast_hash": "220017a3ba6cfb83ed2aeb1fa0e2524d",
+    "semantic_hash": "220017a3ba6cfb83ed2aeb1fa0e2524d"
+  },
+  "app/Http/Controllers/Admin/HocPhiController.php": {
+    "mtime": 1786091887.3785572,
+    "ast_hash": "c0ff59cb97d799057486200e3ebca43a",
+    "semantic_hash": "c0ff59cb97d799057486200e3ebca43a"
+  },
+  "app/Http/Controllers/Admin/HocVienController.php": {
+    "mtime": 1786114216.2048333,
+    "ast_hash": "093d36c63e83d89c7b5cc9f3d778a4b2",
+    "semantic_hash": "093d36c63e83d89c7b5cc9f3d778a4b2"
+  },
+  "app/Http/Controllers/Admin/HocVienTraiNghiemController.php": {
+    "mtime": 1785131449.675627,
+    "ast_hash": "8d1f1ec31fac92ab887b5f3a3b4b19cf",
+    "semantic_hash": "8d1f1ec31fac92ab887b5f3a3b4b19cf"
+  },
+  "app/Http/Controllers/Admin/PhieuLuongCtvController.php": {
+    "mtime": 1785751971.182613,
+    "ast_hash": "ec24b0fa9b26787455247388a508d684",
+    "semantic_hash": "ec24b0fa9b26787455247388a508d684"
+  },
+  "app/Http/Controllers/Admin/PhieuLuongNhanVienController.php": {
+    "mtime": 1786897192.3133564,
+    "ast_hash": "c6f47bbb6b356126ba600739e3f76de2",
+    "semantic_hash": "c6f47bbb6b356126ba600739e3f76de2"
+  },
+  "app/Http/Controllers/Admin/ProfileController.php": {
+    "mtime": 1783521356.9526742,
+    "ast_hash": "1fcdd70cc1292dd1716fec735a637143",
+    "semantic_hash": "1fcdd70cc1292dd1716fec735a637143"
+  },
+  "app/Http/Controllers/Admin/TienSanController.php": {
+    "mtime": 1786510844.5142694,
+    "ast_hash": "a93e0f92d636568659d46498b932bf72",
+    "semantic_hash": "a93e0f92d636568659d46498b932bf72"
+  },
+  "app/Http/Controllers/Auth/AuthController.php": {
+    "mtime": 1787358743.1813138,
+    "ast_hash": "0efff889076a7d14e151e5dc179a2db2",
+    "semantic_hash": "0efff889076a7d14e151e5dc179a2db2"
+  },
+  "app/Http/Controllers/Controller.php": {
+    "mtime": 1783507922.378155,
+    "ast_hash": "17b1b69db727716b021a6bfc0776a45b",
+    "semantic_hash": "17b1b69db727716b021a6bfc0776a45b"
+  },
+  "app/Http/Middleware/CheckQuyen.php": {
+    "mtime": 1785220310.3868756,
+    "ast_hash": "c38522a2b974411fbb56eae699739814",
+    "semantic_hash": "c38522a2b974411fbb56eae699739814"
+  },
+  "app/Http/Requests/Admin/BieuMau/BieuMauMauTrongRequest.php": {
+    "mtime": 1785899761.380542,
+    "ast_hash": "59abb39ebc26b343dfa6edac4c4dfaa6",
+    "semantic_hash": "59abb39ebc26b343dfa6edac4c4dfaa6"
+  },
+  "app/Http/Requests/Admin/BieuMau/BieuMauRequest.php": {
+    "mtime": 1785613585.9362297,
+    "ast_hash": "53288d531b593541c6f3e30344d07f56",
+    "semantic_hash": "53288d531b593541c6f3e30344d07f56"
+  },
+  "app/Http/Requests/Admin/CaiDatHocPhi/CaiDatHocPhiRequest.php": {
+    "mtime": 1785133083.1652858,
+    "ast_hash": "55e5d60f95b5042478e5e44f47384e7b",
+    "semantic_hash": "55e5d60f95b5042478e5e44f47384e7b"
+  },
+  "app/Http/Requests/Admin/CaiDatTienLuong/CaiDatLuongThayRequest.php": {
+    "mtime": 1785747720.307366,
+    "ast_hash": "b30c5fc58b71761de119601e70b71e43",
+    "semantic_hash": "b30c5fc58b71761de119601e70b71e43"
+  },
+  "app/Http/Requests/Admin/CaiDatTienLuong/CaiDatTienLuongRequest.php": {
+    "mtime": 1786895074.5232785,
+    "ast_hash": "17a71fc1a50773b07939d3a49e6be4d1",
+    "semantic_hash": "17a71fc1a50773b07939d3a49e6be4d1"
+  },
+  "app/Http/Requests/Admin/ChamCong/ChamCongHangLoatRequest.php": {
+    "mtime": 1786011076.0667648,
+    "ast_hash": "a0f261db93143712fe1bb64eb996af2f",
+    "semantic_hash": "a0f261db93143712fe1bb64eb996af2f"
+  },
+  "app/Http/Requests/Admin/CoSo/CoSoRequest.php": {
+    "mtime": 1784690147.9520292,
+    "ast_hash": "0907b6b3798f5544927d87cb427ec435",
+    "semantic_hash": "0907b6b3798f5544927d87cb427ec435"
+  },
+  "app/Http/Requests/Admin/DiemDanh/DiemDanhBuRequest.php": {
+    "mtime": 1784970440.74234,
+    "ast_hash": "86668574afa072c19ec2e73590fb7031",
+    "semantic_hash": "86668574afa072c19ec2e73590fb7031"
+  },
+  "app/Http/Requests/Admin/DiemDanh/DiemDanhRequest.php": {
+    "mtime": 1784970462.3825204,
+    "ast_hash": "3854ea2df638446d4f014a00e16fd282",
+    "semantic_hash": "3854ea2df638446d4f014a00e16fd282"
+  },
+  "app/Http/Requests/Admin/GiaoAn/GiaoAnRequest.php": {
+    "mtime": 1785508473.2243676,
+    "ast_hash": "76d8206be114ac03eabe5b7998d409d2",
+    "semantic_hash": "76d8206be114ac03eabe5b7998d409d2"
+  },
+  "app/Http/Requests/Admin/GiaoVien/GiaoVienRequest.php": {
+    "mtime": 1785602572.4714668,
+    "ast_hash": "5dfe7ec5c9b65d98bcc2ce83bfc60e9c",
+    "semantic_hash": "5dfe7ec5c9b65d98bcc2ce83bfc60e9c"
+  },
+  "app/Http/Requests/Admin/HoaDon/HoaDonRequest.php": {
+    "mtime": 1786193864.4971864,
+    "ast_hash": "f9a40dfaf29616d7a2e75801966814c8",
+    "semantic_hash": "f9a40dfaf29616d7a2e75801966814c8"
+  },
+  "app/Http/Requests/Admin/HocPhi/HocPhiRequest.php": {
+    "mtime": 1786091897.3543315,
+    "ast_hash": "eb51534f4a0632975e7d0fc66a4f5c34",
+    "semantic_hash": "eb51534f4a0632975e7d0fc66a4f5c34"
+  },
+  "app/Http/Requests/Admin/HocVienTraiNghiem/HocVienTraiNghiemRequest.php": {
+    "mtime": 1784870481.9960122,
+    "ast_hash": "033017d4f5d1aa2f74b4fea84bb77a4a",
+    "semantic_hash": "033017d4f5d1aa2f74b4fea84bb77a4a"
+  },
+  "app/Http/Requests/Admin/HocVien/HocVienRequest.php": {
+    "mtime": 1784692275.6309688,
+    "ast_hash": "e90cc73d203d5603132082de07b9af9b",
+    "semantic_hash": "e90cc73d203d5603132082de07b9af9b"
+  },
+  "app/Http/Requests/Admin/PhieuLuong/PhieuLuongCtvRequest.php": {
+    "mtime": 1785751011.9801161,
+    "ast_hash": "1746302ac5a0a1e0377cf490160cb355",
+    "semantic_hash": "1746302ac5a0a1e0377cf490160cb355"
+  },
+  "app/Http/Requests/Admin/PhieuLuong/PhieuLuongNhanVienRequest.php": {
+    "mtime": 1786896615.6076388,
+    "ast_hash": "ed189760b981eff66024b1fc1e4fb72a",
+    "semantic_hash": "ed189760b981eff66024b1fc1e4fb72a"
+  },
+  "app/Http/Requests/Admin/Profile/ChangePasswordRequest.php": {
+    "mtime": 1783521900.0367613,
+    "ast_hash": "4cf0380831cbd2affa8799f97453c95d",
+    "semantic_hash": "4cf0380831cbd2affa8799f97453c95d"
+  },
+  "app/Http/Requests/Admin/TienSan/TienSanRequest.php": {
+    "mtime": 1785603359.5503454,
+    "ast_hash": "93452bd1f6bf989f729644be0945b8df",
+    "semantic_hash": "93452bd1f6bf989f729644be0945b8df"
+  },
+  "app/Http/Requests/Auth/LoginRequest.php": {
+    "mtime": 1785038659.6349158,
+    "ast_hash": "711a19846dfd5d33f509a4bbf5c97946",
+    "semantic_hash": "711a19846dfd5d33f509a4bbf5c97946"
+  },
+  "app/Models/BieuMau.php": {
+    "mtime": 1785613560.0318282,
+    "ast_hash": "03efc3bd52fa9f5a7ec60a0dd5121b31",
+    "semantic_hash": "03efc3bd52fa9f5a7ec60a0dd5121b31"
+  },
+  "app/Models/BieuMauMauTrong.php": {
+    "mtime": 1785899730.1565156,
+    "ast_hash": "2b9e26c6a013618453bb1e0fc1692aed",
+    "semantic_hash": "2b9e26c6a013618453bb1e0fc1692aed"
+  },
+  "app/Models/CaiDatHocPhi.php": {
+    "mtime": 1785134338.2410512,
+    "ast_hash": "ba6262e4554b503dcf0024b2a86452c7",
+    "semantic_hash": "ba6262e4554b503dcf0024b2a86452c7"
+  },
+  "app/Models/CaiDatLuongThay.php": {
+    "mtime": 1785747630.1553195,
+    "ast_hash": "1eb7d5b96052144badf5699601cb79a5",
+    "semantic_hash": "1eb7d5b96052144badf5699601cb79a5"
+  },
+  "app/Models/ChamCongGiaoVien.php": {
+    "mtime": 1785678718.7608838,
+    "ast_hash": "a45c92167fdb202218801b8387630446",
+    "semantic_hash": "a45c92167fdb202218801b8387630446"
+  },
+  "app/Models/ChucNang.php": {
+    "mtime": 1785219340.7576568,
+    "ast_hash": "96040b9dfc6bcb250ec9d74c670cc203",
+    "semantic_hash": "96040b9dfc6bcb250ec9d74c670cc203"
+  },
+  "app/Models/CoSo.php": {
+    "mtime": 1784690108.842564,
+    "ast_hash": "73bfdbbf6779d7d22c01d1267d54b605",
+    "semantic_hash": "73bfdbbf6779d7d22c01d1267d54b605"
+  },
+  "app/Models/DiaDiem.php": {
+    "mtime": 1784690086.7560723,
+    "ast_hash": "b4b28524ce3b27cc14a90bf184e95a31",
+    "semantic_hash": "b4b28524ce3b27cc14a90bf184e95a31"
+  },
+  "app/Models/DiemDanh.php": {
+    "mtime": 1785259892.3036222,
+    "ast_hash": "9c0cbf9a7506428af1885b903acda7c8",
+    "semantic_hash": "9c0cbf9a7506428af1885b903acda7c8"
+  },
+  "app/Models/GiaoAn.php": {
+    "mtime": 1785267463.0479774,
+    "ast_hash": "a16f5c07bbb0cfc73a9d7d9b32ce40b9",
+    "semantic_hash": "a16f5c07bbb0cfc73a9d7d9b32ce40b9"
+  },
+  "app/Models/GiaoVien.php": {
+    "mtime": 1786894803.4885747,
+    "ast_hash": "cf5dfe96c9f5f8831c2904ebaf3566d2",
+    "semantic_hash": "cf5dfe96c9f5f8831c2904ebaf3566d2"
+  },
+  "app/Models/HoaDon.php": {
+    "mtime": 1786193844.7787943,
+    "ast_hash": "4875c616dff4338776b9f81a9f12d5e7",
+    "semantic_hash": "4875c616dff4338776b9f81a9f12d5e7"
+  },
+  "app/Models/HocPhi.php": {
+    "mtime": 1785398121.8595831,
+    "ast_hash": "12d6dd568ead9d65545b5faf7ad0e287",
+    "semantic_hash": "12d6dd568ead9d65545b5faf7ad0e287"
+  },
+  "app/Models/HocVien.php": {
+    "mtime": 1786190221.2446456,
+    "ast_hash": "cfddbce9be38e3a7737aec11d2654740",
+    "semantic_hash": "cfddbce9be38e3a7737aec11d2654740"
+  },
+  "app/Models/HocVienTraiNghiem.php": {
+    "mtime": 1785130554.1802685,
+    "ast_hash": "ba4da8dd3420a7c581657afa6661d975",
+    "semantic_hash": "ba4da8dd3420a7c581657afa6661d975"
+  },
+  "app/Models/PhieuLuongCtv.php": {
+    "mtime": 1785751028.342782,
+    "ast_hash": "1657c5009f6b0600f2354030b4558f88",
+    "semantic_hash": "1657c5009f6b0600f2354030b4558f88"
+  },
+  "app/Models/PhieuLuongNhanVien.php": {
+    "mtime": 1786896598.8468804,
+    "ast_hash": "1ff16895f4447896c823b02ad02959a8",
+    "semantic_hash": "1ff16895f4447896c823b02ad02959a8"
+  },
+  "app/Models/SodoMauSac.php": {
+    "mtime": 1785605235.1219852,
+    "ast_hash": "58fdec0357f3abd035d377c763e5fd71",
+    "semantic_hash": "58fdec0357f3abd035d377c763e5fd71"
+  },
+  "app/Models/TienSan.php": {
+    "mtime": 1784867016.0836952,
+    "ast_hash": "76da57b0233176c2e77260b0fb2ff937",
+    "semantic_hash": "76da57b0233176c2e77260b0fb2ff937"
+  },
+  "app/Models/User.php": {
+    "mtime": 1785219375.527009,
+    "ast_hash": "46185c5c19183c1c6a22968600263b19",
+    "semantic_hash": "46185c5c19183c1c6a22968600263b19"
+  },
+  "app/Models/UserPermission.php": {
+    "mtime": 1785219356.5307972,
+    "ast_hash": "f1bba47ce660701d1334835c67c16319",
+    "semantic_hash": "f1bba47ce660701d1334835c67c16319"
+  },
+  "app/Providers/AppServiceProvider.php": {
+    "mtime": 1785485852.7267063,
+    "ast_hash": "c5aa8a2b962f757ac0a4111db697faec",
+    "semantic_hash": "c5aa8a2b962f757ac0a4111db697faec"
+  },
+  "app/Repositories/BaseRepository.php": {
+    "mtime": 1783322640.8621795,
+    "ast_hash": "8d2f36f017bce179c1f1b5ef53b1d916",
+    "semantic_hash": "8d2f36f017bce179c1f1b5ef53b1d916"
+  },
+  "app/Repositories/RepositoryInterface.php": {
+    "mtime": 1783322640.8647246,
+    "ast_hash": "1688d4e70e5b73e0d816f7217ab0b719",
+    "semantic_hash": "1688d4e70e5b73e0d816f7217ab0b719"
+  },
+  "app/Services/DashboardService.php": {
+    "mtime": 1785211787.2865953,
+    "ast_hash": "4e93e7712b46b6056e2c8e1655647ddb",
+    "semantic_hash": "4e93e7712b46b6056e2c8e1655647ddb"
+  },
+  "app/Support/Exports/XuatPhieuLuongCtv.php": {
+    "mtime": 1785751879.0848975,
+    "ast_hash": "99db2214b7ed41d04af4dfa9fadbf16c",
+    "semantic_hash": "99db2214b7ed41d04af4dfa9fadbf16c"
+  },
+  "app/Support/Exports/XuatPhieuLuongNhanVien.php": {
+    "mtime": 1785821165.0393896,
+    "ast_hash": "dbbe60d0aca67e9fa230cd5c15bf8139",
+    "semantic_hash": "dbbe60d0aca67e9fa230cd5c15bf8139"
+  },
+  "app/Support/SoDoRenderer.php": {
+    "mtime": 1786510844.5195098,
+    "ast_hash": "026b97d2707f7a11e52ff4d2773c96c3",
+    "semantic_hash": "026b97d2707f7a11e52ff4d2773c96c3"
+  },
+  "app/Traits/EnumOptions.php": {
+    "mtime": 1783322640.8699474,
+    "ast_hash": "838d99a5401e93f614f041a233f02ce2",
+    "semantic_hash": "838d99a5401e93f614f041a233f02ce2"
+  },
+  "app/Traits/EnumValues.php": {
+    "mtime": 1783322640.8702674,
+    "ast_hash": "e49a0af0779dc72d7f8cab1c6a4847c1",
+    "semantic_hash": "e49a0af0779dc72d7f8cab1c6a4847c1"
+  },
+  "app/Traits/SearchableUnaccented.php": {
+    "mtime": 1785993965.9554777,
+    "ast_hash": "a41aed017134ece67e09d4c9d232c16a",
+    "semantic_hash": "a41aed017134ece67e09d4c9d232c16a"
+  },
+  "artisan": {
+    "mtime": 1773456840.0,
+    "ast_hash": "e66bb13691f6184c762c196427d8e685",
+    "semantic_hash": "e66bb13691f6184c762c196427d8e685"
+  },
+  "bootstrap/app.php": {
+    "mtime": 1785220339.9557147,
+    "ast_hash": "0fa820884cdc923d9f9e0c6bb3eb1c48",
+    "semantic_hash": "0fa820884cdc923d9f9e0c6bb3eb1c48"
+  },
+  "bootstrap/providers.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "888c810b5a4720916f07aa05dd2c2dd3",
+    "semantic_hash": "888c810b5a4720916f07aa05dd2c2dd3"
+  },
+  "composer.json": {
+    "mtime": 1783583259.392706,
+    "ast_hash": "9d3f7782acbb1a2b7e0470e68bf154fc",
+    "semantic_hash": "9d3f7782acbb1a2b7e0470e68bf154fc"
+  },
+  "config/app.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "276578ad68424be59d0998379ae7d4cb",
+    "semantic_hash": "276578ad68424be59d0998379ae7d4cb"
+  },
+  "config/auth.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "26354511ab860b301f2a3554bc388b91",
+    "semantic_hash": "26354511ab860b301f2a3554bc388b91"
+  },
+  "config/cache.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "022fdf20e95ddb79949954243e367003",
+    "semantic_hash": "022fdf20e95ddb79949954243e367003"
+  },
+  "config/database.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "3cd69c7ecc842e4552e44eade546d91f",
+    "semantic_hash": "3cd69c7ecc842e4552e44eade546d91f"
+  },
+  "config/filesystems.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "bde1aa1027f0448f17348dbd93f3d7ea",
+    "semantic_hash": "bde1aa1027f0448f17348dbd93f3d7ea"
+  },
+  "config/logging.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "d8255a5c07d3da72c7c9363f0c44bddd",
+    "semantic_hash": "d8255a5c07d3da72c7c9363f0c44bddd"
+  },
+  "config/mail.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "18601a927b48d38337ba2077426a7d60",
+    "semantic_hash": "18601a927b48d38337ba2077426a7d60"
+  },
+  "config/queue.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "f98ce92e7bf51db1fabaf8a30e12fc5a",
+    "semantic_hash": "f98ce92e7bf51db1fabaf8a30e12fc5a"
+  },
+  "config/services.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "534a1b7af7009c373ea4ebfa18823d57",
+    "semantic_hash": "534a1b7af7009c373ea4ebfa18823d57"
+  },
+  "config/session.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "6d9336e9ca1183588abbce7ff7a6f29a",
+    "semantic_hash": "6d9336e9ca1183588abbce7ff7a6f29a"
+  },
+  "database/factories/UserFactory.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "1c9f381f9c2bc3027971a3bfdbe99164",
+    "semantic_hash": "1c9f381f9c2bc3027971a3bfdbe99164"
+  },
+  "database/migrations/0001_01_01_000000_create_users_table.php": {
+    "mtime": 1783505206.881253,
+    "ast_hash": "3b47407f7ff574c52b09635d7a02cd7b",
+    "semantic_hash": "3b47407f7ff574c52b09635d7a02cd7b"
+  },
+  "database/migrations/0001_01_01_000001_create_cache_table.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "f3f38b41650112a6282c8dd1f635afb0",
+    "semantic_hash": "f3f38b41650112a6282c8dd1f635afb0"
+  },
+  "database/migrations/0001_01_01_000002_create_jobs_table.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "ead9cce2650b36345454f85e8c0214a0",
+    "semantic_hash": "ead9cce2650b36345454f85e8c0214a0"
+  },
+  "database/migrations/2026_07_08_105451_create_giao_viens_table.php": {
+    "mtime": 1783519341.3122067,
+    "ast_hash": "65e24e5b2da8e69f0246338fea6027e9",
+    "semantic_hash": "65e24e5b2da8e69f0246338fea6027e9"
+  },
+  "database/migrations/2026_07_08_105820_create_co_sos_table.php": {
+    "mtime": 1783574680.6292243,
+    "ast_hash": "904fc2ea8477608f1a5920388edb3407",
+    "semantic_hash": "904fc2ea8477608f1a5920388edb3407"
+  },
+  "database/migrations/2026_07_09_041828_create_hoc_vien_trai_nghiems_table.php": {
+    "mtime": 1783570798.5988493,
+    "ast_hash": "bd2bbba7f475e5a3cafd673205c49ecd",
+    "semantic_hash": "bd2bbba7f475e5a3cafd673205c49ecd"
+  },
+  "database/migrations/2026_07_09_053358_create_hoc_viens_table.php": {
+    "mtime": 1783575285.2160654,
+    "ast_hash": "5aeda074a6f68f1c86f87e567dc8e77c",
+    "semantic_hash": "5aeda074a6f68f1c86f87e567dc8e77c"
+  },
+  "database/migrations/2026_07_11_073542_create_diem_danhs_table.php": {
+    "mtime": 1783755374.6934328,
+    "ast_hash": "a87c1c5b042ed82be2b588180e0247f0",
+    "semantic_hash": "a87c1c5b042ed82be2b588180e0247f0"
+  },
+  "database/migrations/2026_07_11_080421_create_hoc_phis_table.php": {
+    "mtime": 1783757086.4660425,
+    "ast_hash": "7504e9432c5661a1e01fd0a871635690",
+    "semantic_hash": "7504e9432c5661a1e01fd0a871635690"
+  },
+  "database/migrations/2026_07_12_084259_add_gioi_thieu_ban_to_hoc_phis_table.php": {
+    "mtime": 1783845799.4063404,
+    "ast_hash": "22ec1e112f4b752f31e59713d0652ff6",
+    "semantic_hash": "22ec1e112f4b752f31e59713d0652ff6"
+  },
+  "database/migrations/2026_07_18_084701_add_nguoi_gioi_thieu_to_hoc_phis_table.php": {
+    "mtime": 1784364450.979891,
+    "ast_hash": "54cde573e143aa04a155c1e9ac1dd85f",
+    "semantic_hash": "54cde573e143aa04a155c1e9ac1dd85f"
+  },
+  "database/migrations/2026_07_18_091017_create_tien_sans_table.php": {
+    "mtime": 1784365834.8066735,
+    "ast_hash": "2d17126e9b8149969eb648ed0892d778",
+    "semantic_hash": "2d17126e9b8149969eb648ed0892d778"
+  },
+  "database/migrations/2026_07_21_000000_add_ghi_chu_to_hoc_viens_table.php": {
+    "mtime": 1784650470.3584113,
+    "ast_hash": "0e167ecb0ae70fdcedb227ae974ad144",
+    "semantic_hash": "0e167ecb0ae70fdcedb227ae974ad144"
+  },
+  "database/migrations/2026_07_22_031356_create_dia_diems_table.php": {
+    "mtime": 1784690057.8962655,
+    "ast_hash": "f64ae1e556d34d6f4d144311016b2460",
+    "semantic_hash": "f64ae1e556d34d6f4d144311016b2460"
+  },
+  "database/migrations/2026_07_22_031401_add_dia_diem_id_to_co_sos_table.php": {
+    "mtime": 1784690071.2299309,
+    "ast_hash": "f2fcfcb8380970bcb0e8e311e732ad83",
+    "semantic_hash": "f2fcfcb8380970bcb0e8e311e732ad83"
+  },
+  "database/migrations/2026_07_22_035015_add_chieu_cao_can_nang_to_hoc_viens_table.php": {
+    "mtime": 1784692233.9019585,
+    "ast_hash": "9c03fb053dff8cc80a7d44d8b1623a54",
+    "semantic_hash": "9c03fb053dff8cc80a7d44d8b1623a54"
+  },
+  "database/migrations/2026_07_24_040900_add_ngay_trai_nghiem_to_hoc_vien_trai_nghiems_table.php": {
+    "mtime": 1784866156.9735045,
+    "ast_hash": "e946fef89845a9532a409e03a543ca9a",
+    "semantic_hash": "e946fef89845a9532a409e03a543ca9a"
+  },
+  "database/migrations/2026_07_24_042303_add_bill_to_tien_sans_table.php": {
+    "mtime": 1784867002.3735435,
+    "ast_hash": "a5ac4f1697603edd2d8e192f2a7f9895",
+    "semantic_hash": "a5ac4f1697603edd2d8e192f2a7f9895"
+  },
+  "database/migrations/2026_07_24_052026_add_sdt_to_hoc_vien_trai_nghiems_table.php": {
+    "mtime": 1784870447.796384,
+    "ast_hash": "3c8bfaa317959d966ccde0e7a26382ca",
+    "semantic_hash": "3c8bfaa317959d966ccde0e7a26382ca"
+  },
+  "database/migrations/2026_07_25_090544_add_hoc_bu_to_diem_danhs_table.php": {
+    "mtime": 1784970363.7443335,
+    "ast_hash": "3160a157b09c3d10ca8fb98a99d6bbb6",
+    "semantic_hash": "3160a157b09c3d10ca8fb98a99d6bbb6"
+  },
+  "database/migrations/2026_07_27_061631_create_cai_dat_hoc_phis_table.php": {
+    "mtime": 1785133018.6442528,
+    "ast_hash": "971b5fceb411b79c82df896f1349eecb",
+    "semantic_hash": "971b5fceb411b79c82df896f1349eecb"
+  },
+  "database/migrations/2026_07_28_053217_add_chuc_danh_to_giao_viens_table.php": {
+    "mtime": 1785217231.2761533,
+    "ast_hash": "fba19a82f9a9110f725da38038d8cc01",
+    "semantic_hash": "fba19a82f9a9110f725da38038d8cc01"
+  },
+  "database/migrations/2026_07_28_061438_add_role_and_giao_vien_id_to_users_table.php": {
+    "mtime": 1785219290.5149906,
+    "ast_hash": "ec77781d159fedd4f40d6362b7b589cb",
+    "semantic_hash": "ec77781d159fedd4f40d6362b7b589cb"
+  },
+  "database/migrations/2026_07_28_061438_create_chuc_nangs_table.php": {
+    "mtime": 1785219296.8847833,
+    "ast_hash": "db8484870d62fe6b48c085be04aeb936",
+    "semantic_hash": "db8484870d62fe6b48c085be04aeb936"
+  },
+  "database/migrations/2026_07_28_061439_create_user_permissions_table.php": {
+    "mtime": 1785219305.7949183,
+    "ast_hash": "3bc6ab225be723909b6f38c54d952bd2",
+    "semantic_hash": "3bc6ab225be723909b6f38c54d952bd2"
+  },
+  "database/migrations/2026_07_28_171553_add_nguoi_cap_nhat_id_to_diem_danhs_table.php": {
+    "mtime": 1785259164.880857,
+    "ast_hash": "db9a67804c7c6c2c1238a7fa3daf7540",
+    "semantic_hash": "db9a67804c7c6c2c1238a7fa3daf7540"
+  },
+  "database/migrations/2026_07_28_193616_create_giao_ans_table.php": {
+    "mtime": 1785267388.359982,
+    "ast_hash": "dd65121aff7a4477583019eb3d2fea54",
+    "semantic_hash": "dd65121aff7a4477583019eb3d2fea54"
+  },
+  "database/migrations/2026_07_29_044117_create_sodo_mau_sac_table.php": {
+    "mtime": 1785300090.9137797,
+    "ast_hash": "1259fd25d5eaa7dfebcb8b7e7c692192",
+    "semantic_hash": "1259fd25d5eaa7dfebcb8b7e7c692192"
+  },
+  "database/migrations/2026_07_30_075428_add_dong_phuc_size_to_hoc_phis_table.php": {
+    "mtime": 1785398080.7988894,
+    "ast_hash": "2abaced5082be66f3cb9a0a9257ba5f8",
+    "semantic_hash": "2abaced5082be66f3cb9a0a9257ba5f8"
+  },
+  "database/migrations/2026_07_31_090000_add_kich_thuoc_to_sodo_mau_sac_table.php": {
+    "mtime": 1785602873.9510875,
+    "ast_hash": "61c077571e8130b1113a424e9b950957",
+    "semantic_hash": "61c077571e8130b1113a424e9b950957"
+  },
+  "database/migrations/2026_08_01_164218_add_ma_nhan_vien_cccd_to_giao_viens_table.php": {
+    "mtime": 1785602549.8015952,
+    "ast_hash": "68c96cec90933a44f8126871133178cd",
+    "semantic_hash": "68c96cec90933a44f8126871133178cd"
+  },
+  "database/migrations/2026_08_01_194459_create_bieu_maus_table.php": {
+    "mtime": 1785613543.1328218,
+    "ast_hash": "4a3ad22f73bc943d64929838195b99f9",
+    "semantic_hash": "4a3ad22f73bc943d64929838195b99f9"
+  },
+  "database/migrations/2026_08_01_204128_add_luong_to_giao_viens_table.php": {
+    "mtime": 1785616898.2405448,
+    "ast_hash": "54df252d7032bd4b96d97226b6bc66e6",
+    "semantic_hash": "54df252d7032bd4b96d97226b6bc66e6"
+  },
+  "database/migrations/2026_08_02_135050_create_cham_cong_giao_viens_table.php": {
+    "mtime": 1785678679.284381,
+    "ast_hash": "01a626309c8cc403a417243e9b6d2cf1",
+    "semantic_hash": "01a626309c8cc403a417243e9b6d2cf1"
+  },
+  "database/migrations/2026_08_03_085816_create_cai_dat_luong_thays_table.php": {
+    "mtime": 1785747507.8349714,
+    "ast_hash": "608e9e38db9173b141a866af359fc62d",
+    "semantic_hash": "608e9e38db9173b141a866af359fc62d"
+  },
+  "database/migrations/2026_08_03_085844_create_phieu_luong_nhan_viens_table.php": {
+    "mtime": 1785824777.3171532,
+    "ast_hash": "e8eaea175ff87c3e0decf1a58d773bcc",
+    "semantic_hash": "e8eaea175ff87c3e0decf1a58d773bcc"
+  },
+  "database/migrations/2026_08_03_085942_create_phieu_luong_ctvs_table.php": {
+    "mtime": 1785747603.785247,
+    "ast_hash": "825682a406f9bafbc8f03a97ac96b5fa",
+    "semantic_hash": "825682a406f9bafbc8f03a97ac96b5fa"
+  },
+  "database/migrations/2026_08_03_095103_add_tro_cap_to_phieu_luong_ctvs_table.php": {
+    "mtime": 1785750676.2681692,
+    "ast_hash": "07fdf64528d1f36d42ce136a63066c8d",
+    "semantic_hash": "07fdf64528d1f36d42ce136a63066c8d"
+  },
+  "database/migrations/2026_08_05_023459_change_tong_thu_nhap_to_signed_in_phieu_luong_nhan_viens_table.php": {
+    "mtime": 1785897330.793215,
+    "ast_hash": "b8add6d7f323d10e0cf654adc5ed8ac6",
+    "semantic_hash": "b8add6d7f323d10e0cf654adc5ed8ac6"
+  },
+  "database/migrations/2026_08_05_031454_create_bieu_mau_mau_trongs_table.php": {
+    "mtime": 1785899706.955348,
+    "ast_hash": "d19ffcbf7b705d919f2ce768276dccb3",
+    "semantic_hash": "d19ffcbf7b705d919f2ce768276dccb3"
+  },
+  "database/migrations/2026_08_07_083514_remove_unique_hoc_vien_thang_from_hoc_phis_table.php": {
+    "mtime": 1786092447.962844,
+    "ast_hash": "d2bc717dcec2d28eebee57b89d286744",
+    "semantic_hash": "d2bc717dcec2d28eebee57b89d286744"
+  },
+  "database/migrations/2026_08_07_101425_create_hoa_dons_table.php": {
+    "mtime": 1786097678.3313541,
+    "ast_hash": "b22cff14351108f7a4a4eca3336b5ba5",
+    "semantic_hash": "b22cff14351108f7a4a4eca3336b5ba5"
+  },
+  "database/migrations/2026_08_08_125658_add_ngay_tao_to_hoa_dons_table.php": {
+    "mtime": 1786193827.7384791,
+    "ast_hash": "2813b0e43d9a845378efd52f8aba884b",
+    "semantic_hash": "2813b0e43d9a845378efd52f8aba884b"
+  },
+  "database/migrations/2026_08_16_153701_add_tien_tru_1_ngay_to_giao_viens_table.php": {
+    "mtime": 1786894637.2162185,
+    "ast_hash": "a5d150519529902b8c289d343f1e353c",
+    "semantic_hash": "a5d150519529902b8c289d343f1e353c"
+  },
+  "database/migrations/2026_08_16_160928_add_ap_dung_bao_hiem_to_phieu_luong_nhan_viens_table.php": {
+    "mtime": 1786896582.0730493,
+    "ast_hash": "023b3cb43b1edc59cdd9b1d48f655811",
+    "semantic_hash": "023b3cb43b1edc59cdd9b1d48f655811"
+  },
+  "database/seeders/ChucNangSeeder.php": {
+    "mtime": 1786097999.077087,
+    "ast_hash": "ab414a5363337864372466c35a4b3df0",
+    "semantic_hash": "ab414a5363337864372466c35a4b3df0"
+  },
+  "database/seeders/CoSoSeeder.php": {
+    "mtime": 1783519514.170138,
+    "ast_hash": "33c2a0ee9b38a7ec0cf2c93165bc0a89",
+    "semantic_hash": "33c2a0ee9b38a7ec0cf2c93165bc0a89"
+  },
+  "database/seeders/DatabaseSeeder.php": {
+    "mtime": 1785219443.9956398,
+    "ast_hash": "bf1852a08f90118151295dbdd66d5cba",
+    "semantic_hash": "bf1852a08f90118151295dbdd66d5cba"
+  },
+  "database/seeders/GiaoAnDemoSeeder.php": {
+    "mtime": 1785384409.1191792,
+    "ast_hash": "1fb87b1b224821abff8ecf46d5c17afe",
+    "semantic_hash": "1fb87b1b224821abff8ecf46d5c17afe"
+  },
+  "database/seeders/TeacherSeeder.php": {
+    "mtime": 1783519461.2487223,
+    "ast_hash": "fc1efaeaa019c3706016685956557aed",
+    "semantic_hash": "fc1efaeaa019c3706016685956557aed"
+  },
+  "database/seeders/UserSeeder.php": {
+    "mtime": 1783511483.89403,
+    "ast_hash": "0ea176fa4952f05a7b43d42b44790c2a",
+    "semantic_hash": "0ea176fa4952f05a7b43d42b44790c2a"
+  },
+  "package.json": {
+    "mtime": 1773456840.0,
+    "ast_hash": "07d7440dc017382991f9a7bd0151005a",
+    "semantic_hash": "07d7440dc017382991f9a7bd0151005a"
+  },
+  "public/index.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "d8eda274115af5fd2aaa8230af329ef7",
+    "semantic_hash": "d8eda274115af5fd2aaa8230af329ef7"
+  },
+  "public/js/app.js": {
+    "mtime": 1783509342.0882957,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "public/js/common.js": {
+    "mtime": 1786510844.5642352,
+    "ast_hash": "9e2f9ebdd679c034ac3b8e76e305bbaa",
+    "semantic_hash": "9e2f9ebdd679c034ac3b8e76e305bbaa"
+  },
+  "public/js/datepicker.js": {
+    "mtime": 1786510844.565235,
+    "ast_hash": "8a44a9d7b96cb495745a53bc5780be07",
+    "semantic_hash": "8a44a9d7b96cb495745a53bc5780be07"
+  },
+  "public/js/daterangepicker.js": {
+    "mtime": 1786510844.565235,
+    "ast_hash": "ccaf0e699a3d05a968a7c796b1bbf3de",
+    "semantic_hash": "ccaf0e699a3d05a968a7c796b1bbf3de"
+  },
+  "public/js/fake-data.js": {
+    "mtime": 1786510844.5642352,
+    "ast_hash": "ff74e362772eec6be2c257494f09bff3",
+    "semantic_hash": "ff74e362772eec6be2c257494f09bff3"
+  },
+  "public/js/modals/branches-modal.js": {
+    "mtime": 1783577416.427997,
+    "ast_hash": "6d76b9f9f8721b0dfba7b9268e926898",
+    "semantic_hash": "6d76b9f9f8721b0dfba7b9268e926898"
+  },
+  "public/js/pages/account.js": {
+    "mtime": 1783517340.9877536,
+    "ast_hash": "b3964c85dd353e59ea2553442f784137",
+    "semantic_hash": "b3964c85dd353e59ea2553442f784137"
+  },
+  "public/js/pages/attendance.js": {
+    "mtime": 1786510844.565235,
+    "ast_hash": "64ab53790c3b2e2c973bd8f3238c45d6",
+    "semantic_hash": "64ab53790c3b2e2c973bd8f3238c45d6"
+  },
+  "public/js/pages/auth.js": {
+    "mtime": 1785040994.0262072,
+    "ast_hash": "0402740e4f3a6891ce2656f7be8c67b4",
+    "semantic_hash": "0402740e4f3a6891ce2656f7be8c67b4"
+  },
+  "public/js/pages/bieumau.js": {
+    "mtime": 1785899845.1020288,
+    "ast_hash": "e67721d362705a49d689970ae3bcab4a",
+    "semantic_hash": "e67721d362705a49d689970ae3bcab4a"
+  },
+  "public/js/pages/branches.js": {
+    "mtime": 1784690458.1673121,
+    "ast_hash": "2c4425b0b1c4b64e315e19ae4b12004e",
+    "semantic_hash": "2c4425b0b1c4b64e315e19ae4b12004e"
+  },
+  "public/js/pages/caidathocphi.js": {
+    "mtime": 1785133330.0483627,
+    "ast_hash": "bf2fa275ae3821c36a6bd9aab0c0f17f",
+    "semantic_hash": "bf2fa275ae3821c36a6bd9aab0c0f17f"
+  },
+  "public/js/pages/caidattienluong.js": {
+    "mtime": 1786897357.1341197,
+    "ast_hash": "7f207b690fd2cff1e485276955b37e91",
+    "semantic_hash": "7f207b690fd2cff1e485276955b37e91"
+  },
+  "public/js/pages/chamcong.js": {
+    "mtime": 1786896077.5557232,
+    "ast_hash": "f5e008d9b7ac532fd03742fe284099fb",
+    "semantic_hash": "f5e008d9b7ac532fd03742fe284099fb"
+  },
+  "public/js/pages/dashboard.js": {
+    "mtime": 1785213015.0384684,
+    "ast_hash": "5b505db28b87c9956d3a7639d53f4abd",
+    "semantic_hash": "5b505db28b87c9956d3a7639d53f4abd"
+  },
+  "public/js/pages/giaoan-form.js": {
+    "mtime": 1785289849.6230924,
+    "ast_hash": "5130cd893eb44ab30f688936365a517c",
+    "semantic_hash": "5130cd893eb44ab30f688936365a517c"
+  },
+  "public/js/pages/hoadon.js": {
+    "mtime": 1786193946.4961512,
+    "ast_hash": "a1e6661a122a81401dd97c7121db8379",
+    "semantic_hash": "a1e6661a122a81401dd97c7121db8379"
+  },
+  "public/js/pages/phieuluongctv.js": {
+    "mtime": 1785750874.9799404,
+    "ast_hash": "6943fc7d6bf50164df80cd9f4894ac5e",
+    "semantic_hash": "6943fc7d6bf50164df80cd9f4894ac5e"
+  },
+  "public/js/pages/phieuluongnhanvien.js": {
+    "mtime": 1786896685.876407,
+    "ast_hash": "4f4b64d3a461d127d6cb09da6bc3235f",
+    "semantic_hash": "4f4b64d3a461d127d6cb09da6bc3235f"
+  },
+  "public/js/pages/sodo-designer.js": {
+    "mtime": 1786510844.565235,
+    "ast_hash": "b733a82ee2f5af0edd87b4af3e32cd7e",
+    "semantic_hash": "b733a82ee2f5af0edd87b4af3e32cd7e"
+  },
+  "public/js/pages/students-create.js": {
+    "mtime": 1784870672.5372303,
+    "ast_hash": "4a5c530f58e4055e5751cdf0718d6ba0",
+    "semantic_hash": "4a5c530f58e4055e5751cdf0718d6ba0"
+  },
+  "public/js/pages/students.js": {
+    "mtime": 1784692385.4745343,
+    "ast_hash": "fc13155b8beecee7f07eac4da05e0360",
+    "semantic_hash": "fc13155b8beecee7f07eac4da05e0360"
+  },
+  "public/js/pages/teachers.js": {
+    "mtime": 1785602633.13418,
+    "ast_hash": "89f36293fd5ccb1b5d4f7ff8c5528b7f",
+    "semantic_hash": "89f36293fd5ccb1b5d4f7ff8c5528b7f"
+  },
+  "public/js/pages/tiensan.js": {
+    "mtime": 1785034879.6885438,
+    "ast_hash": "3ae787d05e4843cc029fa6a031e3c753",
+    "semantic_hash": "3ae787d05e4843cc029fa6a031e3c753"
+  },
+  "public/js/pages/trial.js": {
+    "mtime": 1784870606.4520273,
+    "ast_hash": "75d0441900edb13fc5c17e5ae71b0fb1",
+    "semantic_hash": "75d0441900edb13fc5c17e5ae71b0fb1"
+  },
+  "public/js/pages/tuition.js": {
+    "mtime": 1786510844.565235,
+    "ast_hash": "f8414fa207c9a4aa609297bb20945b24",
+    "semantic_hash": "f8414fa207c9a4aa609297bb20945b24"
+  },
+  "resources/js/app.js": {
+    "mtime": 1773456840.0,
+    "ast_hash": "1ccf2b9101110f40ecaab1608a6f91cf",
+    "semantic_hash": "1ccf2b9101110f40ecaab1608a6f91cf"
+  },
+  "resources/js/bootstrap.js": {
+    "mtime": 1773456840.0,
+    "ast_hash": "78f909acc19aea4717eddca5a87c1ba3",
+    "semantic_hash": "78f909acc19aea4717eddca5a87c1ba3"
+  },
+  "resources/views/_dashboard.blade.php": {
+    "mtime": 1785212907.2262697,
+    "ast_hash": "787cac3eecf0e654c5f1154e3cc7a696",
+    "semantic_hash": "787cac3eecf0e654c5f1154e3cc7a696"
+  },
+  "resources/views/account/_index.blade.php": {
+    "mtime": 1784978826.3322208,
+    "ast_hash": "f779196435c13123fae4a2df8d85a321",
+    "semantic_hash": "f779196435c13123fae4a2df8d85a321"
+  },
+  "resources/views/account/index.blade.php": {
+    "mtime": 1784978830.9999864,
+    "ast_hash": "66b186aff6cf5a807464ea3b46787a74",
+    "semantic_hash": "66b186aff6cf5a807464ea3b46787a74"
+  },
+  "resources/views/attendance/_index.blade.php": {
+    "mtime": 1786510844.5195098,
+    "ast_hash": "59ce96ea55e94a940e108c076feb3724",
+    "semantic_hash": "59ce96ea55e94a940e108c076feb3724"
+  },
+  "resources/views/attendance/index.blade.php": {
+    "mtime": 1784979118.7039952,
+    "ast_hash": "7462c04aa4ba5d3c15c66756c0071948",
+    "semantic_hash": "7462c04aa4ba5d3c15c66756c0071948"
+  },
+  "resources/views/auth/_login_card.blade.php": {
+    "mtime": 1785043276.6049995,
+    "ast_hash": "ab02c8f262ca9813ada833291c40f9fa",
+    "semantic_hash": "ab02c8f262ca9813ada833291c40f9fa"
+  },
+  "resources/views/auth/login.blade.php": {
+    "mtime": 1783505861.071149,
+    "ast_hash": "db941d2574bafff0ba607c977d129f2f",
+    "semantic_hash": "db941d2574bafff0ba607c977d129f2f"
+  },
+  "resources/views/bieumau/_index.blade.php": {
+    "mtime": 1786510844.5642352,
+    "ast_hash": "50a42f1d3271beb145ae80bf4d7afe52",
+    "semantic_hash": "50a42f1d3271beb145ae80bf4d7afe52"
+  },
+  "resources/views/bieumau/_menu.blade.php": {
+    "mtime": 1785615282.2159643,
+    "ast_hash": "9f834b269c8aa4c28ef3f629c70068ad",
+    "semantic_hash": "9f834b269c8aa4c28ef3f629c70068ad"
+  },
+  "resources/views/bieumau/index.blade.php": {
+    "mtime": 1785613790.132096,
+    "ast_hash": "bcd007b95f07340b233df78d3b224bf7",
+    "semantic_hash": "bcd007b95f07340b233df78d3b224bf7"
+  },
+  "resources/views/bieumau/menu.blade.php": {
+    "mtime": 1785613755.9623609,
+    "ast_hash": "208748b7c0508c1c0721a79d5c791287",
+    "semantic_hash": "208748b7c0508c1c0721a79d5c791287"
+  },
+  "resources/views/branches/_index.blade.php": {
+    "mtime": 1786510844.5195098,
+    "ast_hash": "ae1c221e610c00a33f2bf931a4aa5807",
+    "semantic_hash": "ae1c221e610c00a33f2bf931a4aa5807"
+  },
+  "resources/views/branches/index.blade.php": {
+    "mtime": 1784979590.832021,
+    "ast_hash": "18855000b363a70fade5b15ff67d5d41",
+    "semantic_hash": "18855000b363a70fade5b15ff67d5d41"
+  },
+  "resources/views/caidat/hocphi/_index.blade.php": {
+    "mtime": 1785617866.6923718,
+    "ast_hash": "4ddc28e955327c8a383982a0883205a4",
+    "semantic_hash": "4ddc28e955327c8a383982a0883205a4"
+  },
+  "resources/views/caidat/hocphi/index.blade.php": {
+    "mtime": 1785617888.2405498,
+    "ast_hash": "fc1b973a4e52d470b7f7f5cbe5af26bd",
+    "semantic_hash": "fc1b973a4e52d470b7f7f5cbe5af26bd"
+  },
+  "resources/views/caidat/tienluong/_index.blade.php": {
+    "mtime": 1786895561.0804932,
+    "ast_hash": "603d4860d0b5d6fad56731d0d0bb08e1",
+    "semantic_hash": "603d4860d0b5d6fad56731d0d0bb08e1"
+  },
+  "resources/views/caidat/tienluong/index.blade.php": {
+    "mtime": 1785617906.9711344,
+    "ast_hash": "ecc0bc7feb317077c0c244f2a48b8874",
+    "semantic_hash": "ecc0bc7feb317077c0c244f2a48b8874"
+  },
+  "resources/views/chamcong/_index.blade.php": {
+    "mtime": 1786895820.248114,
+    "ast_hash": "99038a8c7422ba3d94608d7093b027a2",
+    "semantic_hash": "99038a8c7422ba3d94608d7093b027a2"
+  },
+  "resources/views/chamcong/index.blade.php": {
+    "mtime": 1786011456.8669007,
+    "ast_hash": "a8cd0abb5889fca7c94ca5167232bd55",
+    "semantic_hash": "a8cd0abb5889fca7c94ca5167232bd55"
+  },
+  "resources/views/dashboard.blade.php": {
+    "mtime": 1786510844.5195098,
+    "ast_hash": "3177fd29b5cbe71ff150d58c74fbf526",
+    "semantic_hash": "3177fd29b5cbe71ff150d58c74fbf526"
+  },
+  "resources/views/errors/403.blade.php": {
+    "mtime": 1786510844.5612793,
+    "ast_hash": "98476d5628e88cdbbb90506f7f5acf99",
+    "semantic_hash": "98476d5628e88cdbbb90506f7f5acf99"
+  },
+  "resources/views/errors/419.blade.php": {
+    "mtime": 1787358738.0955229,
+    "ast_hash": "043048e715a4f08efb36185523bdcf1e",
+    "semantic_hash": "043048e715a4f08efb36185523bdcf1e"
+  },
+  "resources/views/errors/429.blade.php": {
+    "mtime": 1783847476.7161682,
+    "ast_hash": "43fd63eb4c48aa18f9e4d5c3ee338ea7",
+    "semantic_hash": "43fd63eb4c48aa18f9e4d5c3ee338ea7"
+  },
+  "resources/views/errors/500.blade.php": {
+    "mtime": 1786510844.5612793,
+    "ast_hash": "86e6cb97a9798d24194e036fa1a07131",
+    "semantic_hash": "86e6cb97a9798d24194e036fa1a07131"
+  },
+  "resources/views/errors/503.blade.php": {
+    "mtime": 1786510844.5602796,
+    "ast_hash": "86fd4d4c918187c877a3ac6a7d417c32",
+    "semantic_hash": "86fd4d4c918187c877a3ac6a7d417c32"
+  },
+  "resources/views/giaoan/_form.blade.php": {
+    "mtime": 1785385181.6216383,
+    "ast_hash": "99fc5880fa514d2e315c7921c117cfa9",
+    "semantic_hash": "99fc5880fa514d2e315c7921c117cfa9"
+  },
+  "resources/views/giaoan/_index.blade.php": {
+    "mtime": 1786510844.5632353,
+    "ast_hash": "7259522a6585181f5b8ceb4ced0212ca",
+    "semantic_hash": "7259522a6585181f5b8ceb4ced0212ca"
+  },
+  "resources/views/giaoan/_menu.blade.php": {
+    "mtime": 1786510844.5632353,
+    "ast_hash": "109b59f81169dba9c109e32926f61329",
+    "semantic_hash": "109b59f81169dba9c109e32926f61329"
+  },
+  "resources/views/giaoan/_sodo_designer.blade.php": {
+    "mtime": 1786195194.2181022,
+    "ast_hash": "6870fee740661c0a5e57628c0b5a634c",
+    "semantic_hash": "6870fee740661c0a5e57628c0b5a634c"
+  },
+  "resources/views/giaoan/_sodo_thumb.blade.php": {
+    "mtime": 1786510844.5612793,
+    "ast_hash": "23d608d194c5dd2d03fdf8b60e900299",
+    "semantic_hash": "23d608d194c5dd2d03fdf8b60e900299"
+  },
+  "resources/views/giaoan/create.blade.php": {
+    "mtime": 1785289867.163658,
+    "ast_hash": "0bbc1a03d36b95a5f4fd58ed65eb64b4",
+    "semantic_hash": "0bbc1a03d36b95a5f4fd58ed65eb64b4"
+  },
+  "resources/views/giaoan/edit.blade.php": {
+    "mtime": 1786510844.5642352,
+    "ast_hash": "7fc85ae09c4493ae0cb29358be681e64",
+    "semantic_hash": "7fc85ae09c4493ae0cb29358be681e64"
+  },
+  "resources/views/giaoan/index.blade.php": {
+    "mtime": 1785267691.381619,
+    "ast_hash": "ab18aa50d9c61e39fe463dae2801375f",
+    "semantic_hash": "ab18aa50d9c61e39fe463dae2801375f"
+  },
+  "resources/views/giaoan/menu.blade.php": {
+    "mtime": 1785267653.5863342,
+    "ast_hash": "501782cebe4626a62ab1eb8375c74891",
+    "semantic_hash": "501782cebe4626a62ab1eb8375c74891"
+  },
+  "resources/views/giaoan/show.blade.php": {
+    "mtime": 1786510844.5632353,
+    "ast_hash": "8853ad96d2a334505f3f706db0541dc6",
+    "semantic_hash": "8853ad96d2a334505f3f706db0541dc6"
+  },
+  "resources/views/hoadon/daura/_index.blade.php": {
+    "mtime": 1787372621.4553673,
+    "ast_hash": "e0db63ac3113fe1cfb4422f8032cc5ce",
+    "semantic_hash": "e0db63ac3113fe1cfb4422f8032cc5ce"
+  },
+  "resources/views/hoadon/daura/index.blade.php": {
+    "mtime": 1786099511.86317,
+    "ast_hash": "b06bde43cae687b37c3f6482f2652b67",
+    "semantic_hash": "b06bde43cae687b37c3f6482f2652b67"
+  },
+  "resources/views/hoadon/dauvao/_index.blade.php": {
+    "mtime": 1786934725.0640502,
+    "ast_hash": "b86f4390e165da1a8348c76491a70a99",
+    "semantic_hash": "b86f4390e165da1a8348c76491a70a99"
+  },
+  "resources/views/hoadon/dauvao/_menu.blade.php": {
+    "mtime": 1786097859.377523,
+    "ast_hash": "f9ce23bcc88282afa1eadbef223b9c25",
+    "semantic_hash": "f9ce23bcc88282afa1eadbef223b9c25"
+  },
+  "resources/views/hoadon/dauvao/index.blade.php": {
+    "mtime": 1786097892.8279142,
+    "ast_hash": "5c9fb676d7132ec57d811652b61598ab",
+    "semantic_hash": "5c9fb676d7132ec57d811652b61598ab"
+  },
+  "resources/views/hoadon/dauvao/menu.blade.php": {
+    "mtime": 1786097854.218516,
+    "ast_hash": "66f0997bc7a8c385f36fe435ecccebf7",
+    "semantic_hash": "66f0997bc7a8c385f36fe435ecccebf7"
+  },
+  "resources/views/layouts/admin.blade.php": {
+    "mtime": 1786097963.3732004,
+    "ast_hash": "45339c3b86fe844250fecd487973d7a6",
+    "semantic_hash": "45339c3b86fe844250fecd487973d7a6"
+  },
+  "resources/views/layouts/guest.blade.php": {
+    "mtime": 1785040093.6585023,
+    "ast_hash": "a20e8ab5f8c120610378f98088ee3523",
+    "semantic_hash": "a20e8ab5f8c120610378f98088ee3523"
+  },
+  "resources/views/partials/_sidebar.blade.php": {
+    "mtime": 1786190214.2985764,
+    "ast_hash": "9242d272118d06ad6dcdcdef91cd633c",
+    "semantic_hash": "9242d272118d06ad6dcdcdef91cd633c"
+  },
+  "resources/views/partials/_toast.blade.php": {
+    "mtime": 1784868356.5242999,
+    "ast_hash": "52dc85e1405711e554ac5a0c2e487900",
+    "semantic_hash": "52dc85e1405711e554ac5a0c2e487900"
+  },
+  "resources/views/partials/_topbar.blade.php": {
+    "mtime": 1786190217.7293482,
+    "ast_hash": "d285501b6dd00533c01a489d1514cbfa",
+    "semantic_hash": "d285501b6dd00533c01a489d1514cbfa"
+  },
+  "resources/views/partials/modals/_bieumau.blade.php": {
+    "mtime": 1786510844.5642352,
+    "ast_hash": "482c134eb1a1d042712e385fc1c0aa90",
+    "semantic_hash": "482c134eb1a1d042712e385fc1c0aa90"
+  },
+  "resources/views/partials/modals/_branch.blade.php": {
+    "mtime": 1784979772.1995661,
+    "ast_hash": "7f1dc2a19db88286382c425f02a3d1bb",
+    "semantic_hash": "7f1dc2a19db88286382c425f02a3d1bb"
+  },
+  "resources/views/partials/modals/_caidathocphi.blade.php": {
+    "mtime": 1785134057.702173,
+    "ast_hash": "be8543d0022e5a78f7968decea46c804",
+    "semantic_hash": "be8543d0022e5a78f7968decea46c804"
+  },
+  "resources/views/partials/modals/_chamcongchitiet.blade.php": {
+    "mtime": 1786895841.8393893,
+    "ast_hash": "3e1d02199ed55ee0f92cc0f1f013bb8e",
+    "semantic_hash": "3e1d02199ed55ee0f92cc0f1f013bb8e"
+  },
+  "resources/views/partials/modals/_chamconghangloat.blade.php": {
+    "mtime": 1786896027.2055855,
+    "ast_hash": "88fdff472f29423d7312ba898dacddc7",
+    "semantic_hash": "88fdff472f29423d7312ba898dacddc7"
+  },
+  "resources/views/partials/modals/_confirm.blade.php": {
+    "mtime": 1785134032.5090039,
+    "ast_hash": "71f1044ef4a7989f783e11d031f46947",
+    "semantic_hash": "71f1044ef4a7989f783e11d031f46947"
+  },
+  "resources/views/partials/modals/_hoadon.blade.php": {
+    "mtime": 1786195863.9023001,
+    "ast_hash": "91c01b32624a0cc88e13757316780d61",
+    "semantic_hash": "91c01b32624a0cc88e13757316780d61"
+  },
+  "resources/views/partials/modals/_quyengiaovien.blade.php": {
+    "mtime": 1785219515.2580314,
+    "ast_hash": "b9b6cc174131a281dc4c5215aabbe0d6",
+    "semantic_hash": "b9b6cc174131a281dc4c5215aabbe0d6"
+  },
+  "resources/views/partials/modals/_student.blade.php": {
+    "mtime": 1786190653.0053613,
+    "ast_hash": "9cc7ae63752f4cfb0f809d7bc4acb7d4",
+    "semantic_hash": "9cc7ae63752f4cfb0f809d7bc4acb7d4"
+  },
+  "resources/views/partials/modals/_teacher.blade.php": {
+    "mtime": 1785602779.389028,
+    "ast_hash": "748127c299d793c0691c75e8a5e1f86d",
+    "semantic_hash": "748127c299d793c0691c75e8a5e1f86d"
+  },
+  "resources/views/partials/modals/_tienluong.blade.php": {
+    "mtime": 1786897343.6179755,
+    "ast_hash": "ca6ecc073036ad672a4497c2b1b5f528",
+    "semantic_hash": "ca6ecc073036ad672a4497c2b1b5f528"
+  },
+  "resources/views/partials/modals/_tiensan.blade.php": {
+    "mtime": 1785248046.9732926,
+    "ast_hash": "41a8ae71d27bfc661ce5e12d2b9f377c",
+    "semantic_hash": "41a8ae71d27bfc661ce5e12d2b9f377c"
+  },
+  "resources/views/partials/modals/_trial.blade.php": {
+    "mtime": 1786190657.8727422,
+    "ast_hash": "4cdea5c3fac8b179aed3a7c67a4ebd0e",
+    "semantic_hash": "4cdea5c3fac8b179aed3a7c67a4ebd0e"
+  },
+  "resources/views/partials/modals/_tuition.blade.php": {
+    "mtime": 1786510844.5642352,
+    "ast_hash": "facb6d6260d791e5ac1044eadf502480",
+    "semantic_hash": "facb6d6260d791e5ac1044eadf502480"
+  },
+  "resources/views/phieuluong/ctv/_create.blade.php": {
+    "mtime": 1786510844.534965,
+    "ast_hash": "9e44fd167ff3ceb30e4258fa1c155c67",
+    "semantic_hash": "9e44fd167ff3ceb30e4258fa1c155c67"
+  },
+  "resources/views/phieuluong/ctv/_edit.blade.php": {
+    "mtime": 1786510844.5339668,
+    "ast_hash": "94f1a80bce056d2c31362b85f3d57e6a",
+    "semantic_hash": "94f1a80bce056d2c31362b85f3d57e6a"
+  },
+  "resources/views/phieuluong/ctv/_index.blade.php": {
+    "mtime": 1786510844.5339668,
+    "ast_hash": "cefb5acb510762dd05e9a5b88bec10df",
+    "semantic_hash": "cefb5acb510762dd05e9a5b88bec10df"
+  },
+  "resources/views/phieuluong/ctv/create.blade.php": {
+    "mtime": 1785747443.6418633,
+    "ast_hash": "e5ffb39a6216905c48d55ce39558f9d2",
+    "semantic_hash": "e5ffb39a6216905c48d55ce39558f9d2"
+  },
+  "resources/views/phieuluong/ctv/edit.blade.php": {
+    "mtime": 1785747457.9257796,
+    "ast_hash": "c94382a4bf4b6da8b5d064e340c06d22",
+    "semantic_hash": "c94382a4bf4b6da8b5d064e340c06d22"
+  },
+  "resources/views/phieuluong/ctv/index.blade.php": {
+    "mtime": 1785747425.3211994,
+    "ast_hash": "790a0cfdb3790de317da81b1d6432460",
+    "semantic_hash": "790a0cfdb3790de317da81b1d6432460"
+  },
+  "resources/views/phieuluong/nhanvien/_create.blade.php": {
+    "mtime": 1786897417.834489,
+    "ast_hash": "e8c11a09ae64e126eb2cbcd902d24012",
+    "semantic_hash": "e8c11a09ae64e126eb2cbcd902d24012"
+  },
+  "resources/views/phieuluong/nhanvien/_edit.blade.php": {
+    "mtime": 1786896666.3997474,
+    "ast_hash": "30686bcf7c963517e90402f9179ad0cd",
+    "semantic_hash": "30686bcf7c963517e90402f9179ad0cd"
+  },
+  "resources/views/phieuluong/nhanvien/_index.blade.php": {
+    "mtime": 1786510844.5270133,
+    "ast_hash": "32458278e68af4dd0faa44cd00bf7e4a",
+    "semantic_hash": "32458278e68af4dd0faa44cd00bf7e4a"
+  },
+  "resources/views/phieuluong/nhanvien/create.blade.php": {
+    "mtime": 1785747381.1488893,
+    "ast_hash": "0b5fc6ebdfa3f78143097d481a3d010d",
+    "semantic_hash": "0b5fc6ebdfa3f78143097d481a3d010d"
+  },
+  "resources/views/phieuluong/nhanvien/edit.blade.php": {
+    "mtime": 1785747402.434899,
+    "ast_hash": "b1bd89f421032a210049508c1f93d01c",
+    "semantic_hash": "b1bd89f421032a210049508c1f93d01c"
+  },
+  "resources/views/phieuluong/nhanvien/index.blade.php": {
+    "mtime": 1785747359.4991121,
+    "ast_hash": "42b08bebd1346bbcd2c94d785522db33",
+    "semantic_hash": "42b08bebd1346bbcd2c94d785522db33"
+  },
+  "resources/views/stats/_index.blade.php": {
+    "mtime": 1783326677.0,
+    "ast_hash": "b07e5201778ad7b2663d82d693296f98",
+    "semantic_hash": "b07e5201778ad7b2663d82d693296f98"
+  },
+  "resources/views/stats/index.blade.php": {
+    "mtime": 1783326724.0,
+    "ast_hash": "18039db8d6427d401d9752d278447d01",
+    "semantic_hash": "18039db8d6427d401d9752d278447d01"
+  },
+  "resources/views/students/_detail.blade.php": {
+    "mtime": 1786510844.5642352,
+    "ast_hash": "da82822069532d237074fe52a27e997e",
+    "semantic_hash": "da82822069532d237074fe52a27e997e"
+  },
+  "resources/views/students/_index.blade.php": {
+    "mtime": 1786510844.5642352,
+    "ast_hash": "35925601b7f20da00abe72ab76b655e1",
+    "semantic_hash": "35925601b7f20da00abe72ab76b655e1"
+  },
+  "resources/views/students/create.blade.php": {
+    "mtime": 1786510844.5642352,
+    "ast_hash": "2499224c7dff7fcaf06f472959c002c8",
+    "semantic_hash": "2499224c7dff7fcaf06f472959c002c8"
+  },
+  "resources/views/students/detail.blade.php": {
+    "mtime": 1784980360.4124796,
+    "ast_hash": "5a08e6b4eda94422d0f8358bb017a9de",
+    "semantic_hash": "5a08e6b4eda94422d0f8358bb017a9de"
+  },
+  "resources/views/students/index.blade.php": {
+    "mtime": 1783582384.711415,
+    "ast_hash": "95b308c1aabd6bd7abb4fdb5ad532cf6",
+    "semantic_hash": "95b308c1aabd6bd7abb4fdb5ad532cf6"
+  },
+  "resources/views/teachers/_index.blade.php": {
+    "mtime": 1786510844.556247,
+    "ast_hash": "d8b0b4dfdb561455bd1356b75352b034",
+    "semantic_hash": "d8b0b4dfdb561455bd1356b75352b034"
+  },
+  "resources/views/teachers/index.blade.php": {
+    "mtime": 1784980541.208801,
+    "ast_hash": "5df74e3de3361f70c6223a65daa2c8cc",
+    "semantic_hash": "5df74e3de3361f70c6223a65daa2c8cc"
+  },
+  "resources/views/tiensan/_index.blade.php": {
+    "mtime": 1786510844.5195098,
+    "ast_hash": "8a8e9b455e911d91c4880b63917b584c",
+    "semantic_hash": "8a8e9b455e911d91c4880b63917b584c"
+  },
+  "resources/views/tiensan/index.blade.php": {
+    "mtime": 1784980700.4807284,
+    "ast_hash": "2aa813b6edb50af977d2d371af170218",
+    "semantic_hash": "2aa813b6edb50af977d2d371af170218"
+  },
+  "resources/views/trial/_index.blade.php": {
+    "mtime": 1786510844.5195098,
+    "ast_hash": "f5bd85d66432141d2f189ff123b7d29d",
+    "semantic_hash": "f5bd85d66432141d2f189ff123b7d29d"
+  },
+  "resources/views/trial/index.blade.php": {
+    "mtime": 1783765385.9025338,
+    "ast_hash": "07b5e5aafef05079ec5581ad4319cccb",
+    "semantic_hash": "07b5e5aafef05079ec5581ad4319cccb"
+  },
+  "resources/views/tuition/_index.blade.php": {
+    "mtime": 1786510844.5195098,
+    "ast_hash": "9a6d82079901206b8ab1d73e44648819",
+    "semantic_hash": "9a6d82079901206b8ab1d73e44648819"
+  },
+  "resources/views/tuition/_theo_khoang_ngay.blade.php": {
+    "mtime": 1785951296.4783187,
+    "ast_hash": "4075861787f35e66aa3cb1c1ef3a76bc",
+    "semantic_hash": "4075861787f35e66aa3cb1c1ef3a76bc"
+  },
+  "resources/views/tuition/index.blade.php": {
+    "mtime": 1784981588.5531557,
+    "ast_hash": "a0f6694f7dd2102263bea5a068a702b6",
+    "semantic_hash": "a0f6694f7dd2102263bea5a068a702b6"
+  },
+  "routes/admin/admin.php": {
+    "mtime": 1786097790.6086166,
+    "ast_hash": "a3070e15a051893867915e4237cebc4c",
+    "semantic_hash": "a3070e15a051893867915e4237cebc4c"
+  },
+  "routes/admin/bieumau.php": {
+    "mtime": 1785899784.1101322,
+    "ast_hash": "e1d5a51c8c9927c12f83ede1acaebcf6",
+    "semantic_hash": "e1d5a51c8c9927c12f83ede1acaebcf6"
+  },
+  "routes/admin/caidathocphi.php": {
+    "mtime": 1785220393.6283994,
+    "ast_hash": "af565ca38b89546e681a0a179f4751e8",
+    "semantic_hash": "af565ca38b89546e681a0a179f4751e8"
+  },
+  "routes/admin/caidattienluong.php": {
+    "mtime": 1785747805.444722,
+    "ast_hash": "b58546023a98129d982bfca4febbe5f2",
+    "semantic_hash": "b58546023a98129d982bfca4febbe5f2"
+  },
+  "routes/admin/chamcong.php": {
+    "mtime": 1786011086.6581888,
+    "ast_hash": "e47532bd85ad9bc2453116b3f9ee7ccf",
+    "semantic_hash": "e47532bd85ad9bc2453116b3f9ee7ccf"
+  },
+  "routes/admin/coso.php": {
+    "mtime": 1785220358.9150984,
+    "ast_hash": "37241be09bbe9f583a1b6b171aae9cd6",
+    "semantic_hash": "37241be09bbe9f583a1b6b171aae9cd6"
+  },
+  "routes/admin/diemdanh.php": {
+    "mtime": 1786042466.9290903,
+    "ast_hash": "90cc865d4ea2b653f3421e508fbd264d",
+    "semantic_hash": "90cc865d4ea2b653f3421e508fbd264d"
+  },
+  "routes/admin/giaoan.php": {
+    "mtime": 1785485865.282817,
+    "ast_hash": "bfb44f4ab3bed51f671d0f137d4cec0c",
+    "semantic_hash": "bfb44f4ab3bed51f671d0f137d4cec0c"
+  },
+  "routes/admin/giaovien.php": {
+    "mtime": 1785220352.649848,
+    "ast_hash": "f17e0109fff8cd8df8c02ad1365bcb5c",
+    "semantic_hash": "f17e0109fff8cd8df8c02ad1365bcb5c"
+  },
+  "routes/admin/hoadon.php": {
+    "mtime": 1786097782.0023434,
+    "ast_hash": "bc22026d8f17c16ef3708e5a490340d6",
+    "semantic_hash": "bc22026d8f17c16ef3708e5a490340d6"
+  },
+  "routes/admin/hocphi.php": {
+    "mtime": 1786091877.5948992,
+    "ast_hash": "cf0e675affd59049022f68243f878487",
+    "semantic_hash": "cf0e675affd59049022f68243f878487"
+  },
+  "routes/admin/hocvien.php": {
+    "mtime": 1785220367.4598222,
+    "ast_hash": "74ec146ccf93854613c5fe738f0c9440",
+    "semantic_hash": "74ec146ccf93854613c5fe738f0c9440"
+  },
+  "routes/admin/phieuluong.php": {
+    "mtime": 1785747814.1810982,
+    "ast_hash": "a6409dba78a147799371c4c438ccf05d",
+    "semantic_hash": "a6409dba78a147799371c4c438ccf05d"
+  },
+  "routes/admin/profile.php": {
+    "mtime": 1783520950.644169,
+    "ast_hash": "f5028f9ba992d6531a88c18c0f659886",
+    "semantic_hash": "f5028f9ba992d6531a88c18c0f659886"
+  },
+  "routes/admin/tiensan.php": {
+    "mtime": 1785220383.8584604,
+    "ast_hash": "01c9b0bd94ff0391e7ea4eef664b51a7",
+    "semantic_hash": "01c9b0bd94ff0391e7ea4eef664b51a7"
+  },
+  "routes/admin/trainghiem.php": {
+    "mtime": 1785220388.4444678,
+    "ast_hash": "2469a8a139a09222c55a082730a2a697",
+    "semantic_hash": "2469a8a139a09222c55a082730a2a697"
+  },
+  "routes/auth/auth.php": {
+    "mtime": 1783847069.367033,
+    "ast_hash": "72ce08ee71d2b80524dfd5f51d9e2334",
+    "semantic_hash": "72ce08ee71d2b80524dfd5f51d9e2334"
+  },
+  "routes/console.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "3c6ce2e6d16444282b24a9aa63885563",
+    "semantic_hash": "3c6ce2e6d16444282b24a9aa63885563"
+  },
+  "routes/web.php": {
+    "mtime": 1783506553.8974419,
+    "ast_hash": "a4f88c023278023f05ac37bbdb5cab00",
+    "semantic_hash": "a4f88c023278023f05ac37bbdb5cab00"
+  },
+  "tests/Feature/ExampleTest.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "0f4d91c9c5bbcd4e2f46cf885acb7fb6",
+    "semantic_hash": "0f4d91c9c5bbcd4e2f46cf885acb7fb6"
+  },
+  "tests/TestCase.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "7e567dc27e68d5b57bae16af07f68907",
+    "semantic_hash": "7e567dc27e68d5b57bae16af07f68907"
+  },
+  "tests/Unit/ExampleTest.php": {
+    "mtime": 1773456840.0,
+    "ast_hash": "3f679e9508c834f0ad95943455fcd836",
+    "semantic_hash": "3f679e9508c834f0ad95943455fcd836"
+  },
+  "vite.config.js": {
+    "mtime": 1773456840.0,
+    "ast_hash": "60c40741a9c5b915a5e5542cfb23bc25",
+    "semantic_hash": "60c40741a9c5b915a5e5542cfb23bc25"
+  },
+  "README.md": {
+    "mtime": 1773456840.0,
+    "ast_hash": "c9fd29cc7c9057820aebcdcd6bbddca3",
+    "semantic_hash": "c9fd29cc7c9057820aebcdcd6bbddca3"
+  },
+  "public/robots.txt": {
+    "mtime": 1773456840.0,
+    "ast_hash": "b6216d61c03e6ce0c9aea6ca7808f7ca",
+    "semantic_hash": "b6216d61c03e6ce0c9aea6ca7808f7ca"
+  },
+  "public/images/auth/human-authenticate.png": {
+    "mtime": 1785040061.0052898,
+    "ast_hash": "8c347ed0f11633149fc5ff2a2f89a0ba",
+    "semantic_hash": "8c347ed0f11633149fc5ff2a2f89a0ba"
+  },
+  "public/images/auth/shape1.png": {
+    "mtime": 1742131069.0,
+    "ast_hash": "04f676b6c9a73d0bb1e2f685bc028bfa",
+    "semantic_hash": "04f676b6c9a73d0bb1e2f685bc028bfa"
+  },
+  "public/images/bieu-mau/bhxh.png": {
+    "mtime": 1785615110.5414517,
+    "ast_hash": "55c02ae2975b1f4a85f902a7b010796d",
+    "semantic_hash": "55c02ae2975b1f4a85f902a7b010796d"
+  },
+  "public/images/bieu-mau/bieu-mau-cong-tac-phi.png": {
+    "mtime": 1785614839.9517207,
+    "ast_hash": "19ca0a27b0ca2ee49e4fdda2405afa53",
+    "semantic_hash": "19ca0a27b0ca2ee49e4fdda2405afa53"
+  },
+  "public/images/bieu-mau/bieu-mau-hoan-dan-9-cuc.png": {
+    "mtime": 1785614946.010586,
+    "ast_hash": "8bbe0e3210e91abe44bab5192cee66d4",
+    "semantic_hash": "8bbe0e3210e91abe44bab5192cee66d4"
+  },
+  "public/images/bieu-mau/bieu-mau-hoan-tien-tam-ung.png": {
+    "mtime": 1785614624.4395192,
+    "ast_hash": "817bac458391bf7f6dace997ca8f405c",
+    "semantic_hash": "817bac458391bf7f6dace997ca8f405c"
+  },
+  "public/images/bieu-mau/bieu-mau-khac.png": {
+    "mtime": 1785615024.6803024,
+    "ast_hash": "c2fddd64abd78acf64f16e10fa079af5",
+    "semantic_hash": "c2fddd64abd78acf64f16e10fa079af5"
+  },
+  "public/images/giao-an/cap-2.jpg": {
+    "mtime": 1785267938.841498,
+    "ast_hash": "730262ed899040426d622c3c640f0f42",
+    "semantic_hash": "730262ed899040426d622c3c640f0f42"
+  },
+  "public/images/giao-an/chuyen-bong-kiem-soat-bong.jpg": {
+    "mtime": 1785320537.666859,
+    "ast_hash": "ba31f01f1e072e86a305bc2f5871b830",
+    "semantic_hash": "ba31f01f1e072e86a305bc2f5871b830"
+  },
+  "public/images/giao-an/dan-bong-qua-nguoi.jpg": {
+    "mtime": 1785320511.5545633,
+    "ast_hash": "cac7ef312d9d0fb6320e9dee367a0eda",
+    "semantic_hash": "cac7ef312d9d0fb6320e9dee367a0eda"
+  },
+  "public/images/giao-an/di-chuyen-khong-bong-to-chuc.jpg": {
+    "mtime": 1785320590.8634543,
+    "ast_hash": "88bfcbbbe1e00e79d5feb0a70b30b4f7",
+    "semantic_hash": "88bfcbbbe1e00e79d5feb0a70b30b4f7"
+  },
+  "public/images/giao-an/game-1.png": {
+    "mtime": 1785319960.182821,
+    "ast_hash": "3aaede77b1a6412f6d9b2567b7c932e9",
+    "semantic_hash": "3aaede77b1a6412f6d9b2567b7c932e9"
+  },
+  "public/images/giao-an/game-2.png": {
+    "mtime": 1785321511.6819918,
+    "ast_hash": "825716efb6f3dc3eea6b95529d73dff0",
+    "semantic_hash": "825716efb6f3dc3eea6b95529d73dff0"
+  },
+  "public/images/giao-an/game-3.jpg": {
+    "mtime": 1785321128.237818,
+    "ast_hash": "c0046568b46ec3d93d8ac3810af7e124",
+    "semantic_hash": "c0046568b46ec3d93d8ac3810af7e124"
+  },
+  "public/images/giao-an/khoi-dong.png": {
+    "mtime": 1785321337.8173141,
+    "ast_hash": "456e5e074136a87eca5cc587c1e388f5",
+    "semantic_hash": "456e5e074136a87eca5cc587c1e388f5"
+  },
+  "public/images/giao-an/mam-non.jpg": {
+    "mtime": 1785320341.7785637,
+    "ast_hash": "e64e3e1e330047e4a9a71c29016129c2",
+    "semantic_hash": "e64e3e1e330047e4a9a71c29016129c2"
+  },
+  "public/images/giao-an/phong-ngu.jpg": {
+    "mtime": 1785320577.9996462,
+    "ast_hash": "84bea11f07d0e4b6e9c1b737220f6254",
+    "semantic_hash": "84bea11f07d0e4b6e9c1b737220f6254"
+  },
+  "public/images/giao-an/sut-bong-tan-cong.jpg": {
+    "mtime": 1785320560.4903872,
+    "ast_hash": "8100562da72004eb5c240b1a13ff0994",
+    "semantic_hash": "8100562da72004eb5c240b1a13ff0994"
+  },
+  "public/images/giao-an/tieu-hoc.png": {
+    "mtime": 1785267909.1723099,
+    "ast_hash": "264df15f5fcbdf90246c4cc9f8909c03",
+    "semantic_hash": "264df15f5fcbdf90246c4cc9f8909c03"
+  },
+  "public/images/giao-an/tong-hop.jpg": {
+    "mtime": 1785320610.643803,
+    "ast_hash": "b2f184896b84a08f626e256ab280a47c",
+    "semantic_hash": "b2f184896b84a08f626e256ab280a47c"
+  },
+  "public/images/hoa-don/hoa-don-an-uong.png": {
+    "mtime": 1786113355.7160778,
+    "ast_hash": "b02fb3179897a765d844141df91adddf",
+    "semantic_hash": "b02fb3179897a765d844141df91adddf"
+  },
+  "public/images/hoa-don/hoa-don-dong-phuc.png": {
+    "mtime": 1786099203.432755,
+    "ast_hash": "41508b97380206d929bfeb78aabb37d6",
+    "semantic_hash": "41508b97380206d929bfeb78aabb37d6"
+  },
+  "public/images/hoa-don/hoa-don-dung-cu.png": {
+    "mtime": 1786098948.0015433,
+    "ast_hash": "6975c452a6d1b791faf2bd94e324f7db",
+    "semantic_hash": "6975c452a6d1b791faf2bd94e324f7db"
+  },
+  "public/images/hoa-don/hoa-don-khac.png": {
+    "mtime": 1786100159.3828382,
+    "ast_hash": "27286d1c0768eda35bf86c0fadefefca",
+    "semantic_hash": "27286d1c0768eda35bf86c0fadefefca"
+  },
+  "public/images/hoa-don/hoa-don-to-roi.png": {
+    "mtime": 1786099634.3294592,
+    "ast_hash": "277a10af38124b06c997b55309887882",
+    "semantic_hash": "277a10af38124b06c997b55309887882"
+  },
+  "public/images/logo/logo.jpg": {
+    "mtime": 1784087733.0163777,
+    "ast_hash": "9d1434e6b30ad1d3309176fb8a7ba679",
+    "semantic_hash": "9d1434e6b30ad1d3309176fb8a7ba679"
+  }
+}
