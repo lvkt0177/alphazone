@@ -128,6 +128,7 @@
                 <tr>
                     <th class="w-px-100">Mã số</th>
                     <th class="w-px-250">Họ tên</th>
+                    <th class="w-px-150">Trạng thái Học viên</th>
                     <th class="w-px-300">Cơ sở</th>
                     <th class="w-px-150">Học phí</th>
                     <th class="w-px-200">Đồng phục</th>
@@ -157,6 +158,9 @@
                             <div class="cell-user"><img src="{{ $hv->avatar_url }}" alt="">
                                 <div class="name">{{ $hv->ho_ten }}</div>
                             </div>
+                        </td>
+                        <td>
+                            <span class="badge {{ $hv->trang_thai->getBadge() }}">{{ $hv->trang_thai->getLabel() }}</span>
                         </td>
                         <td>
                             @if ($hv->coSos->isNotEmpty())
@@ -232,7 +236,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8" class="text-2 tuition-empty-row">Không có học viên nào</td>
+                        <td colspan="10" class="text-2 tuition-empty-row">Không có học viên nào</td>
                     </tr>
                 @endforelse
             </tbody>
