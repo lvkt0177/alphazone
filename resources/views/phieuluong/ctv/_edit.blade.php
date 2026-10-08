@@ -27,6 +27,10 @@
                 <input type="text" value="{{ rtrim(rtrim(number_format($phieu->tong_so_gio, 1), '0'), '.') }} giờ"
                     readonly>
             </div>
+            <div class="field" style="grid-column: 1 / -1;">
+                <label>Lịch sử đi làm trong tháng</label>
+                <div id="ctvLichSuNgayContainer" class="ctv-lichsu-container"></div>
+            </div>
             <div class="field">
                 <label>Đơn giá/giờ (đã chốt lúc tạo phiếu)</label>
                 <input type="text" value="{{ number_format($phieu->don_gia, 0, ',', '.') }} đ/giờ" readonly>
@@ -74,6 +78,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         ctvDonGiaHienTai = {{ $phieu->don_gia }};
         ctvSoGioHienTai = {{ $phieu->tong_so_gio }};
+        renderCtvLichSuNgay(@json($chiTietNgay), 'ctvLichSuNgayContainer');
         ctvTinhLai();
     });
 </script>

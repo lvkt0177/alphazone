@@ -58,6 +58,9 @@ class PhieuLuongNhanVienController extends Controller
             $soKhong = ChamCongGiaoVien::where('giao_vien_id', $gv->id)
                 ->whereBetween('ngay', [$dauThang, $cuoiThang])
                 ->where('co_di_lam', false)->count();
+            $troCap = (int) ChamCongGiaoVien::where('giao_vien_id', $gv->id)
+                ->whereBetween('ngay', [$dauThang, $cuoiThang])
+                ->sum('ho_tro_dung_lop');
 
             return [$gv->id => [
                 'ho_ten' => $gv->ho_ten,
@@ -65,6 +68,7 @@ class PhieuLuongNhanVienController extends Controller
                 'luong_co_ban' => $gv->luong_co_ban,
                 'so_ngay_co_luong' => $soCo,
                 'so_ngay_khong_luong' => $soKhong,
+                'tro_cap' => $troCap,
                 'tien_tru_1_ngay' => $gv->tienTru1NgayHieuLuc(),
             ]];
         });
@@ -214,6 +218,12 @@ class PhieuLuongNhanVienController extends Controller
 
         return redirect()->route('phieuluongnhanvien.index', ['thang' => $thang])
             ->with('success', 'Xoá phiếu lương thành công');
+    }
+
+    public function in(PhieuLuongNhanVien $phieu)
+    {
+        $thang = Carbon::parse($phieu->thang);
+        return view('phieuluong.nhanvien.in', compact('phieu', 'thang'));
     }
 
     public function xuatExcel(Request $request)

@@ -73,6 +73,7 @@ function ccTinhThanhTien() {
 
 function ccResetFormThay() {
     document.getElementById('ccThayHoTen').value = '';
+    document.getElementById('ccThayDungLop').value = '0';
     document.getElementById('ccThayGhiChu').value = '';
     ccChonTrangThai(true);
 }
@@ -97,6 +98,7 @@ function ccThemVaoDanhSach(loai) {
             giao_vien_id: id,
             ten: gv ? gv.ho_ten : '',
             co_di_lam: ccTrangThaiThayHienTai,
+            ho_tro_dung_lop: parseInt(document.getElementById('ccThayDungLop').value, 10) || 0,
             ghi_chu: document.getElementById('ccThayGhiChu').value,
         };
 
@@ -150,8 +152,9 @@ function ccRenderDanhSachCho() {
 
         const info = document.createElement('div');
         if (item.loai === 'thay') {
+            const dungLopStr = item.ho_tro_dung_lop ? ' · Hỗ trợ đứng lớp: ' + formatTien(item.ho_tro_dung_lop) : '';
             info.innerHTML = '<b>' + item.ten + '</b><div class="text-2">Thầy PT · '
-                + (item.co_di_lam ? 'Có mặt' : 'Không') + '</div>';
+                + (item.co_di_lam ? 'Có mặt' : 'Không') + dungLopStr + '</div>';
         } else {
             info.innerHTML = '<b>' + item.ten + '</b><div class="text-2">CTV · ' + item.so_gio + ' giờ × '
                 + formatTien(item.don_gia_gio) + ' = ' + formatTien(item.thanh_tien) + '</div>';
@@ -184,6 +187,7 @@ function ccLuuChamCong() {
 
         if (item.loai === 'thay') {
             fields['co_di_lam'] = item.co_di_lam ? '1' : '0';
+            fields['ho_tro_dung_lop'] = item.ho_tro_dung_lop;
         } else {
             fields['so_gio'] = item.so_gio;
             fields['ho_tro_xang_xe'] = item.ho_tro_xang_xe;
@@ -267,8 +271,11 @@ function ccTaoDongChiTietThay(r, coQuyenXoa) {
         ? '<span class="badge green">Có mặt</span>'
         : '<span class="badge red">Không</span>';
 
+    const dungLopDetail = r.ho_tro_dung_lop ? 'Hỗ trợ đứng lớp: ' + formatTien(r.ho_tro_dung_lop) : '';
+
     row.innerHTML = '<div class="cct-item-head"><b>' + r.ten + '</b>' + badge
         + (coQuyenXoa ? '<i class="ri-delete-bin-line cct-item-xoa" data-id="' + r.id + '"></i>' : '') + '</div>'
+        + (dungLopDetail ? '<div class="text-2 cct-item-chitiet">' + dungLopDetail + '</div>' : '')
         + (r.ghi_chu ? '<div class="text-2 cct-item-ghichu">' + 'Ghi chú: ' + r.ghi_chu + '</div>' : '');
 
     if (coQuyenXoa) {

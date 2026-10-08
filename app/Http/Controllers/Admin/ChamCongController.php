@@ -72,6 +72,7 @@ class ChamCongController extends Controller
                         'co_di_lam' => null,
                         'so_gio' => $row['so_gio'] ?? 0,
                         'ho_tro_xang_xe' => $row['ho_tro_xang_xe'] ?? null,
+                        'ho_tro_dung_lop' => null,
                         'ghi_chu' => $row['ghi_chu'] ?? null,
                         'updated_by_user_id' => auth()->id(),
                     ]
@@ -83,6 +84,7 @@ class ChamCongController extends Controller
                         'co_di_lam' => (bool) ($row['co_di_lam'] ?? false),
                         'so_gio' => null,
                         'ho_tro_xang_xe' => null,
+                        'ho_tro_dung_lop' => $row['ho_tro_dung_lop'] ?? null,
                         'ghi_chu' => $row['ghi_chu'] ?? null,
                         'updated_by_user_id' => auth()->id(),
                     ]

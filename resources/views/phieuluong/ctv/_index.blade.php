@@ -54,6 +54,9 @@
                     <td>{{ $p->khau_tru !== null ? number_format($p->khau_tru, 0, ',', '.') . ' đ' : '-' }}</td>
                     <td>{{ number_format($p->thuc_nhan, 0, ',', '.') }} đ</td>
                     <td class="actions-cell">
+                        @if (hasQuyen('phieuluongctv', 'xem'))
+                            <a href="{{ route('phieuluongctv.in', $p) }}" target="_blank" title="Xem / In phiếu lương A4"><i class="ri-printer-line"></i></a>
+                        @endif
                         @if (hasQuyen('phieuluongctv', 'sua'))
                             <a href="{{ route('phieuluongctv.edit', $p) }}"><i class="ri-edit-line"></i></a>
                         @endif

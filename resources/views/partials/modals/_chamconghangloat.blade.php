@@ -53,6 +53,13 @@
 
                 <div class="form-grid full mt-2">
                     <div class="field">
+                        <label>Hỗ trợ đứng lớp</label>
+                        <input type="number" id="ccThayDungLop" min="0" value="0">
+                    </div>
+                </div>
+
+                <div class="form-grid full mt-2">
+                    <div class="field">
                         <label>Ghi chú</label>
                         <textarea class="textarea-thay-phu-trach" id="ccThayGhiChu" rows="2" placeholder="Ghi chú thêm (nếu có)..."></textarea>
                     </div>
