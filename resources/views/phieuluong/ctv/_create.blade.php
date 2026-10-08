@@ -51,6 +51,12 @@
                         <label>Tổng số giờ dạy (từ Chấm công)</label>
                         <input type="text" id="pl_tong_so_gio" readonly>
                     </div>
+                    <div class="field" style="grid-column: 1 / -1;">
+                        <label>Lịch sử đi làm trong tháng</label>
+                        <div id="ctvLichSuNgayContainer" class="ctv-lichsu-container">
+                            <div class="text-2">Chọn cộng tác viên ở danh sách bên trái để xem lịch sử ngày làm việc</div>
+                        </div>
+                    </div>
                     <div class="field">
                         <label>Đơn giá/giờ</label>
                         <input type="text" id="pl_don_gia" readonly>

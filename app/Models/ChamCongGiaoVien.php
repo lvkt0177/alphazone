@@ -18,6 +18,7 @@ class ChamCongGiaoVien extends Model
         'co_di_lam',
         'so_gio',
         'ho_tro_xang_xe',
+        'ho_tro_dung_lop',
         'ghi_chu',
         'updated_by_user_id',
     ];

@@ -49,7 +49,28 @@ class PhieuLuongCtvController extends Controller
         $dauThang = $thang->copy()->startOfMonth()->toDateString();
         $cuoiThang = $thang->copy()->endOfMonth()->toDateString();
 
-        $duLieuGiaoVien = $giaoViens->mapWithKeys(function ($gv) use ($dauThang, $cuoiThang) {
+        $duLieuGiaoVien = $giaoViens->mapWithKeys(function ($gv) use ($dauThang, $cuoiThang, $thang) {
+            $chamCongs = ChamCongGiaoVien::where('giao_vien_id', $gv->id)
+                ->whereBetween('ngay', [$dauThang, $cuoiThang])
+                ->get()
+                ->keyBy(fn($r) => $r->ngay->toDateString());
+
+            $chiTietNgay = [];
+            for ($d = $thang->copy(); $d->month === $thang->month; $d->addDay()) {
+                $ngayIso = $d->toDateString();
+                $cc = $chamCongs->get($ngayIso);
+                $coLam = $cc && (($cc->so_gio !== null && $cc->so_gio > 0) || ($cc->ho_tro_xang_xe !== null && $cc->ho_tro_xang_xe > 0));
+
+                $chiTietNgay[] = [
+                    'ngay' => $d->day,
+                    'ngay_iso' => $ngayIso,
+                    'co_lam' => $coLam,
+                    'so_gio' => $cc ? (float) ($cc->so_gio ?? 0) : 0,
+                    'ho_tro_xang_xe' => $cc ? (int) ($cc->ho_tro_xang_xe ?? 0) : 0,
+                    'ghi_chu' => $cc ? $cc->ghi_chu : null,
+                ];
+            }
+
             $tongGio = ChamCongGiaoVien::where('giao_vien_id', $gv->id)
                 ->whereBetween('ngay', [$dauThang, $cuoiThang])
                 ->whereNotNull('so_gio')
@@ -64,6 +85,7 @@ class PhieuLuongCtvController extends Controller
                 'don_gia' => $gv->don_gia_gio,
                 'tong_so_gio' => (float) $tongGio,
                 'tro_cap' => $troCap,
+                'chi_tiet_ngay' => $chiTietNgay,
             ]];
         });
 
@@ -110,8 +132,31 @@ class PhieuLuongCtvController extends Controller
     public function edit(PhieuLuongCtv $phieu)
     {
         $thang = Carbon::parse($phieu->thang);
+        $dauThang = $thang->copy()->startOfMonth()->toDateString();
+        $cuoiThang = $thang->copy()->endOfMonth()->toDateString();
 
-        return view('phieuluong.ctv.edit', compact('phieu', 'thang'));
+        $chamCongs = ChamCongGiaoVien::where('giao_vien_id', $phieu->giao_vien_id)
+            ->whereBetween('ngay', [$dauThang, $cuoiThang])
+            ->get()
+            ->keyBy(fn($r) => $r->ngay->toDateString());
+
+        $chiTietNgay = [];
+        for ($d = $thang->copy(); $d->month === $thang->month; $d->addDay()) {
+            $ngayIso = $d->toDateString();
+            $cc = $chamCongs->get($ngayIso);
+            $coLam = $cc && (($cc->so_gio !== null && $cc->so_gio > 0) || ($cc->ho_tro_xang_xe !== null && $cc->ho_tro_xang_xe > 0));
+
+            $chiTietNgay[] = [
+                'ngay' => $d->day,
+                'ngay_iso' => $ngayIso,
+                'co_lam' => $coLam,
+                'so_gio' => $cc ? (float) ($cc->so_gio ?? 0) : 0,
+                'ho_tro_xang_xe' => $cc ? (int) ($cc->ho_tro_xang_xe ?? 0) : 0,
+                'ghi_chu' => $cc ? $cc->ghi_chu : null,
+            ];
+        }
+
+        return view('phieuluong.ctv.edit', compact('phieu', 'thang', 'chiTietNgay'));
     }
 
     public function update(PhieuLuongCtvRequest $request, PhieuLuongCtv $phieu)
@@ -138,6 +183,36 @@ class PhieuLuongCtvController extends Controller
 
         return redirect()->route('phieuluongctv.index', ['thang' => $thang])
             ->with('success', 'Xoá phiếu lương thành công');
+    }
+
+    public function in(PhieuLuongCtv $phieu)
+    {
+        $thang = Carbon::parse($phieu->thang);
+        $dauThang = $thang->copy()->startOfMonth()->toDateString();
+        $cuoiThang = $thang->copy()->endOfMonth()->toDateString();
+
+        $chamCongs = ChamCongGiaoVien::where('giao_vien_id', $phieu->giao_vien_id)
+            ->whereBetween('ngay', [$dauThang, $cuoiThang])
+            ->get()
+            ->keyBy(fn($r) => $r->ngay->toDateString());
+
+        $chiTietNgay = [];
+        for ($d = $thang->copy(); $d->month === $thang->month; $d->addDay()) {
+            $ngayIso = $d->toDateString();
+            $cc = $chamCongs->get($ngayIso);
+            $coLam = $cc && (($cc->so_gio !== null && $cc->so_gio > 0) || ($cc->ho_tro_xang_xe !== null && $cc->ho_tro_xang_xe > 0));
+
+            $chiTietNgay[] = [
+                'ngay' => $d->day,
+                'ngay_iso' => $ngayIso,
+                'co_lam' => $coLam,
+                'so_gio' => $cc ? (float) ($cc->so_gio ?? 0) : 0,
+                'ho_tro_xang_xe' => $cc ? (int) ($cc->ho_tro_xang_xe ?? 0) : 0,
+                'ghi_chu' => $cc ? $cc->ghi_chu : null,
+            ];
+        }
+
+        return view('phieuluong.ctv.in', compact('phieu', 'thang', 'chiTietNgay'));
     }
 
     public function xuatExcel(Request $request)

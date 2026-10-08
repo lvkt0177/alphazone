@@ -36,9 +36,9 @@ function chonGiaoVien(id) {
         ngayCongChuanInput.value = window.__plNgayCongToiThieu || '';
     }
 
-    // Trợ cấp nhập tay hoàn toàn - không lấy từ Chấm công nữa, xoá trắng khi đổi giáo viên
-    document.getElementById('pl_tro_cap').value = '';
-    document.getElementById('pl_tro_cap_display').value = '';
+    const troCap = data.tro_cap || 0;
+    document.getElementById('pl_tro_cap').value = troCap;
+    document.getElementById('pl_tro_cap_display').value = formatMoney(troCap);
 
     // Lưu lại số ngày có lương thực tế của giáo viên đang chọn để tính trừ ngày công thiếu
     window.__plSoNgayCoLuongHienTai = data.so_ngay_co_luong || 0;

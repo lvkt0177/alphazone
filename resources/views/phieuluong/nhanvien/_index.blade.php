@@ -48,6 +48,9 @@
                     <td>{{ $p->ngay_chot ? $p->ngay_chot->format('d/m/Y') : $thang->format('m/Y') }}</td>
                     <td>{{ number_format($p->luong_thuc_nhan, 0, ',', '.') }} đ</td>
                     <td class="actions-cell">
+                        @if (hasQuyen('phieuluongnhanvien', 'xem'))
+                            <a href="{{ route('phieuluongnhanvien.in', $p) }}" target="_blank" title="Xem / In phiếu lương A4"><i class="ri-printer-line"></i></a>
+                        @endif
                         @if (hasQuyen('phieuluongnhanvien', 'sua'))
                             <a href="{{ route('phieuluongnhanvien.edit', $p) }}"><i class="ri-edit-line"></i></a>
                         @endif

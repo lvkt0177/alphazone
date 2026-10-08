@@ -57,7 +57,7 @@
 
         <div class="form-row-3 mt-3">
             <div class="field">
-                <label>Trợ cấp xăng xe, điện thoại</label>
+                <label>Trợ cấp xăng xe, điện thoại, hỗ trợ đứng lớp</label>
                 <input type="text" id="pl_tro_cap_display" inputmode="numeric" autocomplete="off"
                     value="{{ number_format($phieu->tro_cap ?? 0, 0, ',', '.') }}">
                 <input type="hidden" name="tro_cap" id="pl_tro_cap" value="{{ $phieu->tro_cap }}">
@@ -115,7 +115,7 @@
                 − Trừ ngày công thiếu</div>
             <div class="phieuluong-ketqua-row"><span>Lương cơ bản</span><b id="ktLuongCoBanRef">0 đ</b></div>
             <div class="phieuluong-ketqua-row phieuluong-ketqua-cong">
-                <span>+ Trợ cấp xăng xe</span><b id="ktTroCap">0 đ</b>
+                <span>+ Trợ cấp xăng xe, điện thoại, hỗ trợ đứng lớp</span><b id="ktTroCap">0 đ</b>
             </div>
             <div class="phieuluong-ketqua-row phieuluong-ketqua-cong">
                 <span>+ Năng suất công việc</span><b id="ktNangSuat">0 đ</b>

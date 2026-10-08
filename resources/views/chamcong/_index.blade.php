@@ -98,6 +98,7 @@
                         fn($r) => [
                             'ten' => $r->giaoVien->ho_ten,
                             'co_di_lam' => $r->co_di_lam,
+                            'ho_tro_dung_lop' => $r->ho_tro_dung_lop,
                             'ghi_chu' => $r->ghi_chu,
                             'id' => $r->id,
                             'chuc_danh_label' => $r->giaoVien->chuc_danh->getLabel(),

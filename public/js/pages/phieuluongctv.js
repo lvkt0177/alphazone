@@ -1,6 +1,31 @@
 let ctvDonGiaHienTai = 0;
 let ctvSoGioHienTai = 0;
 
+function renderCtvLichSuNgay(chiTietNgay, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    if (!chiTietNgay || chiTietNgay.length === 0) {
+        container.innerHTML = '<div class="text-2">Không có dữ liệu ngày đi làm trong tháng</div>';
+        return;
+    }
+
+    let html = '<div class="ctv-lichsu-title"><span>Lịch sử các ngày trong tháng</span><span>(🟢 Có đi làm / ⚪ Nghỉ)</span></div>';
+    html += '<div class="ctv-ngay-grid">';
+
+    chiTietNgay.forEach((item) => {
+        const activeClass = item.co_lam ? 'ctv-ngay-cell--active' : 'ctv-ngay-cell--inactive';
+        const titleAttr = `Ngày ${item.ngay}: ${item.co_lam ? item.so_gio + ' giờ dạy' + (item.ho_tro_xang_xe ? ', Xăng xe: ' + formatMoney(item.ho_tro_xang_xe) : '') : 'Không làm'}`;
+        html += `<div class="ctv-ngay-cell ${activeClass}" title="${titleAttr}">`;
+        html += `<div class="ctv-ngay-so">${item.ngay}</div>`;
+        html += `<div class="ctv-ngay-gio">${item.co_lam ? item.so_gio + 'h' : '-'}</div>`;
+        html += `</div>`;
+    });
+
+    html += '</div>';
+    container.innerHTML = html;
+}
+
 function chonGiaoVien(id) {
     const data = (window.__plDuLieuGiaoVien || {})[id];
     if (!data) return;
@@ -18,6 +43,8 @@ function chonGiaoVien(id) {
     const troCap = data.tro_cap || 0;
     document.getElementById('pl_tro_cap').value = troCap;
     document.getElementById('pl_tro_cap_display').value = formatMoney(troCap);
+
+    renderCtvLichSuNgay(data.chi_tiet_ngay, 'ctvLichSuNgayContainer');
 
     ctvDonGiaHienTai = data.don_gia || 0;
     ctvSoGioHienTai = data.tong_so_gio || 0;

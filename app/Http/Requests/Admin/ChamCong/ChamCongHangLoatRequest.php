@@ -22,6 +22,7 @@ class ChamCongHangLoatRequest extends FormRequest
             'rows.*.co_di_lam' => ['nullable', 'boolean'],
             'rows.*.so_gio' => ['nullable', 'numeric', 'min:0', 'max:24'],
             'rows.*.ho_tro_xang_xe' => ['nullable', 'integer', 'min:0', 'max:999999999'],
+            'rows.*.ho_tro_dung_lop' => ['nullable', 'integer', 'min:0', 'max:999999999'],
             'rows.*.ghi_chu' => ['nullable', 'string', 'max:255'],
         ];
     }
@@ -38,6 +39,7 @@ class ChamCongHangLoatRequest extends FormRequest
             'rows.*.giao_vien_id.exists' => 'Giáo viên không hợp lệ.',
             'rows.*.so_gio.max' => 'Số giờ không được vượt quá 24.',
             'rows.*.ho_tro_xang_xe.min' => 'Tiền hỗ trợ xăng xe không được âm.',
+            'rows.*.ho_tro_dung_lop.min' => 'Tiền hỗ trợ đứng lớp không được âm.',
             'rows.*.ghi_chu.max' => 'Ghi chú không được vượt quá 255 ký tự.',
         ];
     }
